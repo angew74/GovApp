@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GovApp", "GovApp\GovApp.csproj", "{D666863C-3C80-4869-9A7D-1809BA6E3C35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gov.Core", "Gov.Core\Gov.Core.csproj", "{69B05879-850B-4E79-A4C5-42129AC39479}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gov.Structure", "Gov.Structure\Gov.Structure.csproj", "{12D16915-E90C-45C2-BB5A-F96FEBB3C444}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D666863C-3C80-4869-9A7D-1809BA6E3C35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D666863C-3C80-4869-9A7D-1809BA6E3C35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D666863C-3C80-4869-9A7D-1809BA6E3C35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D666863C-3C80-4869-9A7D-1809BA6E3C35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69B05879-850B-4E79-A4C5-42129AC39479}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69B05879-850B-4E79-A4C5-42129AC39479}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69B05879-850B-4E79-A4C5-42129AC39479}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69B05879-850B-4E79-A4C5-42129AC39479}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12D16915-E90C-45C2-BB5A-F96FEBB3C444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12D16915-E90C-45C2-BB5A-F96FEBB3C444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12D16915-E90C-45C2-BB5A-F96FEBB3C444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12D16915-E90C-45C2-BB5A-F96FEBB3C444}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A73A1372-B26E-40D7-8DFF-140D70ECF998}
+	EndGlobalSection
+EndGlobal
