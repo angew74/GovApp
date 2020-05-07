@@ -9,7 +9,7 @@ module.exports = {
         app: './wwwroot/js/app.js',
         home: './Views/Home/Index.cshtml.js',
         errorDetail: './Views/Home/ErrorDetail.cshtml.js'
-           },
+    },
     plugins: [
         new webpack.ProvidePlugin({
             '$': 'jquery',
@@ -52,6 +52,10 @@ module.exports = {
             {
                 test: /\.css$/,
                 loaders: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.(svg|eot|woff|woff2|ttf)$/,
+                use: ['file-loader']
             },
             {
                 test: /\.(png|jpg|gif)$/,

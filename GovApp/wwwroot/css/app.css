@@ -1,2 +1,7 @@
-﻿body {
-}
+﻿@import "common/footer.css";
+@import "common/error.css";
+@import "common/menu.css";
+@import "common/header.css";
+@import "font-awesome/all.min.css";
+@import "../lib/bootstrap/dist/css/bootstrap.min.css";
+
