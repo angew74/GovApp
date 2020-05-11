@@ -1,13 +1,18 @@
 ﻿using Gov.Core;
+using Gov.Core.Entity;
 using Gov.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Gov.Structure
 {
    
+
     public class GovContext : DbContext, IContext
     {
         public GovContext(DbContextOptions<GovContext> options)
@@ -74,6 +79,9 @@ namespace Gov.Structure
         public DbSet<Camera> Camera { get; set; }
         public DbSet<Senato> Senato { get; set; }
         public DbSet<Coalizione> Coalizione { get; set; }
+        public DbSet<Pagina> Pagina { get; set; }
+        public DbSet<Contenuto> Contenuto { get; set; }
+        public DbSet<TipoContenuto> TipoContenuto { get; set; }      
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -145,6 +153,183 @@ namespace Gov.Structure
                 entity.Property(e => e.DataFine).IsRequired();
                 entity.HasMany(d => d.Partiti);
             });
+
+            modelBuilder.Entity<Contenuto>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.ContentuoCard).IsRequired();              
+            });
+            modelBuilder.Entity<TipoContenuto>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Codice).IsRequired();
+            });
+
+            modelBuilder.Entity<Pagina>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Codice).IsRequired();
+                entity.Property(e => e.Denominazione).IsRequired();
+                entity.HasMany(d => d.Contenuti);
+            });
+
+            modelBuilder.Entity<TipoContenuto>().HasData(new TipoContenuto
+            {
+                Id = 1,
+                Codice = "Testo",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null
+            },
+            new TipoContenuto {
+                Id = 2,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                Codice = "Icona"
+            },
+             new TipoContenuto
+             {
+                 Id = 3,
+                 CreatedBy = "Caricamento",
+                 CreatedDate = DateTime.Now,
+                 UpdatedBy = null,
+                 Codice = "Immagine"
+             }, new TipoContenuto
+             {
+                 Id = 4,
+                 CreatedBy = "Caricamento",
+                 CreatedDate = DateTime.Now,
+                 UpdatedBy = null,
+                 Codice = "Link"
+             });
+
+            modelBuilder.Entity<Pagina>().HasData(new Pagina
+            {
+              Id=1,
+              Codice = "Premier",  
+              CreatedBy = "Caricamento",
+              CreatedDate = DateTime.Now,
+              UpdatedBy = null,           
+              Denominazione = "Inserimento Premier"
+            },
+            new Pagina{
+              Id = 2,
+              Codice = "Premier",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                Denominazione = "Modifica Premier"
+            }, new Pagina
+            {
+                Id = 3,
+                Codice = "Premier",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                Denominazione = "Visualizzazione Premier"
+            });
+            modelBuilder.Entity<Contenuto>().HasData(new Contenuto
+            {
+                Id=1,
+                ContentuoCard = "Da questa pagina è possibile registrare un nuovo Premier",
+                Tipo = "Testo",
+                TipoContenutoId = 1,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 1
+            }, new Contenuto
+            {
+                Id = 2,
+                ContentuoCard = "user-secret",
+                Tipo = "Icona",
+                TipoContenutoId = 2,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 1
+            }, new Contenuto
+            {
+                Id = 3,
+                ContentuoCard = "/premier/inserimento",
+                Tipo = "Link",
+                TipoContenutoId = 4,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 1
+            }, new Contenuto
+            {
+                Id = 4,
+                ContentuoCard = "Da questa pagina è possibile modificare un Premier",
+                Tipo = "Testo",
+                TipoContenutoId = 1,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 2
+            }, new Contenuto
+            {
+                Id = 5,
+                ContentuoCard = "user-secret",
+                Tipo = "Icona",
+                TipoContenutoId = 2,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 2
+            }, new Contenuto
+            {
+                Id = 6,
+                ContentuoCard = "/premier/modifica",
+                Tipo = "Link",
+                TipoContenutoId = 4,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 2
+            }, new Contenuto
+            {
+                Id = 7,
+                ContentuoCard = "Da questa pagina è possibile visualizzare i Premier",
+                Tipo = "Testo",
+                TipoContenutoId = 1,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 3
+            }, new Contenuto
+            {
+                Id = 8,
+                ContentuoCard = "user-secret",
+                Tipo = "Icona",
+                TipoContenutoId = 2,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 3
+            }, new Contenuto
+            {
+                Id = 9,
+                ContentuoCard = "/premier/visualizza",
+                Tipo = "Link",
+                TipoContenutoId = 4,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 3
+            });
+        }
+
+        public IEnumerable<ValidationResult> GetValidationErrors()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

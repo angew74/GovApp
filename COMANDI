@@ -1,0 +1,71 @@
+Codice stabile: 197-167
+Codice individuale: C0329
+Password: 8670
+
+
+dotnet ef migrations add GovMigration --project Gov.Structure
+Add-Migration GovMigration -Project Gov.Structure
+Add-Migration MigrationName -Project YourProjectName
+update-database -Project Gov.Structure
+Enable-Migration -Project Gov.Structure
+
+Add-Migration InitialCreate
+
+Enable-Migrations -Project Gov.Structure -Force
+
+
+secondo 
+EntityFrameworkCore\Add-Migration GovMigration -Project Gov.Structure
+terzo 
+update-database -Project Gov.Structure
+
+
+
+vue create client-app    -r https://registry.npm.taobao.org
+
+vue create -d newgovapp
+vue create govapi
+
+
+andare sul progetto da cmd 
+npm install --g vue
+npm install --g vue-cli
+npm i @vue/cli-service
+npm i @vue/cli-plugin-babel
+npm update -g
+vue init webpack client-app
+
+
+npm install --save @fortawesome/fontawesome-free
+
+vue-fontawesome
+npm remove -S @fortawesome/fontawesome-svg-core 
+    @fortawesome/free-brands-svg-icons 
+    @fortawesome/free-solid-svg-icons 
+    @fortawesome/vue-fontawesome
+Property or method "hide" is not defined on the instance but referenced during render
+
+
+
+npm i --save @fortawesome/fontawesome-svg-core
+npm i --save @fortawesome/free-solid-svg-icons
+npm i --save @fortawesome/vue-fontawesome
+
+npm i --save @fortawesome/free-brands-svg-icons
+npm i --save @fortawesome/free-regular-svg-icons
+
+
+  <b-nav-item active>
+            <a class="nav-link" href="home/index">
+                <v-icon name="home" />            
+                <div>
+                    GovApp
+                </div>
+            </a>
+        </b-nav-item>
+        <b-nav-item active>
+            <a class="nav-link" href="home/logout">
+                <v-icon name="sign-out-alt" />              
+                <span class="badge badge-capitolium badge-pill"></span>
+            </a>
+        </b-nav-item>

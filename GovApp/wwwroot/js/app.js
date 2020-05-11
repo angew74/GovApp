@@ -1,22 +1,45 @@
-﻿import $ from 'jquery';
-//// Import the Bootstrap Material Design Theme
-import 'bootstrap-material-design/dist/css/bootstrap-material-design.min.css';
-import 'bootstrap-material-design/dist/js/bootstrap-material-design.min.js';
-import 'material-design-colors/dist/material-design.min.css';
-import 'bootstrap/dist/js/bootstrap.js';
-import '../lib/font-awesome/all.js';
-//// Import the App Styles
-import '../css/app.css';
-import App from "./App.vue";
-import store from "./store.js";
+﻿import '../css/app.css';
+import 'es6-promise/auto';
 import Vue from "vue";
-Vue.config.productionTip = false;
-//// Initialize the Material Design elements when the page loads
-new Vue({
-    store,
-    render: h => h(App)
-}).$mount("#app")
-$(document).ready(function () {
-    $('body').bootstrapMaterialDesign
-    $('[data-toggle="popover"]').popover
-});
+import Vuex from 'vuex';
+import ComponentLoader from './components/component-loader';
+import store from "./store";
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
+import { BCard, BCardBody, BCardFooter, BCardHeader, BCardImg, BTable, BNavbar, BNav, BIcon } from 'bootstrap-vue';   
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
+import 'vue-awesome/icons';
+import Icon from 'vue-awesome/components/Icon';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faFacebook, faTwitter, faMedium, faYoutube, faGithub, faWindows, faMicrosoft, faBlogger,faVuejs} from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+library.add(faMedium);
+library.add(faYoutube);
+library.add(faGithub);
+library.add(faWindows);
+library.add(faMicrosoft);
+library.add(faBlogger);
+library.add(faFacebook);
+library.add(faTwitter);
+library.add(faVuejs);
+// Enable the FontAwesomeIcon component globally
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
+Vue.use(Vuex);
+Vue.component('b-card', BCard);
+Vue.component('b-card-body', BCardBody);
+Vue.component('b-card-footer', BCardFooter);
+Vue.component('b-card-header', BCardHeader);
+Vue.component('b-card-img', BCardImg);
+Vue.component('b-table', BTable);
+Vue.component('b-nav', BNav);
+Vue.component('b-navbar', BNavbar);
+Vue.component('v-icon', Icon);
+// ComponentLoader.loadComponents();
+
+       
+
+
+   

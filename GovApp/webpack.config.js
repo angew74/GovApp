@@ -6,16 +6,22 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './wwwroot/js/app.js',
-        home: './Views/Home/Index.cshtml.js',
-        errorDetail: './Views/Home/ErrorDetail.cshtml.js'
+        'home': [
+            './wwwroot/js/app.js',
+            './Views/Home/Index.cshtml.js'
+        ], 'partito': [
+            './wwwroot/js/app.js',
+            './Views/Partito/Index.cshtml.js'
+        ]
+    },
+    output: {
+        filename: '[name]',
+        path: path.resolve(__dirname, 'dest/js'),
     },
     plugins: [
         new webpack.ProvidePlugin({
-            '$': 'jquery',
-            jQuery: 'jquery',
-            'window.jQuery': 'jquery',
-            Popper: ['popper.js', 'default']
+            Popper: ['popper.js', 'default'],
+            axios: 'axios'
         }),
         new VueLoaderPlugin()
     ],
@@ -54,6 +60,10 @@ module.exports = {
                 loaders: ['style-loader', 'css-loader']
             },
             {
+                test: /\.scss$/,
+                loaders: ['style-loader', 'sass-loader']
+            },
+            {
                 test: /\.(svg|eot|woff|woff2|ttf)$/,
                 use: ['file-loader']
             },
@@ -74,7 +84,8 @@ module.exports = {
     },
     resolve: {
         alias: {
-            vue: 'vue/dist/vue.js'
+            vue: 'vue/dist/vue.js',
+            'bootstrap-vue$': 'bootstrap-vue/src/index.js'
         },
         extensions: ['.js', '.vue']
     }

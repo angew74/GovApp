@@ -1,7 +1,57 @@
 ﻿@import "common/footer.css";
 @import "common/error.css";
-@import "common/menu.css";
-@import "common/header.css";
-@import "font-awesome/all.min.css";
-@import "../lib/bootstrap/dist/css/bootstrap.min.css";
 
+.nav-link {
+    color: white;
+}
+
+.nav-item {
+    list-style-type:none;
+}
+
+
+.awesomefonts {
+    float: left;
+}
+
+    .awesomefonts li {
+        list-style: none;
+        float: right;
+        margin-left: 15px;
+    }
+
+.csharp {
+    font-size: 20px;
+    color: #0591e5;
+}
+
+.two_csharp {
+    font-size: 30px;
+    color: #ff6600;
+}
+
+.three_csharp {
+    font-size: 40px;
+    color: #0591e5;
+}
+
+.four_csharp {
+    font-size: 50px;
+    color: #ff6600;
+}
+
+.five_csharp {
+    font-size: 60px;
+    color: #0591e5;
+}
+
+.six_csharp {
+    font-size: 70px;
+    color: #ff6600;
+}
+
+.icon-c-logo {
+    background-image: url('../css/images/c-logo.svg');
+    font-size: 20px;
+    color: #0591e5;
+}

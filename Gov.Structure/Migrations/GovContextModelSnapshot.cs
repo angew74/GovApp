@@ -131,6 +131,282 @@ namespace Gov.Structure.Migrations
                     b.ToTable("Dicastero");
                 });
 
+            modelBuilder.Entity("Gov.Core.Entity.Contenuto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ContentuoCard")
+                        .IsRequired()
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("PaginaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tipo")
+                        .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
+                        .HasMaxLength(10);
+
+                    b.Property<int>("TipoContenutoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PaginaId");
+
+                    b.ToTable("Contenuto");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ContentuoCard = "Da questa pagina è possibile registrare un nuovo Premier",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(5802),
+                            PaginaId = 1,
+                            Tipo = "Testo",
+                            TipoContenutoId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ContentuoCard = "user-secret",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6233),
+                            PaginaId = 1,
+                            Tipo = "Icona",
+                            TipoContenutoId = 2,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ContentuoCard = "/premier/inserimento",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6250),
+                            PaginaId = 1,
+                            Tipo = "Link",
+                            TipoContenutoId = 4,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ContentuoCard = "Da questa pagina è possibile modificare un Premier",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6255),
+                            PaginaId = 2,
+                            Tipo = "Testo",
+                            TipoContenutoId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ContentuoCard = "user-secret",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6259),
+                            PaginaId = 2,
+                            Tipo = "Icona",
+                            TipoContenutoId = 2,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ContentuoCard = "/premier/modifica",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6263),
+                            PaginaId = 2,
+                            Tipo = "Link",
+                            TipoContenutoId = 4,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ContentuoCard = "Da questa pagina è possibile visualizzare i Premier",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6267),
+                            PaginaId = 3,
+                            Tipo = "Testo",
+                            TipoContenutoId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ContentuoCard = "user-secret",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6271),
+                            PaginaId = 3,
+                            Tipo = "Icona",
+                            TipoContenutoId = 2,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ContentuoCard = "/premier/visualizza",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6274),
+                            PaginaId = 3,
+                            Tipo = "Link",
+                            TipoContenutoId = 4,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Pagina", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Codice")
+                        .IsRequired()
+                        .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Denominazione")
+                        .IsRequired()
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pagina");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Codice = "Premier",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(2917),
+                            Denominazione = "Inserimento Premier",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Codice = "Premier",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(3572),
+                            Denominazione = "Modifica Premier",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Codice = "Premier",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(3594),
+                            Denominazione = "Visualizzazione Premier",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.TipoContenuto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Codice")
+                        .IsRequired()
+                        .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
+                        .HasMaxLength(10);
+
+                    b.Property<int?>("ContenutoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContenutoId");
+
+                    b.ToTable("TipoContenuto");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Codice = "Testo",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 173, DateTimeKind.Local).AddTicks(4011),
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Codice = "Icona",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 175, DateTimeKind.Local).AddTicks(9709),
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Codice = "Immagine",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 175, DateTimeKind.Local).AddTicks(9758),
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Codice = "Link",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 175, DateTimeKind.Local).AddTicks(9763),
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
             modelBuilder.Entity("Gov.Core.Governo", b =>
                 {
                     b.Property<int>("Id")
@@ -486,6 +762,22 @@ namespace Gov.Structure.Migrations
                     b.HasOne("Gov.Core.Ministro", "Ministro")
                         .WithMany()
                         .HasForeignKey("MinistroId");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Contenuto", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Pagina", null)
+                        .WithMany("Contenuti")
+                        .HasForeignKey("PaginaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.TipoContenuto", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Contenuto", null)
+                        .WithMany("TipoConenuto")
+                        .HasForeignKey("ContenutoId");
                 });
 
             modelBuilder.Entity("Gov.Core.Governo", b =>

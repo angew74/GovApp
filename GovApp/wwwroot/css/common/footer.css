@@ -17,15 +17,14 @@
 
 
 section .section-title {
-    text-align: center;
-    color:#54272F!important;
+    text-align: center;   
     margin-bottom: 0px;
     text-transform: uppercase;
 }
 #footer {
-    background: #54272F!important;
     flex: 0 0 auto;
     display: flex;
+    background-color: #343A40 !important;
 }
 #footer h5{
     padding-left: 10px;
@@ -34,12 +33,11 @@ section .section-title {
     margin-bottom: 20px;
     color:#ffffff;
 }
-#footer a {
-    color: #ffffff;
-    text-decoration: none !important;
-    background-color: transparent;
-    -webkit-text-decoration-skip: objects;
-}
+    #footer a {
+        color: #ffffff;        
+        background-color: transparent;
+        -webkit-text-decoration-skip: objects;
+    }
 #footer ul.social li{
     padding: 3px 0;
 }
