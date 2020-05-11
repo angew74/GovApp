@@ -9,6 +9,6 @@ namespace Gov.Structure.Contracts
     {
         Pagina GetById(int Id);
 
-        Pagina GetByCodice(string codice);
+        List<Pagina> GetByCodice(string codice);
     }
 }

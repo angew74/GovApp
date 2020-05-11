@@ -1,5 +1,6 @@
 ﻿using Gov.Core.Entity;
 using Gov.Structure.Contracts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,9 @@ namespace Gov.Structure.Services
             return _dbset.FirstOrDefault(x => x.Id == Id);
         }
 
-        public Pagina GetByCodice(string codice)
+        public List<Pagina> GetByCodice(string codice)
         {
-            return _dbset.FirstOrDefault(x => x.Codice.ToUpper() == codice.ToUpper());
+            return _dbset.Include(d => d.Contenuti).Where(x => x.Codice.ToUpper() == codice.ToUpper()).ToList();
         }
 
     }

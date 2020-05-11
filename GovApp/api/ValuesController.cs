@@ -32,7 +32,34 @@ namespace GovApp.api
             List<ContenutoModel> model = new List<ContenutoModel>();
             try
             {
-               Pagina pagina = _paginaService.GetByCodice(type);
+               List<Pagina> pagine = _paginaService.GetByCodice(type);
+                if(pagine == null)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    foreach (Pagina p in pagine)
+                    {
+                        ContenutoModel contenuto = new ContenutoModel();
+                        foreach (Contenuto c in p.Contenuti)
+                        {
+                            switch (c.Tipo.ToLower())
+                            {
+                                case "icona":
+                                    contenuto.ContenutoThumb = c.ContentuoCard;
+                                    break;
+                                case "testo":
+                                    contenuto.Contenuto = c.ContentuoCard;
+                                    break;
+                                case "link":
+                                    contenuto.ContenutoDescrizione = c.ContentuoCard;
+                                    break;
+                            }
+                        }
+                        model.Add(contenuto);
+                    }
+                }
             }
             catch (Exception ex)
             {

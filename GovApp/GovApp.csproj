@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\dest\**" />
+    <Content Remove="wwwroot\dest\**" />
+    <EmbeddedResource Remove="wwwroot\dest\**" />
+    <None Remove="wwwroot\dest\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="5.1.4" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="log4net" Version="2.0.8" />

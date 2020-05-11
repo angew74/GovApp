@@ -3,12 +3,14 @@ import store from "../../wwwroot/js/store";
 import premier from '../../wwwroot/js/page/premier';
 
 // funzionante con prop
+
 /*new Vue({
     el: "#app",
-    data: { codice: "Premier" },
+    data: { codice: "Premier" },*/
     /*,beforeMount: function () {
-        this.codice = "Premier";
-    },*/
+        this.codice = "Premier";*/
+  /*  },*/
+
    /* render: h => h(
         premier,
         {
