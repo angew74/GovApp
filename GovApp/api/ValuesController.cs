@@ -39,22 +39,29 @@ namespace GovApp.api
                 }
                 else
                 {
+                    int id = 0;
                     foreach (Pagina p in pagine)
                     {
                         ContenutoModel contenuto = new ContenutoModel();
+                        contenuto.ContenutoTitolo = type;
+                        id++;
+                        contenuto.Id ="collapse" + id.ToString();
                         foreach (Contenuto c in p.Contenuti)
                         {
                             switch (c.Tipo.ToLower())
                             {
                                 case "icona":
-                                    contenuto.ContenutoThumb = c.ContentuoCard;
+                                    contenuto.ContenutoIcon = c.ContentuoCard;
                                     break;
                                 case "testo":
-                                    contenuto.Contenuto = c.ContentuoCard;
+                                    contenuto.ContenutoTesto = c.ContentuoCard;
                                     break;
                                 case "link":
-                                    contenuto.ContenutoDescrizione = c.ContentuoCard;
+                                    contenuto.ContenutoLink = c.ContentuoCard;
                                     break;
+                                case "header":
+                                    contenuto.ContenutoHeader = c.ContentuoCard;
+                                    break;                                
                             }
                         }
                         model.Add(contenuto);

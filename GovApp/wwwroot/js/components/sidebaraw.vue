@@ -4,7 +4,7 @@
             <b-navbar-brand href="http://Deltasi.it">
                 <img src="../../css/images/goverment.png" style="height: 4em; display: inline-block;vertical-align: middle; max-width: 100%;" />
             </b-navbar-brand>
-            <b-iconstack font-scale="3" rotate="90" v-b-toggle.sidebar-1>
+            <b-iconstack font-scale="3" rotate="90" style="cursor: pointer;" v-b-toggle.sidebar-1>
                 <b-icon stacked icon="chevron-right" shift-h="-4" variant="danger"></b-icon>
                 <b-icon stacked icon="chevron-right" shift-h="0" variant="success"></b-icon>
                 <b-icon stacked icon="chevron-right" shift-h="4" variant="primary"></b-icon>

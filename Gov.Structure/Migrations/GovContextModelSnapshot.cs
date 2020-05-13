@@ -178,7 +178,7 @@ namespace Gov.Structure.Migrations
                             Id = 1,
                             ContentuoCard = "Da questa pagina è possibile registrare un nuovo Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(5802),
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5001),
                             PaginaId = 1,
                             Tipo = "Testo",
                             TipoContenutoId = 1,
@@ -189,7 +189,7 @@ namespace Gov.Structure.Migrations
                             Id = 2,
                             ContentuoCard = "user-secret",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6233),
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5420),
                             PaginaId = 1,
                             Tipo = "Icona",
                             TipoContenutoId = 2,
@@ -200,51 +200,73 @@ namespace Gov.Structure.Migrations
                             Id = 3,
                             ContentuoCard = "/premier/inserimento",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6250),
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5439),
                             PaginaId = 1,
                             Tipo = "Link",
-                            TipoContenutoId = 4,
+                            TipoContenutoId = 3,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 4,
-                            ContentuoCard = "Da questa pagina è possibile modificare un Premier",
+                            ContentuoCard = "Premier Inserimento",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6255),
-                            PaginaId = 2,
-                            Tipo = "Testo",
-                            TipoContenutoId = 1,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ContentuoCard = "user-secret",
-                            CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6259),
-                            PaginaId = 2,
-                            Tipo = "Icona",
-                            TipoContenutoId = 2,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 6,
-                            ContentuoCard = "/premier/modifica",
-                            CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6263),
-                            PaginaId = 2,
-                            Tipo = "Link",
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5443),
+                            PaginaId = 1,
+                            Tipo = "Header",
                             TipoContenutoId = 4,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
+                            Id = 5,
+                            ContentuoCard = "Da questa pagina è possibile modificare un Premier",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5446),
+                            PaginaId = 2,
+                            Tipo = "Testo",
+                            TipoContenutoId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ContentuoCard = "user-secret",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5450),
+                            PaginaId = 2,
+                            Tipo = "Icona",
+                            TipoContenutoId = 2,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
                             Id = 7,
+                            ContentuoCard = "/premier/modifica",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5453),
+                            PaginaId = 2,
+                            Tipo = "Link",
+                            TipoContenutoId = 3,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ContentuoCard = "Premier Modifica",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5457),
+                            PaginaId = 1,
+                            Tipo = "Header",
+                            TipoContenutoId = 4,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9,
                             ContentuoCard = "Da questa pagina è possibile visualizzare i Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6267),
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5460),
                             PaginaId = 3,
                             Tipo = "Testo",
                             TipoContenutoId = 1,
@@ -252,10 +274,10 @@ namespace Gov.Structure.Migrations
                         },
                         new
                         {
-                            Id = 8,
+                            Id = 10,
                             ContentuoCard = "user-secret",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6271),
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5463),
                             PaginaId = 3,
                             Tipo = "Icona",
                             TipoContenutoId = 2,
@@ -263,12 +285,23 @@ namespace Gov.Structure.Migrations
                         },
                         new
                         {
-                            Id = 9,
+                            Id = 11,
                             ContentuoCard = "/premier/visualizza",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(6274),
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5467),
                             PaginaId = 3,
                             Tipo = "Link",
+                            TipoContenutoId = 3,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ContentuoCard = "Premier Visualizzazione",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5470),
+                            PaginaId = 1,
+                            Tipo = "Header",
                             TipoContenutoId = 4,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -314,7 +347,7 @@ namespace Gov.Structure.Migrations
                             Id = 1,
                             Codice = "Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(2917),
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(1510),
                             Denominazione = "Inserimento Premier",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -323,7 +356,7 @@ namespace Gov.Structure.Migrations
                             Id = 2,
                             Codice = "Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(3572),
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(1989),
                             Denominazione = "Modifica Premier",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -332,7 +365,7 @@ namespace Gov.Structure.Migrations
                             Id = 3,
                             Codice = "Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 177, DateTimeKind.Local).AddTicks(3594),
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(2015),
                             Denominazione = "Visualizzazione Premier",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -378,7 +411,7 @@ namespace Gov.Structure.Migrations
                             Id = 1,
                             Codice = "Testo",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 173, DateTimeKind.Local).AddTicks(4011),
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 521, DateTimeKind.Local).AddTicks(8132),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -386,23 +419,23 @@ namespace Gov.Structure.Migrations
                             Id = 2,
                             Codice = "Icona",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 175, DateTimeKind.Local).AddTicks(9709),
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 521, DateTimeKind.Local).AddTicks(9361),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
-                            Codice = "Immagine",
+                            Codice = "Link",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 175, DateTimeKind.Local).AddTicks(9758),
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 521, DateTimeKind.Local).AddTicks(9405),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 4,
-                            Codice = "Link",
+                            Codice = "Header",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 10, 12, 3, 25, 175, DateTimeKind.Local).AddTicks(9763),
+                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 521, DateTimeKind.Local).AddTicks(9410),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });

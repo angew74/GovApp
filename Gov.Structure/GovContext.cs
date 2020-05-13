@@ -194,14 +194,14 @@ namespace Gov.Structure
                  CreatedBy = "Caricamento",
                  CreatedDate = DateTime.Now,
                  UpdatedBy = null,
-                 Codice = "Immagine"
+                 Codice = "Link"
              }, new TipoContenuto
              {
                  Id = 4,
                  CreatedBy = "Caricamento",
                  CreatedDate = DateTime.Now,
                  UpdatedBy = null,
-                 Codice = "Link"
+                 Codice = "Header"
              });
 
             modelBuilder.Entity<Pagina>().HasData(new Pagina
@@ -254,7 +254,7 @@ namespace Gov.Structure
                 Id = 3,
                 ContentuoCard = "/premier/inserimento",
                 Tipo = "Link",
-                TipoContenutoId = 4,
+                TipoContenutoId = 3,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
@@ -262,6 +262,16 @@ namespace Gov.Structure
             }, new Contenuto
             {
                 Id = 4,
+                ContentuoCard = "Premier Inserimento",
+                Tipo = "Header",
+                TipoContenutoId = 4,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 1
+            }, new Contenuto
+            {
+                Id = 5,
                 ContentuoCard = "Da questa pagina è possibile modificare un Premier",
                 Tipo = "Testo",
                 TipoContenutoId = 1,
@@ -271,7 +281,7 @@ namespace Gov.Structure
                 PaginaId = 2
             }, new Contenuto
             {
-                Id = 5,
+                Id = 6,
                 ContentuoCard = "user-secret",
                 Tipo = "Icona",
                 TipoContenutoId = 2,
@@ -281,9 +291,18 @@ namespace Gov.Structure
                 PaginaId = 2
             }, new Contenuto
             {
-                Id = 6,
+                Id = 7,
                 ContentuoCard = "/premier/modifica",
                 Tipo = "Link",
+                TipoContenutoId = 3,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 2
+            }, new Contenuto{
+                Id = 8,
+                ContentuoCard = "Premier Modifica",
+                Tipo = "Header",
                 TipoContenutoId = 4,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
@@ -291,7 +310,7 @@ namespace Gov.Structure
                 PaginaId = 2
             }, new Contenuto
             {
-                Id = 7,
+                Id = 9,
                 ContentuoCard = "Da questa pagina è possibile visualizzare i Premier",
                 Tipo = "Testo",
                 TipoContenutoId = 1,
@@ -301,7 +320,7 @@ namespace Gov.Structure
                 PaginaId = 3
             }, new Contenuto
             {
-                Id = 8,
+                Id = 10,
                 ContentuoCard = "user-secret",
                 Tipo = "Icona",
                 TipoContenutoId = 2,
@@ -311,9 +330,19 @@ namespace Gov.Structure
                 PaginaId = 3
             }, new Contenuto
             {
-                Id = 9,
+                Id = 11,
                 ContentuoCard = "/premier/visualizza",
                 Tipo = "Link",
+                TipoContenutoId = 3,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 3
+            }, new Contenuto
+            {
+                Id = 12,
+                ContentuoCard = "Premier Visualizzazione",
+                Tipo = "Header",
                 TipoContenutoId = 4,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,

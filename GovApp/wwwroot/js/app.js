@@ -7,7 +7,7 @@ import store from "./store";
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
-import { BCard, BCardBody, BCardFooter, BCardHeader, BCardImg, BTable, BNavbar, BNav, BIcon } from 'bootstrap-vue';   
+import { BCard, BCardBody, BCardFooter, BCardHeader, BCardImg, BTable, BCardGroup, BNavbar, BNav, BIcon, BCollapse } from 'bootstrap-vue';   
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 import 'vue-awesome/icons';
 import Icon from 'vue-awesome/components/Icon';
@@ -29,6 +29,7 @@ Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(Vuex);
 Vue.component('b-card', BCard);
+Vue.component('b-card-group', BCardGroup);
 Vue.component('b-card-body', BCardBody);
 Vue.component('b-card-footer', BCardFooter);
 Vue.component('b-card-header', BCardHeader);
@@ -36,6 +37,7 @@ Vue.component('b-card-img', BCardImg);
 Vue.component('b-table', BTable);
 Vue.component('b-nav', BNav);
 Vue.component('b-navbar', BNavbar);
+Vue.component('b-collapse', BCollapse);
 Vue.component('v-icon', Icon);
 // ComponentLoader.loadComponents();
 

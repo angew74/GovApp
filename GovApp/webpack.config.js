@@ -14,9 +14,10 @@ module.exports = {
             './Views/Partito/Index.cshtml.js'
         ]
     },
-    output: {
-        filename: '[name]',
-        path: path.resolve(__dirname, 'dest/js'),
+    output: {      
+        filename: '[name].bundle.js',
+        path: path.join(__dirname, '/wwwroot/dest/js/'),
+        publicPath: "/dest/js/"     
     },
     plugins: [
         new webpack.ProvidePlugin({
@@ -40,12 +41,7 @@ module.exports = {
             })
         ]
     },
-    output: {
-        publicPath: "/dest/js/",
-        path: path.join(__dirname, '/wwwroot/dest/js/'),
-        filename: '[name].bundle.js'
-    },
-    module: {
+   module: {
         rules: [
             {
                 test: /\.js$/,
