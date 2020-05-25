@@ -13,11 +13,12 @@ Add-Migration InitialCreate
 
 Enable-Migrations -Project Gov.Structure -Force
 
-
+PRIMO SE ESISTE
+EntityFrameworkCore\Remove-Migration -Project Gov.Structure
 secondo 
-EntityFrameworkCore\Add-Migration GovMigration -Project Gov.Structure
+EntityFrameworkCore\Add-Migration  GovMigration -Project Gov.Structure
 terzo 
-update-database -Project Gov.Structure
+EntityFrameworkCore\update-database -Project Gov.Structure 
 
 
 
@@ -55,17 +56,4 @@ npm i --save @fortawesome/free-brands-svg-icons
 npm i --save @fortawesome/free-regular-svg-icons
 
 
-  <b-nav-item active>
-            <a class="nav-link" href="home/index">
-                <v-icon name="home" />            
-                <div>
-                    GovApp
-                </div>
-            </a>
-        </b-nav-item>
-        <b-nav-item active>
-            <a class="nav-link" href="home/logout">
-                <v-icon name="sign-out-alt" />              
-                <span class="badge badge-capitolium badge-pill"></span>
-            </a>
-        </b-nav-item>
+ 

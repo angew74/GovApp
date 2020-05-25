@@ -1,5 +1,5 @@
 ﻿import Vue from "vue";
-import store from "../../wwwroot/js/store";
+import store from "../../wwwroot/js/store/store";
 import premier from '../../wwwroot/js/page/premier';
 
 // funzionante con prop

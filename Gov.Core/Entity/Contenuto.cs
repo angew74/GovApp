@@ -24,11 +24,10 @@ namespace Gov.Core.Entity
         [MaxLength(10)]
         public string Tipo { get; set; }
 
-        public List<TipoContenuto> TipoConenuto {get;set;}
-
+        public virtual TipoContenuto TipoConenuto {get;set;}
+        public virtual Pagina Pagina { get; set; }
         [Column]
         public int PaginaId { get; set; }
-
         [Column]
         public int TipoContenutoId { get; set; }
     }

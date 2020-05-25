@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using Gov.Structure;
+using Gov.Structure.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -30,7 +32,6 @@ namespace GovApp
             AppDomain.CurrentDomain.Load("Gov.Core");
             AppDomain.CurrentDomain.Load("Gov.Structure");
             AppDomain.CurrentDomain.Load("GovApp");
-          //  builder.RegisterType<ElezioniCookieAuthenticationEvents>().As<CookieAuthenticationEvents>();
             builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies().Where(t => t.FullName.Contains("Gov")).ToArray())
                 .AsImplementedInterfaces()
                  .InstancePerLifetimeScope();
@@ -38,10 +39,11 @@ namespace GovApp
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .Where(t => t.Name.EndsWith("Controller"));
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<GovContext>().UseMySql(connectionString, x => x.MigrationsAssembly("Gov.Structure"));
-            builder.RegisterType(typeof(GovContext)).As(typeof(IContext))
+            builder.RegisterType(typeof(GovContext)).As(typeof(GovContext))
                  .WithParameter("options", dbContextOptionsBuilder.Options)
                 .InstancePerLifetimeScope();
-          
+            
+         
 
           /*  builder.RegisterType<GovContext>()
                 .WithParameter("options", dbContextOptionsBuilder.Options)

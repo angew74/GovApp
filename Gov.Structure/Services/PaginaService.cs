@@ -26,7 +26,7 @@ namespace Gov.Structure.Services
 
         public List<Pagina> GetByCodice(string codice)
         {
-            return _dbset.Include(d => d.Contenuti).Where(x => x.Codice.ToUpper() == codice.ToUpper()).ToList();
+            return _dbset.Where(x => x.Codice.ToUpper() == codice.ToUpper()).ToList();
         }
 
     }

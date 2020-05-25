@@ -1,4 +1,5 @@
-﻿using Gov.Core.Interfaces;
+﻿using Gov.Core.Identity;
+using Gov.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,7 +25,11 @@ namespace Gov.Core.Entity
         [Column]
         [Required]
         [MaxLength(10)]
-        public string Codice { get; set; }
-        public virtual List<Contenuto> Contenuti { get; set; }
+        public string Codice { get; set; }        
+       
+        public int RoleId { get; set; }
+        public virtual ApplicationRole Role { get; set; }
+       
+       
     }
 }

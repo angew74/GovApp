@@ -14,7 +14,7 @@ namespace Gov.Structure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3")
+                .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Gov.Core.Camera", b =>
@@ -170,6 +170,8 @@ namespace Gov.Structure.Migrations
 
                     b.HasIndex("PaginaId");
 
+                    b.HasIndex("TipoContenutoId");
+
                     b.ToTable("Contenuto");
 
                     b.HasData(
@@ -178,7 +180,7 @@ namespace Gov.Structure.Migrations
                             Id = 1,
                             ContentuoCard = "Da questa pagina è possibile registrare un nuovo Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5001),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(4099),
                             PaginaId = 1,
                             Tipo = "Testo",
                             TipoContenutoId = 1,
@@ -189,7 +191,7 @@ namespace Gov.Structure.Migrations
                             Id = 2,
                             ContentuoCard = "user-secret",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5420),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5276),
                             PaginaId = 1,
                             Tipo = "Icona",
                             TipoContenutoId = 2,
@@ -200,7 +202,7 @@ namespace Gov.Structure.Migrations
                             Id = 3,
                             ContentuoCard = "/premier/inserimento",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5439),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5312),
                             PaginaId = 1,
                             Tipo = "Link",
                             TipoContenutoId = 3,
@@ -211,7 +213,7 @@ namespace Gov.Structure.Migrations
                             Id = 4,
                             ContentuoCard = "Premier Inserimento",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5443),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5315),
                             PaginaId = 1,
                             Tipo = "Header",
                             TipoContenutoId = 4,
@@ -222,7 +224,7 @@ namespace Gov.Structure.Migrations
                             Id = 5,
                             ContentuoCard = "Da questa pagina è possibile modificare un Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5446),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5319),
                             PaginaId = 2,
                             Tipo = "Testo",
                             TipoContenutoId = 1,
@@ -233,7 +235,7 @@ namespace Gov.Structure.Migrations
                             Id = 6,
                             ContentuoCard = "user-secret",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5450),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5323),
                             PaginaId = 2,
                             Tipo = "Icona",
                             TipoContenutoId = 2,
@@ -244,7 +246,7 @@ namespace Gov.Structure.Migrations
                             Id = 7,
                             ContentuoCard = "/premier/modifica",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5453),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5326),
                             PaginaId = 2,
                             Tipo = "Link",
                             TipoContenutoId = 3,
@@ -255,8 +257,8 @@ namespace Gov.Structure.Migrations
                             Id = 8,
                             ContentuoCard = "Premier Modifica",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5457),
-                            PaginaId = 1,
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5330),
+                            PaginaId = 2,
                             Tipo = "Header",
                             TipoContenutoId = 4,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -266,7 +268,7 @@ namespace Gov.Structure.Migrations
                             Id = 9,
                             ContentuoCard = "Da questa pagina è possibile visualizzare i Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5460),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5334),
                             PaginaId = 3,
                             Tipo = "Testo",
                             TipoContenutoId = 1,
@@ -277,7 +279,7 @@ namespace Gov.Structure.Migrations
                             Id = 10,
                             ContentuoCard = "user-secret",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5463),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5337),
                             PaginaId = 3,
                             Tipo = "Icona",
                             TipoContenutoId = 2,
@@ -288,7 +290,7 @@ namespace Gov.Structure.Migrations
                             Id = 11,
                             ContentuoCard = "/premier/visualizza",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5467),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5340),
                             PaginaId = 3,
                             Tipo = "Link",
                             TipoContenutoId = 3,
@@ -299,8 +301,63 @@ namespace Gov.Structure.Migrations
                             Id = 12,
                             ContentuoCard = "Premier Visualizzazione",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(5470),
-                            PaginaId = 1,
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5344),
+                            PaginaId = 3,
+                            Tipo = "Header",
+                            TipoContenutoId = 4,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 13,
+                            ContentuoCard = "Premier Visualizzazione",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5347),
+                            PaginaId = 3,
+                            Tipo = "Header",
+                            TipoContenutoId = 4,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ContentuoCard = "Da questa pagina è possibile gestire gli Utenti",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5351),
+                            PaginaId = 8,
+                            Tipo = "Testo",
+                            TipoContenutoId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ContentuoCard = "ApplicationUser",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5354),
+                            PaginaId = 8,
+                            Tipo = "Icona",
+                            TipoContenutoId = 2,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 16,
+                            ContentuoCard = "/account/index",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5357),
+                            PaginaId = 8,
+                            Tipo = "Link",
+                            TipoContenutoId = 3,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 17,
+                            ContentuoCard = "Gestione Utenti",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(5361),
+                            PaginaId = 8,
                             Tipo = "Header",
                             TipoContenutoId = 4,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -330,6 +387,9 @@ namespace Gov.Structure.Migrations
                         .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
                         .HasMaxLength(256);
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
                         .HasMaxLength(256);
@@ -339,6 +399,8 @@ namespace Gov.Structure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoleId");
+
                     b.ToTable("Pagina");
 
                     b.HasData(
@@ -347,8 +409,9 @@ namespace Gov.Structure.Migrations
                             Id = 1,
                             Codice = "Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(1510),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(6545),
                             Denominazione = "Inserimento Premier",
+                            RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -356,8 +419,9 @@ namespace Gov.Structure.Migrations
                             Id = 2,
                             Codice = "Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(1989),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(7949),
                             Denominazione = "Modifica Premier",
+                            RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -365,8 +429,89 @@ namespace Gov.Structure.Migrations
                             Id = 3,
                             Codice = "Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 523, DateTimeKind.Local).AddTicks(2015),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(8541),
                             Denominazione = "Visualizzazione Premier",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Codice = "User",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(9079),
+                            Denominazione = "Indice Gestione Utenti",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Codice = "Premier",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 57, DateTimeKind.Local).AddTicks(9621),
+                            Denominazione = "Inserimento Premier",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Codice = "Premier",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 58, DateTimeKind.Local).AddTicks(121),
+                            Denominazione = "Modifica Premier",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Codice = "Premier",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 58, DateTimeKind.Local).AddTicks(612),
+                            Denominazione = "Visualizzazione Premier",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Codice = "User",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 58, DateTimeKind.Local).AddTicks(1096),
+                            Denominazione = "Gestione Utenti",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Codice = "User",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 58, DateTimeKind.Local).AddTicks(1571),
+                            Denominazione = "Registrazione Utenti",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Codice = "User",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 58, DateTimeKind.Local).AddTicks(2050),
+                            Denominazione = "Mio Profilo",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Codice = "User",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 58, DateTimeKind.Local).AddTicks(2526),
+                            Denominazione = "Mio Profilo",
+                            RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -381,9 +526,6 @@ namespace Gov.Structure.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
                         .HasMaxLength(10);
-
-                    b.Property<int?>("ContenutoId")
-                        .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
@@ -401,8 +543,6 @@ namespace Gov.Structure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContenutoId");
-
                     b.ToTable("TipoContenuto");
 
                     b.HasData(
@@ -411,7 +551,7 @@ namespace Gov.Structure.Migrations
                             Id = 1,
                             Codice = "Testo",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 521, DateTimeKind.Local).AddTicks(8132),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 59, DateTimeKind.Local).AddTicks(2018),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -419,7 +559,7 @@ namespace Gov.Structure.Migrations
                             Id = 2,
                             Codice = "Icona",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 521, DateTimeKind.Local).AddTicks(9361),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 59, DateTimeKind.Local).AddTicks(2045),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -427,7 +567,7 @@ namespace Gov.Structure.Migrations
                             Id = 3,
                             Codice = "Link",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 521, DateTimeKind.Local).AddTicks(9405),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 59, DateTimeKind.Local).AddTicks(2054),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -435,8 +575,178 @@ namespace Gov.Structure.Migrations
                             Id = 4,
                             Codice = "Header",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 12, 18, 52, 10, 521, DateTimeKind.Local).AddTicks(9410),
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 59, DateTimeKind.Local).AddTicks(2059),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.VoceMenu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Icona")
+                        .IsRequired()
+                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Voce")
+                        .IsRequired()
+                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("VoceMenu");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Active = true,
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 58, DateTimeKind.Local).AddTicks(5185),
+                            Icona = "user-secret",
+                            Link = "/partito/index",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Voce = "Premier"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Active = true,
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 58, DateTimeKind.Local).AddTicks(6382),
+                            Icona = "history",
+                            Link = "/governo/index",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Voce = "Governo"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Active = true,
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 58, DateTimeKind.Local).AddTicks(6906),
+                            Icona = "receipt",
+                            Link = "/dicastero/index",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Voce = "Dicastero"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Active = true,
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 58, DateTimeKind.Local).AddTicks(7426),
+                            Icona = "university",
+                            Link = "/partito/index",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Voce = "Partito"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Active = true,
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 58, DateTimeKind.Local).AddTicks(7909),
+                            Icona = "user",
+                            Link = "/account/index",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Voce = "Partito"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Active = true,
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 58, DateTimeKind.Local).AddTicks(8411),
+                            Icona = "user-secret",
+                            Link = "/partito/index",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Voce = "Premier"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Active = true,
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 58, DateTimeKind.Local).AddTicks(8917),
+                            Icona = "history",
+                            Link = "/governo/index",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Voce = "Governo"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Active = true,
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 58, DateTimeKind.Local).AddTicks(9393),
+                            Icona = "receipt",
+                            Link = "/dicastero/index",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Voce = "Dicastero"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Active = true,
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 58, DateTimeKind.Local).AddTicks(9862),
+                            Icona = "university",
+                            Link = "/partito/index",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Voce = "Partito"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Active = true,
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 5, 25, 22, 41, 19, 59, DateTimeKind.Local).AddTicks(332),
+                            Icona = "user",
+                            Link = "/account/index",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Voce = "Partito"
                         });
                 });
 
@@ -497,6 +807,190 @@ namespace Gov.Structure.Migrations
                     b.HasIndex("PremierId");
 
                     b.ToTable("Governo");
+                });
+
+            modelBuilder.Entity("Gov.Core.Identity.ApplicationRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ApplicationUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConcurrencyStamp = "bf65f6fb-636e-4ba1-a750-15b3fe27a06b",
+                            Name = "admin",
+                            NormalizedName = "admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConcurrencyStamp = "b1828072-06b1-4da2-aa7a-5f15f07c8da3",
+                            Name = "user",
+                            NormalizedName = "user"
+                        });
+                });
+
+            modelBuilder.Entity("Gov.Core.Identity.ApplicationUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CodiceFiscale")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Cognome")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CustomTag")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("LockoutEnd")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("Password")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Sesso")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            CodiceFiscale = "RBRNCL74P16H501C",
+                            Cognome = "Admin",
+                            Email = "agnew74@gmail.com",
+                            EmailConfirmed = false,
+                            LastModified = new DateTime(2020, 5, 25, 22, 41, 19, 56, DateTimeKind.Local).AddTicks(3048),
+                            LockoutEnabled = false,
+                            Nome = "Admin",
+                            NormalizedEmail = "agnew74@gmail.com",
+                            NormalizedUserName = "admin",
+                            PasswordHash = "AQAAAAEAACcQAAAAECKpktWazyRDsxcGryPGbufMEjlButvirZr11PzV+rZcdcj1j2v7bv9rXb8InXvAgw==",
+                            PhoneNumber = "",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            Sesso = "Maschio",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
+                });
+
+            modelBuilder.Entity("Gov.Core.Identity.UserAudit", b =>
+                {
+                    b.Property<int>("UserAuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AuditEvent")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUtente")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IpAddress")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("UserAuditId");
+
+                    b.ToTable("UserAudit");
                 });
 
             modelBuilder.Entity("Gov.Core.Legislatura", b =>
@@ -782,6 +1276,214 @@ namespace Gov.Structure.Migrations
                     b.ToTable("Senato");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("RoleClaims");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRoleClaim<int>");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserClaims");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserClaim<int>");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("varchar(128) CHARACTER SET utf8mb4")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("varchar(128) CHARACTER SET utf8mb4")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserLogins");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserLogin<int>");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRoles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<int>");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("UserTokens");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserToken<int>");
+                });
+
+            modelBuilder.Entity("Gov.Core.Identity.Roleclaims", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>");
+
+                    b.ToTable("Roleclaims");
+
+                    b.HasDiscriminator().HasValue("Roleclaims");
+                });
+
+            modelBuilder.Entity("Gov.Core.Identity.Userclaims", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>");
+
+                    b.Property<int?>("ApplicationUserId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("UserClaims");
+
+                    b.HasDiscriminator().HasValue("Userclaims");
+                });
+
+            modelBuilder.Entity("Gov.Core.Identity.Userlogins", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>");
+
+                    b.Property<int?>("ApplicationUserId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("UserLogins");
+
+                    b.HasDiscriminator().HasValue("Userlogins");
+                });
+
+            modelBuilder.Entity("Gov.Core.Identity.ApplicationUserRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<int>");
+
+                    b.Property<int?>("ApplicationUserId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasDiscriminator().HasValue("ApplicationUserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 2
+                        });
+                });
+
+            modelBuilder.Entity("Gov.Core.Identity.Usertokens", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserToken<int>");
+
+                    b.Property<int?>("ApplicationUserId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("UserTokens");
+
+                    b.HasDiscriminator().HasValue("Usertokens");
+                });
+
             modelBuilder.Entity("Gov.Core.Dicastero", b =>
                 {
                     b.HasOne("Gov.Core.Governo", null)
@@ -799,18 +1501,35 @@ namespace Gov.Structure.Migrations
 
             modelBuilder.Entity("Gov.Core.Entity.Contenuto", b =>
                 {
-                    b.HasOne("Gov.Core.Entity.Pagina", null)
-                        .WithMany("Contenuti")
+                    b.HasOne("Gov.Core.Entity.Pagina", "Pagina")
+                        .WithMany()
                         .HasForeignKey("PaginaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.TipoContenuto", "TipoConenuto")
+                        .WithMany()
+                        .HasForeignKey("TipoContenutoId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Gov.Core.Entity.TipoContenuto", b =>
+            modelBuilder.Entity("Gov.Core.Entity.Pagina", b =>
                 {
-                    b.HasOne("Gov.Core.Entity.Contenuto", null)
-                        .WithMany("TipoConenuto")
-                        .HasForeignKey("ContenutoId");
+                    b.HasOne("Gov.Core.Identity.ApplicationRole", "Role")
+                        .WithMany("Pagine")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.VoceMenu", b =>
+                {
+                    b.HasOne("Gov.Core.Identity.ApplicationRole", "Role")
+                        .WithMany("VociMenu")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Gov.Core.Governo", b =>
@@ -822,6 +1541,22 @@ namespace Gov.Structure.Migrations
                     b.HasOne("Gov.Core.Premier", "Premier")
                         .WithMany()
                         .HasForeignKey("PremierId");
+                });
+
+            modelBuilder.Entity("Gov.Core.Identity.ApplicationRole", b =>
+                {
+                    b.HasOne("Gov.Core.Identity.ApplicationUser", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("Gov.Core.Identity.UserAudit", b =>
+                {
+                    b.HasOne("Gov.Core.Identity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserAuditId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Gov.Core.Legislatura", b =>
@@ -863,6 +1598,85 @@ namespace Gov.Structure.Migrations
                     b.HasOne("Gov.Core.Senato", null)
                         .WithMany("Partiti")
                         .HasForeignKey("SenatoId");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.HasOne("Gov.Core.Identity.ApplicationRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.HasOne("Gov.Core.Identity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.HasOne("Gov.Core.Identity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.HasOne("Gov.Core.Identity.ApplicationRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Identity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.HasOne("Gov.Core.Identity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Identity.Userclaims", b =>
+                {
+                    b.HasOne("Gov.Core.Identity.ApplicationUser", null)
+                        .WithMany("Userclaims")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("Gov.Core.Identity.Userlogins", b =>
+                {
+                    b.HasOne("Gov.Core.Identity.ApplicationUser", null)
+                        .WithMany("Userlogins")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("Gov.Core.Identity.ApplicationUserRole", b =>
+                {
+                    b.HasOne("Gov.Core.Identity.ApplicationUser", null)
+                        .WithMany("UserRoles")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("Gov.Core.Identity.Usertokens", b =>
+                {
+                    b.HasOne("Gov.Core.Identity.ApplicationUser", null)
+                        .WithMany("Usertokens")
+                        .HasForeignKey("ApplicationUserId");
                 });
 #pragma warning restore 612, 618
         }

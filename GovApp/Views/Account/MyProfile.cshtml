@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "MyProfile";
+   
+}
+
+@section Css {
+
+}
+@section Scripts {
+    <script type="text/javascript" src="~/js/account/myprofile.js"></script>
+}
+
+<script type="text/javascript">
+  var userid = @(ViewBag.Id);  // etc.
+</script>
+...
+<partial name="_ErrorModal" />
+<partial name="_SuccessModal" />
+<partial name="_UserEdit" />
+

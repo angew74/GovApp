@@ -12,7 +12,15 @@ module.exports = {
         ], 'partito': [
             './wwwroot/js/app.js',
             './Views/Partito/Index.cshtml.js'
-        ]
+        ],
+        'login': [
+            './wwwroot/js/app.js',
+            './Views/Account/Login.cshtml.js'
+        ],
+        'confirmemail': [
+            './wwwroot/js/app.js',
+            './Views/Account/ConfirmEmail.cshtml.js'
+            ]
     },
     output: {      
         filename: '[name].bundle.js',
@@ -48,7 +56,14 @@ module.exports = {
                 loader: 'babel-loader',
                 exclude: /(node_modules)/,
                 query: {
-                    presets: ['es2017']
+                    presets: [
+                        ['es2017']                       
+                    ],
+                    plugins: [
+                        ['transform-runtime'],                       
+                        ['transform-object-rest-spread'],
+                        ['transform-es2015-destructuring']
+                    ]
                 }
             },
             {

@@ -2,7 +2,9 @@
 using Gov.Structure.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace Gov.Structure.Services
@@ -16,6 +18,11 @@ namespace Gov.Structure.Services
         {
             _context = context;
             _dbset = _context.Set<Contenuto>();
+        }
+
+        public List<Contenuto> GetByCodicePagina(string codice)
+        {
+            return _dbset.Include(i=>i.Pagina).Where(x => x.Pagina.Codice.ToLower() == codice.ToLower()).ToList();
         }
 
         public Contenuto GetById(int Id)

@@ -2,8 +2,6 @@
 import 'es6-promise/auto';
 import Vue from "vue";
 import Vuex from 'vuex';
-import ComponentLoader from './components/component-loader';
-import store from "./store";
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
@@ -39,6 +37,7 @@ Vue.component('b-nav', BNav);
 Vue.component('b-navbar', BNavbar);
 Vue.component('b-collapse', BCollapse);
 Vue.component('v-icon', Icon);
+Vue.use(Vuex);
 // ComponentLoader.loadComponents();
 
        

@@ -8,5 +8,6 @@ namespace Gov.Structure.Contracts
     public interface IContenutoService :IEntityService<Contenuto>
     {
         Contenuto GetById(int Id);
+        List<Contenuto> GetByCodicePagina(string codice);
     }
 }

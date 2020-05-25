@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "Index";   
+}
+
+@section Css {
+    <link rel="stylesheet" href="~/css/amministrazione/list.css" />
+}
+@section Scripts {
+    <script type="text/javascript" src="~/js/amministrazione/list.js"></script>
+}
+
+<div id="accordian">
+    <ul>
+        <li>
+            <h3>
+                <a href="#">
+                    <i class="fa fa-user"></i>Profilo Utente
+                </a>
+            </h3>
+            <ul>
+                <li>
+                    <a asp-controller="Account"
+                       asp-action="MyProfile">
+                        <i class="fas fa-id-badge"></i>Mio Profilo
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Account"
+                       asp-action="ChangePassword">
+                        <i class="fas fa-key"></i>Cambia Password
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+

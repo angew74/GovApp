@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Gov.Structure
 {
-    public interface IContext
+    public interface IContext 
     {
 
         IEnumerable<ValidationResult> GetValidationErrors();
