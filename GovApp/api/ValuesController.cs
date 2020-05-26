@@ -44,37 +44,42 @@ namespace GovApp.api
             List<ContenutoModel> model = new List<ContenutoModel>();
             try
             {
-                List<Contenuto> contenutos = _contenutoService.GetByCodicePagina(type);
-                if (contenutos == null)
+                List <Pagina> paginas  = _paginaService.GetByCodice(type);
+                if (paginas == null)
                 {
                     return Ok();
                 }
                 else
                 {
                     int id = 0;
-                    foreach (Contenuto c in contenutos)
+                    foreach (Pagina p in paginas)
                     {
                         ContenutoModel contenuto = new ContenutoModel();
-                        contenuto.ContenutoTitolo = type;
-                        id++;
-                        contenuto.Id = "collapse" + id.ToString();
-                        switch (c.Tipo.ToLower())
+                        List<Contenuto> contenutos = _contenutoService.GetByPaginaId(p.Id);
+                        if (contenutos.Count > 0)
                         {
-                            case "icona":
-                                contenuto.ContenutoIcon = c.ContentuoCard;
-                                break;
-                            case "testo":
-                                contenuto.ContenutoTesto = c.ContentuoCard;
-                                break;
-                            case "link":
-                                contenuto.ContenutoLink = c.ContentuoCard;
-                                break;
-                            case "header":
-                                contenuto.ContenutoHeader = c.ContentuoCard;
-                                break;
+                            foreach (Contenuto c in contenutos)
+                            {
+                                contenuto.Id = "collapse" + id.ToString();
+                                switch (c.Tipo.ToLower())
+                                {
+                                    case "icona":
+                                        contenuto.ContenutoIcon = c.ContentuoCard;
+                                        break;
+                                    case "testo":
+                                        contenuto.ContenutoTesto = c.ContentuoCard;
+                                        break;
+                                    case "link":
+                                        contenuto.ContenutoLink = c.ContentuoCard;
+                                        break;
+                                    case "header":
+                                        contenuto.ContenutoHeader = c.ContentuoCard;
+                                        break;
 
+                                }
+                            }                            
+                             model.Add(contenuto); 
                         }
-                        model.Add(contenuto);
                     }
                 }
             }

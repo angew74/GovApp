@@ -109,14 +109,14 @@ namespace GovApp.Controllers
                 var user = _utentiService.FindByNameAsync(name, cancellationToken).Result;
                 if (user == null || user.EmailConfirmed)
                 {
-                    return View("/account/accessdenied");
+                    return Redirect("/account/accessdenied");
                 }        
             }
             catch (Exception ex)
             {
                 _logger.LogError("Eccezione non gestita dettagli: " + ex.Message);
                 error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
-                return View("/Error",error);
+                return RedirectToAction("/Error",error);
             }
             return View();
         }     

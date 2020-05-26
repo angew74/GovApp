@@ -55,14 +55,14 @@ const store = {
                 commit('setProfile', {})
             })
         },        
-        confirmemail({ commit }, confirm) {
+        authconfirm({ commit }, confirm) {
             return axios.post('/api/auth/Confirmation', confirm
                 , {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 }).then(res => {
-                    if (res.status === 200 && res.response.data.result === true) { commit('setUrl', error.response.data.url); }
+                    if (res.status === 200 && res.data.confirm.result === true) { commit('setUrl', res.data.confirm.url); }
                     else {commit('message', res.message); }
                 }).catch((error) => {
                     if (error.response.data !== null) {

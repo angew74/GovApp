@@ -30,6 +30,9 @@ namespace Gov.Structure.Services
             return _dbset.FirstOrDefault(x => x.Id == Id);
         }
 
-       
+        public List<Contenuto> GetByPaginaId(int id)
+        {
+            return _dbset.Include(i => i.Pagina).Where(x => x.Pagina.Id == id).ToList();
+        }
     }
 }

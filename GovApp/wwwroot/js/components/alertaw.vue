@@ -18,6 +18,11 @@
                 dismissSecs: 5               
             }
         },
+        watch: {
+            dismissCountDown(newVal) {
+                this.dismissCountDown = newVal;
+            }
+        },
         methods:
         {
             countDownChanged(dismissCountDown) {

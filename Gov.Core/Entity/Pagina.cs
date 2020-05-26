@@ -25,10 +25,12 @@ namespace Gov.Core.Entity
         [Column]
         [Required]
         [MaxLength(10)]
-        public string Codice { get; set; }        
-       
+        public string Codice { get; set; }
+
         public int RoleId { get; set; }
         public virtual ApplicationRole Role { get; set; }
+
+      
        
        
     }

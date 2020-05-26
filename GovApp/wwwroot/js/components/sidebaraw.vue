@@ -30,7 +30,7 @@
                     esci dall'applicazione
                 </b-tooltip>
             </b-nav-item>
-            <b-nav-item href="/account/myprofile" v-if="isAuthenticated">
+            <b-nav-item v-if="isAuthenticated" href="/account/myprofile" active>
                 <b-iconstack id="user-icon" font-scale="1.7">
                     <b-icon icon="person-fill" class="rounded-circle bg-danger p-2" variant="light"></b-icon>
                 </b-iconstack>
@@ -38,12 +38,14 @@
                     vedi il tuo profilo {{ profile.name }}
                 </b-tooltip>
             </b-nav-item>
-            <b-button v-if="!isAuthenticated" id="login-button" v-b-modal.prevent.loginModal style="background-color:#343a40;border:none" variant="dark" class="mb-2" size="xl" type="submit">
-                <b-icon icon="person-fill" aria-label="Help"></b-icon><br />Accedi
-            </b-button>
-            <b-tooltip target="login-button" triggers="hover">
-               accedi all'applicazione 
-            </b-tooltip>
+            <b-nav-item v-if="!isAuthenticated">
+                <b-button  id="login-button" v-b-modal.prevent.loginModal style="background-color:#343a40;border:none" variant="dark" class="mb-2" size="xl" type="submit">
+                    <b-icon icon="person-fill" aria-label="Help"></b-icon><br />Accedi
+                </b-button>
+                <b-tooltip target="login-button" triggers="hover">
+                    accedi all'applicazione
+                </b-tooltip>
+                </b-nav-item>
         </b-navbar>
         <div v-if="isAuthenticated">
             <b-sidebar v-if="voci.length" id="sidebar-1" bg-variant="dark" shadow>

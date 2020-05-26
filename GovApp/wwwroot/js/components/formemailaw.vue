@@ -1,6 +1,6 @@
 ﻿<template>
     <div class="container" style="margin-top:140px;">
-        <b-form @submit="onSubmit" v-if="show">
+        <b-form @submit.prevent="handleSubmit" v-if="show">
             <b-form-group id="emailgroup"
                           label="Email address:"
                           label-for="email"
@@ -62,14 +62,14 @@
         },
         methods: {
             ...mapActions('context', [
-                'confirmemail'
+                'authconfirm'
             ]),
             showAlert(message, dismissSecs) {
                 this.messaggio = message;
                 this.dismiss = dismissSecs;
             },
-            onSubmit(evt) {
-                this.confirmemail({ authMethod: this.authMode, confirm: this.form }).then(() => {
+            handleSubmit() {
+                this.authconfirm({ authMethod: this.authMode, confirm: this.form }).then(() => {
                     if (this.$store.getters["context/isMessage"]) {
                         this.showAlert(this.$store.getters["context/Message"], "10");
                     }
@@ -78,17 +78,7 @@
                     }
                 })
             }
-        },
-        /*
-        onReset(evt) {
-            evt.preventDefault()
-            // Reset our form values
-            this.form.email = ''
-            this.form.name = ''
-            this.form.password = ''
-            this.form.confirmpassword = ''        // Trick to reset/clear native browser form validation state
-            this.show = false
-        }*/
+        }       
     }
 
 </script>

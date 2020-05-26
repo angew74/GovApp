@@ -224,7 +224,7 @@ namespace Gov.Structure
 
             modelBuilder.Entity<ApplicationUser>(entity =>
             {
-                entity.HasMany<UserAudit>().WithOne().HasForeignKey(uc => uc.UserAuditId).IsRequired();
+                entity.HasMany<UserAudit>().WithOne().HasForeignKey(uc => uc.IdUtente).IsRequired();
                 entity.HasMany<Userclaims>().WithOne().HasForeignKey(uc => uc.UserId).IsRequired();
                 entity.HasMany<Userlogins>().WithOne().HasForeignKey(ul => ul.UserId).IsRequired();
                 entity.HasMany<Usertokens>().WithOne().HasForeignKey(ut => ut.UserId).IsRequired();
@@ -593,7 +593,7 @@ namespace Gov.Structure
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                RoleId =Roles.Single(i => i.Name == "user").Id,
                 Denominazione = "Inserimento Premier"
             },
             new Pagina
@@ -603,7 +603,7 @@ namespace Gov.Structure
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                RoleId = Roles.Single(i => i.Name == "admin").Id,
+                RoleId = Roles.Single(i => i.Name == "user").Id,
                 Denominazione = "Modifica Premier"
             },
             new Pagina
@@ -613,7 +613,7 @@ namespace Gov.Structure
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                RoleId = Roles.Single(i => i.Name == "admin").Id,
+                RoleId = Roles.Single(i => i.Name == "user").Id,
                 Denominazione = "Visualizzazione Premier"
             },
             new Pagina
@@ -653,8 +653,17 @@ namespace Gov.Structure
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                RoleId =Roles.Single(i => i.Name == "user").Id,
                 Denominazione = "Mio Profilo"
+            }, new Pagina
+            {
+                Id = 12,
+                Codice = "Rights",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Gestione Abilitazioni"
             } };
             modelBuilder.Entity<Pagina>().HasData(Pagine);
             var Voci = new VoceMenu[] {
@@ -703,7 +712,7 @@ namespace Gov.Structure
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                RoleId =Roles.Single(i => i.Name == "user").Id,
                 Voce = "Partito"
             },
             new VoceMenu
@@ -727,7 +736,7 @@ namespace Gov.Structure
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                RoleId = Roles.Single(i => i.Name == "admin").Id,
+                RoleId = Roles.Single(i => i.Name == "user").Id,
                 Voce = "Premier"
             },
             new VoceMenu
@@ -740,7 +749,7 @@ namespace Gov.Structure
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 Voce = "Governo",
-                RoleId = Roles.Single(i => i.Name == "admin").Id
+                RoleId = Roles.Single(i => i.Name == "user").Id
             },
             new VoceMenu
             {
@@ -751,7 +760,7 @@ namespace Gov.Structure
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                RoleId = Roles.Single(i => i.Name == "admin").Id,
+                RoleId = Roles.Single(i => i.Name == "user").Id,
                 Voce = "Dicastero"
             },
             new VoceMenu
@@ -776,8 +785,19 @@ namespace Gov.Structure
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "admin").Id,
-                Voce = "Partito"
-            } };
+                Voce = "Account"
+            },  new VoceMenu
+            {
+                Id = 11,
+                Icona = "handshake",
+                Link = "/rights/index",
+                Active = true,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId = Roles.Single(i => i.Name == "admin").Id,
+                Voce = "Abilitazioni"
+            }};
             modelBuilder.Entity<VoceMenu>().HasData(Voci);
             var TipiContenuto = new TipoContenuto[]
         {

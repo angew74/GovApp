@@ -20,7 +20,36 @@ module.exports = {
         'confirmemail': [
             './wwwroot/js/app.js',
             './Views/Account/ConfirmEmail.cshtml.js'
-            ]
+        ],
+        'accessdenied': [
+            './wwwroot/js/app.js',
+            './Views/Account/AccessDenied.cshtml.js'
+        ],
+        'logoutconfirmation': [
+            './wwwroot/js/app.js',
+            './Views/Account/logoutconfirmation.cshtml.js'
+        ],
+        'account': [
+            './wwwroot/js/app.js',
+            './Views/Account/index.cshtml.js'
+        ],
+        'confirmemailconfirmation': [
+            './wwwroot/js/app.js',
+            './Views/Account/confirmemailconfirmation.cshtml.js'
+        ],
+        'changepassword': [
+            './wwwroot/js/app.js',
+            './Views/Account/changepassword.cshtml.js'
+        ],
+        'confirmpassword': [
+            './wwwroot/js/app.js',
+            './Views/Account/changepasswordconfirm.cshtml.js'
+        ],
+        'rights': [
+            './wwwroot/js/app.js',
+            './Views/Rights/index.cshtml.js'
+        ]
+
     },
     output: {      
         filename: '[name].bundle.js',
