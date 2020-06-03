@@ -1,33 +1,21 @@
 ﻿<template>
-    <b-alert :show="dismissCountDown"
+    <b-alert :show="showDismissibleAlert"
              dismissible
              fade
-             variant="danger"
-             @dismissed="dismissCountDown=0"
-             @dismiss-count-down="countDownChanged">
-        {{ message }}
+             variant="danger">
+    <v-icon name="exclamation-circle"></v-icon>{{ message }}
     </b-alert>
 </template>
 <script>   
     export default {
         name: 'alertaw',
         namespaced: true,
-        props: ['message', 'dismissCountDown'],
+        props: ['message','showDismissibleAlert'],
         data() {
-            return {
-                dismissSecs: 5               
+            return {                        
             }
-        },
-        watch: {
-            dismissCountDown(newVal) {
-                this.dismissCountDown = newVal;
-            }
-        },
-        methods:
-        {
-            countDownChanged(dismissCountDown) {
-                this.dismissCountDown = dismissCountDown
-            }
-        }
+        },       
+        computed: 
+        {}
     }
 </script>

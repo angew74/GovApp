@@ -19,6 +19,7 @@ using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
+using Gov.Structure.Identity;
 
 namespace GovApp.api
 {
@@ -26,13 +27,13 @@ namespace GovApp.api
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IUserStore<ApplicationUser> _utentiService;
+        private readonly UserStore _utentiService;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationUserManager _userManager;
         private readonly ILogger<ChangePasswordModel> _logger;
         private readonly IOptions<ComunicazioneConfig> _config;
-        public AuthController(IUserStore<ApplicationUser> utentiService, SignInManager<ApplicationUser> SignInManager, UserManager<ApplicationUser> userManager, ILogger<ChangePasswordModel> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config)
+        public AuthController(UserStore utentiService, SignInManager<ApplicationUser> SignInManager, ApplicationUserManager userManager, ILogger<ChangePasswordModel> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config)
         {
             _utentiService = utentiService;
             _userManager = userManager;
@@ -45,7 +46,9 @@ namespace GovApp.api
         public class Input
         {
             public Credentials credentials { get; set; }
-            public ConfirmEmail confirm { get; set; }
+            public Confirm confirm { get; set; }
+            public Confirm change { get; set; }
+            public UserModel user { get; set; }
         }
 
         public class Credentials
@@ -143,7 +146,7 @@ namespace GovApp.api
         [HttpGet("confirm")]
         public async Task<IActionResult> Confirm()
         {
-            ConfirmEmail model = new ConfirmEmail();
+            Confirm model = new Confirm();
             string name = this.User?.Identity?.Name;
             ErrorModel error = new ErrorModel();
             CancellationToken cancellationToken = new CancellationToken();
@@ -152,7 +155,7 @@ namespace GovApp.api
                 var user = await _utentiService.FindByNameAsync(name, cancellationToken);
                 if (user != null)
                 {
-                    model = new ConfirmEmail
+                    model = new Confirm
                     {
                         Email = user.Email,
                         UserName = user.UserName,
@@ -217,6 +220,204 @@ namespace GovApp.api
                 return BadRequest(error);
             }          
             return Ok(model);
+        }
+
+        [Authorize]
+        [HttpPost("register")]
+        [IgnoreAntiforgeryToken]
+        public async Task<IActionResult> Register([FromBody] Input model)
+        {
+            model.user.result = false;
+            ErrorModel error = new ErrorModel();
+            if (!ModelState.IsValid)
+            {
+                error.errMsg = "Errore di validazione";
+                return BadRequest(error);
+            }
+            try
+            {
+                var user = _userManager.FindByNameAsync(model.user.userName).Result;
+                if (user != null)
+                {
+                    _logger.LogError("Impossibile creare utente con Username '{model.user.userName}'. utente già esistente");
+                    error.errMsg = "Impossibile creare utente con Username '{model.user.userName}'. utente già esistente";
+                    return BadRequest(error);
+                }
+                var hasher = new PasswordHasher<IdentityUser>();
+                var passwordhash = hasher.HashPassword(null, model.user.password);
+                user = new ApplicationUser()
+                {
+                    Password = model.user.password,
+                    CodiceFiscale = model.user.codicefiscale,
+                    EmailConfirmed = false,
+                    PasswordHash = passwordhash,
+                    AccessFailedCount = 0,
+                    Cognome = model.user.cognome,
+                    Nome = model.user.nome,
+                    NormalizedEmail = model.user.email.ToLower(),
+                    Email = model.user.email.ToLower(),
+                    NormalizedUserName = model.user.userName.ToLower(),
+                    UserName = model.user.userName,
+                    Sesso = model.user.sesso,
+                    
+                };
+                List<ApplicationUserRole> applicationUserRoles = new List<ApplicationUserRole>();
+                applicationUserRoles.Add(new ApplicationUserRole { RoleId = 2 });
+           //     user.UserRoles = applicationUserRoles;
+                CancellationToken cancellationToken = new CancellationToken();
+                var result = await _utentiService.CreateAsync(user, cancellationToken);
+                if (result.Succeeded)
+                {                  
+                    model.user.result = true;
+                }
+                else
+                {
+                    _logger.LogError("Errore nella creazione utente");
+                    error.errMsg = "Errore nella creazione utente";
+                    return BadRequest(error);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Eccezione non gestita dettagli: " + ex.Message);
+                error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
+                return BadRequest(error);
+            }
+            return Ok(model);
+        }
+
+        [Authorize]
+        [HttpPost("change")]
+        [IgnoreAntiforgeryToken]
+        public async Task<IActionResult> ChangePassword([FromBody] Input model)
+        {
+            model.change.Result = false;
+            ErrorModel error = new ErrorModel();
+            if (!ModelState.IsValid)
+            {
+                error.errMsg = "Errore di validazione";
+                return BadRequest(error);
+            }
+            try
+            {
+                var user = _userManager.FindByIdAsync(model.confirm.Id).Result;
+                if (user == null)
+                {
+                    _logger.LogError("Impossibile aggiornare utente con ID '{model.confirm.Id}'.");
+                    error.errMsg = "Impossibile aggiornare utente con ID '{model.confirm.Id}'.";
+                    return BadRequest(error);
+                }
+                user.Password = model.change.Password;             
+                CancellationToken cancellationToken = new CancellationToken();
+                var result = await _utentiService.UpdateAsync(user, cancellationToken);
+                if (result.Succeeded)
+                {
+                    model.change.Url = "/account/ChangePasswordConfirm";
+                    model.change.Result = true;
+                }
+                else
+                {
+                    _logger.LogError("Errore nell'aggiornamento dei dati");
+                    error.errMsg = "Errore nell'aggiornamento dei dati";
+                    return BadRequest(error);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Eccezione non gestita dettagli: " + ex.Message);
+                error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
+                return BadRequest(error);
+            }
+            return Ok(model);
+        }
+
+        [Authorize]
+        [HttpGet("users")]
+        public async Task<IActionResult> GetUsers()
+        {
+
+            ErrorModel error = new ErrorModel();
+            List<UserModel> usersmodel = new List<UserModel>();
+            try
+            {
+                var users = _utentiService.GetAll();
+                if (users == null)
+                {
+                    return Ok(usersmodel);
+                }
+
+                usersmodel = users.Select(x => new UserModel
+                {
+                    cognome = x.Cognome,
+                    email = x.Email,
+                    isActive = !x.LockoutEnabled,
+                    nome = x.Nome,
+                    userName = x.UserName,                  
+                    role = string.Join(",", x.Roles.ToList())
+                }).ToList();
+               
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Eccezione non gestita dettagli: " + ex.Message);
+                error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
+                return BadRequest(error);
+            }
+            return  await System.Threading.Tasks.Task.FromResult(Ok(usersmodel));
+        }
+
+        [Authorize]
+        [HttpGet("pagination")]
+        public async Task<IActionResult> GetPagination(string page)
+        {
+            PaginationModel model = new PaginationModel();
+            switch(page)
+            {
+                case "users":
+                    List<PaginationModel.Field> fields = new List<PaginationModel.Field>();
+                    PaginationModel.Field field = new PaginationModel.Field();
+                    field.key = "userName";
+                    field.label = "UserName";
+                    field.sortable = true;
+                    field.sortDirection = "desc";
+                    fields.Add(field);
+                    PaginationModel.Field field1 = new PaginationModel.Field();
+                    field1.key = "email";
+                    field1.label = "Email";
+                    field1.sortable = true;
+                    field1.sortDirection = "desc";
+                    field1.cssclass = "text-center";
+                    fields.Add(field1);
+                    PaginationModel.Field field2 = new PaginationModel.Field();
+                    field2.key = "isActive";
+                    field2.label = "Attivo";
+                    field2.sortable = true;
+                    field2.sortByFormatted = true;
+                    field2.filterByFormatted = true;
+                    field2.cssclass = "text-center";
+                    field2.formatter = " (value, key, item) => {return value ? 'Si' : 'No'}";
+                    fields.Add(field2);
+                    PaginationModel.Field field3 = new PaginationModel.Field();
+                    field3.key = "actions";
+                    field3.label = "Azioni";
+                    fields.Add(field3);
+                    model.totalRows = "1";
+                    model.currentPage = "1";
+                    model.perPage = "5";
+                    List<int> options = new List<int> { 5, 10, 15 };
+                    model.pageOptions = options.ToArray();
+                    model.sortBy = "userName";
+                    model.sortDesc = false;
+                    model.sortDirection = "asc";
+                    model.filter = "a";
+                    List<string> f = new List<string> { "userName", "email" };
+                    model.filterOn = f.ToArray();
+                    model.infoMal = new PaginationModel.InfoModale { content = "", id = "info-modal", title = "" };
+                    model.fields = fields.ToArray();
+                    break;
+            }
+
+            return await System.Threading.Tasks.Task.FromResult(Ok(model));
         }
     }
 }

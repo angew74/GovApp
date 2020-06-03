@@ -24,16 +24,23 @@ namespace Gov.Structure.Identity
                   store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services,
                   logger)
         {
+            
         }
 
+               
 
+        
 
         public async Task<int> GetUsersCounts()
         {
             return await new Task<int>(() => Users.Count());
 
         }
-
+        public List<ApplicationUser> GetAllUsers()
+        {
+            List<ApplicationUser> utentis = dbcontext.Users.Include(i=>i.Roles).AsParallel().ToList();
+            return utentis;
+        }
         public async Task<ApplicationUser> FindByIdAsync(int id)
         {
             CancellationToken cancellationToken = new CancellationToken();

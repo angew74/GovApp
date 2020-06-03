@@ -1,5 +1,22 @@
 ﻿@import "common/footer.css";
 @import "common/error.css";
+
+
+html, body { 
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    position: relative;    
+    margin-bottom: 100px;
+}
+
+
 .nav-link {
     color: white;
 }

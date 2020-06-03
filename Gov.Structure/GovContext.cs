@@ -224,11 +224,11 @@ namespace Gov.Structure
 
             modelBuilder.Entity<ApplicationUser>(entity =>
             {
-                entity.HasMany<UserAudit>().WithOne().HasForeignKey(uc => uc.IdUtente).IsRequired();
-                entity.HasMany<Userclaims>().WithOne().HasForeignKey(uc => uc.UserId).IsRequired();
-                entity.HasMany<Userlogins>().WithOne().HasForeignKey(ul => ul.UserId).IsRequired();
-                entity.HasMany<Usertokens>().WithOne().HasForeignKey(ut => ut.UserId).IsRequired();
-                entity.HasMany<ApplicationUserRole>().WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
+                entity.HasMany<UserAudit>().WithOne().HasForeignKey(uc => uc.IdUtente);
+                entity.HasMany<Userclaims>().WithOne().HasForeignKey(uc => uc.UserId);
+                entity.HasMany<Userlogins>().WithOne().HasForeignKey(ul => ul.UserId);
+                entity.HasMany<Usertokens>().WithOne().HasForeignKey(ut => ut.UserId);
+              //  entity.HasMany<ApplicationUserRole>().WithOne().HasForeignKey(ur => ur.UserId);
             });
 
             modelBuilder.Entity<ApplicationUser>()
@@ -371,7 +371,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 2,
-                ContentuoCard = "user-secret",
+                ContentuoCard = "person-plus-fill",
                 Tipo = "Icona",
                 TipoContenutoId = 2,
                 CreatedBy = "Caricamento",
@@ -415,7 +415,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 6,
-                ContentuoCard = "user-secret",
+                ContentuoCard = "person-check-fill",
                 Tipo = "Icona",
                 TipoContenutoId = 2,
                 CreatedBy = "Caricamento",
@@ -459,7 +459,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 10,
-                ContentuoCard = "user-secret",
+                ContentuoCard = "people-fill",
                 Tipo = "Icona",
                 TipoContenutoId = 2,
                 CreatedBy = "Caricamento",
@@ -488,21 +488,10 @@ namespace Gov.Structure
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 PaginaId = 3
-            },
+            },            
             new Contenuto
             {
                 Id = 13,
-                ContentuoCard = "Premier Visualizzazione",
-                Tipo = "Header",
-                TipoContenutoId = 4,
-                CreatedBy = "Caricamento",
-                CreatedDate = DateTime.Now,
-                UpdatedBy = null,
-                PaginaId = 3
-            },
-            new Contenuto
-            {
-                Id = 14,
                 ContentuoCard = "Da questa pagina è possibile gestire gli Utenti",
                 Tipo = "Testo",
                 TipoContenutoId = 1,
@@ -513,8 +502,8 @@ namespace Gov.Structure
             },
             new Contenuto
             {
-                Id = 15,
-                ContentuoCard = "ApplicationUser",
+                Id = 14,
+                ContentuoCard = "people-fill",
                 Tipo = "Icona",
                 TipoContenutoId = 2,
                 CreatedBy = "Caricamento",
@@ -524,7 +513,7 @@ namespace Gov.Structure
             },
             new Contenuto
             {
-                Id = 16,
+                Id = 15,
                 ContentuoCard = "/account/index",
                 Tipo = "Link",
                 TipoContenutoId = 3,
@@ -535,7 +524,7 @@ namespace Gov.Structure
             },
             new Contenuto
             {
-                Id = 17,
+                Id = 16,
                 ContentuoCard = "Gestione Utenti",
                 Tipo = "Header",
                 TipoContenutoId = 4,
@@ -543,6 +532,150 @@ namespace Gov.Structure
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 PaginaId = 8
+            }, new Contenuto
+            {
+                Id = 17,
+                ContentuoCard = "Da questa pagina è possibile registrare nuovi utenti",
+                Tipo = "Testo",
+                TipoContenutoId = 1,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 9
+            },
+            new Contenuto
+            {
+                Id = 18,
+                ContentuoCard = "person-plus-fill",
+                Tipo = "Icona",
+                TipoContenutoId = 2,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 9
+            },
+            new Contenuto
+            {
+                Id = 19,
+                ContentuoCard = "/account/register",
+                Tipo = "Link",
+                TipoContenutoId = 3,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 9
+            },
+            new Contenuto
+            {
+                Id = 20,
+                ContentuoCard = "Registrazione Utente",
+                Tipo = "Header",
+                TipoContenutoId = 4,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 9
+            },new Contenuto
+            {
+                Id = 21,
+                ContentuoCard = "Da questa pagina è possibile cambiare la password",
+                Tipo = "Testo",
+                TipoContenutoId = 1,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 12
+            },
+            new Contenuto
+            {
+                Id = 22,
+                ContentuoCard = "gear-wide-connected",
+                Tipo = "Icona",
+                TipoContenutoId = 2,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 12
+            },
+            new Contenuto
+            {
+                Id = 23,
+                ContentuoCard = "/account/changepassword",
+                Tipo = "Link",
+                TipoContenutoId = 3,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 12
+            },
+            new Contenuto
+            {
+                Id = 24,
+                ContentuoCard = "Cambio password",
+                Tipo = "Header",
+                TipoContenutoId = 4,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 12
+            },new Contenuto
+            {
+                Id = 25,
+                ContentuoCard = "image/utenti",
+                Tipo = "Image",
+                TipoContenutoId = 5,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 14
+            },new Contenuto
+            {
+                Id = 26,
+                ContentuoCard = "Gestione Utenti",
+                Tipo = "Titolo",
+                TipoContenutoId = 6,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 14
+            },new Contenuto{
+                Id = 27,
+                ContentuoCard = "image/premier",
+                Tipo = "Image",
+                TipoContenutoId = 5,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 14
+            },new Contenuto
+            {
+                Id = 28,
+                ContentuoCard = "Gestione Premier",
+                Tipo = "Titolo",
+                TipoContenutoId = 6,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 14
+            },new Contenuto{
+                Id = 29,
+                ContentuoCard = "image/governo",
+                Tipo = "Image",
+                TipoContenutoId = 5,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 14
+            },new Contenuto
+            {
+                Id = 30,
+                ContentuoCard = "Gestione Governo",
+                Tipo = "Titolo",
+                TipoContenutoId = 6,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 14
             }};
             modelBuilder.Entity<Contenuto>().HasData(Contenuti);
             var Pagine = new Pagina[] {
@@ -664,19 +797,35 @@ namespace Gov.Structure
                 UpdatedBy = null,
                 RoleId =Roles.Single(i => i.Name == "admin").Id,
                 Denominazione = "Gestione Abilitazioni"
-            } };
+            }, new Pagina{
+                Id = 13,
+                Codice = "User",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "user").Id,
+                Denominazione = "Cambio Password"
+            },new Pagina{
+                Id = 14,
+                Codice = "Home",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "user").Id,
+                Denominazione = "Home page"
+            }};
             modelBuilder.Entity<Pagina>().HasData(Pagine);
             var Voci = new VoceMenu[] {
             new VoceMenu
             {
                 Id = 1,
                 Icona = "user-secret",
-                Link = "/partito/index",
+                Link = "/premier/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                RoleId = Roles.Single(i => i.Name == "admin").Id,
+                RoleId = Roles.Single(i => i.Name == "user").Id,
                 Voce = "Premier"
             },
             new VoceMenu
@@ -689,7 +838,7 @@ namespace Gov.Structure
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 Voce = "Governo",
-                RoleId = Roles.Single(i => i.Name == "admin").Id
+                RoleId = Roles.Single(i => i.Name == "user").Id
             },
             new VoceMenu
             {
@@ -700,7 +849,7 @@ namespace Gov.Structure
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                RoleId = Roles.Single(i => i.Name == "admin").Id,
+                RoleId = Roles.Single(i => i.Name == "user").Id,
                 Voce = "Dicastero"
             },
             new VoceMenu
@@ -724,19 +873,19 @@ namespace Gov.Structure
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                RoleId = Roles.Single(i => i.Name == "admin").Id,
+                RoleId = Roles.Single(i => i.Name == "user").Id,
                 Voce = "Partito"
             },
             new VoceMenu
             {
                 Id = 6,
                 Icona = "user-secret",
-                Link = "/partito/index",
+                Link = "/premier/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                RoleId = Roles.Single(i => i.Name == "user").Id,
+                RoleId = Roles.Single(i => i.Name == "admin").Id,
                 Voce = "Premier"
             },
             new VoceMenu
@@ -749,7 +898,7 @@ namespace Gov.Structure
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 Voce = "Governo",
-                RoleId = Roles.Single(i => i.Name == "user").Id
+                RoleId = Roles.Single(i => i.Name == "admin").Id
             },
             new VoceMenu
             {
@@ -760,7 +909,7 @@ namespace Gov.Structure
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                RoleId = Roles.Single(i => i.Name == "user").Id,
+                RoleId = Roles.Single(i => i.Name == "admin").Id,
                 Voce = "Dicastero"
             },
             new VoceMenu
@@ -832,6 +981,20 @@ namespace Gov.Structure
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 Codice = "Header"
+            }, new TipoContenuto
+            {
+                Id = 5,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                Codice = "Image"
+            },new TipoContenuto
+             {
+                Id = 6,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                Codice = "Titolo"
             }
         };
             modelBuilder.Entity<TipoContenuto>().HasData(TipiContenuto);

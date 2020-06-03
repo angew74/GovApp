@@ -1,26 +1,28 @@
 ﻿<template>
     <div>
         <app-sidebar></app-sidebar>
-        <div>
-            <b-jumbotron bg-variant="danger" text-variant="white" border-variant="dark">
-                <template v-slot:header>
-                Accesso Negato
-                </template>
+        <div class="wrapper">
+            <div class="container-fluid" style="width:70%" id="body-container-fluid">
+                <b-jumbotron bg-variant="danger" text-variant="white" border-variant="dark">
+                    <template v-slot:header>
+                        Accesso Negato
+                    </template>
 
-                <template v-slot:lead>
-                  Utente  {{ profile.name }} non sei abilitato all'accesso a questa area dell'applicazione, oppure la funzione richiesta non è al momento disponibile. 
-                </template>
+                    <template v-slot:lead>
+                        Utente  {{ profile.name }} non sei abilitato all'accesso a questa area dell'applicazione, oppure la funzione richiesta non è al momento disponibile.
+                    </template>
 
-                <hr class="my-4">
+                    <hr class="my-4">
 
-                <p>
-                   Contattare l'amministratore di riferimento o quello di sistema se si ritiene di avere diritto all'accesso a questa area dell'applicazine
-                </p>
-            </b-jumbotron>
+                    <p>
+                        Contattare l'amministratore di riferimento o quello di sistema se si ritiene di avere diritto all'accesso a questa area dell'applicazine
+                    </p>
+                </b-jumbotron>
+            </div>
+            </div>
+            <app-footer></app-footer>
+            <error-bound></error-bound>
         </div>
-        <app-footer></app-footer>
-        <error-bound></error-bound>
-    </div>
 </template>
 
 <script>

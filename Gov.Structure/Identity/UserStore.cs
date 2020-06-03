@@ -29,9 +29,9 @@ namespace Gov.Structure.Identity
 
         #region userstore 
 
-        private List<ApplicationUser> GetAll()
+        public List<ApplicationUser> GetAll()
         {
-            List<ApplicationUser> utentis = dbcontext.Users.AsParallel().ToList();
+            List<ApplicationUser> utentis = dbcontext.Users.Include(i=>i.Roles).AsParallel().ToList();
             return utentis;
         }
 
@@ -54,18 +54,20 @@ namespace Gov.Structure.Identity
             if (user == null) throw new ArgumentNullException(nameof(user));
             var hasher = new PasswordHasher<IdentityUser>();
             string password = PasswordGenerator.Generate();
-            string passwordhash = hasher.HashPassword(null, password); 
-            ApplicationUserRole userRoles = new ApplicationUserRole()
-            {               
-                RoleId = (int)RolesTypes.User
-            };
-            user.UserRoles.Add(userRoles);
+            string passwordhash = hasher.HashPassword(null, password);     
             await dbcontext.AddAsync(user);
             int rows = dbcontext.SaveChanges();
             if (rows > 0)
             {
                 user.Password = password;
-                user.PasswordHash = passwordhash;
+                user.PasswordHash = passwordhash;               
+                ApplicationUserRole userRoles = new ApplicationUserRole()
+                {
+                    RoleId = (int)RolesTypes.User,
+                    UserId = user.Id
+                };
+                await dbcontext.UserRoles.AddAsync(userRoles);
+                int rowsu = dbcontext.SaveChanges();
                 return IdentityResult.Success;
             }
             return IdentityResult.Failed(new IdentityError { Description = $"Impossibile registrare l'utente {user.Email}." });
@@ -78,8 +80,8 @@ namespace Gov.Structure.Identity
             if (user == null) throw new ArgumentNullException(nameof(user));
             try
             {
-                ApplicationUser s = await Task.Run(() => dbcontext.Users.Include(u=>u.UserRoles).Where(x => x.Id == user.Id).FirstOrDefault());
-                if(s.UserRoles.Where(x=>x.RoleId ==(int) RolesTypes.Administrator).Count() > 0)
+                ApplicationUser s = await Task.Run(() => dbcontext.Users.Include(u=>u.Roles).Where(x => x.Id == user.Id).FirstOrDefault());
+                if(s.Roles.Where(x=>x.Id ==(int) RolesTypes.Administrator).Count() > 0)
                 {
                     return IdentityResult.Failed(new IdentityError { Description = $"Impossibile cancellare l'utente {user.UserName}. Utente amministratore" });
                 }
@@ -112,7 +114,7 @@ namespace Gov.Structure.Identity
             {
                 throw new Exception("User Id deve essere numerico");
             }
-            ApplicationUser u = await Task.Run(() => dbcontext.Users.Include(i=>i.UserRoles).Include(i=>i.Roles).Where(x => x.Id == id).FirstOrDefault());
+            ApplicationUser u = await Task.Run(() => dbcontext.Users.Include(i=>i.Roles).Where(x => x.Id == id).FirstOrDefault());
             return u;
         }
 
@@ -121,7 +123,7 @@ namespace Gov.Structure.Identity
             if (string.IsNullOrWhiteSpace(normalizedUserName))
                 throw new Exception("UserName  obbligatorio");
 
-            var u = await Task.Run(() => dbcontext.Users.Include(u => u.UserRoles).Include(ur => ur.Roles).Where(x => x.UserName == normalizedUserName).FirstOrDefault());
+            var u = await Task.Run(() => dbcontext.Users.Include(ur => ur.Roles).Where(x => x.UserName == normalizedUserName).FirstOrDefault());
             if (u == null)
             { return null; }             
             return u;
@@ -137,7 +139,7 @@ namespace Gov.Structure.Identity
             if (user == null)
                 throw new Exception("user  obbligatorio");
 
-            ApplicationUser u = await Task.Run(() => dbcontext.Users.Include(u => u.UserRoles).Include(ur => ur.Roles).Where(x => x.Id == user.Id).First());
+            ApplicationUser u = await Task.Run(() => dbcontext.Users.Include(ur => ur.Roles).Where(x => x.Id == user.Id).First());
             if (u == null)
             { return null; }
             return user.Id.ToString();
@@ -148,7 +150,7 @@ namespace Gov.Structure.Identity
             if (user == null)
                 throw new Exception("user  obbligatorio");
 
-            ApplicationUser u = await Task.Run(() => dbcontext.Users.Where(x => x.Id == user.Id).Include(u => u.UserRoles).Include(ur => ur.Roles).First());
+            ApplicationUser u = await Task.Run(() => dbcontext.Users.Where(x => x.Id == user.Id).Include(ur => ur.Roles).First());
             if (u == null)
             { return null; }
             return user.UserName;

@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Gov.Core.Identity;
 using Gov.Structure.Config;
+using Gov.Structure.Identity;
 using Gov.Structure.Services;
 using GovApp.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -37,14 +38,14 @@ namespace GovApp.Controllers
             return View();
         }
 
-        private readonly IUserStore<ApplicationUser> _utentiService;
+        private readonly UserStore _utentiService;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationUserManager _userManager;
         private readonly ILogger<ChangePasswordModel> _logger;
         private readonly IOptions<ComunicazioneConfig> _config;
 
-        public AccountController(IUserStore<ApplicationUser> utentiService, SignInManager<ApplicationUser> SignInManager, UserManager<ApplicationUser> userManager, ILogger<ChangePasswordModel> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config)
+        public AccountController(UserStore utentiService, SignInManager<ApplicationUser> SignInManager, ApplicationUserManager userManager, ILogger<ChangePasswordModel> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config)
         {
             _utentiService = utentiService;
             _userManager = userManager;
@@ -80,13 +81,11 @@ namespace GovApp.Controllers
             return View();
         }
 
-        [Authorize]
+        [AllowAnonymous]
         public IActionResult AccessDenied()
         {
             ErrorModel errorViewModel = new ErrorModel();
-            errorViewModel.errMsg = "Attenzione non sei abilitato a visualizzare questa pagina";
-            //  errorViewModel.errCode = "Errore gestito";
-            ViewBag.UserName = HttpContext.User.Identity.Name;
+            errorViewModel.errMsg = "Attenzione non sei abilitato a visualizzare questa pagina";   
             return View(errorViewModel);
         }
         [AllowAnonymous]
@@ -94,9 +93,7 @@ namespace GovApp.Controllers
         {
             return View();
         }
-
-        [TempData]
-        public string StatusMessage { get; set; }
+        
 
         [Authorize]
         public IActionResult ConfirmEmail()
@@ -129,7 +126,7 @@ namespace GovApp.Controllers
         }
 
 
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult ConfirmEmailConfirmation()
         {
             return View();
@@ -148,7 +145,17 @@ namespace GovApp.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = "RequireAdministratorRole")]
+        public IActionResult manage()
+        {
+            return View();
+        }
 
+        [Authorize(Policy = "RequireAdministratorRole")]
+        public IActionResult Register()
+        {
+            return View();
+        }
         [HttpPost]
         [Authorize(Policy = "RequireUserRole")]
         public IActionResult Change(ChangePasswordModel model)

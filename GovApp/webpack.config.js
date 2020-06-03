@@ -48,6 +48,14 @@ module.exports = {
         'rights': [
             './wwwroot/js/app.js',
             './Views/Rights/index.cshtml.js'
+        ],
+        'manage': [
+            './wwwroot/js/app.js',
+            './Views/Account/manage.cshtml.js'
+        ],
+        'register': [
+            './wwwroot/js/app.js',
+            './Views/Account/register.cshtml.js'
         ]
 
     },

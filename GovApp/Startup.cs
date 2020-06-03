@@ -8,6 +8,7 @@ using Gov.Core.Identity;
 using Gov.Structure;
 using Gov.Structure.Config;
 using Gov.Structure.Identity;
+using GovApp.Filters;
 using GovApp.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -104,7 +105,7 @@ namespace GovApp
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequireAdministratorRole",
-                     policy => policy.RequireClaim("administrator"));
+                     policy => policy.RequireClaim("admin"));
                 options.AddPolicy("RequireUserRole",
                     policy => policy.RequireClaim("user"));
                 options.AddPolicy("RequireGuestRole",
@@ -121,9 +122,13 @@ namespace GovApp
 
              });
             services.AddSession();
+            services.AddScoped<IUserStore<ApplicationUser>, UserStore>();
+            services.AddScoped<UserStore>();
+            services.AddScoped<UserManager<ApplicationUser>, ApplicationUserManager>();
             services.Configure<MailConfig>(Configuration.GetSection("mailConfig"));
             services.Configure<ComunicazioneConfig>(Configuration.GetSection("comunicazioneConfig"));
             services.AddScoped<GovCookieAuthenticationEvents>();
+            services.AddScoped<LockAuthorizePermission>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);         
         }
         public void ConfigureContainer(ContainerBuilder builder)

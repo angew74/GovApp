@@ -124,5 +124,56 @@ namespace GovApp.api
             }
             return Ok(model);
         }
+
+        [Authorize]
+        [HttpGet("/Values/carousel")]
+        public IActionResult GetCarousel([FromQuery] string type)
+        {
+            Dictionary<String, String> errors = null;
+            List<ContenutoModel> model = new List<ContenutoModel>();
+            try
+            {
+                List<Pagina> paginas = _paginaService.GetByCodice(type);
+                if (paginas == null)
+                {
+                    return Ok();
+                }
+                else
+                {
+                   
+                    foreach (Pagina p in paginas)
+                    {
+                        ContenutoModel contenuto = new ContenutoModel();
+                        List<Contenuto> contenutos = _contenutoService.GetByPaginaId(p.Id).OrderBy(z=>z.Id).ToList();
+                        if (contenutos.Count > 0)
+                        {
+                            foreach (Contenuto c in contenutos)
+                            {                             
+                                switch (c.Tipo.ToLower())
+                                {                                   
+                                    case "titolo":
+                                        contenuto.ContenutoTitolo = c.ContentuoCard;
+                                        model.Add(contenuto);
+                                        contenuto = new ContenutoModel();
+                                        break;
+                                    case "image":
+                                        contenuto.ContenutoImmagine = c.ContentuoCard;
+                                        break;
+                                }
+                            }
+                           
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                errors = new Dictionary<string, string>();
+                errors.Add("Errore grave", ex.Message);
+                _logger.LogError(errors.First().Value);
+                return BadRequest(errors.First().Value);
+            }
+            return Ok(model);
+        }
     }
 }

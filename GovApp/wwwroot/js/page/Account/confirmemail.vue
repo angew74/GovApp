@@ -1,9 +1,10 @@
 ﻿<template>
     <div>
         <app-sidebar></app-sidebar>
-        <app-formemail :dati="form"></app-formemail>
+        <app-formemail :dati="form" @finished="confirmdata"></app-formemail>
         <app-footer></app-footer>
         <error-bound></error-bound>
+        <app-alert :message="messaggio"></app-alert>
     </div>
 </template>
 
@@ -12,6 +13,7 @@
     import footeraw from '../../components/footeraw.vue';
     import errorboundaryaw from '../../components/error-boundaryaw.vue';
     import formemailaw from '../../components/formemailaw';
+    import alertaw from '../../components/alertaw.vue';
     import { mapGetters, mapState, mapActions } from 'vuex';
     export default {
         namespaced: true,
@@ -19,11 +21,13 @@
             'app-sidebar': sidebaraw,
             'app-footer': footeraw,
             'error-bound': errorboundaryaw,
-            'app-formemail': formemailaw
+            'app-formemail': formemailaw,
+            'app-alert': alertaw
         },
         data: function () {
             return {
-                form: {}
+                form: {},
+                messaggio: ''              
             }
         },
         created() {
@@ -44,7 +48,24 @@
         methods: {
             ...mapActions('context', [
                 'restoreContext'
-            ])
+            ]),
+            ...mapActions('context', [
+                'authconfirm'
+            ]),          
+            showAlert(message) {
+                this.messaggio = message;            
+            },
+            confirmdata(e) {
+                this.form = e;
+                this.authconfirm({ authMethod: this.authMode, confirm: this.form }).then(() => {
+                    if (this.$store.getters["context/isMessage"]) {
+                        this.showAlert(this.$store.getters["context/Message"]);
+                    }
+                    else if (this.$store.getters["context/isUrl"]) {
+                        window.location.href = this.$store.getters["context/Url"];
+                    }
+                })
+            }
         }
     }
 </script>

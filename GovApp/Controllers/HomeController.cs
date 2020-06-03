@@ -10,9 +10,11 @@ using Microsoft.AspNetCore.Authorization;
 using Gov.Core.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Threading;
+using GovApp.Filters;
 
 namespace GovApp.Controllers
 {
+   
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -28,6 +30,7 @@ namespace GovApp.Controllers
             _signInManager = SignInManager;
         }
         [Authorize(Policy = "RequireUserRole")]
+        [LockAuthorizePermission]
         public IActionResult Index()
         {
             string name = this.User?.Identity?.Name;

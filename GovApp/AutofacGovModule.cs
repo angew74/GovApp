@@ -1,7 +1,10 @@
 ﻿using Autofac;
+using Gov.Core.Identity;
 using Gov.Structure;
 using Gov.Structure.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -42,12 +45,12 @@ namespace GovApp
             builder.RegisterType(typeof(GovContext)).As(typeof(GovContext))
                  .WithParameter("options", dbContextOptionsBuilder.Options)
                 .InstancePerLifetimeScope();
-            
-         
-
-          /*  builder.RegisterType<GovContext>()
-                .WithParameter("options", dbContextOptionsBuilder.Options)
-                .InstancePerLifetimeScope();*/
+           // builder.RegisterType<Gov.Structure.Identity.UserStore>().As<IUserStore<ApplicationUser>>().InstancePerDependency();
+          //  builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
+         //   builder.Register(c => new Gov.Structure.Identity.UserStore(c.Resolve<GovContext>())).AsImplementedInterfaces().InstancePerRequest();
+            /*  builder.RegisterType<GovContext>()
+                  .WithParameter("options", dbContextOptionsBuilder.Options)
+                  .InstancePerLifetimeScope();*/
         }
     }
 }

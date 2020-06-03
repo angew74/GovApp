@@ -180,7 +180,7 @@ namespace Gov.Structure.Migrations
                             Id = 1,
                             ContentuoCard = "Da questa pagina è possibile registrare un nuovo Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(2599),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(921),
                             PaginaId = 1,
                             Tipo = "Testo",
                             TipoContenutoId = 1,
@@ -189,9 +189,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 2,
-                            ContentuoCard = "user-secret",
+                            ContentuoCard = "person-plus-fill",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3776),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(1978),
                             PaginaId = 1,
                             Tipo = "Icona",
                             TipoContenutoId = 2,
@@ -202,7 +202,7 @@ namespace Gov.Structure.Migrations
                             Id = 3,
                             ContentuoCard = "/premier/inserimento",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3812),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2026),
                             PaginaId = 1,
                             Tipo = "Link",
                             TipoContenutoId = 3,
@@ -213,7 +213,7 @@ namespace Gov.Structure.Migrations
                             Id = 4,
                             ContentuoCard = "Premier Inserimento",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3817),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2033),
                             PaginaId = 1,
                             Tipo = "Header",
                             TipoContenutoId = 4,
@@ -224,7 +224,7 @@ namespace Gov.Structure.Migrations
                             Id = 5,
                             ContentuoCard = "Da questa pagina è possibile modificare un Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3853),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2039),
                             PaginaId = 2,
                             Tipo = "Testo",
                             TipoContenutoId = 1,
@@ -233,9 +233,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 6,
-                            ContentuoCard = "user-secret",
+                            ContentuoCard = "person-check-fill",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3857),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2045),
                             PaginaId = 2,
                             Tipo = "Icona",
                             TipoContenutoId = 2,
@@ -246,7 +246,7 @@ namespace Gov.Structure.Migrations
                             Id = 7,
                             ContentuoCard = "/premier/modifica",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3861),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2052),
                             PaginaId = 2,
                             Tipo = "Link",
                             TipoContenutoId = 3,
@@ -257,7 +257,7 @@ namespace Gov.Structure.Migrations
                             Id = 8,
                             ContentuoCard = "Premier Modifica",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3865),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2058),
                             PaginaId = 2,
                             Tipo = "Header",
                             TipoContenutoId = 4,
@@ -268,7 +268,7 @@ namespace Gov.Structure.Migrations
                             Id = 9,
                             ContentuoCard = "Da questa pagina è possibile visualizzare i Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3868),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2064),
                             PaginaId = 3,
                             Tipo = "Testo",
                             TipoContenutoId = 1,
@@ -277,9 +277,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 10,
-                            ContentuoCard = "user-secret",
+                            ContentuoCard = "people-fill",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3873),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2071),
                             PaginaId = 3,
                             Tipo = "Icona",
                             TipoContenutoId = 2,
@@ -290,7 +290,7 @@ namespace Gov.Structure.Migrations
                             Id = 11,
                             ContentuoCard = "/premier/visualizza",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3877),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2077),
                             PaginaId = 3,
                             Tipo = "Link",
                             TipoContenutoId = 3,
@@ -301,7 +301,7 @@ namespace Gov.Structure.Migrations
                             Id = 12,
                             ContentuoCard = "Premier Visualizzazione",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3881),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2084),
                             PaginaId = 3,
                             Tipo = "Header",
                             TipoContenutoId = 4,
@@ -310,20 +310,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 13,
-                            ContentuoCard = "Premier Visualizzazione",
-                            CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3885),
-                            PaginaId = 3,
-                            Tipo = "Header",
-                            TipoContenutoId = 4,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 14,
                             ContentuoCard = "Da questa pagina è possibile gestire gli Utenti",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3888),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2090),
                             PaginaId = 8,
                             Tipo = "Testo",
                             TipoContenutoId = 1,
@@ -331,10 +320,10 @@ namespace Gov.Structure.Migrations
                         },
                         new
                         {
-                            Id = 15,
-                            ContentuoCard = "ApplicationUser",
+                            Id = 14,
+                            ContentuoCard = "people-fill",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3892),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2096),
                             PaginaId = 8,
                             Tipo = "Icona",
                             TipoContenutoId = 2,
@@ -342,10 +331,10 @@ namespace Gov.Structure.Migrations
                         },
                         new
                         {
-                            Id = 16,
+                            Id = 15,
                             ContentuoCard = "/account/index",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3895),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2102),
                             PaginaId = 8,
                             Tipo = "Link",
                             TipoContenutoId = 3,
@@ -353,13 +342,167 @@ namespace Gov.Structure.Migrations
                         },
                         new
                         {
-                            Id = 17,
+                            Id = 16,
                             ContentuoCard = "Gestione Utenti",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(3899),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2108),
                             PaginaId = 8,
                             Tipo = "Header",
                             TipoContenutoId = 4,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 17,
+                            ContentuoCard = "Da questa pagina è possibile registrare nuovi utenti",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2115),
+                            PaginaId = 9,
+                            Tipo = "Testo",
+                            TipoContenutoId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 18,
+                            ContentuoCard = "person-plus-fill",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2121),
+                            PaginaId = 9,
+                            Tipo = "Icona",
+                            TipoContenutoId = 2,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 19,
+                            ContentuoCard = "/account/register",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2128),
+                            PaginaId = 9,
+                            Tipo = "Link",
+                            TipoContenutoId = 3,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 20,
+                            ContentuoCard = "Registrazione Utente",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2134),
+                            PaginaId = 9,
+                            Tipo = "Header",
+                            TipoContenutoId = 4,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 21,
+                            ContentuoCard = "Da questa pagina è possibile cambiare la password",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2140),
+                            PaginaId = 12,
+                            Tipo = "Testo",
+                            TipoContenutoId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 22,
+                            ContentuoCard = "gear-wide-connected",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2147),
+                            PaginaId = 12,
+                            Tipo = "Icona",
+                            TipoContenutoId = 2,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 23,
+                            ContentuoCard = "/account/changepassword",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2153),
+                            PaginaId = 12,
+                            Tipo = "Link",
+                            TipoContenutoId = 3,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 24,
+                            ContentuoCard = "Cambio password",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2159),
+                            PaginaId = 12,
+                            Tipo = "Header",
+                            TipoContenutoId = 4,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 25,
+                            ContentuoCard = "image/utenti",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2166),
+                            PaginaId = 14,
+                            Tipo = "Image",
+                            TipoContenutoId = 5,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 26,
+                            ContentuoCard = "Gestione Utenti",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2172),
+                            PaginaId = 14,
+                            Tipo = "Titolo",
+                            TipoContenutoId = 6,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 27,
+                            ContentuoCard = "image/premier",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2179),
+                            PaginaId = 14,
+                            Tipo = "Image",
+                            TipoContenutoId = 5,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 28,
+                            ContentuoCard = "Gestione Premier",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2185),
+                            PaginaId = 14,
+                            Tipo = "Titolo",
+                            TipoContenutoId = 6,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 29,
+                            ContentuoCard = "image/governo",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2191),
+                            PaginaId = 14,
+                            Tipo = "Image",
+                            TipoContenutoId = 5,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 30,
+                            ContentuoCard = "Gestione Governo",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(2197),
+                            PaginaId = 14,
+                            Tipo = "Titolo",
+                            TipoContenutoId = 6,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -409,7 +552,7 @@ namespace Gov.Structure.Migrations
                             Id = 1,
                             Codice = "Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(5098),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(3358),
                             Denominazione = "Inserimento Premier",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -419,7 +562,7 @@ namespace Gov.Structure.Migrations
                             Id = 2,
                             Codice = "Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(6500),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(4852),
                             Denominazione = "Modifica Premier",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -429,7 +572,7 @@ namespace Gov.Structure.Migrations
                             Id = 3,
                             Codice = "Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(7103),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(5483),
                             Denominazione = "Visualizzazione Premier",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -439,7 +582,7 @@ namespace Gov.Structure.Migrations
                             Id = 4,
                             Codice = "User",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(7637),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(6049),
                             Denominazione = "Indice Gestione Utenti",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -449,9 +592,9 @@ namespace Gov.Structure.Migrations
                             Id = 5,
                             Codice = "Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(8153),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(6801),
                             Denominazione = "Inserimento Premier",
-                            RoleId = 1,
+                            RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -459,9 +602,9 @@ namespace Gov.Structure.Migrations
                             Id = 6,
                             Codice = "Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(8656),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(7586),
                             Denominazione = "Modifica Premier",
-                            RoleId = 1,
+                            RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -469,9 +612,9 @@ namespace Gov.Structure.Migrations
                             Id = 7,
                             Codice = "Premier",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(9148),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(8323),
                             Denominazione = "Visualizzazione Premier",
-                            RoleId = 1,
+                            RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -479,7 +622,7 @@ namespace Gov.Structure.Migrations
                             Id = 8,
                             Codice = "User",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 124, DateTimeKind.Local).AddTicks(9635),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(8845),
                             Denominazione = "Gestione Utenti",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -489,7 +632,7 @@ namespace Gov.Structure.Migrations
                             Id = 9,
                             Codice = "User",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 125, DateTimeKind.Local).AddTicks(116),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(9353),
                             Denominazione = "Registrazione Utenti",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -499,7 +642,7 @@ namespace Gov.Structure.Migrations
                             Id = 10,
                             Codice = "User",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 125, DateTimeKind.Local).AddTicks(596),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 719, DateTimeKind.Local).AddTicks(9871),
                             Denominazione = "Mio Profilo",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -509,9 +652,39 @@ namespace Gov.Structure.Migrations
                             Id = 11,
                             Codice = "User",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 125, DateTimeKind.Local).AddTicks(1090),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 720, DateTimeKind.Local).AddTicks(375),
                             Denominazione = "Mio Profilo",
+                            RoleId = 2,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Codice = "Rights",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 720, DateTimeKind.Local).AddTicks(872),
+                            Denominazione = "Gestione Abilitazioni",
                             RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Codice = "User",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 720, DateTimeKind.Local).AddTicks(1378),
+                            Denominazione = "Cambio Password",
+                            RoleId = 2,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Codice = "Home",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 720, DateTimeKind.Local).AddTicks(1878),
+                            Denominazione = "Home page",
+                            RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -551,7 +724,7 @@ namespace Gov.Structure.Migrations
                             Id = 1,
                             Codice = "Testo",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 126, DateTimeKind.Local).AddTicks(9078),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 721, DateTimeKind.Local).AddTicks(39),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -559,7 +732,7 @@ namespace Gov.Structure.Migrations
                             Id = 2,
                             Codice = "Icona",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 126, DateTimeKind.Local).AddTicks(9110),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 721, DateTimeKind.Local).AddTicks(65),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -567,7 +740,7 @@ namespace Gov.Structure.Migrations
                             Id = 3,
                             Codice = "Link",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 126, DateTimeKind.Local).AddTicks(9120),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 721, DateTimeKind.Local).AddTicks(93),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -575,7 +748,23 @@ namespace Gov.Structure.Migrations
                             Id = 4,
                             Codice = "Header",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 126, DateTimeKind.Local).AddTicks(9124),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 721, DateTimeKind.Local).AddTicks(97),
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Codice = "Image",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 721, DateTimeKind.Local).AddTicks(101),
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Codice = "Titolo",
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 721, DateTimeKind.Local).AddTicks(104),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -633,10 +822,10 @@ namespace Gov.Structure.Migrations
                             Id = 1,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 125, DateTimeKind.Local).AddTicks(5455),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 720, DateTimeKind.Local).AddTicks(3771),
                             Icona = "user-secret",
-                            Link = "/partito/index",
-                            RoleId = 1,
+                            Link = "/premier/index",
+                            RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Voce = "Premier"
                         },
@@ -645,10 +834,10 @@ namespace Gov.Structure.Migrations
                             Id = 2,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 125, DateTimeKind.Local).AddTicks(6997),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 720, DateTimeKind.Local).AddTicks(5225),
                             Icona = "history",
                             Link = "/governo/index",
-                            RoleId = 1,
+                            RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Voce = "Governo"
                         },
@@ -657,10 +846,10 @@ namespace Gov.Structure.Migrations
                             Id = 3,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 125, DateTimeKind.Local).AddTicks(8414),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 720, DateTimeKind.Local).AddTicks(5630),
                             Icona = "receipt",
                             Link = "/dicastero/index",
-                            RoleId = 1,
+                            RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Voce = "Dicastero"
                         },
@@ -669,10 +858,10 @@ namespace Gov.Structure.Migrations
                             Id = 4,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 125, DateTimeKind.Local).AddTicks(9626),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 720, DateTimeKind.Local).AddTicks(6015),
                             Icona = "university",
                             Link = "/partito/index",
-                            RoleId = 1,
+                            RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Voce = "Partito"
                         },
@@ -681,10 +870,10 @@ namespace Gov.Structure.Migrations
                             Id = 5,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 126, DateTimeKind.Local).AddTicks(861),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 720, DateTimeKind.Local).AddTicks(6376),
                             Icona = "user",
                             Link = "/account/index",
-                            RoleId = 1,
+                            RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Voce = "Partito"
                         },
@@ -693,9 +882,9 @@ namespace Gov.Structure.Migrations
                             Id = 6,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 126, DateTimeKind.Local).AddTicks(2318),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 720, DateTimeKind.Local).AddTicks(6731),
                             Icona = "user-secret",
-                            Link = "/partito/index",
+                            Link = "/premier/index",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Voce = "Premier"
@@ -705,7 +894,7 @@ namespace Gov.Structure.Migrations
                             Id = 7,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 126, DateTimeKind.Local).AddTicks(3258),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 720, DateTimeKind.Local).AddTicks(7085),
                             Icona = "history",
                             Link = "/governo/index",
                             RoleId = 1,
@@ -717,7 +906,7 @@ namespace Gov.Structure.Migrations
                             Id = 8,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 126, DateTimeKind.Local).AddTicks(4476),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 720, DateTimeKind.Local).AddTicks(7475),
                             Icona = "receipt",
                             Link = "/dicastero/index",
                             RoleId = 1,
@@ -729,7 +918,7 @@ namespace Gov.Structure.Migrations
                             Id = 9,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 126, DateTimeKind.Local).AddTicks(5539),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 720, DateTimeKind.Local).AddTicks(7831),
                             Icona = "university",
                             Link = "/partito/index",
                             RoleId = 1,
@@ -741,12 +930,24 @@ namespace Gov.Structure.Migrations
                             Id = 10,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 5, 26, 10, 37, 33, 126, DateTimeKind.Local).AddTicks(6462),
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 720, DateTimeKind.Local).AddTicks(8183),
                             Icona = "user",
                             Link = "/account/index",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Voce = "Partito"
+                            Voce = "Account"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Active = true,
+                            CreatedBy = "Caricamento",
+                            CreatedDate = new DateTime(2020, 6, 3, 23, 43, 11, 720, DateTimeKind.Local).AddTicks(8530),
+                            Icona = "handshake",
+                            Link = "/rights/index",
+                            RoleId = 1,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Voce = "Abilitazioni"
                         });
                 });
 
@@ -847,14 +1048,14 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "8410792c-72ec-40b3-95bf-fb161b42b63f",
+                            ConcurrencyStamp = "0475dc16-d307-4c89-9799-5a02396ae6e4",
                             Name = "admin",
                             NormalizedName = "admin"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "0f21aa3e-b06c-4b43-bd3c-9ed86880619e",
+                            ConcurrencyStamp = "91d6121f-be0d-49d0-a977-a1e4ab79140c",
                             Name = "user",
                             NormalizedName = "user"
                         });
@@ -954,12 +1155,12 @@ namespace Gov.Structure.Migrations
                             Cognome = "Admin",
                             Email = "agnew74@gmail.com",
                             EmailConfirmed = false,
-                            LastModified = new DateTime(2020, 5, 26, 10, 37, 33, 123, DateTimeKind.Local).AddTicks(964),
+                            LastModified = new DateTime(2020, 6, 3, 23, 43, 11, 717, DateTimeKind.Local).AddTicks(9167),
                             LockoutEnabled = false,
                             Nome = "Admin",
                             NormalizedEmail = "agnew74@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEC+smD0v5rkfl7TLQ/7mGq+lxENEDd8bpPhsSeMlaeRmxx6OhKS7g4IsKEH5LH/2Zw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBFhLkLY8KvEjGSDtDnqfH1aGUGpjr5FYdMdWlHnV/ueEPUAw1p8wZ4Qb4vQnpJhOg==",
                             PhoneNumber = "",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
@@ -1452,11 +1653,6 @@ namespace Gov.Structure.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<int>");
 
-                    b.Property<int?>("ApplicationUserId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("ApplicationUserId");
-
                     b.HasDiscriminator().HasValue("ApplicationUserRole");
 
                     b.HasData(
@@ -1664,13 +1860,6 @@ namespace Gov.Structure.Migrations
                 {
                     b.HasOne("Gov.Core.Identity.ApplicationUser", null)
                         .WithMany("Userlogins")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
-            modelBuilder.Entity("Gov.Core.Identity.ApplicationUserRole", b =>
-                {
-                    b.HasOne("Gov.Core.Identity.ApplicationUser", null)
-                        .WithMany("UserRoles")
                         .HasForeignKey("ApplicationUserId");
                 });
 

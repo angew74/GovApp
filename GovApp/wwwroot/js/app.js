@@ -2,6 +2,16 @@
 import 'es6-promise/auto';
 import Vue from "vue";
 import Vuex from 'vuex';
+import VeeValidate from "vee-validate";
+import Notifications from 'vue-notification';
+import {
+    ValidationObserver,
+    ValidationProvider,
+    extend,
+    localize
+} from "vee-validate";
+import it from "vee-validate/dist/locale/it.json";
+import * as rules from "vee-validate/dist/rules";
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
@@ -37,10 +47,15 @@ Vue.component('b-nav', BNav);
 Vue.component('b-navbar', BNavbar);
 Vue.component('b-collapse', BCollapse);
 Vue.component('v-icon', Icon);
+Vue.use(Notifications);
 Vue.use(Vuex);
-// ComponentLoader.loadComponents();
-
-       
+Object.keys(rules).forEach(rule => {
+    extend(rule, rules[rule]);
+});
+localize("it", it);
+Vue.component("ValidationObserver", ValidationObserver);
+Vue.component("ValidationProvider", ValidationProvider);
+import './validators';
 
 
    

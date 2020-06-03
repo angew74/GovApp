@@ -25,7 +25,7 @@
             <button class="btn btn-secondary float-right" type="reset">Annnulla</button>
         </b-form>     
         <b-alert v-model="showDismissibleAlert" variant="danger"><a v-bind:href="url" class="alert-link">{{text}}</a></b-alert>
-        <app-alert :message="messaggio" :dismissCountDown="dismiss"></app-alert>
+        <app-alert :message="messaggio"></app-alert>
     </b-modal>   
 </template>
 
@@ -47,7 +47,6 @@
                 url: '',
                 showDismissibleAlert: false,
                 messaggio:'',
-                dismiss: '0',
                 text:''
             }
         },
@@ -58,9 +57,8 @@
                 this.showDismissibleAlert = showDismissibleAlert;
                 this.url = url;
             },
-            showAlert(message, dismissSecs) {
-                this.messaggio = message;
-                this.dismiss = dismissSecs;
+            showAlert(message) {
+                this.messaggio = message;              
             },
            ...mapActions('context', [
                 'login'
@@ -72,7 +70,7 @@
                         window.location.href = "/home/index";
                     }
                     if (this.$store.getters["context/isMessage"] && !this.$store.getters["context/isUrl"]) {
-                        this.showAlert(this.$store.getters["context/Message"], "10");                        
+                        this.showAlert(this.$store.getters["context/Message"]);                        
                     }
                     else if (this.$store.getters["context/isUrl"]) {
                         this.showAlertRedirection(this.$store.getters["context/Message"], this.$store.getters["context/Url"], true);

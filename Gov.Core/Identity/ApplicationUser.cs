@@ -23,8 +23,7 @@ namespace Gov.Core.Identity
         public ApplicationUser()
         {
             Userclaims = new HashSet<Userclaims>();
-            Userlogins = new HashSet<Userlogins>();
-            UserRoles = new HashSet<ApplicationUserRole>();
+            Userlogins = new HashSet<Userlogins>();        
             Usertokens = new HashSet<Usertokens>();
         }
      
@@ -61,7 +60,7 @@ namespace Gov.Core.Identity
         public List<ApplicationRole> Roles { get; set; }
         public virtual ICollection<Userclaims> Userclaims { get; set; }
         public virtual ICollection<Userlogins> Userlogins { get; set; }
-        public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }      
+          
         public virtual ICollection<Usertokens> Usertokens { get; set; }
     }
 }

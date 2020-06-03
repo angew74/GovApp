@@ -8,6 +8,7 @@ namespace GovApp.Models
     public class ContenutoModel
     {
         public string ContenutoTitolo { get; set; }
+        public string ContenutoImmagine { get; set; }
         public string ContenutoHeader { get; set; }
         public string ContenutoTesto { get; set; }
         public string ContenutoIcon { get; set; }
