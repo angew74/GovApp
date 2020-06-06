@@ -23,20 +23,19 @@
             </b-form-group>
             <button class="btn btn-primary float-right ml-2" type="submit">Accedi</button>
             <button class="btn btn-secondary float-right" type="reset">Annnulla</button>
-        </b-form>     
+        </b-form>
         <b-alert v-model="showDismissibleAlert" variant="danger"><a v-bind:href="url" class="alert-link">{{text}}</a></b-alert>
-        <app-alert :message="messaggio"></app-alert>
+        <notifications position="top center" group="errori" />
     </b-modal>   
 </template>
 
 <script>
     import { mapActions, mapState, mapGetters } from 'vuex';
-    import alertaw from '../components/alertaw.vue';
-    export default {
+  export default {
         name: 'loginaw',
         namespaced: true,
         components: {
-            'app-alert': alertaw          
+                  
         },
         data() {
             return {
@@ -58,7 +57,15 @@
                 this.url = url;
             },
             showAlert(message) {
-                this.messaggio = message;              
+                this.$notify({
+                    group: 'errori',
+                    position: "top center",
+                    duration: "10000",
+                    width: "1000",
+                    type: "error",
+                    title: 'Attenzione',
+                    text: message
+                })         
             },
            ...mapActions('context', [
                 'login'

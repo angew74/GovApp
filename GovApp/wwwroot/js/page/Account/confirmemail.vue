@@ -2,9 +2,9 @@
     <div>
         <app-sidebar></app-sidebar>
         <app-formemail :dati="form" @finished="confirmdata"></app-formemail>
+        <notifications position="top center" group="errori" />
         <app-footer></app-footer>
         <error-bound></error-bound>
-        <app-alert :message="messaggio"></app-alert>
     </div>
 </template>
 
@@ -12,8 +12,7 @@
     import sidebaraw from '../../components/sidebaraw.vue';
     import footeraw from '../../components/footeraw.vue';
     import errorboundaryaw from '../../components/error-boundaryaw.vue';
-    import formemailaw from '../../components/formemailaw';
-    import alertaw from '../../components/alertaw.vue';
+    import formemailaw from '../../components/formemailaw'; 
     import { mapGetters, mapState, mapActions } from 'vuex';
     export default {
         namespaced: true,
@@ -21,8 +20,7 @@
             'app-sidebar': sidebaraw,
             'app-footer': footeraw,
             'error-bound': errorboundaryaw,
-            'app-formemail': formemailaw,
-            'app-alert': alertaw
+            'app-formemail': formemailaw          
         },
         data: function () {
             return {
@@ -53,7 +51,15 @@
                 'authconfirm'
             ]),          
             showAlert(message) {
-                this.messaggio = message;            
+                this.$notify({
+                    group: 'errori',
+                    position: "top center",
+                    duration: "10000",
+                    width: "900",
+                    type: "error",
+                    title: 'Attenzione',
+                    text: message
+                })               
             },
             confirmdata(e) {
                 this.form = e;

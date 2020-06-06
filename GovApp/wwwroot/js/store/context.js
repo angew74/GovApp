@@ -27,12 +27,13 @@ const store = {
             state.url = url;
         },
         centralizeMessage(state, error) {
-            if (error.response.data !== null && typeof (error.response.data.errMsg) !== 'undefined' && error.response.data.errMsg !== null) {
+            if (error.response.data !== null && (typeof (error.response.data.url) === 'undefined' || error.response.data.url === null) && typeof (error.response.data.errMsg) !== 'undefined' && error.response.data.errMsg !== null) {
                 //  commit('setMessage', error.response.data.errMsg);
                 state.message = error.response.data.errMsg;
             }
             else if (error.response.data !== null && typeof (error.response.data.url) !== 'undefined' && error.response.data.url !== null) {              
                 state.url = error.response.data.url;
+                state.message = error.response.data.errMsg;
                // commit('setUrl', error.response.data.url);
             }
             else if (error.response.statusText !== '') {
@@ -54,8 +55,8 @@ const store = {
                         'Content-Type': 'application/json'
                     }
                 }).then(res => {
-                    if (res.status === 200) { commit('setProfile', res.data); }
-                    else { commit('setProfile', res.data), commit('message', res.message); }
+                    if (res.status === 200) {commit('setProfile', res.data); }
+                    else { commit('setProfile', res.data), commit('setMessage', res.message); }
                 }).catch((error) => {
                     commit('centralizeMessage', error);
                 });
@@ -72,8 +73,8 @@ const store = {
                         'Content-Type': 'application/json'
                     }
                 }).then(res => {
-                    if (res.status === 200 && res.data.confirm.result === true) { commit('setUrl', res.data.confirm.url); }
-                    else { commit('message', res.message); }
+                    if (res.status === 200 && res.data.change.result === true) { commit('setUrl', res.data.change.url); }
+                    else { commit('setMessage', res.message); }
                 }).catch((error) => {
                     commit('centralizeMessage',error);
                 });
@@ -85,8 +86,12 @@ const store = {
                         'Content-Type': 'application/json'
                     }
                 }).then(res => {
-                    if (res.status === 200 && res.data.confirm.result === true) { commit('setUrl', res.data.confirm.url); }
-                    else { commit('message', res.message); }
+                    if (res.status === 200 && res.data.user.result === true)
+                    {
+                        commit('setUrl', res.data.user.url);
+                        commit('setMessage', '');
+                    }
+                    else { commit('setMessage', res.message); }
                 }).catch((error) => {
                     commit('centralizeMessage', error);
                 });
@@ -99,7 +104,7 @@ const store = {
                     }
                 }).then(res => {
                     if (res.status === 200 && res.data.confirm.result === true) { commit('setUrl', res.data.confirm.url); }
-                    else { commit('message', res.message); }
+                    else { commit('setMessage', res.message); }
                 }).catch((error) => {
                     commit('centralizeMessage', error);
                 });

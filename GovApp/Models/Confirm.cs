@@ -27,12 +27,12 @@ namespace GovApp.Models
 
         [Required]
         [UIHint("password")]
-        [StringLength(8, ErrorMessage = "{0} lungezza deve essere tra {2} and {1}.", MinimumLength = 8)]
+        [StringLength(16, ErrorMessage = "{0} lungezza deve essere tra {2} and {1}.", MinimumLength = 8)]
         public string Password { get; set; }
 
         [Required]
         [UIHint("conferma password")]
-        [StringLength(8, ErrorMessage = "{0} lungezza deve essere tra {2} and {1}.", MinimumLength = 8)]
+        [StringLength(16, ErrorMessage = "{0} lungezza deve essere tra {2} and {1}.", MinimumLength = 8)]
         public string ConfirmPassword { get; set; }
     }
 }

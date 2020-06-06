@@ -514,7 +514,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 15,
-                ContentuoCard = "/account/index",
+                ContentuoCard = "/account/manage",
                 Tipo = "Link",
                 TipoContenutoId = 3,
                 CreatedBy = "Caricamento",
@@ -584,7 +584,7 @@ namespace Gov.Structure
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                PaginaId = 12
+                PaginaId = 13
             },
             new Contenuto
             {
@@ -595,7 +595,7 @@ namespace Gov.Structure
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                PaginaId = 12
+                PaginaId = 13
             },
             new Contenuto
             {
@@ -606,7 +606,7 @@ namespace Gov.Structure
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                PaginaId = 12
+                PaginaId = 13
             },
             new Contenuto
             {
@@ -617,11 +617,11 @@ namespace Gov.Structure
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                PaginaId = 12
+                PaginaId = 13
             },new Contenuto
             {
                 Id = 25,
-                ContentuoCard = "image/utenti",
+                ContentuoCard = "https://www.panoramasanita.it/wp-content/uploads/2019/05/roma.jpg",
                 Tipo = "Image",
                 TipoContenutoId = 5,
                 CreatedBy = "Caricamento",
@@ -640,7 +640,7 @@ namespace Gov.Structure
                 PaginaId = 14
             },new Contenuto{
                 Id = 27,
-                ContentuoCard = "image/premier",
+                ContentuoCard = "https://res.cloudinary.com/hzekpb1cg/image/upload/c_fill,h_581,w_1185,f_auto/s3/public/prod/s3fs-public/Quartieri-di-Roma.jpg",
                 Tipo = "Image",
                 TipoContenutoId = 5,
                 CreatedBy = "Caricamento",
@@ -659,7 +659,7 @@ namespace Gov.Structure
                 PaginaId = 14
             },new Contenuto{
                 Id = 29,
-                ContentuoCard = "image/governo",
+                ContentuoCard = "https://roma.unicatt.it/ingresso-roma-992x560.jpg",
                 Tipo = "Image",
                 TipoContenutoId = 5,
                 CreatedBy = "Caricamento",
@@ -813,6 +813,14 @@ namespace Gov.Structure
                 UpdatedBy = null,
                 RoleId =Roles.Single(i => i.Name == "user").Id,
                 Denominazione = "Home page"
+            },new Pagina{
+                Id = 15,
+                Codice = "User",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Cambio Password"
             }};
             modelBuilder.Entity<Pagina>().HasData(Pagine);
             var Voci = new VoceMenu[] {

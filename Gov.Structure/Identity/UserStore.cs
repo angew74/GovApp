@@ -35,6 +35,16 @@ namespace Gov.Structure.Identity
             return utentis;
         }
 
+        public List<ApplicationUser> GetUsersBy(int take,int skip)
+        {
+            List<ApplicationUser> utentis = dbcontext.Users.Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+            return utentis;
+        }
+
+        public int GetUsersCount()
+        {
+           return dbcontext.Users.Count();
+        }
       
         internal async Task<SignInResult> PasswordSignInAsync(ApplicationUser user, string password, bool isPersistent, bool lockoutOnFailure)
         {

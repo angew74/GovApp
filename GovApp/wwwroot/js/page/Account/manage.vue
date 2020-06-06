@@ -1,11 +1,24 @@
 ﻿<template>
     <div>
         <app-sidebar></app-sidebar>
-        <app-users :elementi="users" :configurazione="mapgrid" :righeTotali="righe" :topPaginaCorrente="pagina" :perPagina="per" :filtriSu="fSu" :opzioni="opz" :topOrdinaPer="oPer" :topOrdinaDesc="oDesc"
-                   :ordinaDirezione="direzione" :filtri="fifi"></app-users>
+        <app-users :elementi="users" :configurazione="mapgrid" :topRigheTotali="righe" :topPaginaCorrente="pagina" :topPerPagina="per" :filtriSu="fSu" :opzioni="opz" :topOrdinaPer="oPer" :topOrdinaDesc="oDesc"
+                   :ordinaDirezione="direzione" :filtri="fifi" @paging="pagingUsers"></app-users>
+        <notifications position="top center" group="errori">
+            <template slot="body" slot-scope="props">
+                <div>
+                    <a class="title">
+                        {{props.item.title}}
+                    </a>
+                    <a class="close" @click="props.close">
+                        <v-icon name="times" />
+                    </a>
+                    <div v-html="props.item.text">
+                    </div>
+                </div>
+            </template>
+        </notifications>
         <app-footer></app-footer>
         <error-bound></error-bound>
-        <app-alert :message="messaggio"></app-alert>
     </div>
 </template>
 
@@ -14,7 +27,6 @@
     import footeraw from '../../components/footeraw.vue';
     import griduser from '../../components/gridusers.vue';
     import errorboundaryaw from '../../components/error-boundaryaw.vue';
-    import alertaw from '../../components/alertaw.vue';
     import { mapGetters, mapState, mapActions } from 'vuex';
     export default {
         namespaced: true,
@@ -22,8 +34,7 @@
             'app-sidebar': sidebaraw,
             'app-footer': footeraw,
             'error-bound': errorboundaryaw,
-            'app-users': griduser,
-            'app-alert': alertaw
+            'app-users': griduser
         },
         data: function () {
             return {
@@ -38,40 +49,12 @@
                 direzione: 'asc',
                 fSu: [],
                 fifi: '',
-                messaggio: ''             
+                messaggio: ''
             }
         },
         mounted() {
-            axios({
-                method: 'get',
-                url: '/api/auth/users'
-            })
-                .then(response => {
-                    this.users = response.data;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            axios({
-                method: 'get',
-                url: '/api/auth/pagination',
-                params: {
-                    "page": "users"
-                }
-            }).then(response => {
-                this.mapgrid = response.data.fields;
-                this.righe = response.data.totalRows;
-                this.pagina = response.data.currentPage;
-                this.per = response.data.perPage;
-                this.opz = response.data.pageOptions;
-                this.oPer = response.data.sortBy;
-                this.oDesc = response.data.sortDesc;
-                this.direzione = response.data.sortDirection;
-                this.fifi = response.data.filter;
-            })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            this.getUsers(1);
+            this.getParams("users",1)
         },
         created() {
             this.restoreContext()
@@ -79,10 +62,60 @@
         methods: {
             ...mapActions('context', [
                 'restoreContext'
-            ])
+            ]),
+            getUsers(page) {
+                axios({
+                    method: 'get',
+                    url: '/api/auth/users',
+                    params: {
+                        "page": page
+                    }
+                })
+                    .then(response => {
+                        this.users = response.data;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            getParams(type, page) {
+                axios({
+                    method: 'get',
+                    url: '/api/auth/pagination',
+                    params: {
+                        "type": type,
+                        "page": page
+                    }
+                }).then(response => {
+                    this.mapgrid = response.data.fields;                  
+                    this.pagina = response.data.currentPage;
+                    this.per = response.data.perPage;
+                    this.opz = response.data.pageOptions;
+                    this.oPer = response.data.sortBy;
+                    this.oDesc = response.data.sortDesc;
+                    this.direzione = response.data.sortDirection;
+                    this.righe = response.data.totalRows;
+                    this.fifi = response.data.filter;
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            pagingUsers(page) {
+                this.getUsers(page);
+                this.getParams("users", page);
+            }
         },
         showAlert(message) {
-            this.messaggio = message;           
+            this.$notify({
+                group: 'errori',
+                position: "top center",
+                duration: "10000",
+                width: "400px",
+                type: "error",
+                title: 'Attenzione',
+                text: message
+            })
         }
     }
 </script>

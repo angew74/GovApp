@@ -68,28 +68,13 @@
                         <b-form-checkbox value="isActive">attivo</b-form-checkbox>
                     </b-form-checkbox-group>
                 </b-form-group>
-            </b-col>
+            </b-col>          
 
-            <b-col sm="5" md="6" class="my-1">
-                <b-form-group label="Per pagina"
-                              label-cols-sm="6"
-                              label-cols-md="4"
-                              label-cols-lg="3"
-                              label-align-sm="right"
-                              label-size="sm"
-                              label-for="perPageSelect"
-                              class="mb-0">
-                    <b-form-select v-model="perPagina"
-                                   id="perPageSelect"
-                                   size="sm"
-                                   :options="opzioni"></b-form-select>
-                </b-form-group>
-            </b-col>
-
-            <b-col sm="7" md="6" class="my-1">
+            <b-col  sm="5" md="6" class="my-1">
                 <b-pagination v-model="paginaCorrente"
-                              :total-rows="righeTotali"
-                              :per-page="perPagina"
+                              :total-rows="topRigheTotali"
+                              :per-page="topPerPagina"
+                              @input="pagingClick"
                               align="fill"
                               size="sm"
                               class="my-0"></b-pagination>
@@ -101,15 +86,14 @@
                  small
                  stacked="md"
                  :items="elementi"
-                 :fields="configurazione"
-                 :current-page="paginaCorrente"
-                 :per-page="perPagina"
+                 :fields="configurazione"              
+                 :per-page="0"
                  :filter="filter"
                  :filterIncludedFields="filtriSu"
                  :sort-by.sync="ordinaPer"
                  :sort-desc.sync="ordinaDesc"
                  :sort-direction="ordinaDirezione"
-                 @filtered="onFiltered">       
+                 @filtered="onFiltered">
             <template v-slot:cell(actions)="row">
                 <b-button size="sm" style="background-color:#343a40;border:none" variant="dark" @click="info(row.item, row.index, $event.target)" class="mr-1">
                     <b-icon icon="person-fill" aria-label="Help"></b-icon>
@@ -137,53 +121,64 @@
 
 <script>
     export default {
-        props: ["elementi", "configurazione", "righeTotali", "topPaginaCorrente", "topPerPagina", "opzioni","topOrdinaPer", "filtriSu", "topOrdinaDesc","ordinaDirezione","filtri"],
-    data() {
-        return { 
-          paginaCorrente: this.topPaginaCorrente,
-          ordinaPer: this.topOrdinaPer,
-          ordinaDesc: this.topOrdinaDesc,
-          perPagina: this.topPerPagina,
-          filter: this.filtri,
-          infoModal: {
-              id: 'info-modal',
-              title: '',
-              content: ''
-          }        
-      }
-    },
-    computed: {
-        sortOptions() {
-            if (typeof (this.fields) !== 'undefined' && typeof (this.fields.filter) !== 'undefined') {
-                return this.fields
-                    .filter(f => f.sortable)
-                    .map(f => {
-                        return { text: f.label, value: f.key }
-                    })
+
+        props: ["elementi", "configurazione", "topRigheTotali", "topPaginaCorrente", "topPerPagina", "opzioni", "topOrdinaPer", "filtriSu", "topOrdinaDesc", "ordinaDirezione", "filtri"],
+        data() {
+            return {              
+                ordinaPer: this.topOrdinaPer,
+                ordinaDesc: this.topOrdinaDesc,               
+                filter: this.filtri,
+                paginaCorrente: this.topPaginaCorrente,
+               /* perPagina: this.topPerPagina,
+                righeTotali: this.topRigheTotali,*/
+                infoModal: {
+                    id: 'info-modal',
+                    title: '',
+                    content: ''
+                }
+            }
+        },
+        computed: {
+            sortOptions() {
+                if (typeof (this.fields) !== 'undefined' && typeof (this.fields.filter) !== 'undefined') {
+                    return this.fields
+                        .filter(f => f.sortable)
+                        .map(f => {
+                            return { text: f.label, value: f.key }
+                        })
+                }
+            }
+        },
+        mounted() {
+            this.totalRows = 29
+            // Set the initial number of items
+           // if (typeof (this.righeTotali) !== 'undefined' && this.righeTotali !== null) {
+             //   this.totalRows = this.righeTotali
+           // }
+        },
+        watch: {
+            currentPage(newPage, oldPage) {
+                this.$emit('paging', newPage);
+            }
+        },
+        methods: {
+            info(item, index, button) {
+                this.infoModal.title = `Row index: ${index}`
+                this.infoModal.content = JSON.stringify(item, null, 2)
+                this.$root.$emit('bv::show::modal', this.infoModal.id, button)
+            },
+            resetInfoModal() {
+                this.infoModal.title = ''
+                this.infoModal.content = ''
+            },
+            onFiltered(filteredItems) {
+                // Trigger pagination to update the number of buttons/pages due to filtering
+                this.totalRows = filteredItems.length
+                this.currentPage = 1
+            },
+            pagingClick: function (pagina) {
+                this.$emit('paging', pagina);
             }
         }
-    },
-    mounted() {
-        // Set the initial number of items
-        if (typeof (this.items) !== 'undefined' && this.items !== null) {
-            this.totalRows = this.items.length
-        }
-    },
-    methods: {
-      info(item, index, button) {
-        this.infoModal.title = `Row index: ${index}`
-        this.infoModal.content = JSON.stringify(item, null, 2)
-        this.$root.$emit('bv::show::modal', this.infoModal.id, button)
-      },
-      resetInfoModal() {
-        this.infoModal.title = ''
-        this.infoModal.content = ''
-      },
-      onFiltered(filteredItems) {
-        // Trigger pagination to update the number of buttons/pages due to filtering
-        this.totalRows = filteredItems.length
-        this.currentPage = 1
-      }
     }
-  }
 </script>

@@ -39,13 +39,13 @@
                 </b-tooltip>
             </b-nav-item>
             <b-nav-item v-if="!isAuthenticated">
-                <b-button  id="login-button" v-b-modal.prevent.loginModal style="background-color:#343a40;border:none" variant="dark" class="mb-2" size="xl" type="submit">
+                <b-button id="login-button" v-b-modal.prevent.loginModal style="background-color:#343a40;border:none" variant="dark" class="mb-2" size="xl" type="submit">
                     <b-icon icon="person-fill" aria-label="Help"></b-icon><br />Accedi
                 </b-button>
                 <b-tooltip target="login-button" triggers="hover">
                     accedi all'applicazione
                 </b-tooltip>
-                </b-nav-item>
+            </b-nav-item>
         </b-navbar>
         <div v-if="isAuthenticated">
             <b-sidebar v-if="voci.length" id="sidebar-1" bg-variant="dark" shadow>
@@ -61,13 +61,18 @@
                 </div>
             </b-sidebar>
         </div>
-    </div>
+        <login-modal></login-modal>
+    </div>  
 </template>
 <script>
     import { mapGetters, mapState, mapActions } from 'vuex';
+    import loginaw from './loginaw.vue';
     export default {
         name: 'sidebaraw',
         namespaced: true,
+        components: {
+            'login-modal': loginaw
+        },
         computed: {
             ...mapState('context', [
                 'profile'

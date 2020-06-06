@@ -127,6 +127,7 @@ namespace GovApp
             services.AddScoped<UserManager<ApplicationUser>, ApplicationUserManager>();
             services.Configure<MailConfig>(Configuration.GetSection("mailConfig"));
             services.Configure<ComunicazioneConfig>(Configuration.GetSection("comunicazioneConfig"));
+            services.Configure<PagingConfig>(Configuration.GetSection("paginationConfig"));
             services.AddScoped<GovCookieAuthenticationEvents>();
             services.AddScoped<LockAuthorizePermission>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);         

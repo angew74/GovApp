@@ -18,6 +18,7 @@
                                           v-model="form.email"
                                           :state="getValidationState(validationContext)"
                                           aria-describedby="input-mail-live-feedback"
+                                            placeholder="inserisci email"
                                           type="email"></b-form-input>
                             <b-form-invalid-feedback id="input-email-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                         </b-input-group>                       

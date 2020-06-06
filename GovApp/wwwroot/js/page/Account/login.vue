@@ -1,7 +1,6 @@
 ﻿<template>
     <div>
         <app-sidebar></app-sidebar>
-        <login-modal></login-modal>
         <app-footer></app-footer>
     </div>
 </template>

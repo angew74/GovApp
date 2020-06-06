@@ -33,4 +33,6 @@
     <ProjectReference Include="..\Gov.Structure\Gov.Structure.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json-schema.org/draft/2019-09/schema" /></VisualStudio></ProjectExtensions>
+
 </Project>

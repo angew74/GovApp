@@ -20,6 +20,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
 using Gov.Structure.Identity;
+using Gov.Core.Enumerators;
 
 namespace GovApp.api
 {
@@ -32,15 +33,17 @@ namespace GovApp.api
         private readonly IEmailSender _emailSender;
         private readonly ApplicationUserManager _userManager;
         private readonly ILogger<ChangePasswordModel> _logger;
-        private readonly IOptions<ComunicazioneConfig> _config;
-        public AuthController(UserStore utentiService, SignInManager<ApplicationUser> SignInManager, ApplicationUserManager userManager, ILogger<ChangePasswordModel> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config)
+        private readonly IOptions<ComunicazioneConfig> _mailConfig;
+        private readonly IOptions<PagingConfig> _pagingConfig;
+        public AuthController(UserStore utentiService, SignInManager<ApplicationUser> SignInManager, ApplicationUserManager userManager, ILogger<ChangePasswordModel> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config, IOptions<PagingConfig> pagingConfig)
         {
             _utentiService = utentiService;
             _userManager = userManager;
             _signInManager = SignInManager;
             _logger = logger;
             _emailSender = emailSender;
-            _config = config;
+            _mailConfig = config;
+            _pagingConfig = pagingConfig;
         }
 
         public class Input
@@ -239,8 +242,8 @@ namespace GovApp.api
                 var user = _userManager.FindByNameAsync(model.user.userName).Result;
                 if (user != null)
                 {
-                    _logger.LogError("Impossibile creare utente con Username '{model.user.userName}'. utente già esistente");
-                    error.errMsg = "Impossibile creare utente con Username '{model.user.userName}'. utente già esistente";
+                    _logger.LogError("Impossibile creare utente con Username " + model.user.userName +" . utente già esistente");
+                    error.errMsg = "Impossibile creare utente con Username " + model.user.userName  + " . utente già esistente";
                     return BadRequest(error);
                 }
                 var hasher = new PasswordHasher<IdentityUser>();
@@ -261,13 +264,15 @@ namespace GovApp.api
                     Sesso = model.user.sesso,
                     
                 };
-                List<ApplicationUserRole> applicationUserRoles = new List<ApplicationUserRole>();
-                applicationUserRoles.Add(new ApplicationUserRole { RoleId = 2 });
+                List<ApplicationUserRole> applicationUserRoles = new List<ApplicationUserRole>();               
            //     user.UserRoles = applicationUserRoles;
                 CancellationToken cancellationToken = new CancellationToken();
                 var result = await _utentiService.CreateAsync(user, cancellationToken);
                 if (result.Succeeded)
                 {                  
+                    var r = _utentiService.AddToRoleAsync(user, "user",cancellationToken);                   
+                    string body = _mailConfig.Value.BodyCreazioneUtente + "<br /> UserName: " + user.UserName + " <br /> Password: " + model.user.password;
+                   var t =  _emailSender.SendEmailAsync(user.Email, _mailConfig.Value.SoggettoCreazioneUtente, body);                 
                     model.user.result = true;
                 }
                 else
@@ -283,6 +288,7 @@ namespace GovApp.api
                 error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
                 return BadRequest(error);
             }
+            model.user.url = "/account/register";
             return Ok(model);
         }
 
@@ -331,21 +337,24 @@ namespace GovApp.api
             return Ok(model);
         }
 
+
+
         [Authorize]
         [HttpGet("users")]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers(string page)
         {
 
             ErrorModel error = new ErrorModel();
             List<UserModel> usersmodel = new List<UserModel>();
             try
             {
-                var users = _utentiService.GetAll();
+                int take = int.Parse(_pagingConfig.Value.perPage);
+                int skip = take * (int.Parse(page)-1);
+                var users = _utentiService.GetUsersBy(take,skip);
                 if (users == null)
                 {
                     return Ok(usersmodel);
                 }
-
                 usersmodel = users.Select(x => new UserModel
                 {
                     cognome = x.Cognome,
@@ -368,10 +377,10 @@ namespace GovApp.api
 
         [Authorize]
         [HttpGet("pagination")]
-        public async Task<IActionResult> GetPagination(string page)
+        public async Task<IActionResult> GetPagination(string type,string page)
         {
             PaginationModel model = new PaginationModel();
-            switch(page)
+            switch(type)
             {
                 case "users":
                     List<PaginationModel.Field> fields = new List<PaginationModel.Field>();
@@ -401,15 +410,15 @@ namespace GovApp.api
                     field3.key = "actions";
                     field3.label = "Azioni";
                     fields.Add(field3);
-                    model.totalRows = "1";
-                    model.currentPage = "1";
-                    model.perPage = "5";
+                    model.totalRows = _utentiService.GetUsersCount().ToString();
+                    model.currentPage = page;
+                    model.perPage = _pagingConfig.Value.perPage;
                     List<int> options = new List<int> { 5, 10, 15 };
                     model.pageOptions = options.ToArray();
                     model.sortBy = "userName";
                     model.sortDesc = false;
                     model.sortDirection = "asc";
-                    model.filter = "a";
+                    model.filter = "";
                     List<string> f = new List<string> { "userName", "email" };
                     model.filterOn = f.ToArray();
                     model.infoMal = new PaginationModel.InfoModale { content = "", id = "info-modal", title = "" };

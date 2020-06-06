@@ -19,6 +19,8 @@ namespace GovApp.Models
         public string codicefiscale { get; set; }
         public string role { get; set; }
         public bool isActive { get; set; }
+
+        public string url { get; set; }
         public string _rowVariant { get { return this.isActive == false ? "danger" : "light"; } }
                 
     }
