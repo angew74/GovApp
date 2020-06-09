@@ -2,98 +2,64 @@
     <b-container fluid>
         <b-row>
             <b-col lg="6" class="my-1">
-                <b-form-group label="Ordinamento"
-                              label-cols-sm="3"
-                              label-align-sm="right"
-                              label-size="sm"
-                              label-for="sortBySelect"
-                              class="mb-0">
-                    <b-input-group size="sm">
-                        <b-form-select v-model="ordinaPer" id="sortBySelect" :options="sortOptions" class="w-75">
-                            <template v-slot:first>
-                                <option value="">-- none --</option>
-                            </template>
-                        </b-form-select>
-                        <b-form-select v-model="ordinaDesc" size="sm" :disabled="!ordinaPer" class="w-25">
-                            <option :value="false">Asc</option>
-                            <option :value="true">Desc</option>
-                        </b-form-select>
-                    </b-input-group>
-                </b-form-group>
+                <validation-provider name="filtro"
+                                     :rules="{min:3,max:16}"
+                                     v-slot="validationContext">
+                    <b-form-group label="Filtro"
+                                  label-cols-sm="3"
+                                  label-align-sm="right"
+                                  label-size="sm"
+                                  label-for="filterInput"
+                                  class="mb-0">
+                        <b-input-group size="sm">
+                            <b-form-input v-model="filter"
+                                          type="search"
+                                          id="filterInput"
+                                          :state="getValidationState(validationContext)"
+                                          aria-describedby="input-filtro-live-feedback"
+                                          placeholder="Tipo da cercare"></b-form-input>
+                            <b-input-group-append>
+                                <b-button :disabled="!filter" @click="filter = ''">Pulisci</b-button>
+                            </b-input-group-append>
+                            <b-form-invalid-feedback id="input-filtro-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                        </b-input-group>                      
+                    </b-form-group>                
+                </validation-provider>
             </b-col>
 
-            <b-col lg="6" class="my-1">
-                <b-form-group label="Ordinamento iniziale"
-                              label-cols-sm="3"
-                              label-align-sm="right"
-                              label-size="sm"
-                              label-for="initialSortSelect"
-                              class="mb-0">
-                    <b-form-select v-model="ordinaPer"
-                                   id="initialSortSelect"
-                                   size="sm"
-                                   :options="['asc', 'desc', 'last']"></b-form-select>
-                </b-form-group>
-            </b-col>
-
-            <b-col lg="6" class="my-1">
-                <b-form-group label="Filtro"
-                              label-cols-sm="3"
-                              label-align-sm="right"
-                              label-size="sm"
-                              label-for="filterInput"
-                              class="mb-0">
-                    <b-input-group size="sm">
-                        <b-form-input v-model="filter"
-                                      type="search"
-                                      id="filterInput"
-                                      placeholder="Tipo da cercare"></b-form-input>
-                        <b-input-group-append>
-                            <b-button :disabled="!filter" @click="filter = ''">Pulisci</b-button>
-                        </b-input-group-append>
-                    </b-input-group>
-                </b-form-group>
-            </b-col>
-
-            <b-col lg="6" class="my-1">
+            <b-col lg="6" class="my-1" v-if="filtriSu.length">
                 <b-form-group label="Filtra per"
                               label-cols-sm="3"
                               label-align-sm="right"
                               label-size="sm"
                               description="Lascia filtri non selezionati per cercare su tutti i campi"
                               class="mb-0">
-                    <b-form-checkbox-group v-model="filtriSu" class="mt-1">
-                        <b-form-checkbox value="userName">username</b-form-checkbox>
-                        <b-form-checkbox value="email">mail</b-form-checkbox>
-                        <b-form-checkbox value="isActive">attivo</b-form-checkbox>
+                    <b-form-checkbox-group :options="filtriSu"
+                                           value-field="item"
+                                           text-field="name"
+                                           v-model="selectedFilters" v class="mt-1">
                     </b-form-checkbox-group>
                 </b-form-group>
-            </b-col>          
-
-            <b-col  sm="5" md="6" class="my-1">
-                <b-pagination v-model="paginaCorrente"
-                              :total-rows="topRigheTotali"
-                              :per-page="topPerPagina"
-                              @input="pagingClick"
-                              align="fill"
-                              size="sm"
-                              class="my-0"></b-pagination>
             </b-col>
         </b-row>
 
         <!-- Main table element -->
         <b-table show-empty
-                 small
+                 ref="table"
                  stacked="md"
+                 :striped="true"
+                 :small="true"
                  :items="elementi"
-                 :fields="configurazione"              
+                 :fields="configurazione"
                  :per-page="0"
-                 :filter="filter"
-                 :filterIncludedFields="filtriSu"
+                 :hover="true"
+                 :borderless="true"
+                 head-variant="dark"                
+                 :filterIncludedFields="filtriSu"                
                  :sort-by.sync="ordinaPer"
-                 :sort-desc.sync="ordinaDesc"
-                 :sort-direction="ordinaDirezione"
-                 @filtered="onFiltered">
+                 @filtered="onFiltered"
+                 :sort-desc.sync="ordinaDesc"                
+                 :sort-direction="ordinaDirezione">
             <template v-slot:cell(actions)="row">
                 <b-button size="sm" style="background-color:#343a40;border:none" variant="dark" @click="info(row.item, row.index, $event.target)" class="mr-1">
                     <b-icon icon="person-fill" aria-label="Help"></b-icon>
@@ -102,7 +68,6 @@
                     <b-icon icon="toggles" aria-label="Help"></b-icon>
                 </b-button>
             </template>
-
             <template v-slot:row-details="row">
                 <b-card>
                     <ul>
@@ -110,11 +75,52 @@
                     </ul>
                 </b-card>
             </template>
+            <b-tfoot>
+                <b-tr>
+                    <b-td colspan="7" variant="secondary" class="text-right">
+                        Righe totali: <b>{{topRigheTotali}}</b>
+                    </b-td>
+                </b-tr>
+            </b-tfoot>
         </b-table>
-
+        <b-row>
+            <b-col sm="5" md="6" class="my-1">
+                <b-pagination pills
+                              v-model="paginaCorrente"
+                              :total-rows="topRigheTotali"
+                              :per-page="topPerPagina"
+                              @input="pagingClick"
+                              align="right"
+                              size="sm"
+                              class="my-0">
+                    <template v-slot:first-text>
+                        <span class="text-success"><v-icon name="fast-backward"></v-icon></span>
+                    </template>
+                    <template v-slot:prev-text>
+                        <span class="text-danger"><v-icon name="angle-double-left"></v-icon></span>
+                    </template>
+                    <template v-slot:next-text>
+                        <span class="text-warning"><v-icon name="angle-double-right"></v-icon></span>
+                    </template>
+                    <template v-slot:last-text>
+                        <span class="text-info"><v-icon name="fast-forward"></v-icon></span>
+                    </template>
+                    <template v-slot:ellipsis-text>
+                        <b-spinner small type="grow"></b-spinner>
+                        <b-spinner small type="grow"></b-spinner>
+                        <b-spinner small type="grow"></b-spinner>
+                    </template>
+                    <template v-slot:page="{ page, active }">
+                        <b v-if="active">{{ page }}</b>
+                        <i v-else>{{ page }}</i>
+                    </template>
+                </b-pagination>
+            </b-col>
+        </b-row>
         <!-- Info modal -->
         <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
-            <pre>{{ infoModal.content }}</pre>
+            <pre>{{ infoModal.content
+    }}</pre>
         </b-modal>
     </b-container>
 </template>
@@ -124,13 +130,12 @@
 
         props: ["elementi", "configurazione", "topRigheTotali", "topPaginaCorrente", "topPerPagina", "opzioni", "topOrdinaPer", "filtriSu", "topOrdinaDesc", "ordinaDirezione", "filtri"],
         data() {
-            return {              
+            return {
                 ordinaPer: this.topOrdinaPer,
-                ordinaDesc: this.topOrdinaDesc,               
-                filter: this.filtri,
+                ordinaDesc: this.topOrdinaDesc,
+                filter: this.filtri,            
                 paginaCorrente: this.topPaginaCorrente,
-               /* perPagina: this.topPerPagina,
-                righeTotali: this.topRigheTotali,*/
+                selectedFilters: [],
                 infoModal: {
                     id: 'info-modal',
                     title: '',
@@ -138,27 +143,22 @@
                 }
             }
         },
-        computed: {
-            sortOptions() {
-                if (typeof (this.fields) !== 'undefined' && typeof (this.fields.filter) !== 'undefined') {
-                    return this.fields
-                        .filter(f => f.sortable)
-                        .map(f => {
-                            return { text: f.label, value: f.key }
-                        })
-                }
-            }
+        computed: {  
         },
         mounted() {
-            this.totalRows = 29
-            // Set the initial number of items
-           // if (typeof (this.righeTotali) !== 'undefined' && this.righeTotali !== null) {
-             //   this.totalRows = this.righeTotali
-           // }
         },
         watch: {
             currentPage(newPage, oldPage) {
                 this.$emit('paging', newPage);
+            },
+            filter(newvalue, oldvalue) {
+                if (newvalue !== null && newvalue.length > 2) {
+                    this.callParentForFilter(newvalue);                    
+                    return true;
+                }
+                else if (newvalue != null && newvalue.length === 0 && oldvalue.length > 2) {
+                    this.$emit('paging', '1');
+                }
             }
         },
         methods: {
@@ -170,14 +170,24 @@
             resetInfoModal() {
                 this.infoModal.title = ''
                 this.infoModal.content = ''
+            },          
+            callParentForFilter(fil) {
+                this.$emit('filtering', fil, this.selectedFilters);
             },
             onFiltered(filteredItems) {
                 // Trigger pagination to update the number of buttons/pages due to filtering
-                this.totalRows = filteredItems.length
-                this.currentPage = 1
+                this.totalRows = filteredItems.length;
+                this.currentPage = this.paginaCorrente;  
             },
             pagingClick: function (pagina) {
                 this.$emit('paging', pagina);
+            },
+            activeUser(value) {
+                if (value === true) { return 'SI' }
+                else { return 'NO' }
+            },
+            getValidationState({ dirty, validated, valid = null }) {
+                return dirty || validated ? valid : null;
             }
         }
     }

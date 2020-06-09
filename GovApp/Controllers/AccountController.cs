@@ -42,10 +42,10 @@ namespace GovApp.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationUserManager _userManager;
-        private readonly ILogger<ChangePasswordModel> _logger;
+        private readonly ILogger<AccountController> _logger;
         private readonly IOptions<ComunicazioneConfig> _config;
 
-        public AccountController(UserStore utentiService, SignInManager<ApplicationUser> SignInManager, ApplicationUserManager userManager, ILogger<ChangePasswordModel> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config)
+        public AccountController(UserStore utentiService, SignInManager<ApplicationUser> SignInManager, ApplicationUserManager userManager, ILogger<AccountController> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config)
         {
             _utentiService = utentiService;
             _userManager = userManager;

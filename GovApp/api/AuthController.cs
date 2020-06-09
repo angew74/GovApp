@@ -32,10 +32,10 @@ namespace GovApp.api
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationUserManager _userManager;
-        private readonly ILogger<ChangePasswordModel> _logger;
+        private readonly ILogger<AuthController> _logger;
         private readonly IOptions<ComunicazioneConfig> _mailConfig;
         private readonly IOptions<PagingConfig> _pagingConfig;
-        public AuthController(UserStore utentiService, SignInManager<ApplicationUser> SignInManager, ApplicationUserManager userManager, ILogger<ChangePasswordModel> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config, IOptions<PagingConfig> pagingConfig)
+        public AuthController(UserStore utentiService, SignInManager<ApplicationUser> SignInManager, ApplicationUserManager userManager, ILogger<AuthController> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config, IOptions<PagingConfig> pagingConfig)
         {
             _utentiService = utentiService;
             _userManager = userManager;
@@ -88,7 +88,7 @@ namespace GovApp.api
                         }
                         Microsoft.AspNetCore.Identity.SignInResult result =
                                _signInManager.PasswordSignInAsync(
-                                  user, credentials.credentials.password, false, false).Result;     
+                                  user, credentials.credentials.password, false, false).Result;
                         if (result.Succeeded)
                         {
                             var principal = await _signInManager.CreateUserPrincipalAsync(user);
@@ -136,7 +136,7 @@ namespace GovApp.api
         [AllowAnonymous]
         [HttpGet("context")]
         public IActionResult Context()
-        {           
+        {
             return Ok(new
             {
                 name = this.User?.Identity?.Name,
@@ -198,7 +198,7 @@ namespace GovApp.api
                 {
                     _logger.LogError("Impossibile aggiornare utente con ID '{model.confirm.Id}'.");
                     error.errMsg = "Impossibile aggiornare utente con ID '{model.confirm.Id}'.";
-                    return BadRequest(error);                   
+                    return BadRequest(error);
                 }
                 user.Password = model.confirm.Password;
                 user.EmailConfirmed = true;
@@ -221,7 +221,7 @@ namespace GovApp.api
                 _logger.LogError("Eccezione non gestita dettagli: " + ex.Message);
                 error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
                 return BadRequest(error);
-            }          
+            }
             return Ok(model);
         }
 
@@ -242,8 +242,8 @@ namespace GovApp.api
                 var user = _userManager.FindByNameAsync(model.user.userName).Result;
                 if (user != null)
                 {
-                    _logger.LogError("Impossibile creare utente con Username " + model.user.userName +" . utente già esistente");
-                    error.errMsg = "Impossibile creare utente con Username " + model.user.userName  + " . utente già esistente";
+                    _logger.LogError("Impossibile creare utente con Username " + model.user.userName + " . utente già esistente");
+                    error.errMsg = "Impossibile creare utente con Username " + model.user.userName + " . utente già esistente";
                     return BadRequest(error);
                 }
                 var hasher = new PasswordHasher<IdentityUser>();
@@ -262,17 +262,17 @@ namespace GovApp.api
                     NormalizedUserName = model.user.userName.ToLower(),
                     UserName = model.user.userName,
                     Sesso = model.user.sesso,
-                    
+
                 };
-                List<ApplicationUserRole> applicationUserRoles = new List<ApplicationUserRole>();               
-           //     user.UserRoles = applicationUserRoles;
+                List<ApplicationUserRole> applicationUserRoles = new List<ApplicationUserRole>();
+                //     user.UserRoles = applicationUserRoles;
                 CancellationToken cancellationToken = new CancellationToken();
                 var result = await _utentiService.CreateAsync(user, cancellationToken);
                 if (result.Succeeded)
-                {                  
-                    var r = _utentiService.AddToRoleAsync(user, "user",cancellationToken);                   
+                {
+                    var r = _utentiService.AddToRoleAsync(user, "user", cancellationToken);
                     string body = _mailConfig.Value.BodyCreazioneUtente + "<br /> UserName: " + user.UserName + " <br /> Password: " + model.user.password;
-                   var t =  _emailSender.SendEmailAsync(user.Email, _mailConfig.Value.SoggettoCreazioneUtente, body);                 
+                    var t = _emailSender.SendEmailAsync(user.Email, _mailConfig.Value.SoggettoCreazioneUtente, body);
                     model.user.result = true;
                 }
                 else
@@ -313,7 +313,7 @@ namespace GovApp.api
                     error.errMsg = "Impossibile aggiornare utente con ID '{model.confirm.Id}'.";
                     return BadRequest(error);
                 }
-                user.Password = model.change.Password;             
+                user.Password = model.change.Password;
                 CancellationToken cancellationToken = new CancellationToken();
                 var result = await _utentiService.UpdateAsync(user, cancellationToken);
                 if (result.Succeeded)
@@ -340,6 +340,71 @@ namespace GovApp.api
 
 
         [Authorize]
+        [HttpGet("usersfilters")]
+        public async Task<IActionResult> GetUsersFilters(string page, string filtro, [FromQuery] string[] filtriarray)
+        {
+
+            ErrorModel error = new ErrorModel();
+            List<UserModel> usersmodel = new List<UserModel>();
+            try
+            {
+                int take = int.Parse(_pagingConfig.Value.perPage);
+                int skip = take * (int.Parse(page) - 1);
+                List<ApplicationUser> applicationUsers = new List<ApplicationUser>();
+                if (filtriarray.Length > 0)
+                {
+                    foreach (string t in filtriarray)
+                    {
+                        switch (t)
+                        {
+                            case "username":
+                                applicationUsers.AddRange(_utentiService.GetUsersByUsernameLike(filtro, take, skip));
+                                break;
+                            case "email":
+                                applicationUsers.AddRange(_utentiService.GetUsersByMailLike(filtro, take, skip));
+                                break;
+                            case "cognome":
+                                applicationUsers.AddRange(_utentiService.GetUsersByCognomeLike(filtro, take, skip));
+                                break;
+                            default:
+                                break;
+
+
+                        }
+                    }
+                }
+                else
+                {
+                    applicationUsers.AddRange(_utentiService.GetUsersByUsernameLike(filtro, take, skip));
+                    applicationUsers.AddRange(_utentiService.GetUsersByMailLike(filtro, take, skip));
+                    applicationUsers.AddRange(_utentiService.GetUsersByCognomeLike(filtro, take, skip));
+                }
+
+                if (applicationUsers == null)
+                {
+                    return Ok(usersmodel);
+                }           
+                usersmodel = applicationUsers.Distinct().Select(x => new UserModel
+                {
+                    cognome = x.Cognome,
+                    email = x.Email,
+                    isActive = !x.LockoutEnabled,
+                    nome = x.Nome,
+                    userName = x.UserName,
+                    role = string.Join(",", x.Roles.ToList())
+                }).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Eccezione non gestita dettagli: " + ex.Message);
+                error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
+                return BadRequest(error);
+            }
+            return await System.Threading.Tasks.Task.FromResult(Ok(usersmodel));
+        }
+
+        [Authorize]
         [HttpGet("users")]
         public async Task<IActionResult> GetUsers(string page)
         {
@@ -349,8 +414,8 @@ namespace GovApp.api
             try
             {
                 int take = int.Parse(_pagingConfig.Value.perPage);
-                int skip = take * (int.Parse(page)-1);
-                var users = _utentiService.GetUsersBy(take,skip);
+                int skip = take * (int.Parse(page) - 1);
+                var users = _utentiService.GetUsersBy(take, skip);
                 if (users == null)
                 {
                     return Ok(usersmodel);
@@ -361,10 +426,10 @@ namespace GovApp.api
                     email = x.Email,
                     isActive = !x.LockoutEnabled,
                     nome = x.Nome,
-                    userName = x.UserName,                  
+                    userName = x.UserName,
                     role = string.Join(",", x.Roles.ToList())
                 }).ToList();
-               
+
             }
             catch (Exception ex)
             {
@@ -372,61 +437,105 @@ namespace GovApp.api
                 error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
                 return BadRequest(error);
             }
-            return  await System.Threading.Tasks.Task.FromResult(Ok(usersmodel));
+            return await System.Threading.Tasks.Task.FromResult(Ok(usersmodel));
         }
 
         [Authorize]
         [HttpGet("pagination")]
-        public async Task<IActionResult> GetPagination(string type,string page)
+        public async Task<IActionResult> GetPagination(string type, string page)
         {
             PaginationModel model = new PaginationModel();
-            switch(type)
+            switch (type)
             {
                 case "users":
-                    List<PaginationModel.Field> fields = new List<PaginationModel.Field>();
-                    PaginationModel.Field field = new PaginationModel.Field();
-                    field.key = "userName";
-                    field.label = "UserName";
-                    field.sortable = true;
-                    field.sortDirection = "desc";
-                    fields.Add(field);
-                    PaginationModel.Field field1 = new PaginationModel.Field();
-                    field1.key = "email";
-                    field1.label = "Email";
-                    field1.sortable = true;
-                    field1.sortDirection = "desc";
-                    field1.cssclass = "text-center";
-                    fields.Add(field1);
-                    PaginationModel.Field field2 = new PaginationModel.Field();
-                    field2.key = "isActive";
-                    field2.label = "Attivo";
-                    field2.sortable = true;
-                    field2.sortByFormatted = true;
-                    field2.filterByFormatted = true;
-                    field2.cssclass = "text-center";
-                    field2.formatter = " (value, key, item) => {return value ? 'Si' : 'No'}";
-                    fields.Add(field2);
-                    PaginationModel.Field field3 = new PaginationModel.Field();
-                    field3.key = "actions";
-                    field3.label = "Azioni";
-                    fields.Add(field3);
-                    model.totalRows = _utentiService.GetUsersCount().ToString();
+                    model = GetBasePaginationUser();
                     model.currentPage = page;
-                    model.perPage = _pagingConfig.Value.perPage;
-                    List<int> options = new List<int> { 5, 10, 15 };
-                    model.pageOptions = options.ToArray();
-                    model.sortBy = "userName";
-                    model.sortDesc = false;
-                    model.sortDirection = "asc";
-                    model.filter = "";
-                    List<string> f = new List<string> { "userName", "email" };
-                    model.filterOn = f.ToArray();
-                    model.infoMal = new PaginationModel.InfoModale { content = "", id = "info-modal", title = "" };
-                    model.fields = fields.ToArray();
+                    model.totalRows = _utentiService.GetUsersCount().ToString();
                     break;
             }
 
             return await System.Threading.Tasks.Task.FromResult(Ok(model));
+        }
+
+
+        [Authorize]
+        [HttpGet("paginationlike")]
+        public async Task<IActionResult> GetPaginationLike(string type, string page, string filtro,[FromQuery] string[] filtriarray)
+        {
+            PaginationModel model = new PaginationModel();
+            switch (type)
+            {
+                case "users":
+                    model = GetBasePaginationUser();
+                    model.currentPage = page;
+                    model.totalRows = _utentiService.GetUsersCountLike(filtro,filtriarray).ToString();
+                    break;
+            }
+
+            return await System.Threading.Tasks.Task.FromResult(Ok(model));
+        }
+
+
+        private PaginationModel GetBasePaginationUser()
+        {
+            PaginationModel model = new PaginationModel();
+            List<PaginationModel.Field> fields = new List<PaginationModel.Field>();
+            PaginationModel.Field field = new PaginationModel.Field();
+            field.key = "userName";
+            field.label = "UserName";
+            field.sortable = true;
+            field.sortDirection = "desc";
+            fields.Add(field);
+            PaginationModel.Field field1 = new PaginationModel.Field();
+            field1.key = "email";
+            field1.label = "Email";
+            field1.sortable = true;
+            field1.sortDirection = "desc";
+            field1.cssclass = "text-center";
+            fields.Add(field1);
+            PaginationModel.Field field2 = new PaginationModel.Field();
+            field2.key = "isActive";
+            field2.label = "Attivo";
+            field2.sortable = true;
+            field2.sortByFormatted = true;
+            field2.filterByFormatted = true;
+            field2.cssclass = "text-center";
+            //  field2.formatter = "(value, key, item) => {return value ? 'Yes' : 'No'}";
+            field2.formatter = "activeUser";
+            fields.Add(field2);
+            PaginationModel.Field field3 = new PaginationModel.Field();
+            field3.key = "actions";
+            field3.label = "Azioni";
+            fields.Add(field3);         
+            model.perPage = _pagingConfig.Value.perPage;
+            List<int> options = new List<int> { 5, 10, 15 };
+            model.pageOptions = options.ToArray();
+            model.sortBy = "userName";
+            model.sortDesc = false;
+            model.sortDirection = "asc";
+            model.filter = "";
+            List<PaginationModel.Options> f = new List<PaginationModel.Options>();
+            PaginationModel.Options opt = new PaginationModel.Options
+            {
+                item = "userName",
+                name = "UserName"
+            };
+            PaginationModel.Options opt1 = new PaginationModel.Options
+            {
+                item = "email",
+                name = "Email"
+            };
+            PaginationModel.Options opt2 = new PaginationModel.Options
+            {
+                item = "cognome",
+                name = "Cognome"
+            };
+            f.Add(opt);
+            f.Add(opt1);
+            model.filterOn = f.ToArray();
+            model.infoMal = new PaginationModel.InfoModale { content = "", id = "info-modal", title = "" };
+            model.fields = fields.ToArray();
+            return model;
         }
     }
 }

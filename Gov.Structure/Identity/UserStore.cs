@@ -41,11 +41,61 @@ namespace Gov.Structure.Identity
             return utentis;
         }
 
+        public List<ApplicationUser> GetUsersByUsernameLike(string usernamepartial, int take,int skip)
+        {
+            List<ApplicationUser> utentis = dbcontext.Users.Where(x=>x.UserName.ToLower().Contains(usernamepartial)).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+            return utentis;
+        }
+
+        public List<ApplicationUser> GetUsersByMailLike(string mailpartial, int take, int skip)
+        {
+            List<ApplicationUser> utentis = dbcontext.Users.Where(x => x.NormalizedEmail.ToLower().Contains(mailpartial)).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+            return utentis;
+        }
+
+        public List<ApplicationUser> GetUsersByCognomeLike(string cognomepartial, int take, int skip)
+        {
+            List<ApplicationUser> utentis = dbcontext.Users.Where(x => x.Cognome.ToLower().Contains(cognomepartial)).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+            return utentis;
+        }
+
         public int GetUsersCount()
         {
            return dbcontext.Users.Count();
         }
-      
+
+        public int GetUsersCountLike(string filter, string[] types)
+        {
+            int count = 0;
+            if (types.Length > 0)
+            {
+                foreach (string t in types)
+                {
+                    switch (t)
+                    {
+                        case "username":
+                            count += dbcontext.Users.Where(x => x.UserName.ToLower().Contains(filter)).Count();
+                            break;
+                        case "email":
+                            count += dbcontext.Users.Where(x => x.Email.ToLower().Contains(filter)).Count();
+                            break;
+                        case "cognome":
+                            count += dbcontext.Users.Where(x => x.Cognome.ToLower().Contains(filter)).Count();
+                            break;
+                        default:                           
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                count += dbcontext.Users.Where(x => x.UserName.ToLower().Contains(filter)).Count();
+                count += dbcontext.Users.Where(x => x.Email.ToLower().Contains(filter)).Count();
+                count += dbcontext.Users.Where(x => x.Cognome.ToLower().Contains(filter)).Count();
+            }
+            return count;
+        }
+
         internal async Task<SignInResult> PasswordSignInAsync(ApplicationUser user, string password, bool isPersistent, bool lockoutOnFailure)
         {
             SignInResultMock signInResult = new SignInResultMock();

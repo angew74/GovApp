@@ -13,7 +13,7 @@ namespace GovApp.Models
         public bool sortDesc { get; set; }
         public string sortDirection { get; set; }
         public string filter { get; set; }
-        public string[] filterOn { get; set; }
+        public Options[] filterOn { get; set; }
         public InfoModale infoMal { get; set; }
         public Field[] fields { get; set; }
    
@@ -35,6 +35,11 @@ namespace GovApp.Models
             public bool filterByFormatted { get; set; }
 
             public string sortDirection { get; set; }
+        }
+        public class Options
+        {
+            public string item { get; set; }
+            public string name { get; set; }
         }
 
     }
