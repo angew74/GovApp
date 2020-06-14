@@ -9,6 +9,7 @@ namespace GovApp.Models
     public class UserModel
     {
         public string userName { get; set; }
+        public string id { get; set; }
         public string nome { get; set; }
         public string cognome { get; set; }
         public string email {get;set;}

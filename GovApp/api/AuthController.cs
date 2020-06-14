@@ -342,7 +342,7 @@ namespace GovApp.api
 
         [Authorize]
         [HttpGet("usersfilters")]
-        public async Task<IActionResult> GetUsersFilters(string page, string filtro, [FromQuery] string[] filtriarray)
+        public async Task<IActionResult> GetUsersFilters(string page, string filtro, [FromQuery(Name = "fitriarray[]")] string[] filtriarray)
         {
 
             ErrorModel error = new ErrorModel();
@@ -356,7 +356,7 @@ namespace GovApp.api
                 {
                     foreach (string t in filtriarray)
                     {
-                        switch (t)
+                        switch (t.ToLower())
                         {
                             case "username":
                                 applicationUsers.AddRange(_utentiService.GetUsersByUsernameLike(filtro, take, skip));
@@ -369,8 +369,6 @@ namespace GovApp.api
                                 break;
                             default:
                                 break;
-
-
                         }
                     }
                 }
@@ -387,6 +385,7 @@ namespace GovApp.api
                 }           
                 usersmodel = applicationUsers.Distinct().Select(x => new UserModel
                 {
+                    id = x.Id.ToString(),
                     cognome = x.Cognome,
                     email = x.Email,
                     isActive = !x.LockoutEnabled,
@@ -407,7 +406,7 @@ namespace GovApp.api
 
         [Authorize]
         [HttpGet("users")]
-        public async Task<IActionResult> GetUsers(string page)
+        public async Task<IActionResult> GetUsers(string page,string ordinaPer,[FromQuery] bool ordinaDesc, string filter, [FromQuery(Name = "fitriarray[]")] string[] filtriarray)
         {
 
             ErrorModel error = new ErrorModel();
@@ -416,13 +415,15 @@ namespace GovApp.api
             {
                 int take = int.Parse(_pagingConfig.Value.perPage);
                 int skip = take * (int.Parse(page) - 1);
-                var users = _utentiService.GetUsersBy(take, skip);
-                if (users == null)
+                List<ApplicationUser> applicationUsers = new List<ApplicationUser>();
+                applicationUsers = _utentiService.GetUsersSortingBy(take, skip,ordinaPer,ordinaDesc,filter,filtriarray);               
+                if (applicationUsers == null)
                 {
                     return Ok(usersmodel);
                 }
-                usersmodel = users.Select(x => new UserModel
+                usersmodel = applicationUsers.Select(x => new UserModel
                 {
+                    id = x.Id.ToString(),
                     cognome = x.Cognome,
                     email = x.Email,
                     isActive = !x.LockoutEnabled,
@@ -443,7 +444,7 @@ namespace GovApp.api
 
         [Authorize]
         [HttpGet("pagination")]
-        public async Task<IActionResult> GetPagination(string type, string page)
+        public async Task<IActionResult> GetPagination(string type, string page, string ordinaPer, bool ordinaDesc, string filter, [FromQuery(Name = "fitriarray[]")] string[] filtriarray)
         {
             PaginationModel model = new PaginationModel();
             switch (type)
@@ -451,7 +452,13 @@ namespace GovApp.api
                 case "users":
                     model = GetBasePaginationUser();
                     model.currentPage = page;
-                    model.totalRows = _utentiService.GetUsersCount().ToString();
+                    if (!string.IsNullOrEmpty(ordinaPer))
+                    { model.sortBy = ordinaPer; }
+                    if (ordinaDesc == true)
+                    { model.sortDesc = ordinaDesc; }
+                    if (string.IsNullOrEmpty(filter))
+                    { model.totalRows = _utentiService.GetUsersCount().ToString(); }
+                    else { _utentiService.GetUsersCountLike(filter, filtriarray).ToString(); }
                     break;
             }
 
@@ -461,7 +468,7 @@ namespace GovApp.api
 
         [Authorize]
         [HttpGet("paginationlike")]
-        public async Task<IActionResult> GetPaginationLike(string type, string page, string filtro,[FromQuery] string[] filtriarray)
+        public async Task<IActionResult> GetPaginationLike(string type, string page, string filtro, [FromQuery(Name = "fitriarray[]")] string[] filtriarray)
         {
             PaginationModel model = new PaginationModel();
             switch (type)
@@ -500,14 +507,25 @@ namespace GovApp.api
             field2.sortable = true;
             field2.sortByFormatted = true;
             field2.filterByFormatted = true;
-            field2.cssclass = "text-center";
-            //  field2.formatter = "(value, key, item) => {return value ? 'Yes' : 'No'}";
+            field2.cssclass = "text-center";         
             field2.formatter = "activeUser";
             fields.Add(field2);
             PaginationModel.Field field3 = new PaginationModel.Field();
-            field3.key = "actions";
-            field3.label = "Azioni";
-            fields.Add(field3);         
+            field3.key = "detailsuser";
+            field3.label = "";
+            PaginationModel.Field field4 = new PaginationModel.Field();
+            field4.key = "deleteuser";
+            field4.label = "";
+            PaginationModel.Field field5 = new PaginationModel.Field();
+            field5.key = "disableuser";
+            field5.label = "";
+            PaginationModel.Field field6 = new PaginationModel.Field();
+            field6.key = "resetpassword";
+            field6.label = "";
+            fields.Add(field3);
+            fields.Add(field4);
+            fields.Add(field5);
+            fields.Add(field6);
             model.perPage = _pagingConfig.Value.perPage;
             List<int> options = new List<int> { 5, 10, 15 };
             model.pageOptions = options.ToArray();
@@ -546,6 +564,7 @@ namespace GovApp.api
         {           
             ErrorModel error = new ErrorModel();
             List<UserModel> usersmodel = new List<UserModel>();
+            string[] filtriarray = new string[0];
             if (!ModelState.IsValid)
             {
                 error.errMsg = "Errore di validazione";
@@ -556,13 +575,14 @@ namespace GovApp.api
 
                 int take = int.Parse(_pagingConfig.Value.perPage);
                 int skip = take * (int.Parse(model.currentPage.ToString()) - 1);
-                var users = _utentiService.GetUsersSortingBy(take, skip,model.sortBy, model.sortDesc, model.filter);
+                var users = _utentiService.GetUsersSortingBy(take, skip,model.sortBy, model.sortDesc, model.filter,filtriarray);
                 if (users == null)
                 {
                     return Ok(usersmodel);
                 }
                 usersmodel = users.Select(x => new UserModel
                 {
+                    id = x.Id.ToString(),
                     cognome = x.Cognome,
                     email = x.Email,
                     isActive = !x.LockoutEnabled,

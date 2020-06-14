@@ -64,15 +64,40 @@ namespace Gov.Structure.Identity
            return dbcontext.Users.Count();
         }
 
-        public List<ApplicationUser> GetUsersSortingBy(int take,int skip,string sortBy, bool sortDesc,string filter)
+        public List<ApplicationUser> GetUsersSortingBy(int take, int skip, string sortBy, bool sortDesc, string filter, string[] types)
         {
-            string ordining = sortBy;
-            if(sortDesc)
+            List<ApplicationUser> utentis = new List<ApplicationUser>();
+            string ordining = "";
+            if (string.IsNullOrEmpty(sortBy))
+            { ordining = "UserName "; }
+            else { ordining = sortBy; }
+            if (sortDesc)
             { ordining += " DESC"; }
             else { ordining += " ASC"; }
-            List<ApplicationUser> utentis = dbcontext.Users.OrderBy(ordining).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+            if (string.IsNullOrEmpty(filter))
+            { utentis = dbcontext.Users.OrderBy(ordining).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList(); }
+            else
+            {
+                foreach (string t in types)
+                {
+                    switch (t.ToLower())
+                    {
+                        case "username":
+                            utentis = dbcontext.Users.Where(x => x.UserName.ToLower().Contains(filter)).OrderBy(ordining).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+                            break;
+                        case "email":
+                            utentis = dbcontext.Users.Where(x => x.Email.ToLower().Contains(filter)).OrderBy(ordining).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+                            break;
+                        case "cognome":
+                            utentis = dbcontext.Users.Where(x => x.Email.ToLower().Contains(filter)).OrderBy(ordining).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+                            break;
+
+                    }
+                }
+            }
             return utentis;
         }
+
         public int GetUsersCountLike(string filter, string[] types)
         {
             int count = 0;
@@ -80,7 +105,7 @@ namespace Gov.Structure.Identity
             {
                 foreach (string t in types)
                 {
-                    switch (t)
+                    switch (t.ToLower())
                     {
                         case "username":
                             count += dbcontext.Users.Where(x => x.UserName.ToLower().Contains(filter)).Count();

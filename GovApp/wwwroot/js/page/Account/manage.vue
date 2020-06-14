@@ -2,7 +2,9 @@
     <div>
         <app-sidebar></app-sidebar>
         <app-users :elementi="users" :configurazione="mapgrid" :topRigheTotali="righe" :topPaginaCorrente="pagina" :topPerPagina="per" :filtriSu="fSu" :opzioni="opz" :topOrdinaPer="oPer" :topOrdinaDesc="oDesc"
-                   :ordinaDirezione="direzione" :filtri="fifi" @sorting="sortingUsers" @paging="pagingUsers" @filtering="filteringUsers"></app-users>
+                   :ordinaDirezione="direzione" :filtri="fifi" @sorting="sortingUsers"
+                   @disableuser="duser" @deleteuser="deuser" @resetpassword="ruser"
+                   @paging="pagingUsers" @filtering="filteringUsers"></app-users>
         <notifications position="top center" group="errori" />
         <app-footer></app-footer>
         <error-bound></error-bound>
@@ -51,12 +53,19 @@
             ...mapActions('context', [
                 'restoreContext'
             ]),
-            getUsers(page) {
+            duser(user) { },
+            deuser(user) { },
+            ruser(user) {},
+            getUsers(page, ordinaPer, ordinaDesc, filter,filterarray) {
                 axios({
                     method: 'get',
                     url: '/api/auth/users',
                     params: {
-                        "page": page
+                        "page": page,
+                        "ordinaPer": ordinaPer,
+                        "ordinaDesc": ordinaDesc,
+                        "filter": filter,
+                        "fitriarray" : filterarray
                     }
                 })
                     .then(response => {
@@ -102,13 +111,17 @@
                     console.log(error.response.headers);
                 });
             },
-            getParams(type, page) {
+            getParams(type, page, ordinaPer, ordinaDesc, filter, filtriarray) {
                 axios({
                     method: 'get',
                     url: '/api/auth/pagination',
                     params: {
                         "type": type,
-                        "page": page
+                        "page": page,
+                        "ordinaPer": ordinaPer,
+                        "ordinaDesc": ordinaDesc,
+                        "filter": filter,
+                        "filtriarray": filtriarray
                     }
                 }).then(response => {
                     this.mapgrid = response.data.fields;
@@ -154,10 +167,10 @@
                         this.showAlert(error.response.statusText);
                     });
             },
-            pagingUsers(page) {
+            pagingUsers(page,ordinaPer,ordinaDesc,filter,filtriarray) {
                 if (page !== null) {
-                    this.getUsers(page);
-                    this.getParams("users", page);
+                    this.getUsers(page, ordinaPer, ordinaDesc, filter, filtriarray);
+                    this.getParams("users", page, ordinaPer, ordinaDesc, filter, filtriarray);
                 }
             },
             filteringUsers(filter, opzioni) {
