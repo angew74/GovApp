@@ -13,7 +13,7 @@
                                   class="mb-0">
                         <b-input-group size="sm">
                             <b-form-input v-model="filter"
-                                          type="search"
+                                          type="search"                                         
                                           id="filterInput"
                                           :state="getValidationState(validationContext)"
                                           aria-describedby="input-filtro-live-feedback"
@@ -51,14 +51,20 @@
                  :small="true"
                  :items="elementi"
                  :fields="configurazione"
-                 :per-page="0"
+                 :per-page="0"              
+                 :current-page="paginaCorrente"
                  :hover="true"
                  :borderless="true"
-                 head-variant="dark"                
-                 :filterIncludedFields="filtriSu"                
+                 head-variant="dark"
+                 :filterIncludedFields="filtriSu"
+                 :empty-filtered-text="emptyFiltered"
+                 :empty-text="empty"
                  :sort-by.sync="ordinaPer"
+                 @sort-changed="sortingChanged"
                  @filtered="onFiltered"
-                 :sort-desc.sync="ordinaDesc"                
+                 :no-local-sorting="true"
+                 :no-local-filtering="true"
+                 :sort-desc.sync="ordinaDesc"
                  :sort-direction="ordinaDirezione">
             <template v-slot:cell(actions)="row">
                 <b-button size="sm" style="background-color:#343a40;border:none" variant="dark" @click="info(row.item, row.index, $event.target)" class="mr-1">
@@ -75,13 +81,9 @@
                     </ul>
                 </b-card>
             </template>
-            <b-tfoot>
-                <b-tr>
-                    <b-td colspan="7" variant="secondary" class="text-right">
-                        Righe totali: <b>{{topRigheTotali}}</b>
-                    </b-td>
-                </b-tr>
-            </b-tfoot>
+            <template v-slot:custom-foot>
+           <v-icon name="table"></v-icon> Righe totali: <b>{{topRigheTotali}}</b>
+            </template>               
         </b-table>
         <b-row>
             <b-col sm="5" md="6" class="my-1">
@@ -136,6 +138,8 @@
                 filter: this.filtri,            
                 paginaCorrente: this.topPaginaCorrente,
                 selectedFilters: [],
+                empty: "Dati non presenti",
+                emptyFiltered:'Nessun riscontro',
                 infoModal: {
                     id: 'info-modal',
                     title: '',
@@ -156,7 +160,7 @@
                     this.callParentForFilter(newvalue);                    
                     return true;
                 }
-                else if (newvalue != null && newvalue.length === 0 && oldvalue.length > 2) {
+                else if (newvalue != null && newvalue.length === 0 && oldvalue.length > 0) {
                     this.$emit('paging', '1');
                 }
             }
@@ -176,11 +180,14 @@
             },
             onFiltered(filteredItems) {
                 // Trigger pagination to update the number of buttons/pages due to filtering
-                this.totalRows = filteredItems.length;
+                this.totalRows = this.elementi;
                 this.currentPage = this.paginaCorrente;  
             },
             pagingClick: function (pagina) {
                 this.$emit('paging', pagina);
+            },
+            sortingChanged(ctx) {
+                this.$emit('sorting',ctx)
             },
             activeUser(value) {
                 if (value === true) { return 'SI' }

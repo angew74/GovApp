@@ -52,6 +52,7 @@ namespace GovApp.api
             public Confirm confirm { get; set; }
             public Confirm change { get; set; }
             public UserModel user { get; set; }
+            public SortingModel sort { get; set; }
         }
 
         public class Credentials
@@ -536,6 +537,48 @@ namespace GovApp.api
             model.infoMal = new PaginationModel.InfoModale { content = "", id = "info-modal", title = "" };
             model.fields = fields.ToArray();
             return model;
+        }
+
+        [Authorize]
+        [HttpPost("userssorting")]
+        [IgnoreAntiforgeryToken]
+        public async Task<IActionResult> GetUserSorting([FromBody] SortingModel model)
+        {           
+            ErrorModel error = new ErrorModel();
+            List<UserModel> usersmodel = new List<UserModel>();
+            if (!ModelState.IsValid)
+            {
+                error.errMsg = "Errore di validazione";
+                return BadRequest(error);
+            }
+            try
+            {
+
+                int take = int.Parse(_pagingConfig.Value.perPage);
+                int skip = take * (int.Parse(model.currentPage.ToString()) - 1);
+                var users = _utentiService.GetUsersSortingBy(take, skip,model.sortBy, model.sortDesc, model.filter);
+                if (users == null)
+                {
+                    return Ok(usersmodel);
+                }
+                usersmodel = users.Select(x => new UserModel
+                {
+                    cognome = x.Cognome,
+                    email = x.Email,
+                    isActive = !x.LockoutEnabled,
+                    nome = x.Nome,
+                    userName = x.UserName,
+                    role = string.Join(",", x.Roles.ToList())
+                }).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Eccezione non gestita dettagli: " + ex.Message);
+                error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
+                return BadRequest(error);
+            }
+            return await System.Threading.Tasks.Task.FromResult(Ok(usersmodel));
         }
     }
 }

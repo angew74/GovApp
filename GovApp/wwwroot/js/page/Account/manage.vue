@@ -2,21 +2,8 @@
     <div>
         <app-sidebar></app-sidebar>
         <app-users :elementi="users" :configurazione="mapgrid" :topRigheTotali="righe" :topPaginaCorrente="pagina" :topPerPagina="per" :filtriSu="fSu" :opzioni="opz" :topOrdinaPer="oPer" :topOrdinaDesc="oDesc"
-                   :ordinaDirezione="direzione" :filtri="fifi" @paging="pagingUsers" @filtering="filteringUsers"></app-users>
-        <notifications position="top center" group="errori">
-            <template slot="body" slot-scope="props">
-                <div>
-                    <a class="title">
-                        {{props.item.title}}
-                    </a>
-                    <a class="close" @click="props.close">
-                        <v-icon name="times" />
-                    </a>
-                    <div v-html="props.item.text">
-                    </div>
-                </div>
-            </template>
-        </notifications>
+                   :ordinaDirezione="direzione" :filtri="fifi" @sorting="sortingUsers" @paging="pagingUsers" @filtering="filteringUsers"></app-users>
+        <notifications position="top center" group="errori" />
         <app-footer></app-footer>
         <error-bound></error-bound>
     </div>
@@ -49,12 +36,13 @@
                 direzione: 'asc',
                 fSu: [],
                 fifi: '',
-                messaggio: ''
+                messaggio: '',
+                errored:false
             }
         },
         mounted() {
             this.getUsers(1);
-            this.getParams("users",1)
+            this.getParams("users", 1)
         },
         created() {
             this.restoreContext()
@@ -76,9 +64,11 @@
                     })
                     .catch(function (error) {
                         console.log(error);
+                        this.errored = true;
+                        this.messaggio = error.response.statusText;                       
                     });
             },
-            getUsersFiltering(page,filter,types) {
+            getUsersFiltering(page, filter, types) {
                 axios({
                     method: 'get',
                     url: '/api/auth/usersfilters',
@@ -93,7 +83,24 @@
                     })
                     .catch(function (error) {
                         console.log(error);
+                        this.errored = true;
+                        this.messaggio = error.response.statusText;
                     });
+            },
+            getUsersSorting(sort) {
+                axios.post('/api/auth/userssorting', sort, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(response => {
+                    this.users = response.data;
+                }).catch(error => {
+                    error => this.messaggio = error.response.data.errMsg;
+                    this.showAlert(error.response.data.errMsg);
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                });
             },
             getParams(type, page) {
                 axios({
@@ -104,7 +111,7 @@
                         "page": page
                     }
                 }).then(response => {
-                    this.mapgrid = response.data.fields;                  
+                    this.mapgrid = response.data.fields;
                     this.pagina = response.data.currentPage;
                     this.per = response.data.perPage;
                     this.opz = response.data.pageOptions;
@@ -117,9 +124,10 @@
                 })
                     .catch(function (error) {
                         console.log(error);
+                        this.showAlert(error.response.statusText);
                     });
             },
-            getParamsFiltering(type, page,filter,opzioni) {
+            getParamsFiltering(type, page, filter, opzioni) {
                 axios({
                     method: 'get',
                     url: '/api/auth/paginationlike',
@@ -143,6 +151,7 @@
                 })
                     .catch(function (error) {
                         console.log(error);
+                        this.showAlert(error.response.statusText);
                     });
             },
             pagingUsers(page) {
@@ -151,23 +160,27 @@
                     this.getParams("users", page);
                 }
             },
-            filteringUsers(filter,opzioni) {
+            filteringUsers(filter, opzioni) {
                 if (filter !== null) {
-                    this.getUsersFiltering("1",filter,opzioni);
-                    this.getParamsFiltering("users", "1",filter, opzioni);
+                    this.getUsersFiltering("1", filter, opzioni);
+                    this.getParamsFiltering("users", "1", filter, opzioni);
                 }
+            },
+            sortingUsers(ctx) {
+                this.getUsersSorting(ctx);
+            },
+            showAlert(message) {
+                this.$notify({
+                    group: 'errori',
+                    position: "top center",
+                    duration: "10000",
+                    width: "450px",
+                    type: "error",
+                    title: 'Attenzione',
+                    text: message
+                })
             }
-        },
-        showAlert(message) {
-            this.$notify({
-                group: 'errori',
-                position: "top center",
-                duration: "10000",
-                width: "450px",
-                type: "error",
-                title: 'Attenzione',
-                text: message
-            })
         }
+        
     }
 </script>

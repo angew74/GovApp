@@ -64,6 +64,15 @@ namespace Gov.Structure.Identity
            return dbcontext.Users.Count();
         }
 
+        public List<ApplicationUser> GetUsersSortingBy(int take,int skip,string sortBy, bool sortDesc,string filter)
+        {
+            string ordining = sortBy;
+            if(sortDesc)
+            { ordining += " DESC"; }
+            else { ordining += " ASC"; }
+            List<ApplicationUser> utentis = dbcontext.Users.OrderBy(ordining).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+            return utentis;
+        }
         public int GetUsersCountLike(string filter, string[] types)
         {
             int count = 0;
@@ -89,9 +98,8 @@ namespace Gov.Structure.Identity
             }
             else
             {
-                count += dbcontext.Users.Where(x => x.UserName.ToLower().Contains(filter)).Count();
-                count += dbcontext.Users.Where(x => x.Email.ToLower().Contains(filter)).Count();
-                count += dbcontext.Users.Where(x => x.Cognome.ToLower().Contains(filter)).Count();
+                count += dbcontext.Users.Where(x => x.UserName.ToLower().Contains(filter) || x.Email.ToLower().Contains(filter) || x.Cognome.ToLower().Contains(filter)).Distinct().Count();
+              
             }
             return count;
         }
