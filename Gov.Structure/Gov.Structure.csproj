@@ -14,6 +14,18 @@
     <Compile Remove="Migrations\20200510094933_GovMigration.Designer.cs" />
     <Compile Remove="Migrations\20200510095142_GovMigration.cs" />
     <Compile Remove="Migrations\20200510095142_GovMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200618170116_GovMigration.cs" />
+    <Compile Remove="Migrations\20200618170116_GovMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200618170601_GovMigration.cs" />
+    <Compile Remove="Migrations\20200618170601_GovMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200618170947_GovMigration.cs" />
+    <Compile Remove="Migrations\20200618170947_GovMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200618171114_GovMigration.cs" />
+    <Compile Remove="Migrations\20200618171114_GovMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200618171317_GovMigration.cs" />
+    <Compile Remove="Migrations\20200618171317_GovMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200618173638_GovMigration.cs" />
+    <Compile Remove="Migrations\20200618173638_GovMigration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

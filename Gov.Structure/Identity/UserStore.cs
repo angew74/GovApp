@@ -31,31 +31,31 @@ namespace Gov.Structure.Identity
 
         public List<ApplicationUser> GetAll()
         {
-            List<ApplicationUser> utentis = dbcontext.Users.Include(i=>i.Roles).AsParallel().ToList();
+            List<ApplicationUser> utentis = dbcontext.Users.Include(i=>i.UserRoles).Include(i => i.UserRoles).ThenInclude(i => i.Role).AsParallel().ToList();
             return utentis;
         }
 
         public List<ApplicationUser> GetUsersBy(int take,int skip)
         {
-            List<ApplicationUser> utentis = dbcontext.Users.Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+            List<ApplicationUser> utentis = dbcontext.Users.Skip(skip).Take(take).Include(i => i.UserRoles).ThenInclude(i => i.Role).AsParallel().ToList();
             return utentis;
         }
 
         public List<ApplicationUser> GetUsersByUsernameLike(string usernamepartial, int take,int skip)
         {
-            List<ApplicationUser> utentis = dbcontext.Users.Where(x=>x.UserName.ToLower().Contains(usernamepartial)).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+            List<ApplicationUser> utentis = dbcontext.Users.Where(x=>x.UserName.ToLower().Contains(usernamepartial)).Skip(skip).Take(take).Include(i => i.UserRoles).ThenInclude(i => i.Role).AsParallel().ToList();
             return utentis;
         }
 
         public List<ApplicationUser> GetUsersByMailLike(string mailpartial, int take, int skip)
         {
-            List<ApplicationUser> utentis = dbcontext.Users.Where(x => x.NormalizedEmail.ToLower().Contains(mailpartial)).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+            List<ApplicationUser> utentis = dbcontext.Users.Where(x => x.NormalizedEmail.ToLower().Contains(mailpartial)).Skip(skip).Take(take).Include(i => i.UserRoles).ThenInclude(i => i.Role).AsParallel().ToList();
             return utentis;
         }
 
         public List<ApplicationUser> GetUsersByCognomeLike(string cognomepartial, int take, int skip)
         {
-            List<ApplicationUser> utentis = dbcontext.Users.Where(x => x.Cognome.ToLower().Contains(cognomepartial)).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+            List<ApplicationUser> utentis = dbcontext.Users.Where(x => x.Cognome.ToLower().Contains(cognomepartial)).Skip(skip).Take(take).Include(i => i.UserRoles).ThenInclude(i => i.Role).AsParallel().ToList();
             return utentis;
         }
 
@@ -75,7 +75,7 @@ namespace Gov.Structure.Identity
             { ordining += " DESC"; }
             else { ordining += " ASC"; }
             if (string.IsNullOrEmpty(filter))
-            { utentis = dbcontext.Users.OrderBy(ordining).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList(); }
+            { utentis = dbcontext.Users.OrderBy(ordining).Skip(skip).Take(take).Include(i => i.UserRoles).ThenInclude(i => i.Role).AsParallel().ToList(); }
             else
             {
                 foreach (string t in types)
@@ -83,13 +83,13 @@ namespace Gov.Structure.Identity
                     switch (t.ToLower())
                     {
                         case "username":
-                            utentis = dbcontext.Users.Where(x => x.UserName.ToLower().Contains(filter)).OrderBy(ordining).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+                            utentis = dbcontext.Users.Where(x => x.UserName.ToLower().Contains(filter)).OrderBy(ordining).Skip(skip).Take(take).Include(i => i.UserRoles).ThenInclude(i => i.Role).AsParallel().ToList();
                             break;
                         case "email":
-                            utentis = dbcontext.Users.Where(x => x.Email.ToLower().Contains(filter)).OrderBy(ordining).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+                            utentis = dbcontext.Users.Where(x => x.Email.ToLower().Contains(filter)).OrderBy(ordining).Skip(skip).Take(take).Include(i => i.UserRoles).ThenInclude(i => i.Role).AsParallel().ToList();
                             break;
                         case "cognome":
-                            utentis = dbcontext.Users.Where(x => x.Email.ToLower().Contains(filter)).OrderBy(ordining).Skip(skip).Take(take).Include(i => i.Roles).AsParallel().ToList();
+                            utentis = dbcontext.Users.Where(x => x.Email.ToLower().Contains(filter)).OrderBy(ordining).Skip(skip).Take(take).Include(i => i.UserRoles).ThenInclude(i => i.Role).AsParallel().ToList();
                             break;
 
                     }
@@ -173,8 +173,8 @@ namespace Gov.Structure.Identity
             if (user == null) throw new ArgumentNullException(nameof(user));
             try
             {
-                ApplicationUser s = await Task.Run(() => dbcontext.Users.Include(u=>u.Roles).Where(x => x.Id == user.Id).FirstOrDefault());
-                if(s.Roles.Where(x=>x.Id ==(int) RolesTypes.Administrator).Count() > 0)
+                ApplicationUser s = await Task.Run(() => dbcontext.Users.Include(i => i.UserRoles).ThenInclude(i => i.Role).Where(x => x.Id == user.Id).FirstOrDefault());
+                if(s.UserRoles.Where(x=>x.RoleId ==(int) RolesTypes.Administrator).Count() > 0)
                 {
                     return IdentityResult.Failed(new IdentityError { Description = $"Impossibile cancellare l'utente {user.UserName}. Utente amministratore" });
                 }
@@ -207,7 +207,7 @@ namespace Gov.Structure.Identity
             {
                 throw new Exception("User Id deve essere numerico");
             }
-            ApplicationUser u = await Task.Run(() => dbcontext.Users.Include(i=>i.Roles).Where(x => x.Id == id).FirstOrDefault());
+            ApplicationUser u = await Task.Run(() => dbcontext.Users.Include(i => i.UserRoles).ThenInclude(i => i.Role).Where(x => x.Id == id).FirstOrDefault());
             return u;
         }
 
@@ -216,7 +216,7 @@ namespace Gov.Structure.Identity
             if (string.IsNullOrWhiteSpace(normalizedUserName))
                 throw new Exception("UserName  obbligatorio");
 
-            var u = await Task.Run(() => dbcontext.Users.Include(ur => ur.Roles).Where(x => x.UserName == normalizedUserName).FirstOrDefault());
+            var u = await Task.Run(() => dbcontext.Users.Include(i => i.UserRoles).ThenInclude(i => i.Role).Where(x => x.UserName == normalizedUserName).FirstOrDefault());           
             if (u == null)
             { return null; }             
             return u;
@@ -232,7 +232,7 @@ namespace Gov.Structure.Identity
             if (user == null)
                 throw new Exception("user  obbligatorio");
 
-            ApplicationUser u = await Task.Run(() => dbcontext.Users.Include(ur => ur.Roles).Where(x => x.Id == user.Id).First());
+            ApplicationUser u = await Task.Run(() => dbcontext.Users.Include(i => i.UserRoles).ThenInclude(i => i.Role).Where(x => x.Id == user.Id).First());
             if (u == null)
             { return null; }
             return user.Id.ToString();
@@ -243,7 +243,7 @@ namespace Gov.Structure.Identity
             if (user == null)
                 throw new Exception("user  obbligatorio");
 
-            ApplicationUser u = await Task.Run(() => dbcontext.Users.Where(x => x.Id == user.Id).Include(ur => ur.Roles).First());
+            ApplicationUser u = await Task.Run(() => dbcontext.Users.Where(x => x.Id == user.Id).Include(i => i.UserRoles).ThenInclude(i => i.Role).First());
             if (u == null)
             { return null; }
             return user.UserName;

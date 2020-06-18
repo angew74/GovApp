@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -57,10 +58,15 @@ namespace Gov.Core.Identity
         [Column]
         public DateTime LastModified { get; set; }
 
+        [NotMapped]
         public List<ApplicationRole> Roles { get; set; }
+        [NotMapped]
+        public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
+        [NotMapped]
         public virtual ICollection<Userclaims> Userclaims { get; set; }
+        [NotMapped]
         public virtual ICollection<Userlogins> Userlogins { get; set; }
-          
+        [NotMapped]
         public virtual ICollection<Usertokens> Usertokens { get; set; }
     }
 }

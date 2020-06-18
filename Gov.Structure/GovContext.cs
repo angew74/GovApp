@@ -22,7 +22,7 @@ namespace Gov.Structure
 {
 
 
-    public class GovContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>, IContext
+    public class GovContext : IdentityDbContext<ApplicationUser, ApplicationRole, int, Userclaims, ApplicationUserRole, Userlogins, Roleclaims, Usertokens>, IContext
     {
 
         public static readonly ILoggerFactory loggerFactory = new LoggerFactory(new[] {
@@ -110,12 +110,12 @@ namespace Gov.Structure
         public virtual DbSet<UserAudit> UserAudit { get; set; }
         public virtual DbSet<Roleclaims> Roleclaims { get; set; }
         public virtual new DbSet<ApplicationRole> Roles { get; set; }
-        public virtual DbSet<IdentityUserClaim<int>> Userclaims { get; set; }
-        public virtual DbSet<IdentityUserLogin<int>> Userlogins { get; set; }
-        public virtual DbSet<ApplicationUserRole> UserRoles { get; set; }
-        public virtual DbSet<ApplicationUser> Users { get; set; }
+        public virtual DbSet<Userclaims> Userclaims { get; set; }
+        public virtual DbSet<Userlogins> Userlogins { get; set; }
+        public new DbSet<ApplicationUserRole> UserRoles { get; set; }
+        public new DbSet<ApplicationUser> Users { get; set; }
 
-        public virtual DbSet<IdentityUserToken<int>> Usertokens { get; set; }
+        public virtual DbSet<Usertokens> Usertokens { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -228,20 +228,20 @@ namespace Gov.Structure
                 entity.HasMany<Userclaims>().WithOne().HasForeignKey(uc => uc.UserId);
                 entity.HasMany<Userlogins>().WithOne().HasForeignKey(ul => ul.UserId);
                 entity.HasMany<Usertokens>().WithOne().HasForeignKey(ut => ut.UserId);
-              //  entity.HasMany<ApplicationUserRole>().WithOne().HasForeignKey(ur => ur.UserId);
+                entity.HasMany<ApplicationUserRole>().WithOne().HasForeignKey(ur => ur.UserId);
+                //  entity.HasMany<ApplicationUserRole>().WithOne().HasForeignKey(ur => ur.UserId);
             });
 
-            modelBuilder.Entity<ApplicationUser>()
-           .ToTable("Users");
+            modelBuilder.Entity<ApplicationUser>().ToTable("Users");
 
-            modelBuilder.Entity<IdentityUserClaim<int>>(b =>
+            modelBuilder.Entity<Userclaims>(b =>
             {
                 // Primary key
                 b.HasKey(uc => uc.Id);
                 b.ToTable("UserClaims");
             });
 
-            modelBuilder.Entity<IdentityUserLogin<int>>(b =>
+            modelBuilder.Entity<Userlogins>(b =>
             {
 
                 b.HasKey(l => new { l.LoginProvider, l.ProviderKey });
@@ -250,7 +250,7 @@ namespace Gov.Structure
                 b.ToTable("UserLogins");
             });
 
-            modelBuilder.Entity<IdentityUserToken<int>>(b =>
+            modelBuilder.Entity<Usertokens>(b =>
             {
                 b.HasKey(t => new { t.UserId, t.LoginProvider, t.Name });
                 b.Property(t => t.LoginProvider).HasMaxLength(256);
@@ -259,14 +259,37 @@ namespace Gov.Structure
                 // Maps to the AspNetUserTokens table
                 b.ToTable("UserTokens");
             });
-
-            modelBuilder.Entity<IdentityUserRole<int>>(b =>
+            modelBuilder.Entity<ApplicationUserRole>(b =>
             {
                 b.HasKey(r => new { r.UserId, r.RoleId });
+                b.HasOne(ur => ur.Role)
+             .WithMany(r => r.UserRoles)
+             .HasForeignKey(ur => ur.RoleId)
+             .IsRequired();
+                b.HasOne(ur => ur.User)
+                    .WithMany(r => r.UserRoles)
+                    .HasForeignKey(ur => ur.UserId)
+                    .IsRequired();
                 b.ToTable("UserRoles");
             });
 
-            modelBuilder.Entity<IdentityRoleClaim<int>>()
+            /*
+            modelBuilder.Entity<IdentityUserRole<int>>(b =>
+            {
+               b.HasKey(r => new { r.UserId, r.RoleId });
+             /*   b.HasOne(ur => ur.Role)
+               .WithMany(r => r.UserRoles)
+               .HasForeignKey(ur => ur.RoleId)
+               .IsRequired();
+
+                b.HasOne(ur => ur.User)
+                    .WithMany(r => r.UserRoles)
+                    .HasForeignKey(ur => ur.UserId)
+                    .IsRequired();*/
+            /*    b.ToTable("UserRoles");
+            });*/
+
+            modelBuilder.Entity<Roleclaims>()
          .ToTable("RoleClaims");
             modelBuilder.Entity<ApplicationRole>(entity =>
             {
@@ -276,6 +299,10 @@ namespace Gov.Structure
                 entity.HasMany(d => d.Pagine)
                  .WithOne(d => d.Role)
                 .HasForeignKey(e => e.RoleId);
+                entity.HasMany(e => e.UserRoles)
+               .WithOne(e => e.Role)
+               .HasForeignKey(ur => ur.RoleId)
+               .IsRequired();
             });
             modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
 
@@ -292,9 +319,7 @@ namespace Gov.Structure
                 Name = "user",
                 NormalizedName = "user"
             }};
-
             modelBuilder.Entity<ApplicationRole>().HasData(Roles);
-
             var hasher = new PasswordHasher<IdentityUser>();
             var passwordhash = hasher.HashPassword(null, "Robert4@");
             var Users = new ApplicationUser[]
@@ -488,7 +513,7 @@ namespace Gov.Structure
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 PaginaId = 3
-            },            
+            },
             new Contenuto
             {
                 Id = 13,

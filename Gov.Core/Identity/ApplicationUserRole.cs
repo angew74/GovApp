@@ -12,10 +12,13 @@ namespace Gov.Core.Identity
    
     public class ApplicationUserRole : IdentityUserRole<int>
     {
-     /*  
-        [Required]
-        [Column]
-        public override int UserId { get; set; }     */
+        [NotMapped]
+        public virtual ApplicationUser User { get; set; }
+        public virtual ApplicationRole Role { get; set; }
+        /*  
+           [Required]
+           [Column]
+           public override int UserId { get; set; }     */
 
     }
 }

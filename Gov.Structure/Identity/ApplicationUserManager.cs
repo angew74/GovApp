@@ -38,7 +38,7 @@ namespace Gov.Structure.Identity
         }
         public List<ApplicationUser> GetAllUsers()
         {
-            List<ApplicationUser> utentis = dbcontext.Users.Include(i=>i.Roles).AsParallel().ToList();
+            List<ApplicationUser> utentis = dbcontext.Users.AsParallel().ToList();
             return utentis;
         }
         public async Task<ApplicationUser> FindByIdAsync(int id)

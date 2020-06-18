@@ -6,6 +6,7 @@
                    @disableuser="duser" @deleteuser="deuser" @resetpassword="ruser"
                    @paging="pagingUsers" @filtering="filteringUsers"></app-users>
         <notifications position="top center" group="errori" />
+        <notifications position="top center" group="info" />
         <app-footer></app-footer>
         <error-bound></error-bound>
     </div>
@@ -53,9 +54,51 @@
             ...mapActions('context', [
                 'restoreContext'
             ]),
-            duser(user) { },
-            deuser(user) { },
-            ruser(user) {},
+            duser(user) {
+                axios.post('/api/auth/disableuser', user, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(response => {
+                    this.showAlertinfo("Utente disabilitato");
+                }).catch(error => {
+                    error => this.messaggio = error.response.data.errMsg;
+                    this.showAlert(error.response.data.errMsg);
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                });
+            },
+            deuser(user) {
+                axios.post('/api/auth/deleteuser', user, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(response => {
+                    this.showAlertinfo("Utente cancellato");
+                }).catch(error => {
+                    error => this.messaggio = error.response.data.errMsg;
+                    this.showAlert(error.response.data.errMsg);
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                });
+            },
+            ruser(user) {
+                axios.post('/api/auth/resetpassword', user, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(response => {
+                    this.showAlertinfo("Password reset effettuato all'indirizzo email");
+                }).catch(error => {
+                    error => this.messaggio = error.response.data.errMsg;
+                    this.showAlert(error.response.data.errMsg);
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                });
+            },
             getUsers(page, ordinaPer, ordinaDesc, filter,filterarray) {
                 axios({
                     method: 'get',
@@ -186,10 +229,21 @@
                 this.$notify({
                     group: 'errori',
                     position: "top center",
-                    duration: "10000",
+                    duration: "15000",
                     width: "450px",
                     type: "error",
                     title: 'Attenzione',
+                    text: message
+                })
+            },
+            showAlertinfo(message) {
+             this.$notify({
+                    group: 'info',
+                    position: "top center",
+                    duration: "15000",
+                    width: "450px",
+                    type: "success",
+                    title: 'Congratulazioni',
                     text: message
                 })
             }

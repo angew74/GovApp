@@ -75,7 +75,7 @@
                 </b-tooltip>
             </template>
             <template v-slot:cell(deleteuser)="row">
-                <b-button id="deleteUser" size="sm" @click="delete(row.item,row.index, $event.target)" style="background-color:#343a40;border:none" variant="dark">
+                <b-button id="deleteUser" size="sm" @click="deleteu(row.item,row.index, $event.target)" style="background-color:#343a40;border:none" variant="dark">
                     <b-icon icon="person-dash-fill" aria-label="Help"></b-icon>
                 </b-button>
                 <b-tooltip target="deleteUser" triggers="hover">
@@ -239,7 +239,7 @@
                 this.infoModal.ruoli = item.ruoli;
                 this.$root.$emit('bv::show::modal', this.infoModal.id, button)
             },
-            delete(item, index, button) {
+            deleteu(item, index, button) {
                 this.$emit('deleteuser', item)
             },
             disable(item, index, button) {

@@ -20,5 +20,6 @@ namespace Gov.Core.Identity
         public virtual ICollection<VoceMenu> VociMenu { get; set; }
 
         public virtual ICollection<Pagina> Pagine { get; set; }
+        public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
     }
 }

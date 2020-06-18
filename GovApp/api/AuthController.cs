@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
 using Gov.Structure.Identity;
 using Gov.Core.Enumerators;
+using Gov.Structure.Extensions;
 
 namespace GovApp.api
 {
@@ -35,7 +36,8 @@ namespace GovApp.api
         private readonly ILogger<AuthController> _logger;
         private readonly IOptions<ComunicazioneConfig> _mailConfig;
         private readonly IOptions<PagingConfig> _pagingConfig;
-        public AuthController(UserStore utentiService, SignInManager<ApplicationUser> SignInManager, ApplicationUserManager userManager, ILogger<AuthController> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config, IOptions<PagingConfig> pagingConfig)
+        private readonly IOptions<IdentityOptions> _identityOptions;
+        public AuthController(UserStore utentiService, SignInManager<ApplicationUser> SignInManager, ApplicationUserManager userManager, ILogger<AuthController> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config, IOptions<PagingConfig> pagingConfig, IOptions<IdentityOptions> identityOptions)
         {
             _utentiService = utentiService;
             _userManager = userManager;
@@ -44,6 +46,7 @@ namespace GovApp.api
             _emailSender = emailSender;
             _mailConfig = config;
             _pagingConfig = pagingConfig;
+            _identityOptions = identityOptions;
         }
 
         public class Input
@@ -77,7 +80,7 @@ namespace GovApp.api
                 CancellationToken cancellationToken = new CancellationToken();
                 try
                 {
-                    user = _utentiService.FindByNameAsync(credentials.credentials.username, cancellationToken).Result;
+                    user = _utentiService.FindByNameAsync(credentials.credentials.username, cancellationToken).Result;    
                     if (user != null)
                     {
                         await _signInManager.SignOutAsync();
@@ -429,7 +432,7 @@ namespace GovApp.api
                     isActive = !x.LockoutEnabled,
                     nome = x.Nome,
                     userName = x.UserName,
-                    role = string.Join(",", x.Roles.ToList())
+                    role = string.Join(",", x.UserRoles.SelectMany(x => x.Role.Name).ToList())
                 }).ToList();
 
             }
@@ -575,7 +578,7 @@ namespace GovApp.api
 
                 int take = int.Parse(_pagingConfig.Value.perPage);
                 int skip = take * (int.Parse(model.currentPage.ToString()) - 1);
-                var users = _utentiService.GetUsersSortingBy(take, skip,model.sortBy, model.sortDesc, model.filter,filtriarray);
+                var users = _utentiService.GetUsersSortingBy(take, skip,model.sortBy, model.sortDesc, model.filter,filtriarray);                
                 if (users == null)
                 {
                     return Ok(usersmodel);
@@ -600,5 +603,138 @@ namespace GovApp.api
             }
             return await System.Threading.Tasks.Task.FromResult(Ok(usersmodel));
         }
+
+
+        [Authorize]
+        [HttpPost("deleteuser")]
+        [IgnoreAntiforgeryToken]
+        public async Task<IActionResult> DeleteUser([FromBody] UserModel user)
+        {            
+            ErrorModel error = new ErrorModel();
+            if (!ModelState.IsValid)
+            {
+                error.errMsg = "Errore di validazione";
+                return BadRequest(error);
+            }
+            try
+            {
+                var usera = _userManager.FindByIdAsync(user.id).Result;
+                if (usera == null)
+                {
+                    _logger.LogError("Impossibile aggiornare utente con ID " + user.id);
+                    error.errMsg = "Impossibile aggiornare utente con UserName: " + user.userName;
+                    return BadRequest(error);
+                }               
+                CancellationToken cancellationToken = new CancellationToken();
+                var result = await _utentiService.DeleteAsync(usera, cancellationToken);
+                if (result.Succeeded)
+                {
+                    Ok();
+                }
+                else
+                {
+                    _logger.LogError("Errore nell'aggiornamento dei dati");
+                    error.errMsg = "Errore nell'aggiornamento dei dati";
+                    return BadRequest(error);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Eccezione non gestita dettagli: " + ex.Message);
+                error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
+                return BadRequest(error);
+            }
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpPost("disableuser")]
+        [IgnoreAntiforgeryToken]
+        public async Task<IActionResult> DisableUser([FromBody] UserModel user)
+        {            
+            ErrorModel error = new ErrorModel();
+            if (!ModelState.IsValid)
+            {
+                error.errMsg = "Errore di validazione";
+                return BadRequest(error);
+            }
+            try
+            {
+                var usera = _userManager.FindByIdAsync(user.id).Result;
+                if (usera == null)
+                {
+                    _logger.LogError("Impossibile aggiornare utente con ID " + user.id);
+                    error.errMsg = "Impossibile aggiornare utente con UserName: " + user.userName;
+                    return BadRequest(error);
+                }
+                usera.LockoutEnabled = true;
+                CancellationToken cancellationToken = new CancellationToken();
+                var result = await _utentiService.UpdateAsync(usera, cancellationToken);
+                if (result.Succeeded)
+                {
+                    Ok();
+                }
+                else
+                {
+                    _logger.LogError("Errore nell'aggiornamento dei dati");
+                    error.errMsg = "Errore nell'aggiornamento dei dati";
+                    return BadRequest(error);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Eccezione non gestita dettagli: " + ex.Message);
+                error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
+                return BadRequest(error);
+            }
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpPost("resetpassword")]
+        [IgnoreAntiforgeryToken]
+        public async Task<IActionResult> ResetPassoword([FromBody] UserModel user)
+        {
+            ErrorModel error = new ErrorModel();
+            if (!ModelState.IsValid)
+            {
+                error.errMsg = "Errore di validazione";
+                return BadRequest(error);
+            }
+            try
+            {
+                var usera = _userManager.FindByIdAsync(user.id).Result;
+                if (usera == null)
+                {
+                    _logger.LogError("Impossibile aggiornare utente con ID '{model.confirm.Id}'.");
+                    error.errMsg = "Impossibile aggiornare utente con username:" + user.userName;
+                    return BadRequest(error);
+                }
+                usera.Password =  GeneratePassword.GetOne(_identityOptions.Value);             
+                usera.EmailConfirmed = false;
+                CancellationToken cancellationToken = new CancellationToken();
+                var result = await _utentiService.UpdateAsync(usera, cancellationToken);     
+                if (result.Succeeded)
+                {
+                    string body = _mailConfig.Value.BodyResetPassword + "<br /> UserName: " + usera.UserName + " <br /> Password: " + usera.Password;
+                    var t = _emailSender.SendEmailAsync(usera.Email, _mailConfig.Value.SogggettoResetPassword, body);
+                    Ok();
+                }
+                else
+                {
+                    _logger.LogError("Errore nell'aggiornamento dei dati");
+                    error.errMsg = "Errore nell'aggiornamento dei dati";
+                    return BadRequest(error);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Eccezione non gestita dettagli: " + ex.Message);
+                error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
+                return BadRequest(error);
+            }
+            return Ok();
+        }
+
     }
 }
