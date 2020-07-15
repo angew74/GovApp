@@ -99,7 +99,7 @@ namespace GovApp.api
                             await HttpContext.SignInAsync(principal);
                             if (user.EmailConfirmed == false)
                             {
-                                error.Url = "/account/confirmemail";
+                                error.Url = "/GovApp/account/confirmemail";
                                 error.errMsg = "vai email da confermare";
                                 return BadRequest(error);
                             }
@@ -210,7 +210,7 @@ namespace GovApp.api
                 var result = await _utentiService.UpdateAsync(user, cancellationToken);
                 if (result.Succeeded)
                 {
-                    model.confirm.Url = "/account/ConfirmEmailConfirmation";
+                    model.confirm.Url = "/GovApp/account/ConfirmEmailConfirmation";
                     model.confirm.Result = true;
                 }
                 else
@@ -322,7 +322,7 @@ namespace GovApp.api
                 var result = await _utentiService.UpdateAsync(user, cancellationToken);
                 if (result.Succeeded)
                 {
-                    model.change.Url = "/account/ChangePasswordConfirm";
+                    model.change.Url = "/GovApp/account/ChangePasswordConfirm";
                     model.change.Result = true;
                 }
                 else

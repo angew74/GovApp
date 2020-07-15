@@ -11,7 +11,7 @@
                             <b-icon stacked icon="bell-fill" class="rounded-circle bg-danger p-2" variant="light"></b-icon>
                         </b-iconstack>                       
                             {{ profile.name }}, conferma email e cambio password effettuati. Grazie
-                            <a href="/home/index">prosegui</a>.                       
+                            <a href="/GovApp/home/index">prosegui</a>.                       
                     </template>
                     <hr class="my-4">
                     <p>

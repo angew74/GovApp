@@ -74,7 +74,7 @@
                 this.login({ authMethod: this.authMode, credentials: this.form }).then(() => {
                     if (this.$store.getters["context/isAuthenticated"]) {
                         this.$refs.loginModal.hide();
-                        window.location.href = "/home/index";
+                        window.location.href = "/GovApp/home/index";
                     }
                     if (this.$store.getters["context/isMessage"] && !this.$store.getters["context/isUrl"]) {
                         this.showAlert(this.$store.getters["context/Message"]);                        

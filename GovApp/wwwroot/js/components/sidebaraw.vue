@@ -14,7 +14,7 @@
                     apri il menu
                 </b-tooltip>
             </b-nav-item>
-            <b-nav-item v-if="!isAuthenticated" href="/home/index" active>
+            <b-nav-item v-if="!isAuthenticated" href="/GovApp/home/index" active>
                 <b-iconstack id="home-icon" font-scale="5" animation="spin">
                     <b-icon stacked icon="house" variant="info" scale="0.65" shift-v="-0.25"></b-icon>
                 </b-iconstack>
@@ -22,7 +22,7 @@
                     vai all'homepage autenticandoti
                 </b-tooltip>
             </b-nav-item>
-            <b-nav-item v-if="isAuthenticated" href="/account/logout" active>
+            <b-nav-item v-if="isAuthenticated" href="/GovApp/account/logout" active>
                 <b-iconstack id="logout-icon" font-scale="1.7">
                     <b-icon icon="power" class="rounded-circle bg-danger p-2" variant="light"></b-icon>
                 </b-iconstack>
@@ -30,7 +30,7 @@
                     esci dall'applicazione
                 </b-tooltip>
             </b-nav-item>
-            <b-nav-item v-if="isAuthenticated" href="/account/myprofile" active>
+            <b-nav-item v-if="isAuthenticated" href="/GovApp/account/myprofile" active>
                 <b-iconstack id="user-icon" font-scale="1.7">
                     <b-icon icon="person-fill" class="rounded-circle bg-danger p-2" variant="light"></b-icon>
                 </b-iconstack>
@@ -92,7 +92,7 @@
         mounted() {
             axios({
                 method: 'get',
-                url: '/values/menu'
+                url: '/GovApp/values/menu'
             })
                 .then(response => {
                     this.voci = response.data;

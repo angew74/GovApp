@@ -11,7 +11,7 @@ namespace Gov.Core.Identity
     {
       /*  [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }*/
+        public override int Id { get; set; }*/
         [Required]
         [Column]
         public override string LoginProvider { get; set; }

@@ -58,7 +58,7 @@ namespace GovApp
             {
                 options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
-                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;               
             });
 
             services.Configure<IdentityOptions>(options =>
@@ -128,6 +128,7 @@ namespace GovApp
             services.Configure<MailConfig>(Configuration.GetSection("mailConfig"));
             services.Configure<ComunicazioneConfig>(Configuration.GetSection("comunicazioneConfig"));
             services.Configure<PagingConfig>(Configuration.GetSection("paginationConfig"));
+            services.Configure<ElezioneConfig>(Configuration.GetSection("elezioneConfig"));
             services.AddScoped<GovCookieAuthenticationEvents>();
             services.AddScoped<LockAuthorizePermission>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);         
@@ -156,9 +157,7 @@ namespace GovApp
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }
-
-            loggerFactory.AddLog4Net(Configuration.GetValue<string>("Log4NetConfigFile:Name"));
+            }          
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();

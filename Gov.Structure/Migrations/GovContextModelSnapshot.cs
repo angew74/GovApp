@@ -178,9 +178,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 1,
-                            ContentuoCard = "Da questa pagina è possibile registrare un nuovo Premier",
+                            ContentuoCard = "Da questa pagina è possibile registrare le affluenze",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(6671),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(5167),
                             PaginaId = 1,
                             Tipo = "Testo",
                             TipoContenutoId = 1,
@@ -191,7 +191,7 @@ namespace Gov.Structure.Migrations
                             Id = 2,
                             ContentuoCard = "person-plus-fill",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8782),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9600),
                             PaginaId = 1,
                             Tipo = "Icona",
                             TipoContenutoId = 2,
@@ -200,9 +200,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 3,
-                            ContentuoCard = "/premier/inserimento",
+                            ContentuoCard = "/affluenza/inserimento",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8820),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9730),
                             PaginaId = 1,
                             Tipo = "Link",
                             TipoContenutoId = 3,
@@ -211,9 +211,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 4,
-                            ContentuoCard = "Premier Inserimento",
+                            ContentuoCard = "Affluenza Inserimento",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8825),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9747),
                             PaginaId = 1,
                             Tipo = "Header",
                             TipoContenutoId = 4,
@@ -222,9 +222,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 5,
-                            ContentuoCard = "Da questa pagina è possibile modificare un Premier",
+                            ContentuoCard = "Da questa pagina è possibile modificare le affluenze",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8830),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9759),
                             PaginaId = 2,
                             Tipo = "Testo",
                             TipoContenutoId = 1,
@@ -235,7 +235,7 @@ namespace Gov.Structure.Migrations
                             Id = 6,
                             ContentuoCard = "person-check-fill",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8834),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9772),
                             PaginaId = 2,
                             Tipo = "Icona",
                             TipoContenutoId = 2,
@@ -244,9 +244,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 7,
-                            ContentuoCard = "/premier/modifica",
+                            ContentuoCard = "/affluenza/modifica",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8839),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9783),
                             PaginaId = 2,
                             Tipo = "Link",
                             TipoContenutoId = 3,
@@ -255,9 +255,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 8,
-                            ContentuoCard = "Premier Modifica",
+                            ContentuoCard = "Affluenze Modifica",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8843),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9795),
                             PaginaId = 2,
                             Tipo = "Header",
                             TipoContenutoId = 4,
@@ -266,9 +266,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 9,
-                            ContentuoCard = "Da questa pagina è possibile visualizzare i Premier",
+                            ContentuoCard = "Da questa pagina è possibile visualizzare le affluenze",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8847),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9806),
                             PaginaId = 3,
                             Tipo = "Testo",
                             TipoContenutoId = 1,
@@ -279,7 +279,7 @@ namespace Gov.Structure.Migrations
                             Id = 10,
                             ContentuoCard = "people-fill",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8851),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9819),
                             PaginaId = 3,
                             Tipo = "Icona",
                             TipoContenutoId = 2,
@@ -288,9 +288,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 11,
-                            ContentuoCard = "/premier/visualizza",
+                            ContentuoCard = "/affluenza/visualizza",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8854),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9831),
                             PaginaId = 3,
                             Tipo = "Link",
                             TipoContenutoId = 3,
@@ -299,9 +299,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 12,
-                            ContentuoCard = "Premier Visualizzazione",
+                            ContentuoCard = "Affluenze Visualizzazione",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8857),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9843),
                             PaginaId = 3,
                             Tipo = "Header",
                             TipoContenutoId = 4,
@@ -312,7 +312,7 @@ namespace Gov.Structure.Migrations
                             Id = 13,
                             ContentuoCard = "Da questa pagina è possibile gestire gli Utenti",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8861),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9858),
                             PaginaId = 8,
                             Tipo = "Testo",
                             TipoContenutoId = 1,
@@ -323,7 +323,7 @@ namespace Gov.Structure.Migrations
                             Id = 14,
                             ContentuoCard = "people-fill",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8865),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9871),
                             PaginaId = 8,
                             Tipo = "Icona",
                             TipoContenutoId = 2,
@@ -332,9 +332,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 15,
-                            ContentuoCard = "/account/manage",
+                            ContentuoCard = "/GovApp/account/manage",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8868),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9885),
                             PaginaId = 8,
                             Tipo = "Link",
                             TipoContenutoId = 3,
@@ -345,7 +345,7 @@ namespace Gov.Structure.Migrations
                             Id = 16,
                             ContentuoCard = "Gestione Utenti",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8872),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9899),
                             PaginaId = 8,
                             Tipo = "Header",
                             TipoContenutoId = 4,
@@ -356,7 +356,7 @@ namespace Gov.Structure.Migrations
                             Id = 17,
                             ContentuoCard = "Da questa pagina è possibile registrare nuovi utenti",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8875),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9912),
                             PaginaId = 9,
                             Tipo = "Testo",
                             TipoContenutoId = 1,
@@ -367,7 +367,7 @@ namespace Gov.Structure.Migrations
                             Id = 18,
                             ContentuoCard = "person-plus-fill",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8879),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9923),
                             PaginaId = 9,
                             Tipo = "Icona",
                             TipoContenutoId = 2,
@@ -376,9 +376,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 19,
-                            ContentuoCard = "/account/register",
+                            ContentuoCard = "/GovApp/account/register",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8882),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9966),
                             PaginaId = 9,
                             Tipo = "Link",
                             TipoContenutoId = 3,
@@ -389,7 +389,7 @@ namespace Gov.Structure.Migrations
                             Id = 20,
                             ContentuoCard = "Registrazione Utente",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8886),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9978),
                             PaginaId = 9,
                             Tipo = "Header",
                             TipoContenutoId = 4,
@@ -400,7 +400,7 @@ namespace Gov.Structure.Migrations
                             Id = 21,
                             ContentuoCard = "Da questa pagina è possibile cambiare la password",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8889),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 360, DateTimeKind.Local).AddTicks(9989),
                             PaginaId = 13,
                             Tipo = "Testo",
                             TipoContenutoId = 1,
@@ -411,7 +411,7 @@ namespace Gov.Structure.Migrations
                             Id = 22,
                             ContentuoCard = "gear-wide-connected",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8893),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 361, DateTimeKind.Local),
                             PaginaId = 13,
                             Tipo = "Icona",
                             TipoContenutoId = 2,
@@ -422,7 +422,7 @@ namespace Gov.Structure.Migrations
                             Id = 23,
                             ContentuoCard = "/account/changepassword",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8896),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 361, DateTimeKind.Local).AddTicks(11),
                             PaginaId = 13,
                             Tipo = "Link",
                             TipoContenutoId = 3,
@@ -433,7 +433,7 @@ namespace Gov.Structure.Migrations
                             Id = 24,
                             ContentuoCard = "Cambio password",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8899),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 361, DateTimeKind.Local).AddTicks(21),
                             PaginaId = 13,
                             Tipo = "Header",
                             TipoContenutoId = 4,
@@ -444,7 +444,7 @@ namespace Gov.Structure.Migrations
                             Id = 25,
                             ContentuoCard = "https://www.panoramasanita.it/wp-content/uploads/2019/05/roma.jpg",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8903),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 361, DateTimeKind.Local).AddTicks(32),
                             PaginaId = 14,
                             Tipo = "Image",
                             TipoContenutoId = 5,
@@ -455,7 +455,7 @@ namespace Gov.Structure.Migrations
                             Id = 26,
                             ContentuoCard = "Gestione Utenti",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8906),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 361, DateTimeKind.Local).AddTicks(43),
                             PaginaId = 14,
                             Tipo = "Titolo",
                             TipoContenutoId = 6,
@@ -466,7 +466,7 @@ namespace Gov.Structure.Migrations
                             Id = 27,
                             ContentuoCard = "https://res.cloudinary.com/hzekpb1cg/image/upload/c_fill,h_581,w_1185,f_auto/s3/public/prod/s3fs-public/Quartieri-di-Roma.jpg",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8910),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 361, DateTimeKind.Local).AddTicks(54),
                             PaginaId = 14,
                             Tipo = "Image",
                             TipoContenutoId = 5,
@@ -475,9 +475,9 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 28,
-                            ContentuoCard = "Gestione Premier",
+                            ContentuoCard = "Gestione Affluenze",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8913),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 361, DateTimeKind.Local).AddTicks(66),
                             PaginaId = 14,
                             Tipo = "Titolo",
                             TipoContenutoId = 6,
@@ -488,7 +488,7 @@ namespace Gov.Structure.Migrations
                             Id = 29,
                             ContentuoCard = "https://roma.unicatt.it/ingresso-roma-992x560.jpg",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8916),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 361, DateTimeKind.Local).AddTicks(77),
                             PaginaId = 14,
                             Tipo = "Image",
                             TipoContenutoId = 5,
@@ -497,14 +497,2169 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 30,
-                            ContentuoCard = "Gestione Governo",
+                            ContentuoCard = "Gestione Interrogazioni",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 139, DateTimeKind.Local).AddTicks(8920),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 361, DateTimeKind.Local).AddTicks(88),
                             PaginaId = 14,
                             Tipo = "Titolo",
                             TipoContenutoId = 6,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Affluenze", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Affluenza1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Affluenza2")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Affluenza3")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Affluenza4")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Affluenza5")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Apertura1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Apertura2")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Apertura3")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Costituzione1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Costituzione2")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Iscrittiid")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Plessoid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("Votantifemmine1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantifemmine2")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantifemmine3")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantifemmine4")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantifemmine5")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantimaschi1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantimaschi2")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantimaschi3")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantimaschi4")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantimaschi5")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantitotali1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantitotali2")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantitotali3")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantitotali4")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantitotali5")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique()
+                        .HasName("id_UNIQUE");
+
+                    b.HasIndex("Iscrittiid")
+                        .HasName("fk_affluenze_iscritti_idx");
+
+                    b.HasIndex("Plessoid")
+                        .HasName("fk_affluenze_plessi_idx");
+
+                    b.HasIndex("Sezioneid")
+                        .HasName("fk_affluenza_sezioni_idx");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fk_affluenze_tipo_elezione_idx");
+
+                    b.ToTable("affluenze");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.AffluenzeStorico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Affluenza1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Affluenza2")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Affluenza3")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Affluenza4")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Affluenza5")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Apertura1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Apertura2")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Apertura3")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Costituzione1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Costituzione2")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DataOperazioneold")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Iscrittiid")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Plessoid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("UtenteOperazioneold")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int?>("Votantifemmine1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantifemmine2")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantifemmine3")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantifemmine4")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantifemmine5")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantimaschi1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantimaschi2")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantimaschi3")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantimaschi4")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantimaschi5")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantitotali1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantitotali2")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantitotali3")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantitotali4")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votantitotali5")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Iscrittiid")
+                        .HasName("fk_affluenze_storico_iscritti_idx");
+
+                    b.HasIndex("Plessoid")
+                        .HasName("fk_affluenze_storico_plessi_idx");
+
+                    b.HasIndex("Sezioneid")
+                        .HasName("fk_affluenze_storico_sezioni_idx");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fk_affluenze_storico_tipo_elezione_idx");
+
+                    b.ToTable("affluenze_storico");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.AggregazioneInterrogazioni", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Codice")
+                        .IsRequired()
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Descrizione")
+                        .IsRequired()
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fk_aggregazione_interrogazioni_tipo_elezione_idx");
+
+                    b.HasIndex("Descrizione", "Tipoelezioneid", "Codice")
+                        .IsUnique()
+                        .HasName("unique_aggregazione_interrogazioni");
+
+                    b.ToTable("aggregazione_interrogazioni");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Candidati", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CognomeCandidato")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Listaid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NomeCandidato")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Progressivo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SessoCandidato")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Listaid")
+                        .HasName("fk_candidati_lista_idx");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fk_candidati_tipo_elezione_idx");
+
+                    b.HasIndex("Progressivo", "Listaid", "Tipoelezioneid")
+                        .IsUnique()
+                        .HasName("uk_candidato_lista_progressivo");
+
+                    b.ToTable("candidati");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Elegen", b =>
+                {
+                    b.Property<int>("Idelegen")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Annoelezione")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Giornocostituzione")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Giornovotazione1")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Giornovotazione2")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Idtipoelezione")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Numeroliste")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Numerosezioni")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Idelegen")
+                        .HasName("PRIMARY");
+
+                    b.HasIndex("Idelegen")
+                        .IsUnique()
+                        .HasName("idelegencam_UNIQUE");
+
+                    b.HasIndex("Idtipoelezione")
+                        .HasName("fk_elegen_tipo_elezione_idx");
+
+                    b.ToTable("elegen");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.FaseElezione", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Abilitata")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Codice")
+                        .IsRequired()
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Descrizione")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Idtipoelezione")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Idtipoelezione")
+                        .HasName("fk_fase_elezione_tipo_elezione_idx");
+
+                    b.HasIndex("Codice", "Idtipoelezione")
+                        .IsUnique()
+                        .HasName("uq_fase_elezioni_elezioni");
+
+                    b.ToTable("fase_elezione");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Iscritti", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cabina")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Collegiocamera")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Collegioprovinciale")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Collegiosenato")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Idsezione")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Idtipoelezione")
+                        .HasColumnType("int");
+
+                    b.Property<uint?>("Idtiposezione")
+                        .HasColumnType("int(10) unsigned");
+
+                    b.Property<int>("Iscrittifemmine")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Iscrittifemminegen")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Iscrittifemmineue")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Iscrittimaschi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Iscrittimaschigen")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Iscrittimaschiue")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Iscrittitotali")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Iscrittitotaligen")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Iscrittitotaliue")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Idsezione")
+                        .IsUnique()
+                        .HasName("idsezione_UNIQUE");
+
+                    b.HasIndex("Idtipoelezione")
+                        .HasName("fk_tipo_elezione_iscritti_idx");
+
+                    b.HasIndex("Idtiposezione")
+                        .HasName("fk_tiposezione_iscritti_idx");
+
+                    b.ToTable("iscritti");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Liste", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Coalizioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Denominazione")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("DenominazioneBreve")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int?>("Progressivo")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProgressivoCoalizione")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProgressivoManifesto")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Sindacoid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Coalizioneid")
+                        .HasName("fk_liste_coalizioni_idx1");
+
+                    b.HasIndex("ProgressivoCoalizione")
+                        .HasName("fk_liste_coalizioni_idx");
+
+                    b.HasIndex("Sindacoid")
+                        .HasName("fk_liste_sindaci_idx");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fl_liste_tipo_elezione_idx");
+
+                    b.ToTable("liste");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Matrice", b =>
+                {
+                    b.Property<int>("Idmatrice")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Collegiocamera")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Collegioprovinciale")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Collegiosenato")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Idtipoelezione")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Iscrittifemmine")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Iscrittimaschi")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Iscrittitotali")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Numerosezioni")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Idmatrice")
+                        .HasName("PRIMARY");
+
+                    b.HasIndex("Idtipoelezione")
+                        .HasName("fk_matrice_tipo_elezione_idx");
+
+                    b.HasIndex("Iscrittifemmine")
+                        .IsUnique()
+                        .HasName("iscrittifemmine_UNIQUE");
+
+                    b.HasIndex("Iscrittimaschi")
+                        .IsUnique()
+                        .HasName("iscrittimaschi_UNIQUE");
+
+                    b.ToTable("matrice");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Municipi", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Descrizione")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("municipi");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Plessi", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Descrizione")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Idtipoelezione")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ubicazione")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Idtipoelezione")
+                        .HasName("fk_plessi_tipoelezione_idx");
+
+                    b.ToTable("plessi");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.ProfiloVoti", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Sezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("Votigeneraliid")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votilistaid")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Votisindacoid")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Sezioneid")
+                        .HasName("fk_voti_sezioni_idx");
+
+                    b.HasIndex("Votigeneraliid")
+                        .HasName("fk_voti_votigenerali_idx");
+
+                    b.HasIndex("Votilistaid")
+                        .HasName("fk_voti_votilista_idx");
+
+                    b.HasIndex("Votisindacoid")
+                        .HasName("fk_voti_votisindaco_idx");
+
+                    b.HasIndex("Tipoelezioneid", "Sezioneid")
+                        .HasName("fk_voti_tipoelezione_idx");
+
+                    b.ToTable("profilo_voti");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Raggruppamento", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Denominazione")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("DenominazioneBreve")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Idtipoelezione")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sindacoid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique()
+                        .HasName("id_UNIQUE");
+
+                    b.HasIndex("Idtipoelezione")
+                        .HasName("fk_tipoelezioni_coalizioni_idx");
+
+                    b.HasIndex("Sindacoid")
+                        .HasName("fk_sindaci_coalizioni_idx");
+
+                    b.ToTable("Raggruppamento");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.RicalcoliAffluenza", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AffluenzaFemmine")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AffluenzaMaschi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AffluenzaTotale")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Idtipoelezione")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Idtiporicalcolo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IscrittiFemmine")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IscrittiMaschi")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IscrittiTotale")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroAffluenza")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NumeroSezioni")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PercentualeFemmine")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeMaschi")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeSezioniPervenute")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeTotale")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("TotaleSezioni")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Idtipoelezione")
+                        .HasName("fk_ricaloli_affluenza_tipo_elezione_idx");
+
+                    b.HasIndex("Idtiporicalcolo")
+                        .HasName("ricalcoli_affluenza_idx");
+
+                    b.ToTable("ricalcoli_affluenza");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.RicalcoloAperturaCostituzione", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Idtipoelezione")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Idtiporicalcolo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IscrittiTotali")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroAperte")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroCostituite")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroSezioni")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PercentualeAperte")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeCostituite")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Idtipoelezione")
+                        .HasName("fk_ricalcoli_apertura_costituzione_tipo_elezione_idx");
+
+                    b.HasIndex("Idtiporicalcolo")
+                        .HasName("fk_ricalcoli_apertura_costituzione_tipo_ricalcolo_idx");
+
+                    b.ToTable("ricalcoli_apertura_costituzione");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.RicalcoloPreferenze", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Candidatoid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("IscrittiPervenute")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IscrittiTotale")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Listaid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroSezioni")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroVoti")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PercentualeSezioniPervenute")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeVotantiPervenute")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeVotantiTotale")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeVoti")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tiporicalcoloid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotaleSezioni")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("VotantiPervenute")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VotantiTotale")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Candidatoid")
+                        .HasName("fk_ricalcolo_preferenze_candidato_idx");
+
+                    b.HasIndex("Listaid")
+                        .HasName("fk_ricalcolo_preferenze_liste_idx");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fk_ricalcolo_preferenze_tipo_elezione_idx");
+
+                    b.HasIndex("Tiporicalcoloid")
+                        .HasName("fk_ricalcolo_tipo_ricalcolo_idx");
+
+                    b.ToTable("ricalcolo_preferenze");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.RicalcoloVotiLista", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Idlista")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Idtipoelezione")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Idtiporicalcolo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IscrittiPervenute")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IscrittiTotale")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroSezioni")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroVoti")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PercentualeSezioniPervenute")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeVotantiPervenute")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeVotantiTotale")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeVoti")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("TotaleSezioni")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("VotantiPervenute")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VotantiTotali")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Idlista")
+                        .HasName("fk_ricalcolo_voti_lista_idx");
+
+                    b.HasIndex("Idtipoelezione")
+                        .HasName("fk_ricalcolo_voti_tipo_elezione_idx");
+
+                    b.HasIndex("Idtiporicalcolo")
+                        .HasName("fk_ricalcolo_voti_tipo_ricalcolo_idx");
+
+                    b.ToTable("ricalcolo_voti_lista");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.RicalcoloVotiRaggruppamento", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Coalizioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("IscrittiPervenute")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IscrittiTotale")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroSezioni")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroVoti")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PercentualeSezioniPervenute")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeVotantiPervenute")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeVotantiTotale")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeVoti")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tiporicalcoloid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotaleSezioni")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("VotantiPervenute")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VotantiTotale")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Coalizioneid")
+                        .HasName("fk_riacalcolo_coalizioni_coalizioni_idx");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fk_ricalcolo_coalizioni_tipo_elezioni_idx");
+
+                    b.HasIndex("Tiporicalcoloid")
+                        .HasName("fk_ricalcolo_coalizioni_tipo_ricalcolo_idx");
+
+                    b.ToTable("ricalcolo_voti_coalizioni");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.RicalcoloVotiSindaco", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("IscrittiPervenute")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IscrittiTotale")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroSezioni")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroVoti")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroVotiSoloSindaco")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PercentualeSezioniPervenute")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeVotantiPervenute")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeVotantiTotale")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PercentualeVoti")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Sindacoid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tiporicalcoloid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotaleSezioni")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("VotantiPervenute")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VotantiTotale")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Sindacoid")
+                        .HasName("fk_riacalcolo_sindaci_sindaci_idx");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fk_ricalcolo_sindaci_tipo_elezioni_idx");
+
+                    b.HasIndex("Tiporicalcoloid")
+                        .HasName("fk_ricalcolo_sindaci_tipo_ricalcolo_idx");
+
+                    b.ToTable("ricalcolo_voti_sindaco");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Sezioni", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cabina")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("Idplesso")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Idtipoelezione")
+                        .HasColumnType("int");
+
+                    b.Property<uint?>("Idtiposezione")
+                        .HasColumnType("int(10) unsigned");
+
+                    b.Property<int?>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Numerosezione")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Idplesso")
+                        .HasName("fk_sezioni_plessi_idx");
+
+                    b.HasIndex("Idtipoelezione")
+                        .HasName("fk_sezioni_tipoelezione_idx");
+
+                    b.HasIndex("Idtiposezione")
+                        .HasName("fk_sezioni_tiposezione_idx");
+
+                    b.HasIndex("Numerosezione", "Idtipoelezione")
+                        .IsUnique()
+                        .HasName("numerosezione_UNIQUE");
+
+                    b.ToTable("sezioni");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Sindaci", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Cognome")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Progressivo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Sesso")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fk_tipo_elezione_sindaci_idx");
+
+                    b.ToTable("sindaci");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.TipoInterrogazione", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Codice")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CodiceFase")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Descrizione")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("tipo_interrogazione_tipo_elezione_idx");
+
+                    b.ToTable("tipo_interrogazione");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.TipoRicalcolo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Codice")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CodiceFase")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Descrizione")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Idtipoelezione")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Idtipoelezione")
+                        .HasName("fk_tipo_ricalcolo_tipo_elezione_idx");
+
+                    b.ToTable("tipo_ricalcolo");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.TipoRicalcoloAggregazione", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Codice")
+                        .IsRequired()
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Descrizione")
+                        .IsRequired()
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("tipo_ricalcolo_aggregazione_tipo_elezione_idx");
+
+                    b.HasIndex("Descrizione", "Codice", "Tipoelezioneid")
+                        .IsUnique()
+                        .HasName("tipo_ricalcolo_aggregazione_unique");
+
+                    b.ToTable("tipo_ricalcolo_aggregazione");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Tipoelezione", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Dataelezione")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Descrizione")
+                        .IsRequired()
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Descrizione")
+                        .IsUnique()
+                        .HasName("descrizione_UNIQUE");
+
+                    b.HasIndex("Id")
+                        .IsUnique()
+                        .HasName("idtipoelezione_UNIQUE");
+
+                    b.ToTable("tipoelezione");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Tiposezione", b =>
+                {
+                    b.Property<uint>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
+                        .HasColumnType("int(10) unsigned");
+
+                    b.Property<string>("Codicesezione")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Descrizione")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tiposezione");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.UsersSezioni", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("Idtipoelezione")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Sezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Idtipoelezione")
+                        .HasName("fk_users_sezione_tipoelezione_idx");
+
+                    b.HasIndex("Sezioneid")
+                        .HasName("fk_users_sezioni_sezioni_idx");
+
+                    b.HasIndex("UserId")
+                        .HasName("fk_users_sezioni_users_idx");
+
+                    b.ToTable("users_sezioni");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiGenerali", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Bianche")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Contestate")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Nulle")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SoloSindaco")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Totale")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotaleValide")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Sezioneid")
+                        .HasName("fk_voti_sezione_idx");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fk_voti_tipoelezione_idx");
+
+                    b.ToTable("voti_generali");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiGeneraliStorico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Bianche")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Contestate")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DataOperazioneOld")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Nulle")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SoloSindaco")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Totale")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotaleValide")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("UtenteOperazioneOld")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Sezioneid")
+                        .HasName("fk_voti_storico_sezione_idx");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fk_voti_storico_tipoelezione_idx");
+
+                    b.ToTable("voti_generali_storico");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiLista", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Listaid")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Voti")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Votigeneraliid")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Listaid")
+                        .HasName("fk_voti_lista_liste_idx");
+
+                    b.HasIndex("Sezioneid")
+                        .HasName("fk_voti_lista_sezioni_idx");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fk_voti_lista_tipo_elezione_idx");
+
+                    b.HasIndex("Votigeneraliid")
+                        .HasName("fk_voti_lista_voti_generali_idx");
+
+                    b.ToTable("voti_lista");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiListaStorico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Listaid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Voti")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Dataoperazioneold")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Utenteoperazioneold")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Votigeneraliid")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id", "Listaid", "Sezioneid", "Tipoelezioneid", "Voti", "Dataoperazioneold", "Utenteoperazioneold")
+                        .HasName("PRIMARY");
+
+                    b.HasIndex("Listaid")
+                        .HasName("fk_liste_voti_lista_storico_idx");
+
+                    b.HasIndex("Sezioneid")
+                        .HasName("fk_sezioni_voti_lista_storico_idx");
+
+                    b.ToTable("voti_lista_storico");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiPeferenzeStorico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Candidatoid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Listaid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Numerovoti")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Candidatoid")
+                        .HasName("fk_voti_preferenze_storico_candidati_idx");
+
+                    b.HasIndex("Listaid")
+                        .HasName("fk_voti_preferenze_storico_liste_idx");
+
+                    b.HasIndex("Sezioneid")
+                        .HasName("fk_voti_preferenze_storico_sezioni_idx");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fk_voti_preferenze_storico_tipoelezione_id_idx");
+
+                    b.ToTable("voti_peferenze_storico");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiPreferenze", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Candidatoid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Listaid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Numerovoti")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Candidatoid")
+                        .HasName("fk_voti_preferenze_candidati_idx");
+
+                    b.HasIndex("Listaid")
+                        .HasName("fk_voti_preferenze_liste_idx");
+
+                    b.HasIndex("Sezioneid")
+                        .HasName("fk_voti_preferenze_sezioni_idx");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fk_voti_preferenze_tipoelezione_id_idx");
+
+                    b.HasIndex("Candidatoid", "Sezioneid", "Listaid", "Tipoelezioneid")
+                        .IsUnique()
+                        .HasName("uk_voti_preferenze_lista_candidato_sezione");
+
+                    b.ToTable("voti_preferenze");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiSindaco", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroVoti")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroVotiSoloSindaco")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sindacoid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Votigeneraliid")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Sezioneid")
+                        .HasName("fk_voti_sindaco_sezioni_idx");
+
+                    b.HasIndex("Sindacoid")
+                        .HasName("fk_voti_sindaco_sindaco_idx");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fk_voti_sindaco_tipo_elezioni_idx");
+
+                    b.HasIndex("Votigeneraliid")
+                        .HasName("fk_voti_sindaco_voti_generali_idx");
+
+                    b.ToTable("voti_sindaco");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiSindacoStorico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DataOperazioneOld")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Municipio")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroVoti")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroVotiSoloSindaco")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sindacoid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipoelezioneid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("UtenteOperazioneOld")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Votigeneraliid")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Sezioneid")
+                        .HasName("fk_voti_sindaco_old_sezioni_idx");
+
+                    b.HasIndex("Sindacoid")
+                        .HasName("fk_voti_sindaco_old_sindaco_idx");
+
+                    b.HasIndex("Tipoelezioneid")
+                        .HasName("fk_voti_sindaco_old_tipo_elezioni_idx");
+
+                    b.ToTable("voti_sindaco_storico");
                 });
 
             modelBuilder.Entity("Gov.Core.Entity.Pagina", b =>
@@ -550,30 +2705,30 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 1,
-                            Codice = "Premier",
+                            Codice = "Affluenze",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 140, DateTimeKind.Local).AddTicks(263),
-                            Denominazione = "Inserimento Premier",
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 361, DateTimeKind.Local).AddTicks(4834),
+                            Denominazione = "Inserimento Affluenze",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
-                            Codice = "Premier",
+                            Codice = "Affluenze",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 140, DateTimeKind.Local).AddTicks(1710),
-                            Denominazione = "Modifica Premier",
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 361, DateTimeKind.Local).AddTicks(9763),
+                            Denominazione = "Modifica Affluenze",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
-                            Codice = "Premier",
+                            Codice = "Affluenze",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 140, DateTimeKind.Local).AddTicks(2307),
-                            Denominazione = "Visualizzazione Premier",
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 362, DateTimeKind.Local).AddTicks(1403),
+                            Denominazione = "Visualizzazione Affluenze",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -582,7 +2737,7 @@ namespace Gov.Structure.Migrations
                             Id = 4,
                             Codice = "User",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 140, DateTimeKind.Local).AddTicks(3238),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 362, DateTimeKind.Local).AddTicks(3279),
                             Denominazione = "Indice Gestione Utenti",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -590,30 +2745,30 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 5,
-                            Codice = "Premier",
+                            Codice = "Affluenze",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 140, DateTimeKind.Local).AddTicks(3839),
-                            Denominazione = "Inserimento Premier",
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 362, DateTimeKind.Local).AddTicks(4587),
+                            Denominazione = "Inserimento Affluenze",
                             RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 6,
-                            Codice = "Premier",
+                            Codice = "Affluenze",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 140, DateTimeKind.Local).AddTicks(4390),
-                            Denominazione = "Modifica Premier",
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 362, DateTimeKind.Local).AddTicks(5792),
+                            Denominazione = "Modifica Affluenze",
                             RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 7,
-                            Codice = "Premier",
+                            Codice = "Affluenze",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 140, DateTimeKind.Local).AddTicks(4923),
-                            Denominazione = "Visualizzazione Premier",
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 362, DateTimeKind.Local).AddTicks(6957),
+                            Denominazione = "Visualizzazione Affluenze",
                             RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -622,7 +2777,7 @@ namespace Gov.Structure.Migrations
                             Id = 8,
                             Codice = "User",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 140, DateTimeKind.Local).AddTicks(5564),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 362, DateTimeKind.Local).AddTicks(8084),
                             Denominazione = "Gestione Utenti",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -632,7 +2787,7 @@ namespace Gov.Structure.Migrations
                             Id = 9,
                             Codice = "User",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 140, DateTimeKind.Local).AddTicks(6062),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 362, DateTimeKind.Local).AddTicks(9194),
                             Denominazione = "Registrazione Utenti",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -642,7 +2797,7 @@ namespace Gov.Structure.Migrations
                             Id = 10,
                             Codice = "User",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 140, DateTimeKind.Local).AddTicks(6556),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 363, DateTimeKind.Local).AddTicks(275),
                             Denominazione = "Mio Profilo",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -652,7 +2807,7 @@ namespace Gov.Structure.Migrations
                             Id = 11,
                             Codice = "User",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 140, DateTimeKind.Local).AddTicks(7046),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 363, DateTimeKind.Local).AddTicks(1356),
                             Denominazione = "Mio Profilo",
                             RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -662,7 +2817,7 @@ namespace Gov.Structure.Migrations
                             Id = 12,
                             Codice = "Rights",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 140, DateTimeKind.Local).AddTicks(7539),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 363, DateTimeKind.Local).AddTicks(3252),
                             Denominazione = "Gestione Abilitazioni",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -672,7 +2827,7 @@ namespace Gov.Structure.Migrations
                             Id = 13,
                             Codice = "User",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 140, DateTimeKind.Local).AddTicks(8025),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 363, DateTimeKind.Local).AddTicks(4445),
                             Denominazione = "Cambio Password",
                             RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -682,7 +2837,7 @@ namespace Gov.Structure.Migrations
                             Id = 14,
                             Codice = "Home",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 140, DateTimeKind.Local).AddTicks(8514),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 363, DateTimeKind.Local).AddTicks(5555),
                             Denominazione = "Home page",
                             RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -692,7 +2847,7 @@ namespace Gov.Structure.Migrations
                             Id = 15,
                             Codice = "User",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 140, DateTimeKind.Local).AddTicks(9000),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 363, DateTimeKind.Local).AddTicks(6637),
                             Denominazione = "Cambio Password",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -734,7 +2889,7 @@ namespace Gov.Structure.Migrations
                             Id = 1,
                             Codice = "Testo",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(9258),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 365, DateTimeKind.Local).AddTicks(9330),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -742,7 +2897,7 @@ namespace Gov.Structure.Migrations
                             Id = 2,
                             Codice = "Icona",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(9310),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 365, DateTimeKind.Local).AddTicks(9395),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -750,7 +2905,7 @@ namespace Gov.Structure.Migrations
                             Id = 3,
                             Codice = "Link",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(9319),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 365, DateTimeKind.Local).AddTicks(9420),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -758,7 +2913,7 @@ namespace Gov.Structure.Migrations
                             Id = 4,
                             Codice = "Header",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(9323),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 365, DateTimeKind.Local).AddTicks(9428),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -766,7 +2921,7 @@ namespace Gov.Structure.Migrations
                             Id = 5,
                             Codice = "Image",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(9326),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 365, DateTimeKind.Local).AddTicks(9435),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -774,7 +2929,7 @@ namespace Gov.Structure.Migrations
                             Id = 6,
                             Codice = "Titolo",
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(9330),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 365, DateTimeKind.Local).AddTicks(9442),
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -832,55 +2987,55 @@ namespace Gov.Structure.Migrations
                             Id = 1,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(1534),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 364, DateTimeKind.Local).AddTicks(2303),
                             Icona = "user-secret",
-                            Link = "/premier/index",
+                            Link = "/affluenze/index",
                             RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Voce = "Premier"
+                            Voce = "Affluenze"
                         },
                         new
                         {
                             Id = 2,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(2797),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 364, DateTimeKind.Local).AddTicks(5034),
                             Icona = "history",
-                            Link = "/governo/index",
+                            Link = "/liste/index",
                             RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Voce = "Governo"
+                            Voce = "Liste"
                         },
                         new
                         {
                             Id = 3,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(3354),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 364, DateTimeKind.Local).AddTicks(6334),
                             Icona = "receipt",
-                            Link = "/dicastero/index",
+                            Link = "/sindaco/index",
                             RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Voce = "Dicastero"
+                            Voce = "Sindaco"
                         },
                         new
                         {
                             Id = 4,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(3903),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 364, DateTimeKind.Local).AddTicks(7663),
                             Icona = "university",
-                            Link = "/partito/index",
+                            Link = "/iterrogazioni/index",
                             RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Voce = "Partito"
+                            Voce = "Interrogazioni"
                         },
                         new
                         {
                             Id = 5,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(4478),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 364, DateTimeKind.Local).AddTicks(8791),
                             Icona = "user",
                             Link = "/account/index",
                             RoleId = 2,
@@ -892,55 +3047,55 @@ namespace Gov.Structure.Migrations
                             Id = 6,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(4975),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 364, DateTimeKind.Local).AddTicks(9881),
                             Icona = "user-secret",
-                            Link = "/premier/index",
+                            Link = "/affluenze/index",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Voce = "Premier"
+                            Voce = "Affluenze"
                         },
                         new
                         {
                             Id = 7,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(5463),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 365, DateTimeKind.Local).AddTicks(958),
                             Icona = "history",
-                            Link = "/governo/index",
+                            Link = "/liste/index",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Voce = "Governo"
+                            Voce = "Liste"
                         },
                         new
                         {
                             Id = 8,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(5954),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 365, DateTimeKind.Local).AddTicks(2111),
                             Icona = "receipt",
-                            Link = "/dicastero/index",
+                            Link = "/sindaco/index",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Voce = "Dicastero"
+                            Voce = "Sindaco"
                         },
                         new
                         {
                             Id = 9,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(6572),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 365, DateTimeKind.Local).AddTicks(3177),
                             Icona = "university",
-                            Link = "/partito/index",
+                            Link = "/interrogazioni/index",
                             RoleId = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Voce = "Partito"
+                            Voce = "Interrogazioni"
                         },
                         new
                         {
                             Id = 10,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(7044),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 365, DateTimeKind.Local).AddTicks(4243),
                             Icona = "user",
                             Link = "/account/index",
                             RoleId = 1,
@@ -952,7 +3107,7 @@ namespace Gov.Structure.Migrations
                             Id = 11,
                             Active = true,
                             CreatedBy = "Caricamento",
-                            CreatedDate = new DateTime(2020, 6, 18, 19, 38, 45, 141, DateTimeKind.Local).AddTicks(7519),
+                            CreatedDate = new DateTime(2020, 7, 15, 14, 47, 7, 365, DateTimeKind.Local).AddTicks(5305),
                             Icona = "handshake",
                             Link = "/rights/index",
                             RoleId = 1,
@@ -1053,14 +3208,14 @@ namespace Gov.Structure.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "6218897a-541d-418e-ae37-5dcec6234ab4",
+                            ConcurrencyStamp = "4f823334-492d-45c5-abb2-d6e27a72b6e0",
                             Name = "admin",
                             NormalizedName = "admin"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "672e7d23-192e-4d2f-bdc2-500dbc0ab7bd",
+                            ConcurrencyStamp = "c9efc755-3ee1-4265-b494-3bcd88c02a49",
                             Name = "user",
                             NormalizedName = "user"
                         });
@@ -1160,12 +3315,12 @@ namespace Gov.Structure.Migrations
                             Cognome = "Admin",
                             Email = "agnew74@gmail.com",
                             EmailConfirmed = false,
-                            LastModified = new DateTime(2020, 6, 18, 19, 38, 45, 138, DateTimeKind.Local).AddTicks(2614),
+                            LastModified = new DateTime(2020, 7, 15, 14, 47, 7, 357, DateTimeKind.Local).AddTicks(923),
                             LockoutEnabled = false,
                             Nome = "Admin",
                             NormalizedEmail = "agnew74@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMDQBBppp2tpKOuW4fDjpGZXjyBApLm1t/FCe7TKGELWIz0wN3EGvoQm/pQOtolrgA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBES17Aaql/nyQi+XEa4ENTXxflFpT9WchvI32qHDcJm5yEhU8WeP/NaeN4nTkbxjg==",
                             PhoneNumber = "",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
@@ -1632,6 +3787,550 @@ namespace Gov.Structure.Migrations
                         .WithMany()
                         .HasForeignKey("TipoContenutoId")
                         .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Affluenze", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Iscritti", "Iscritti")
+                        .WithMany("Affluenze")
+                        .HasForeignKey("Iscrittiid")
+                        .HasConstraintName("fk_affluenze_iscritti")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Plessi", "Plesso")
+                        .WithMany("Affluenze")
+                        .HasForeignKey("Plessoid")
+                        .HasConstraintName("fk_affluenze_plessi");
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sezioni", "Sezione")
+                        .WithMany("Affluenze")
+                        .HasForeignKey("Sezioneid")
+                        .HasConstraintName("fk_affluenza_sezioni")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.AffluenzeStorico", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Iscritti", "Iscritti")
+                        .WithMany()
+                        .HasForeignKey("Iscrittiid")
+                        .HasConstraintName("fk_affluenze_storico_iscritti")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Plessi", "Plesso")
+                        .WithMany()
+                        .HasForeignKey("Plessoid")
+                        .HasConstraintName("fk_affluenze_storico_plessi");
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany()
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fk_affluenze_storico_tipo_elezione")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.AggregazioneInterrogazioni", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany("AggregazioneInterrogazioni")
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fk_aggregazione_interrogazioni_tipo_elezione")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Candidati", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Liste", "Lista")
+                        .WithMany("Candidati")
+                        .HasForeignKey("Listaid")
+                        .HasConstraintName("fk_candidati_lista")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany("Candidati")
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fk_candidati_tipo_elezione")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Elegen", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "IdtipoelezioneNavigation")
+                        .WithMany("Elegen")
+                        .HasForeignKey("Idtipoelezione")
+                        .HasConstraintName("fk_elegen_tipo_elezione")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Iscritti", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sezioni", "IdsezioneNavigation")
+                        .WithOne("Iscritti")
+                        .HasForeignKey("Gov.Core.Entity.Elezioni.Iscritti", "Idsezione")
+                        .HasConstraintName("fk_sezioni_iscritti")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "IdtipoelezioneNavigation")
+                        .WithMany("Iscritti")
+                        .HasForeignKey("Idtipoelezione")
+                        .HasConstraintName("fk_tipo_elezione_iscritti")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tiposezione", "IdtiposezioneNavigation")
+                        .WithMany("Iscritti")
+                        .HasForeignKey("Idtiposezione")
+                        .HasConstraintName("fk_tipo_sezione_iscritti");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Liste", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Raggruppamento", "Raggruppamenti")
+                        .WithMany("Liste")
+                        .HasForeignKey("Coalizioneid")
+                        .HasConstraintName("fk_liste_coalizioni");
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sindaci", "Sindaco")
+                        .WithMany("Liste")
+                        .HasForeignKey("Sindacoid")
+                        .HasConstraintName("fk_liste_sindaci");
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany("Liste")
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fl_liste_tipo_elezione")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Matrice", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "IdtipoelezioneNavigation")
+                        .WithMany("Matrice")
+                        .HasForeignKey("Idtipoelezione")
+                        .HasConstraintName("fk_matrice_tipo_elezione")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Plessi", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "IdtipoelezioneNavigation")
+                        .WithMany("Plessi")
+                        .HasForeignKey("Idtipoelezione")
+                        .HasConstraintName("fk_plessi_tipoelezione")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.ProfiloVoti", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sezioni", "Sezione")
+                        .WithMany("ProfiloVoti")
+                        .HasForeignKey("Sezioneid")
+                        .HasConstraintName("fk_voti_sezioni")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany("ProfiloVoti")
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fk_voti_tipoelezione")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.VotiGenerali", "Votigenerali")
+                        .WithMany("ProfiloVoti")
+                        .HasForeignKey("Votigeneraliid")
+                        .HasConstraintName("fk_voti_votigenerali");
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.VotiLista", "Votilista")
+                        .WithMany("ProfiloVoti")
+                        .HasForeignKey("Votilistaid")
+                        .HasConstraintName("fk_voti_votilista");
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.VotiSindaco", "Votisindaco")
+                        .WithMany("ProfiloVoti")
+                        .HasForeignKey("Votisindacoid")
+                        .HasConstraintName("fk_voti_votisindaco");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Raggruppamento", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "IdtipoelezioneNavigation")
+                        .WithMany("Raggruppamenti")
+                        .HasForeignKey("Idtipoelezione")
+                        .HasConstraintName("fk_tipoelezioni_coalizioni")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sindaci", "Sindaco")
+                        .WithMany("Raggruppamenti")
+                        .HasForeignKey("Sindacoid")
+                        .HasConstraintName("fk_sindaci_coalizioni")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.RicalcoliAffluenza", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "IdtipoelezioneNavigation")
+                        .WithMany("RicalcoliAffluenza")
+                        .HasForeignKey("Idtipoelezione")
+                        .HasConstraintName("fk_ricaloli_affluenza_tipo_elezione")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.TipoRicalcolo", "IdtiporicalcoloNavigation")
+                        .WithMany("RicalcoliAffluenza")
+                        .HasForeignKey("Idtiporicalcolo")
+                        .HasConstraintName("fk_ricalcoli_affluenza_tipo_ricalcolo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.RicalcoloAperturaCostituzione", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "IdtipoelezioneNavigation")
+                        .WithMany("RicalcoliAperturaCostituzione")
+                        .HasForeignKey("Idtipoelezione")
+                        .HasConstraintName("fk_ricalcoli_apertura_costituzione_tipo_elezione")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.TipoRicalcolo", "IdtiporicalcoloNavigation")
+                        .WithMany("RicalcoliAperturaCostituzione")
+                        .HasForeignKey("Idtiporicalcolo")
+                        .HasConstraintName("fk_ricalcoli_apertura_costituzione_tipo_ricalcolo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.RicalcoloPreferenze", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Candidati", "Candidato")
+                        .WithMany("RicalcoloPreferenze")
+                        .HasForeignKey("Candidatoid")
+                        .HasConstraintName("fk_ricalcolo_preferenze_candidato")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Liste", "Lista")
+                        .WithMany("RicalcoloPreferenze")
+                        .HasForeignKey("Listaid")
+                        .HasConstraintName("fk_ricalcolo_preferenze_liste")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany("RicalcoloPreferenze")
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fk_ricalcolo_preferenze_tipo_elezione")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.TipoRicalcolo", "Tiporicalcolo")
+                        .WithMany("RicalcoloPreferenze")
+                        .HasForeignKey("Tiporicalcoloid")
+                        .HasConstraintName("fk_ricalcolo_tipo_ricalcolo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.RicalcoloVotiLista", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Liste", "IdlistaNavigation")
+                        .WithMany("RicalcoloVotiLista")
+                        .HasForeignKey("Idlista")
+                        .HasConstraintName("fk_ricalcolo_voti_lista")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "IdtipoelezioneNavigation")
+                        .WithMany("RicalcoloVotiLista")
+                        .HasForeignKey("Idtipoelezione")
+                        .HasConstraintName("fk_ricalcolo_voti_tipo_elezione")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.TipoRicalcolo", "IdtiporicalcoloNavigation")
+                        .WithMany("RicalcoloVotiLista")
+                        .HasForeignKey("Idtiporicalcolo")
+                        .HasConstraintName("fk_ricalcolo_voti_tipo_ricalcolo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.RicalcoloVotiRaggruppamento", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Raggruppamento", "Raggruppamenti")
+                        .WithMany("RicalcoloVotiCoalizioni")
+                        .HasForeignKey("Coalizioneid")
+                        .HasConstraintName("fk_riacalcolo_coalizioni_coalizioni")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany("RicalcoloVotiCoalizioni")
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fk_ricalcolo_coalizioni_tipo_elezioni")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.TipoRicalcolo", "Tiporicalcolo")
+                        .WithMany("RicalcoloVotiCoalizioni")
+                        .HasForeignKey("Tiporicalcoloid")
+                        .HasConstraintName("fk_ricalcolo_coalizioni_tipo_ricalcolo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.RicalcoloVotiSindaco", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sindaci", "Sindaco")
+                        .WithMany("RicalcoloVotiSindaco")
+                        .HasForeignKey("Sindacoid")
+                        .HasConstraintName("fk_ricalcolo_voti_sindaco_sindaco")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany("RicalcoloVotiSindaco")
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fk_ricalcolo_voti_sindaco_tipo_elezione")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.TipoRicalcolo", "Tiporicalcolo")
+                        .WithMany("RicalcoloVotiSindaco")
+                        .HasForeignKey("Tiporicalcoloid")
+                        .HasConstraintName("fk_ricalcolo_voti_sindaco_tipo_ricalcolo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Sezioni", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Plessi", "IdplessoNavigation")
+                        .WithMany("Sezioni")
+                        .HasForeignKey("Idplesso")
+                        .HasConstraintName("fk_sezioni_plessi");
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "IdtipoelezioneNavigation")
+                        .WithMany("Sezioni")
+                        .HasForeignKey("Idtipoelezione")
+                        .HasConstraintName("fk_sezioni_tipoelezione");
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tiposezione", "IdtiposezioneNavigation")
+                        .WithMany("Sezioni")
+                        .HasForeignKey("Idtiposezione")
+                        .HasConstraintName("fk_sezioni_tiposezione");
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.Sindaci", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany("Sindaci")
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fk_tipo_elezione_sindaci")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.TipoInterrogazione", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany("TipoInterrogazione")
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("tipo_interrogazione_tipo_elezione")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.TipoRicalcolo", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "IdtipoelezioneNavigation")
+                        .WithMany("TipoRicalcolo")
+                        .HasForeignKey("Idtipoelezione")
+                        .HasConstraintName("fk_tipo_ricalcolo_tipo_elezione")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.TipoRicalcoloAggregazione", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany("TipoRicalcoloAggregazione")
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("tipo_ricalcolo_aggregazione_tipo_elezione")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.UsersSezioni", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "IdtipoelezioneNavigation")
+                        .WithMany("UsersSezioni")
+                        .HasForeignKey("Idtipoelezione")
+                        .HasConstraintName("fk_users_sezione_tipoelezione");
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sezioni", "Sezione")
+                        .WithMany("UsersSezioni")
+                        .HasForeignKey("Sezioneid")
+                        .HasConstraintName("fk_users_sezioni_sezioni");
+
+                    b.HasOne("Gov.Core.Identity.ApplicationUser", "User")
+                        .WithMany("UsersSezioni")
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("fk_users_sezioni_users")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiGenerali", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sezioni", "Sezione")
+                        .WithMany("VotiGenerali")
+                        .HasForeignKey("Sezioneid")
+                        .HasConstraintName("fk_votigenerali_sezione")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany("VotiGenerali")
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fk_votigenerali_tipoelezione")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiGeneraliStorico", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sezioni", "Sezione")
+                        .WithMany()
+                        .HasForeignKey("Sezioneid")
+                        .HasConstraintName("fk_voti_storico_sezione")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany()
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fk_voti_storico_tipoelezione")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiLista", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Liste", "Lista")
+                        .WithMany("VotiLista")
+                        .HasForeignKey("Listaid")
+                        .HasConstraintName("fk_voti_lista_liste")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sezioni", "Sezione")
+                        .WithMany("VotiLista")
+                        .HasForeignKey("Sezioneid")
+                        .HasConstraintName("fk_voti_lista_sezioni")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany("VotiLista")
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fk_voti_lista_tipo_elezione")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.VotiGenerali", "Votigenerali")
+                        .WithMany("VotiLista")
+                        .HasForeignKey("Votigeneraliid")
+                        .HasConstraintName("fk_voti_lista_voti_generali")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiListaStorico", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Liste", "Lista")
+                        .WithMany("VotiListaStorico")
+                        .HasForeignKey("Listaid")
+                        .HasConstraintName("fk_liste_voti_lista_storico")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sezioni", "Sezione")
+                        .WithMany("VotiListaStorico")
+                        .HasForeignKey("Sezioneid")
+                        .HasConstraintName("fk_sezioni_voti_lista_storico")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiPeferenzeStorico", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Candidati", "Candidato")
+                        .WithMany("VotiPeferenzeStorico")
+                        .HasForeignKey("Candidatoid")
+                        .HasConstraintName("fk_voti_preferenze_storico_candidati")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Liste", "Lista")
+                        .WithMany("VotiPeferenzeStorico")
+                        .HasForeignKey("Listaid")
+                        .HasConstraintName("fk_voti_preferenze_storico_liste")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sezioni", "Sezione")
+                        .WithMany("VotiPeferenzeStorico")
+                        .HasForeignKey("Sezioneid")
+                        .HasConstraintName("fk_voti_preferenze_storico_sezioni")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany("VotiPeferenzeStorico")
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fk_voti_preferenze_storico_tipoelezione_id")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiPreferenze", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Candidati", "Candidato")
+                        .WithMany("VotiPreferenze")
+                        .HasForeignKey("Candidatoid")
+                        .HasConstraintName("fk_voti_preferenze_candidati")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Liste", "Lista")
+                        .WithMany("VotiPreferenze")
+                        .HasForeignKey("Listaid")
+                        .HasConstraintName("fk_voti_preferenze_liste")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sezioni", "Sezione")
+                        .WithMany("VotiPreferenze")
+                        .HasForeignKey("Sezioneid")
+                        .HasConstraintName("fk_voti_preferenze_sezioni")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany("VotiPreferenze")
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fk_voti_preferenze_tipoelezione_id")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiSindaco", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sezioni", "Sezione")
+                        .WithMany("VotiSindaco")
+                        .HasForeignKey("Sezioneid")
+                        .HasConstraintName("fk_voti_sindaco_sezioni")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sindaci", "Sindaco")
+                        .WithMany("VotiSindaco")
+                        .HasForeignKey("Sindacoid")
+                        .HasConstraintName("fk_voti_sindaco_sindaco")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany("VotiSindaco")
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fk_voti_sindaco_tipo_elezioni")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.VotiGenerali", "Votigenerali")
+                        .WithMany("VotiSindaco")
+                        .HasForeignKey("Votigeneraliid")
+                        .HasConstraintName("fk_voti_sindaco_voti_generali")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gov.Core.Entity.Elezioni.VotiSindacoStorico", b =>
+                {
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sezioni", "Sezione")
+                        .WithMany()
+                        .HasForeignKey("Sezioneid")
+                        .HasConstraintName("fk_voti_sindaco_old_sezioni")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Sindaci", "Sindaco")
+                        .WithMany()
+                        .HasForeignKey("Sindacoid")
+                        .HasConstraintName("fk_voti_sindaco_old_sindaco")
+                        .IsRequired();
+
+                    b.HasOne("Gov.Core.Entity.Elezioni.Tipoelezione", "Tipoelezione")
+                        .WithMany()
+                        .HasForeignKey("Tipoelezioneid")
+                        .HasConstraintName("fk_voti_sindaco_old_tipo_elezioni")
                         .IsRequired();
                 });
 

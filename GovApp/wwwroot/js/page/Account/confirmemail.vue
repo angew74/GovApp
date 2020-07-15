@@ -32,7 +32,7 @@
             this.restoreContext(),
                 axios({
                     method: 'get',
-                    url: '/api/auth/confirm'
+                    url: '/GovApp/api/auth/confirm'
                 })
                     .then(response => {
                         this.form = response.data;

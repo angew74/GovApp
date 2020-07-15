@@ -30,7 +30,7 @@
         mounted() {
             axios({
                 method: 'get',
-                url: '/values/carousel',
+                url: '/GovApp/values/carousel',
                 params: {
                     "type": "Home"
                 }

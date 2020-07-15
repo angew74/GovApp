@@ -55,7 +55,7 @@
                 'restoreContext'
             ]),
             duser(user) {
-                axios.post('/api/auth/disableuser', user, {
+                axios.post('/GovApp/api/auth/disableuser', user, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -70,7 +70,7 @@
                 });
             },
             deuser(user) {
-                axios.post('/api/auth/deleteuser', user, {
+                axios.post('/GovApp/api/auth/deleteuser', user, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -85,7 +85,7 @@
                 });
             },
             ruser(user) {
-                axios.post('/api/auth/resetpassword', user, {
+                axios.post('/GovApp/api/auth/resetpassword', user, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -102,7 +102,7 @@
             getUsers(page, ordinaPer, ordinaDesc, filter,filterarray) {
                 axios({
                     method: 'get',
-                    url: '/api/auth/users',
+                    url: '/GovApp/api/auth/users',
                     params: {
                         "page": page,
                         "ordinaPer": ordinaPer,
@@ -123,7 +123,7 @@
             getUsersFiltering(page, filter, types) {
                 axios({
                     method: 'get',
-                    url: '/api/auth/usersfilters',
+                    url: '/GovApp/api/auth/usersfilters',
                     params: {
                         "page": page,
                         "filtro": filter,
@@ -140,7 +140,7 @@
                     });
             },
             getUsersSorting(sort) {
-                axios.post('/api/auth/userssorting', sort, {
+                axios.post('/GovApp/api/auth/userssorting', sort, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -157,7 +157,7 @@
             getParams(type, page, ordinaPer, ordinaDesc, filter, filtriarray) {
                 axios({
                     method: 'get',
-                    url: '/api/auth/pagination',
+                    url: '/GovApp/api/auth/pagination',
                     params: {
                         "type": type,
                         "page": page,
@@ -186,7 +186,7 @@
             getParamsFiltering(type, page, filter, opzioni) {
                 axios({
                     method: 'get',
-                    url: '/api/auth/paginationlike',
+                    url: '/GovApp/api/auth/paginationlike',
                     params: {
                         "type": type,
                         "page": page,

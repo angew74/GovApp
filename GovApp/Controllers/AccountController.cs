@@ -67,15 +67,15 @@ namespace GovApp.Controllers
                 var user = _utentiService.FindByNameAsync(name, cancellationToken).Result;
                 if (user.EmailConfirmed == true && user.LockoutEnabled == false)
                 {
-                    return Redirect("/home/index");
+                    return Redirect("/GovApp/home/index");
                 }
                 else if(user.EmailConfirmed == false)
                 {
-                    return Redirect("/account/confirmemail");
+                    return Redirect("/GovApp/account/confirmemail");
                 }
                 else if (user.LockoutEnabled)
                 {
-                    return Redirect("/account/lockout");
+                    return Redirect("/GovApp/account/lockout");
                 }
             }         
             return View();
@@ -106,7 +106,7 @@ namespace GovApp.Controllers
                 var user = _utentiService.FindByNameAsync(name, cancellationToken).Result;
                 if (user == null || user.EmailConfirmed)
                 {
-                    return Redirect("/account/accessdenied");
+                    return Redirect("/GovApp/account/accessdenied");
                 }        
             }
             catch (Exception ex)
@@ -282,7 +282,7 @@ namespace GovApp.Controllers
             await HttpContext.SignOutAsync();
             _logger.LogInformation("Utente disconnesso");
             HttpContext.User = null;
-            return View("./logoutconfirmation");
+            return View("/GovApp/account/logoutconfirmation");
         }
 
         [AllowAnonymous]
@@ -290,59 +290,7 @@ namespace GovApp.Controllers
         {
             return View();
         }
-        /*
-                [HttpPost]
-                [AllowAnonymous]
-                [ValidateAntiForgeryToken]
-                public async Task<IActionResult> DoLogin(LoginModel details, string returnUrl)
-                {
-                    ApplicationUser user = new ApplicationUser();
-                    ErrorViewModel error = new ErrorViewModel();
-                    if (ModelState.IsValid)
-                    {
-                        CancellationToken cancellationToken = new CancellationToken();
-                        user = await _utentiService.FindByNameAsync(details.Username, cancellationToken);
-                        if (user != null)
-                        {
-                            if (user.LockoutEnabled)
-                            {
-                                _logger.LogError("Utenza Bloccata " + details.Username);
-                                error.errMsg = "Utenza Bloccata";
-                                return PartialView("ErrorLogin", error);
-                            }
-                            await _signInManager.SignOutAsync();
-                            Microsoft.AspNetCore.Identity.SignInResult result =
-                                    await _signInManager.PasswordSignInAsync(
-                                        user, details.Password, false, false);
-                            if (result.Succeeded)
-                            {
-                                if (user.EmailConfirmed == true)
-                                {
-                                    if (!string.IsNullOrEmpty(details.ReturnUrl) && Url.IsLocalUrl(details.ReturnUrl))
-                                    {
-                                        return Redirect(details.ReturnUrl);
-                                    }
-                                    else
-                                    {
-                                        return RedirectToAction("Index", "Home");
-                                    }
-                                }
-                                else
-                                {
-                                    ConfirmationEmailModel model = new ConfirmationEmailModel();
-                                    model.Email = user.Email;
-                                    model.Id = user.Id.ToString();
-                                    model.UserName = user.UserName;
-                                    return View("ConfirmEmail", model);
-                                }
-                            }
-                        }
-                        _logger.LogError("UserName o password errata" + details.Username);
-                        error.errMsg = "UserName o password errata";
-                        return PartialView("ErrorLogin", error);
-                    }
-                    return View("login", details);
-                }*/
+      
 
       
        

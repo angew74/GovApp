@@ -9,9 +9,14 @@ module.exports = {
         'home': [
             './wwwroot/js/app.js',
             './Views/Home/Index.cshtml.js'
-        ], 'partito': [
+        ],
+        'affluenze': [
             './wwwroot/js/app.js',
-            './Views/Partito/Index.cshtml.js'
+            './Views/Affluenze/Index.cshtml.js'
+        ],
+        'insaffluenze': [
+            './wwwroot/js/app.js',
+            './Views/Affluenze/Inserimento.cshtml.js'
         ],
         'login': [
             './wwwroot/js/app.js',

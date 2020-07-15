@@ -1,14 +1,15 @@
 ﻿using Gov.Core;
 using Gov.Core.Entity;
+using Gov.Core.Entity.Elezioni;
 using Gov.Core.Identity;
 using Gov.Core.Interfaces;
-using log4net;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Logging.Debug;
+using NLog.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,9 +26,9 @@ namespace Gov.Structure
     public class GovContext : IdentityDbContext<ApplicationUser, ApplicationRole, int, Userclaims, ApplicationUserRole, Userlogins, Roleclaims, Usertokens>, IContext
     {
 
-        public static readonly ILoggerFactory loggerFactory = new LoggerFactory(new[] {
-      new DebugLoggerProvider()
-});
+        public static readonly LoggerFactory MyLoggerFactory
+  = new LoggerFactory(new[] { new NLogLoggerProvider() });
+
         public GovContext(DbContextOptions<GovContext> options)
            : base(options)
         {
@@ -46,7 +47,8 @@ namespace Gov.Structure
 
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseLoggerFactory(loggerFactory)
+                optionsBuilder                      
+                     .UseLoggerFactory(MyLoggerFactory)
                     .EnableSensitiveDataLogging(true)
                      .UseMySql("server=localhost;user id=TOMAHAWK;password=Roberta4@;database=GOV", x => x.ServerVersion("8.0.13-mysql"));
             }
@@ -116,6 +118,43 @@ namespace Gov.Structure
         public new DbSet<ApplicationUser> Users { get; set; }
 
         public virtual DbSet<Usertokens> Usertokens { get; set; }
+
+        public virtual DbSet<Affluenze> Affluenze { get; set; }
+        public virtual DbSet<AffluenzeStorico> AffluenzeStorico { get; set; }
+        public virtual DbSet<AggregazioneInterrogazioni> AggregazioneInterrogazioni { get; set; }
+        public virtual DbSet<Candidati> Candidati { get; set; }
+        public virtual DbSet<Raggruppamento> Raggruppamenti { get; set; }
+        public virtual DbSet<Elegen> Elegen { get; set; }
+        public virtual DbSet<FaseElezione> FaseElezione { get; set; }
+        public virtual DbSet<Iscritti> Iscritti { get; set; }
+        public virtual DbSet<Liste> Liste { get; set; }
+        public virtual DbSet<Matrice> Matrice { get; set; }
+        public virtual DbSet<Municipi> Municipi { get; set; }
+        public virtual DbSet<Plessi> Plessi { get; set; }
+        public virtual DbSet<ProfiloVoti> ProfiloVoti { get; set; }
+        public virtual DbSet<RicalcoliAffluenza> RicalcoliAffluenza { get; set; }
+        public virtual DbSet<RicalcoloAperturaCostituzione> RicalcoliAperturaCostituzione { get; set; }
+        public virtual DbSet<RicalcoloPreferenze> RicalcoloPreferenze { get; set; }
+        public virtual DbSet<RicalcoloVotiRaggruppamento> RicalcoloVotiRaggruppamento { get; set; }
+        public virtual DbSet<RicalcoloVotiLista> RicalcoloVotiLista { get; set; }
+        public virtual DbSet<RicalcoloVotiSindaco> RicalcoloVotiSindaco { get; set; }
+        
+        public virtual DbSet<Sezioni> Sezioni { get; set; }
+        public virtual DbSet<Sindaci> Sindaci { get; set; }
+        public virtual DbSet<TipoInterrogazione> TipoInterrogazione { get; set; }
+        public virtual DbSet<TipoRicalcolo> TipoRicalcolo { get; set; }
+        public virtual DbSet<TipoRicalcoloAggregazione> TipoRicalcoloAggregazione { get; set; }
+        public virtual DbSet<Tipoelezione> Tipoelezione { get; set; }
+        public virtual DbSet<Tiposezione> Tiposezione { get; set; }    
+        public virtual DbSet<UsersSezioni> UsersSezioni { get; set; }
+        public virtual DbSet<VotiGenerali> VotiGenerali { get; set; }
+        public virtual DbSet<VotiGeneraliStorico> VotiGeneraliStorico { get; set; }
+        public virtual DbSet<VotiLista> VotiLista { get; set; }
+        public virtual DbSet<VotiListaStorico> VotiListaStorico { get; set; }
+        public virtual DbSet<VotiPeferenzeStorico> VotiPeferenzeStorico { get; set; }
+        public virtual DbSet<VotiPreferenze> VotiPreferenze { get; set; }
+        public virtual DbSet<VotiSindaco> VotiSindaco { get; set; }
+        public virtual DbSet<VotiSindacoStorico> VotiSindacoStorico { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -229,6 +268,7 @@ namespace Gov.Structure
                 entity.HasMany<Userlogins>().WithOne().HasForeignKey(ul => ul.UserId);
                 entity.HasMany<Usertokens>().WithOne().HasForeignKey(ut => ut.UserId);
                 entity.HasMany<ApplicationUserRole>().WithOne().HasForeignKey(ur => ur.UserId);
+                entity.HasMany<UsersSezioni>().WithOne().HasForeignKey(ur => ur.UserId);
                 //  entity.HasMany<ApplicationUserRole>().WithOne().HasForeignKey(ur => ur.UserId);
             });
 
@@ -271,6 +311,967 @@ namespace Gov.Structure
                     .HasForeignKey(ur => ur.UserId)
                     .IsRequired();
                 b.ToTable("UserRoles");
+            });
+
+            modelBuilder.Entity<Affluenze>(entity =>
+            {
+                entity.ToTable("affluenze");
+
+                entity.HasIndex(e => e.Id)
+                    .HasName("id_UNIQUE")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Iscrittiid)
+                    .HasName("fk_affluenze_iscritti_idx");
+
+                entity.HasIndex(e => e.Plessoid)
+                    .HasName("fk_affluenze_plessi_idx");
+
+                entity.HasIndex(e => e.Sezioneid)
+                    .HasName("fk_affluenza_sezioni_idx");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fk_affluenze_tipo_elezione_idx");          
+
+              
+
+                entity.HasOne(d => d.Iscritti)
+                    .WithMany(p => p.Affluenze)
+                    .HasForeignKey(d => d.Iscrittiid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_affluenze_iscritti");
+
+                entity.HasOne(d => d.Plesso)
+                    .WithMany(p => p.Affluenze)
+                    .HasForeignKey(d => d.Plessoid)
+                    .HasConstraintName("fk_affluenze_plessi");
+
+                entity.HasOne(d => d.Sezione)
+                    .WithMany(p => p.Affluenze)
+                    .HasForeignKey(d => d.Sezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_affluenza_sezioni");
+            });
+
+            modelBuilder.Entity<AffluenzeStorico>(entity =>
+            {
+           
+
+                entity.ToTable("affluenze_storico");
+
+                entity.HasIndex(e => e.Iscrittiid)
+                    .HasName("fk_affluenze_storico_iscritti_idx");
+
+                entity.HasIndex(e => e.Plessoid)
+                    .HasName("fk_affluenze_storico_plessi_idx");
+
+                entity.HasIndex(e => e.Sezioneid)
+                    .HasName("fk_affluenze_storico_sezioni_idx");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fk_affluenze_storico_tipo_elezione_idx");
+
+                entity.HasOne(d => d.Iscritti)
+                    .WithMany()
+                    .HasForeignKey(d => d.Iscrittiid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_affluenze_storico_iscritti");
+
+                entity.HasOne(d => d.Plesso)
+                    .WithMany()
+                    .HasForeignKey(d => d.Plessoid)
+                    .HasConstraintName("fk_affluenze_storico_plessi");
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany()
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_affluenze_storico_tipo_elezione");
+            });
+
+            modelBuilder.Entity<AggregazioneInterrogazioni>(entity =>
+            {
+                entity.ToTable("aggregazione_interrogazioni");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fk_aggregazione_interrogazioni_tipo_elezione_idx");
+
+                entity.HasIndex(e => new { e.Descrizione, e.Tipoelezioneid, e.Codice })
+                    .HasName("unique_aggregazione_interrogazioni")
+                    .IsUnique();              
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany(p => p.AggregazioneInterrogazioni)
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_aggregazione_interrogazioni_tipo_elezione");
+            });
+
+            modelBuilder.Entity<Candidati>(entity =>
+            {
+                entity.ToTable("candidati");
+
+                entity.HasIndex(e => e.Listaid)
+                    .HasName("fk_candidati_lista_idx");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fk_candidati_tipo_elezione_idx");
+
+                entity.HasIndex(e => new { e.Progressivo, e.Listaid, e.Tipoelezioneid })
+                    .HasName("uk_candidato_lista_progressivo")
+                    .IsUnique();                              
+
+                entity.HasOne(d => d.Lista)
+                    .WithMany(p => p.Candidati)
+                    .HasForeignKey(d => d.Listaid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_candidati_lista");
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany(p => p.Candidati)
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_candidati_tipo_elezione");
+            });
+
+            modelBuilder.Entity<Raggruppamento>(entity =>
+            {
+                entity.ToTable("Raggruppamento");
+
+                entity.HasIndex(e => e.Id)
+                    .HasName("id_UNIQUE")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Idtipoelezione)
+                    .HasName("fk_tipoelezioni_coalizioni_idx");
+
+                entity.HasIndex(e => e.Sindacoid)
+                    .HasName("fk_sindaci_coalizioni_idx");
+
+                entity.HasOne(d => d.IdtipoelezioneNavigation)
+                    .WithMany(p => p.Raggruppamenti)
+                    .HasForeignKey(d => d.Idtipoelezione)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_tipoelezioni_coalizioni");
+
+                entity.HasOne(d => d.Sindaco)
+                    .WithMany(p => p.Raggruppamenti)
+                    .HasForeignKey(d => d.Sindacoid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_sindaci_coalizioni");
+            });
+
+            modelBuilder.Entity<Elegen>(entity =>
+            {
+                entity.HasKey(e => e.Id)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("elegen");
+
+                entity.HasIndex(e => e.Id)
+                    .HasName("idelegencam_UNIQUE")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Idtipoelezione)
+                    .HasName("fk_elegen_tipo_elezione_idx");
+            
+                entity.HasOne(d => d.IdtipoelezioneNavigation)
+                    .WithMany(p => p.Elegen)
+                    .HasForeignKey(d => d.Idtipoelezione)
+                    .HasConstraintName("fk_elegen_tipo_elezione");
+            });
+
+            modelBuilder.Entity<FaseElezione>(entity =>
+            {
+                entity.ToTable("fase_elezione");
+
+                entity.HasIndex(e => e.Idtipoelezione)
+                    .HasName("fk_fase_elezione_tipo_elezione_idx");
+
+                entity.HasIndex(e => new { e.Codice, e.Idtipoelezione })
+                    .HasName("uq_fase_elezioni_elezioni")
+                    .IsUnique();
+             
+            });
+
+            modelBuilder.Entity<Iscritti>(entity =>
+            {
+                entity.ToTable("iscritti");
+
+                entity.HasIndex(e => e.Idsezione)
+                    .HasName("idsezione_UNIQUE")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Idtipoelezione)
+                    .HasName("fk_tipo_elezione_iscritti_idx");
+
+                entity.HasIndex(e => e.Idtiposezione)
+                    .HasName("fk_tiposezione_iscritti_idx");              
+
+                entity.HasOne(d => d.IdsezioneNavigation)
+                    .WithOne(p => p.Iscritti)
+                    .HasForeignKey<Iscritti>(d => d.Idsezione)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_sezioni_iscritti");
+
+                entity.HasOne(d => d.IdtipoelezioneNavigation)
+                    .WithMany(p => p.Iscritti)
+                    .HasForeignKey(d => d.Idtipoelezione)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_tipo_elezione_iscritti");
+
+                entity.HasOne(d => d.IdtiposezioneNavigation)
+                    .WithMany(p => p.Iscritti)
+                    .HasForeignKey(d => d.Idtiposezione)
+                    .HasConstraintName("fk_tipo_sezione_iscritti");
+            });
+
+            modelBuilder.Entity<Liste>(entity =>
+            {
+                entity.ToTable("liste");
+
+                entity.HasIndex(e => e.Coalizioneid)
+                    .HasName("fk_liste_coalizioni_idx1");
+
+                entity.HasIndex(e => e.ProgressivoCoalizione)
+                    .HasName("fk_liste_coalizioni_idx");
+
+                entity.HasIndex(e => e.Sindacoid)
+                    .HasName("fk_liste_sindaci_idx");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fl_liste_tipo_elezione_idx");
+
+             
+                entity.HasOne(d => d.Raggruppamenti)
+                    .WithMany(p => p.Liste)
+                    .HasForeignKey(d => d.Coalizioneid)
+                    .HasConstraintName("fk_liste_coalizioni");
+
+                entity.HasOne(d => d.Sindaco)
+                    .WithMany(p => p.Liste)
+                    .HasForeignKey(d => d.Sindacoid)
+                    .HasConstraintName("fk_liste_sindaci");
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany(p => p.Liste)
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fl_liste_tipo_elezione");
+            });
+
+            modelBuilder.Entity<Matrice>(entity =>
+            {
+                entity.HasKey(e => e.Id)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("matrice");
+
+                entity.HasIndex(e => e.Idtipoelezione)
+                    .HasName("fk_matrice_tipo_elezione_idx");
+
+                entity.HasIndex(e => e.Iscrittifemmine)
+                    .HasName("iscrittifemmine_UNIQUE")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Iscrittimaschi)
+                    .HasName("iscrittimaschi_UNIQUE")
+                    .IsUnique();              
+
+                entity.HasOne(d => d.IdtipoelezioneNavigation)
+                    .WithMany(p => p.Matrice)
+                    .HasForeignKey(d => d.Idtipoelezione)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_matrice_tipo_elezione");
+            });
+
+            modelBuilder.Entity<Municipi>(entity =>
+            {
+                entity.ToTable("municipi");
+              
+            });
+
+            modelBuilder.Entity<Plessi>(entity =>
+            {
+                entity.ToTable("plessi");
+
+                entity.HasIndex(e => e.Idtipoelezione)
+                    .HasName("fk_plessi_tipoelezione_idx");              
+
+                entity.HasOne(d => d.IdtipoelezioneNavigation)
+                    .WithMany(p => p.Plessi)
+                    .HasForeignKey(d => d.Idtipoelezione)
+                    .HasConstraintName("fk_plessi_tipoelezione");
+            });
+
+            modelBuilder.Entity<ProfiloVoti>(entity =>
+            {
+                entity.ToTable("profilo_voti");
+
+                entity.HasIndex(e => e.Sezioneid)
+                    .HasName("fk_voti_sezioni_idx");
+
+                entity.HasIndex(e => e.Votigeneraliid)
+                    .HasName("fk_voti_votigenerali_idx");
+
+                entity.HasIndex(e => e.Votilistaid)
+                    .HasName("fk_voti_votilista_idx");
+
+                entity.HasIndex(e => e.Votisindacoid)
+                    .HasName("fk_voti_votisindaco_idx");
+
+                entity.HasIndex(e => new { e.Tipoelezioneid, e.Sezioneid })
+                    .HasName("fk_voti_tipoelezione_idx");
+
+               
+                entity.HasOne(d => d.Sezione)
+                    .WithMany(p => p.ProfiloVoti)
+                    .HasForeignKey(d => d.Sezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_sezioni");
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany(p => p.ProfiloVoti)
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_tipoelezione");
+
+                entity.HasOne(d => d.Votigenerali)
+                    .WithMany(p => p.ProfiloVoti)
+                    .HasForeignKey(d => d.Votigeneraliid)
+                    .HasConstraintName("fk_voti_votigenerali");
+
+                entity.HasOne(d => d.Votilista)
+                    .WithMany(p => p.ProfiloVoti)
+                    .HasForeignKey(d => d.Votilistaid)
+                    .HasConstraintName("fk_voti_votilista");
+
+                entity.HasOne(d => d.Votisindaco)
+                    .WithMany(p => p.ProfiloVoti)
+                    .HasForeignKey(d => d.Votisindacoid)
+                    .HasConstraintName("fk_voti_votisindaco");
+            });
+
+            modelBuilder.Entity<RicalcoliAffluenza>(entity =>
+            {
+                entity.ToTable("ricalcoli_affluenza");
+
+                entity.HasIndex(e => e.Idtipoelezione)
+                    .HasName("fk_ricaloli_affluenza_tipo_elezione_idx");
+
+                entity.HasIndex(e => e.Idtiporicalcolo)
+                    .HasName("ricalcoli_affluenza_idx");
+
+                entity.HasOne(d => d.IdtipoelezioneNavigation)
+                    .WithMany(p => p.RicalcoliAffluenza)
+                    .HasForeignKey(d => d.Idtipoelezione)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricaloli_affluenza_tipo_elezione");
+
+                entity.HasOne(d => d.IdtiporicalcoloNavigation)
+                    .WithMany(p => p.RicalcoliAffluenza)
+                    .HasForeignKey(d => d.Idtiporicalcolo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricalcoli_affluenza_tipo_ricalcolo");
+            });
+
+            modelBuilder.Entity<RicalcoloAperturaCostituzione>(entity =>
+            {
+                entity.ToTable("ricalcoli_apertura_costituzione");
+
+                entity.HasIndex(e => e.Idtipoelezione)
+                    .HasName("fk_ricalcoli_apertura_costituzione_tipo_elezione_idx");
+
+                entity.HasIndex(e => e.Idtiporicalcolo)
+                    .HasName("fk_ricalcoli_apertura_costituzione_tipo_ricalcolo_idx");              
+
+                entity.HasOne(d => d.IdtipoelezioneNavigation)
+                    .WithMany(p => p.RicalcoliAperturaCostituzione)
+                    .HasForeignKey(d => d.Idtipoelezione)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricalcoli_apertura_costituzione_tipo_elezione");
+
+                entity.HasOne(d => d.IdtiporicalcoloNavigation)
+                    .WithMany(p => p.RicalcoliAperturaCostituzione)
+                    .HasForeignKey(d => d.Idtiporicalcolo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricalcoli_apertura_costituzione_tipo_ricalcolo");
+            });
+
+            modelBuilder.Entity<RicalcoloPreferenze>(entity =>
+            {
+                entity.ToTable("ricalcolo_preferenze");
+
+                entity.HasIndex(e => e.Candidatoid)
+                    .HasName("fk_ricalcolo_preferenze_candidato_idx");
+
+                entity.HasIndex(e => e.Listaid)
+                    .HasName("fk_ricalcolo_preferenze_liste_idx");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fk_ricalcolo_preferenze_tipo_elezione_idx");
+
+                entity.HasIndex(e => e.Tiporicalcoloid)
+                    .HasName("fk_ricalcolo_tipo_ricalcolo_idx");              
+
+                entity.HasOne(d => d.Candidato)
+                    .WithMany(p => p.RicalcoloPreferenze)
+                    .HasForeignKey(d => d.Candidatoid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricalcolo_preferenze_candidato");
+
+                entity.HasOne(d => d.Lista)
+                    .WithMany(p => p.RicalcoloPreferenze)
+                    .HasForeignKey(d => d.Listaid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricalcolo_preferenze_liste");
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany(p => p.RicalcoloPreferenze)
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricalcolo_preferenze_tipo_elezione");
+
+                entity.HasOne(d => d.Tiporicalcolo)
+                    .WithMany(p => p.RicalcoloPreferenze)
+                    .HasForeignKey(d => d.Tiporicalcoloid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricalcolo_tipo_ricalcolo");
+            });
+
+            modelBuilder.Entity<RicalcoloVotiRaggruppamento>(entity =>
+            {
+                entity.ToTable("ricalcolo_voti_coalizioni");
+
+                entity.HasIndex(e => e.Coalizioneid)
+                    .HasName("fk_riacalcolo_coalizioni_coalizioni_idx");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fk_ricalcolo_coalizioni_tipo_elezioni_idx");
+
+                entity.HasIndex(e => e.Tiporicalcoloid)
+                    .HasName("fk_ricalcolo_coalizioni_tipo_ricalcolo_idx");
+              
+
+                entity.HasOne(d => d.Raggruppamenti)
+                    .WithMany(p => p.RicalcoloVotiCoalizioni)
+                    .HasForeignKey(d => d.Coalizioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_riacalcolo_coalizioni_coalizioni");
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany(p => p.RicalcoloVotiCoalizioni)
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricalcolo_coalizioni_tipo_elezioni");
+
+                entity.HasOne(d => d.Tiporicalcolo)
+                    .WithMany(p => p.RicalcoloVotiCoalizioni)
+                    .HasForeignKey(d => d.Tiporicalcoloid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricalcolo_coalizioni_tipo_ricalcolo");
+            });
+
+            modelBuilder.Entity<RicalcoloVotiLista>(entity =>
+            {
+                entity.ToTable("ricalcolo_voti_lista");
+
+                entity.HasIndex(e => e.Idlista)
+                    .HasName("fk_ricalcolo_voti_lista_idx");
+
+                entity.HasIndex(e => e.Idtipoelezione)
+                    .HasName("fk_ricalcolo_voti_tipo_elezione_idx");
+
+                entity.HasIndex(e => e.Idtiporicalcolo)
+                    .HasName("fk_ricalcolo_voti_tipo_ricalcolo_idx");             
+
+                entity.HasOne(d => d.IdlistaNavigation)
+                    .WithMany(p => p.RicalcoloVotiLista)
+                    .HasForeignKey(d => d.Idlista)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricalcolo_voti_lista");
+
+                entity.HasOne(d => d.IdtipoelezioneNavigation)
+                    .WithMany(p => p.RicalcoloVotiLista)
+                    .HasForeignKey(d => d.Idtipoelezione)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricalcolo_voti_tipo_elezione");
+
+                entity.HasOne(d => d.IdtiporicalcoloNavigation)
+                    .WithMany(p => p.RicalcoloVotiLista)
+                    .HasForeignKey(d => d.Idtiporicalcolo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricalcolo_voti_tipo_ricalcolo");
+            });
+
+            modelBuilder.Entity<RicalcoloVotiSindaco>(entity =>
+            {
+                entity.ToTable("ricalcolo_voti_sindaco");
+
+                entity.HasIndex(e => e.Sindacoid)
+                    .HasName("fk_riacalcolo_sindaci_sindaci_idx");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fk_ricalcolo_sindaci_tipo_elezioni_idx");
+
+                entity.HasIndex(e => e.Tiporicalcoloid)
+                    .HasName("fk_ricalcolo_sindaci_tipo_ricalcolo_idx");
+              
+
+                entity.HasOne(d => d.Sindaco)
+                    .WithMany(p => p.RicalcoloVotiSindaco)
+                    .HasForeignKey(d => d.Sindacoid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricalcolo_voti_sindaco_sindaco");
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany(p => p.RicalcoloVotiSindaco)
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricalcolo_voti_sindaco_tipo_elezione");
+
+                entity.HasOne(d => d.Tiporicalcolo)
+                    .WithMany(p => p.RicalcoloVotiSindaco)
+                    .HasForeignKey(d => d.Tiporicalcoloid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ricalcolo_voti_sindaco_tipo_ricalcolo");
+            });
+
+            modelBuilder.Entity<Sezioni>(entity =>
+            {
+                entity.ToTable("sezioni");
+
+                entity.HasIndex(e => e.Idplesso)
+                    .HasName("fk_sezioni_plessi_idx");
+
+                entity.HasIndex(e => e.Idtipoelezione)
+                    .HasName("fk_sezioni_tipoelezione_idx");
+
+                entity.HasIndex(e => e.Idtiposezione)
+                    .HasName("fk_sezioni_tiposezione_idx");
+
+                entity.HasIndex(e => new { e.Numerosezione, e.Idtipoelezione })
+                    .HasName("numerosezione_UNIQUE")
+                    .IsUnique();
+
+                entity.HasOne(d => d.IdplessoNavigation)
+                    .WithMany(p => p.Sezioni)
+                    .HasForeignKey(d => d.Idplesso)
+                    .HasConstraintName("fk_sezioni_plessi");
+
+                entity.HasOne(d => d.IdtipoelezioneNavigation)
+                    .WithMany(p => p.Sezioni)
+                    .HasForeignKey(d => d.Idtipoelezione)
+                    .HasConstraintName("fk_sezioni_tipoelezione");
+
+                entity.HasOne(d => d.IdtiposezioneNavigation)
+                    .WithMany(p => p.Sezioni)
+                    .HasForeignKey(d => d.Idtiposezione)
+                    .HasConstraintName("fk_sezioni_tiposezione");
+            });
+
+            modelBuilder.Entity<Sindaci>(entity =>
+            {
+                entity.ToTable("sindaci");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fk_tipo_elezione_sindaci_idx");
+                           
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany(p => p.Sindaci)
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_tipo_elezione_sindaci");
+            });
+
+            modelBuilder.Entity<TipoInterrogazione>(entity =>
+            {
+                entity.ToTable("tipo_interrogazione");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("tipo_interrogazione_tipo_elezione_idx");
+
+             
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany(p => p.TipoInterrogazione)
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("tipo_interrogazione_tipo_elezione");
+            });
+
+            modelBuilder.Entity<TipoRicalcolo>(entity =>
+            {
+                entity.ToTable("tipo_ricalcolo");
+
+                entity.HasIndex(e => e.Idtipoelezione)
+                    .HasName("fk_tipo_ricalcolo_tipo_elezione_idx");
+
+               
+                entity.HasOne(d => d.IdtipoelezioneNavigation)
+                    .WithMany(p => p.TipoRicalcolo)
+                    .HasForeignKey(d => d.Idtipoelezione)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_tipo_ricalcolo_tipo_elezione");
+            });
+
+            modelBuilder.Entity<TipoRicalcoloAggregazione>(entity =>
+            {
+                entity.ToTable("tipo_ricalcolo_aggregazione");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("tipo_ricalcolo_aggregazione_tipo_elezione_idx");
+
+                entity.HasIndex(e => new { e.Descrizione, e.Codice, e.Tipoelezioneid })
+                    .HasName("tipo_ricalcolo_aggregazione_unique")
+                    .IsUnique();
+
+              
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany(p => p.TipoRicalcoloAggregazione)
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("tipo_ricalcolo_aggregazione_tipo_elezione");
+            });
+
+            modelBuilder.Entity<Tipoelezione>(entity =>
+            {
+                entity.ToTable("tipoelezione");
+
+                entity.HasIndex(e => e.Descrizione)
+                    .HasName("descrizione_UNIQUE")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Id)
+                    .HasName("idtipoelezione_UNIQUE")
+                    .IsUnique();
+
+              
+            });
+
+            modelBuilder.Entity<Tiposezione>(entity =>
+            {
+                entity.ToTable("tiposezione");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasColumnType("int(10) unsigned");
+
+            });
+
+            modelBuilder.Entity<UsersSezioni>(entity =>
+            {
+                entity.ToTable("users_sezioni");
+
+                entity.HasIndex(e => e.Idtipoelezione)
+                    .HasName("fk_users_sezione_tipoelezione_idx");
+
+                entity.HasIndex(e => e.Sezioneid)
+                    .HasName("fk_users_sezioni_sezioni_idx");
+
+                entity.HasIndex(e => e.UserId)
+                    .HasName("fk_users_sezioni_users_idx");
+
+              
+                entity.HasOne(d => d.IdtipoelezioneNavigation)
+                    .WithMany(p => p.UsersSezioni)
+                    .HasForeignKey(d => d.Idtipoelezione)
+                    .HasConstraintName("fk_users_sezione_tipoelezione");
+
+                entity.HasOne(d => d.Sezione)
+                    .WithMany(p => p.UsersSezioni)
+                    .HasForeignKey(d => d.Sezioneid)
+                    .HasConstraintName("fk_users_sezioni_sezioni");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UsersSezioni)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_users_sezioni_users");
+            });
+            modelBuilder.Entity<VotiGenerali>(entity =>
+            {
+                entity.ToTable("voti_generali");
+
+                entity.HasIndex(e => e.Sezioneid)
+                    .HasName("fk_voti_sezione_idx");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fk_voti_tipoelezione_idx");
+                             
+
+                entity.HasOne(d => d.Sezione)
+                    .WithMany(p => p.VotiGenerali)
+                    .HasForeignKey(d => d.Sezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_votigenerali_sezione");
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany(p => p.VotiGenerali)
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_votigenerali_tipoelezione");
+            });
+
+            modelBuilder.Entity<VotiGeneraliStorico>(entity =>
+            {              
+
+                entity.ToTable("voti_generali_storico");
+
+                entity.HasIndex(e => e.Sezioneid)
+                    .HasName("fk_voti_storico_sezione_idx");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fk_voti_storico_tipoelezione_idx");
+
+                entity.HasOne(d => d.Sezione)
+                    .WithMany()
+                    .HasForeignKey(d => d.Sezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_storico_sezione");
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany()
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_storico_tipoelezione");
+            });
+
+            modelBuilder.Entity<VotiLista>(entity =>
+            {
+                entity.ToTable("voti_lista");
+
+                entity.HasIndex(e => e.Listaid)
+                    .HasName("fk_voti_lista_liste_idx");
+
+                entity.HasIndex(e => e.Sezioneid)
+                    .HasName("fk_voti_lista_sezioni_idx");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fk_voti_lista_tipo_elezione_idx");
+
+                entity.HasIndex(e => e.Votigeneraliid)
+                    .HasName("fk_voti_lista_voti_generali_idx");
+
+              
+                entity.HasOne(d => d.Lista)
+                    .WithMany(p => p.VotiLista)
+                    .HasForeignKey(d => d.Listaid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_lista_liste");
+
+                entity.HasOne(d => d.Sezione)
+                    .WithMany(p => p.VotiLista)
+                    .HasForeignKey(d => d.Sezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_lista_sezioni");
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany(p => p.VotiLista)
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_lista_tipo_elezione");
+
+                entity.HasOne(d => d.Votigenerali)
+                    .WithMany(p => p.VotiLista)
+                    .HasForeignKey(d => d.Votigeneraliid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_lista_voti_generali");
+            });
+
+            modelBuilder.Entity<VotiListaStorico>(entity =>
+            {
+                entity.HasKey(e => new { e.Id, e.Listaid, e.Sezioneid, e.Tipoelezioneid, e.Voti, e.Dataoperazioneold, e.Utenteoperazioneold })
+                    .HasName("PRIMARY");
+
+                entity.ToTable("voti_lista_storico");
+
+                entity.HasIndex(e => e.Listaid)
+                    .HasName("fk_liste_voti_lista_storico_idx");
+
+                entity.HasIndex(e => e.Sezioneid)
+                    .HasName("fk_sezioni_voti_lista_storico_idx");
+
+             
+
+                entity.HasOne(d => d.Lista)
+                    .WithMany(p => p.VotiListaStorico)
+                    .HasForeignKey(d => d.Listaid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_liste_voti_lista_storico");
+
+                entity.HasOne(d => d.Sezione)
+                    .WithMany(p => p.VotiListaStorico)
+                    .HasForeignKey(d => d.Sezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_sezioni_voti_lista_storico");
+            });
+
+            modelBuilder.Entity<VotiPeferenzeStorico>(entity =>
+            {
+                entity.ToTable("voti_peferenze_storico");
+
+                entity.HasIndex(e => e.Candidatoid)
+                    .HasName("fk_voti_preferenze_storico_candidati_idx");
+
+                entity.HasIndex(e => e.Listaid)
+                    .HasName("fk_voti_preferenze_storico_liste_idx");
+
+                entity.HasIndex(e => e.Sezioneid)
+                    .HasName("fk_voti_preferenze_storico_sezioni_idx");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fk_voti_preferenze_storico_tipoelezione_id_idx");
+
+              
+
+                entity.HasOne(d => d.Candidato)
+                    .WithMany(p => p.VotiPeferenzeStorico)
+                    .HasForeignKey(d => d.Candidatoid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_preferenze_storico_candidati");
+
+                entity.HasOne(d => d.Lista)
+                    .WithMany(p => p.VotiPeferenzeStorico)
+                    .HasForeignKey(d => d.Listaid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_preferenze_storico_liste");
+
+                entity.HasOne(d => d.Sezione)
+                    .WithMany(p => p.VotiPeferenzeStorico)
+                    .HasForeignKey(d => d.Sezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_preferenze_storico_sezioni");
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany(p => p.VotiPeferenzeStorico)
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_preferenze_storico_tipoelezione_id");
+            });
+
+            modelBuilder.Entity<VotiPreferenze>(entity =>
+            {
+                entity.ToTable("voti_preferenze");
+
+                entity.HasIndex(e => e.Candidatoid)
+                    .HasName("fk_voti_preferenze_candidati_idx");
+
+                entity.HasIndex(e => e.Listaid)
+                    .HasName("fk_voti_preferenze_liste_idx");
+
+                entity.HasIndex(e => e.Sezioneid)
+                    .HasName("fk_voti_preferenze_sezioni_idx");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fk_voti_preferenze_tipoelezione_id_idx");
+
+                entity.HasIndex(e => new { e.Candidatoid, e.Sezioneid, e.Listaid, e.Tipoelezioneid })
+                    .HasName("uk_voti_preferenze_lista_candidato_sezione")
+                    .IsUnique();
+
+             
+                entity.HasOne(d => d.Candidato)
+                    .WithMany(p => p.VotiPreferenze)
+                    .HasForeignKey(d => d.Candidatoid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_preferenze_candidati");
+
+                entity.HasOne(d => d.Lista)
+                    .WithMany(p => p.VotiPreferenze)
+                    .HasForeignKey(d => d.Listaid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_preferenze_liste");
+
+                entity.HasOne(d => d.Sezione)
+                    .WithMany(p => p.VotiPreferenze)
+                    .HasForeignKey(d => d.Sezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_preferenze_sezioni");
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany(p => p.VotiPreferenze)
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_preferenze_tipoelezione_id");
+            });
+
+            modelBuilder.Entity<VotiSindaco>(entity =>
+            {
+                entity.ToTable("voti_sindaco");
+
+                entity.HasIndex(e => e.Sezioneid)
+                    .HasName("fk_voti_sindaco_sezioni_idx");
+
+                entity.HasIndex(e => e.Sindacoid)
+                    .HasName("fk_voti_sindaco_sindaco_idx");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fk_voti_sindaco_tipo_elezioni_idx");
+
+                entity.HasIndex(e => e.Votigeneraliid)
+                    .HasName("fk_voti_sindaco_voti_generali_idx");
+
+               
+
+                entity.HasOne(d => d.Sezione)
+                    .WithMany(p => p.VotiSindaco)
+                    .HasForeignKey(d => d.Sezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_sindaco_sezioni");
+
+                entity.HasOne(d => d.Sindaco)
+                    .WithMany(p => p.VotiSindaco)
+                    .HasForeignKey(d => d.Sindacoid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_sindaco_sindaco");
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany(p => p.VotiSindaco)
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_sindaco_tipo_elezioni");
+
+                entity.HasOne(d => d.Votigenerali)
+                    .WithMany(p => p.VotiSindaco)
+                    .HasForeignKey(d => d.Votigeneraliid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_sindaco_voti_generali");
+            });
+
+            modelBuilder.Entity<VotiSindacoStorico>(entity =>
+            {
+              
+                entity.ToTable("voti_sindaco_storico");
+
+                entity.HasIndex(e => e.Sezioneid)
+                    .HasName("fk_voti_sindaco_old_sezioni_idx");
+
+                entity.HasIndex(e => e.Sindacoid)
+                    .HasName("fk_voti_sindaco_old_sindaco_idx");
+
+                entity.HasIndex(e => e.Tipoelezioneid)
+                    .HasName("fk_voti_sindaco_old_tipo_elezioni_idx");
+
+               
+                entity.HasOne(d => d.Sezione)
+                    .WithMany()
+                    .HasForeignKey(d => d.Sezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_sindaco_old_sezioni");
+
+                entity.HasOne(d => d.Sindaco)
+                    .WithMany()
+                    .HasForeignKey(d => d.Sindacoid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_sindaco_old_sindaco");
+
+                entity.HasOne(d => d.Tipoelezione)
+                    .WithMany()
+                    .HasForeignKey(d => d.Tipoelezioneid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_voti_sindaco_old_tipo_elezioni");
             });
 
             /*
@@ -385,7 +1386,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 1,
-                ContentuoCard = "Da questa pagina è possibile registrare un nuovo Premier",
+                ContentuoCard = "Da questa pagina è possibile registrare le affluenze",
                 Tipo = "Testo",
                 TipoContenutoId = 1,
                 CreatedBy = "Caricamento",
@@ -407,7 +1408,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 3,
-                ContentuoCard = "/premier/inserimento",
+                ContentuoCard = "/GovApp/affluenza/inserimento",
                 Tipo = "Link",
                 TipoContenutoId = 3,
                 CreatedBy = "Caricamento",
@@ -418,7 +1419,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 4,
-                ContentuoCard = "Premier Inserimento",
+                ContentuoCard = "Affluenza Inserimento",
                 Tipo = "Header",
                 TipoContenutoId = 4,
                 CreatedBy = "Caricamento",
@@ -429,7 +1430,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 5,
-                ContentuoCard = "Da questa pagina è possibile modificare un Premier",
+                ContentuoCard = "Da questa pagina è possibile modificare le affluenze",
                 Tipo = "Testo",
                 TipoContenutoId = 1,
                 CreatedBy = "Caricamento",
@@ -451,7 +1452,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 7,
-                ContentuoCard = "/premier/modifica",
+                ContentuoCard = "/GovApp/affluenza/modifica",
                 Tipo = "Link",
                 TipoContenutoId = 3,
                 CreatedBy = "Caricamento",
@@ -462,7 +1463,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 8,
-                ContentuoCard = "Premier Modifica",
+                ContentuoCard = "Affluenze Modifica",
                 Tipo = "Header",
                 TipoContenutoId = 4,
                 CreatedBy = "Caricamento",
@@ -473,7 +1474,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 9,
-                ContentuoCard = "Da questa pagina è possibile visualizzare i Premier",
+                ContentuoCard = "Da questa pagina è possibile visualizzare le affluenze",
                 Tipo = "Testo",
                 TipoContenutoId = 1,
                 CreatedBy = "Caricamento",
@@ -495,7 +1496,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 11,
-                ContentuoCard = "/premier/visualizza",
+                ContentuoCard = "/GovApp/affluenza/visualizza",
                 Tipo = "Link",
                 TipoContenutoId = 3,
                 CreatedBy = "Caricamento",
@@ -506,7 +1507,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 12,
-                ContentuoCard = "Premier Visualizzazione",
+                ContentuoCard = "Affluenze Visualizzazione",
                 Tipo = "Header",
                 TipoContenutoId = 4,
                 CreatedBy = "Caricamento",
@@ -539,7 +1540,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 15,
-                ContentuoCard = "/account/manage",
+                ContentuoCard = "/GovApp/account/manage",
                 Tipo = "Link",
                 TipoContenutoId = 3,
                 CreatedBy = "Caricamento",
@@ -582,7 +1583,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 19,
-                ContentuoCard = "/account/register",
+                ContentuoCard = "/GovApp/account/register",
                 Tipo = "Link",
                 TipoContenutoId = 3,
                 CreatedBy = "Caricamento",
@@ -625,7 +1626,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 23,
-                ContentuoCard = "/account/changepassword",
+                ContentuoCard = "/GovApp/account/changepassword",
                 Tipo = "Link",
                 TipoContenutoId = 3,
                 CreatedBy = "Caricamento",
@@ -675,7 +1676,7 @@ namespace Gov.Structure
             },new Contenuto
             {
                 Id = 28,
-                ContentuoCard = "Gestione Premier",
+                ContentuoCard = "Gestione Affluenze",
                 Tipo = "Titolo",
                 TipoContenutoId = 6,
                 CreatedBy = "Caricamento",
@@ -694,7 +1695,7 @@ namespace Gov.Structure
             },new Contenuto
             {
                 Id = 30,
-                ContentuoCard = "Gestione Governo",
+                ContentuoCard = "Gestione Interrogazioni",
                 Tipo = "Titolo",
                 TipoContenutoId = 6,
                 CreatedBy = "Caricamento",
@@ -707,32 +1708,32 @@ namespace Gov.Structure
             new Pagina
             {
                 Id = 1,
-                Codice = "Premier",
+                Codice = "Affluenze",
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "admin").Id,
-                Denominazione = "Inserimento Premier"
+                Denominazione = "Inserimento Affluenze"
             },
             new Pagina
             {
                 Id = 2,
-                Codice = "Premier",
+                Codice = "Affluenze",
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "admin").Id,
-                Denominazione = "Modifica Premier"
+                Denominazione = "Modifica Affluenze"
             },
             new Pagina
             {
                 Id = 3,
-                Codice = "Premier",
+                Codice = "Affluenze",
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "admin").Id,
-                Denominazione = "Visualizzazione Premier"
+                Denominazione = "Visualizzazione Affluenze"
             },
             new Pagina
             {
@@ -747,32 +1748,32 @@ namespace Gov.Structure
             new Pagina
             {
                 Id = 5,
-                Codice = "Premier",
+                Codice = "Affluenze",
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId =Roles.Single(i => i.Name == "user").Id,
-                Denominazione = "Inserimento Premier"
+                Denominazione = "Inserimento Affluenze"
             },
             new Pagina
             {
                 Id = 6,
-                Codice = "Premier",
+                Codice = "Affluenze",
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "user").Id,
-                Denominazione = "Modifica Premier"
+                Denominazione = "Modifica Affluenze"
             },
             new Pagina
             {
                 Id = 7,
-                Codice = "Premier",
+                Codice = "Affluenze",
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "user").Id,
-                Denominazione = "Visualizzazione Premier"
+                Denominazione = "Visualizzazione Affluenze"
             },
             new Pagina
             {
@@ -853,55 +1854,55 @@ namespace Gov.Structure
             {
                 Id = 1,
                 Icona = "user-secret",
-                Link = "/premier/index",
+                Link = "/affluenze/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "user").Id,
-                Voce = "Premier"
+                Voce = "Affluenze"
             },
             new VoceMenu
             {
                 Id = 2,
                 Icona = "history",
-                Link = "/governo/index",
+                Link = "/GovApp/liste/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                Voce = "Governo",
+                Voce = "Liste",
                 RoleId = Roles.Single(i => i.Name == "user").Id
             },
             new VoceMenu
             {
                 Id = 3,
                 Icona = "receipt",
-                Link = "/dicastero/index",
+                Link = "/GovApp/sindaco/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "user").Id,
-                Voce = "Dicastero"
+                Voce = "Sindaco"
             },
             new VoceMenu
             {
                 Id = 4,
                 Icona = "university",
-                Link = "/partito/index",
+                Link = "/GovApp/interrogazioni/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId =Roles.Single(i => i.Name == "user").Id,
-                Voce = "Partito"
+                Voce = "Interrogazioni"
             },
             new VoceMenu
             {
                 Id = 5,
                 Icona = "user",
-                Link = "/account/index",
+                Link = "/GovApp/account/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
@@ -913,55 +1914,55 @@ namespace Gov.Structure
             {
                 Id = 6,
                 Icona = "user-secret",
-                Link = "/premier/index",
+                Link = "/GovApp/affluenze/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "admin").Id,
-                Voce = "Premier"
+                Voce = "Affluenze"
             },
             new VoceMenu
             {
                 Id = 7,
                 Icona = "history",
-                Link = "/governo/index",
+                Link = "/GovApp/liste/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                Voce = "Governo",
+                Voce = "Liste",
                 RoleId = Roles.Single(i => i.Name == "admin").Id
             },
             new VoceMenu
             {
                 Id = 8,
                 Icona = "receipt",
-                Link = "/dicastero/index",
+                Link = "/GovApp/sindaco/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "admin").Id,
-                Voce = "Dicastero"
+                Voce = "Sindaco"
             },
             new VoceMenu
             {
                 Id = 9,
                 Icona = "university",
-                Link = "/partito/index",
+                Link = "/GovApp/interrogazioni/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "admin").Id,
-                Voce = "Partito"
+                Voce = "Interrogazioni"
             },
             new VoceMenu
             {
                 Id = 10,
                 Icona = "user",
-                Link = "/account/index",
+                Link = "/GovApp/account/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
@@ -972,7 +1973,7 @@ namespace Gov.Structure
             {
                 Id = 11,
                 Icona = "handshake",
-                Link = "/rights/index",
+                Link = "/GovApp/rights/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,

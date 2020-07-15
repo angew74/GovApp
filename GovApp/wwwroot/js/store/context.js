@@ -6,14 +6,16 @@ const store = {
     state: {
         profile: {},
         message: '',
-        url: ''      
+        url: '',
+        sezione: {}
     },
     getters: {
         isAuthenticated: state => (state.profile.name !== null),
         isMessage: state => state.message !== '',
         Message: state => state.message,
         Url: state => state.url,
-        isUrl: state => state.url !== ''
+        isUrl: state => state.url !== '',
+        Sezione: state => state.sezione
       
     },
     mutations: {
@@ -25,6 +27,9 @@ const store = {
         },
         setUrl(state, url) {
             state.url = url;
+        },
+        setSezione(state, sezione) {
+            state.sezione = sezione;
         },
         centralizeMessage(state, error) {
             if (error.response.data !== null && (typeof (error.response.data.url) === 'undefined' || error.response.data.url === null) && typeof (error.response.data.errMsg) !== 'undefined' && error.response.data.errMsg !== null) {
@@ -49,7 +54,7 @@ const store = {
     },
     actions: {
         login({ commit }, credentials) {
-            return axios.post('/api/auth/login', credentials
+            return axios.post('/GovApp/api/auth/login', credentials
                 ,{
                     headers: {
                         'Content-Type': 'application/json'
@@ -62,12 +67,12 @@ const store = {
                 });
         },
         logout({ commit }) {
-            return axios.post('/account/logout').then(() => {
+            return axios.post('/GovApp/account/logout').then(() => {
                 commit('setProfile', {})
             })
         },          
         authchange({ commit }, change) {
-            return axios.post('/api/auth/Change', change
+            return axios.post('/GovApp/api/auth/Change', change
                 , {
                     headers: {
                         'Content-Type': 'application/json'
@@ -80,7 +85,7 @@ const store = {
                 });
         },
         register({ commit }, user) {
-            return axios.post('/api/auth/Register', user
+            return axios.post('/GovApp/api/auth/Register', user
                 , {
                     headers: {
                         'Content-Type': 'application/json'
@@ -97,7 +102,7 @@ const store = {
                 });
         },
         authconfirm({ commit }, confirm) {
-            return axios.post('/api/auth/Confirmation', confirm
+            return axios.post('/GovApp/api/auth/Confirmation', confirm
                 , {
                     headers: {
                         'Content-Type': 'application/json'
@@ -109,8 +114,21 @@ const store = {
                     commit('centralizeMessage', error);
                 });
         },
+        research({ commit }, sezione) {
+            return axios.post('/GovApp/api/values/ResearchSezione', sezione
+                , {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(res => {
+                    if (res.status === 200 && res.data.confirm.result === true) { commit('setSezione', res.data.sezione); }
+                    else { commit('setMessage', res.message); }
+                }).catch((error) => {
+                    commit('centralizeMessage', error);
+                });
+        },
         restoreContext({ commit }) {
-            return axios.get('/api/auth/context').then(res => {
+            return axios.get('/GovApp/api/auth/context').then(res => {
                 commit('setProfile', res.data)
             })
         }       

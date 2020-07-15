@@ -1,4 +1,5 @@
-﻿using Gov.Core.Interfaces;
+﻿using Gov.Core.Entity.Elezioni;
+using Gov.Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace Gov.Core.Identity
             Userclaims = new HashSet<Userclaims>();
             Userlogins = new HashSet<Userlogins>();        
             Usertokens = new HashSet<Usertokens>();
+            UsersSezioni = new HashSet<UsersSezioni>();
         }
      
 
@@ -58,6 +60,8 @@ namespace Gov.Core.Identity
         [Column]
         public DateTime LastModified { get; set; }
 
+        [NotMapped]
+        public virtual ICollection<UsersSezioni> UsersSezioni { get; set; }
         [NotMapped]
         public List<ApplicationRole> Roles { get; set; }
         [NotMapped]

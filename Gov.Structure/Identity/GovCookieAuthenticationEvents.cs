@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -28,7 +29,8 @@ namespace Gov.Structure.Identity
             if (user != null && context.Principal.FindFirst("DateCreation") != null)
             {
                 string v = context.Principal.FindFirst("DateCreation").Value;
-                var dataCreation = DateTime.Parse(v);
+                CultureInfo cultureInfo = new CultureInfo("it-IT");
+                var dataCreation = DateTime.Parse(v,cultureInfo);
                 if (user.LastModified > dataCreation)
                 {
                     List<string> roles = _userManager.GetRolesAsync(user).Result.ToList();
