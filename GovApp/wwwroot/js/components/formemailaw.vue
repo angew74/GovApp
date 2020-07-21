@@ -54,7 +54,7 @@
 
 
 <script>   
-    import { extend } from 'vee-validate';
+    import { extend } from 'vee-validate';   
     extend('password', {
         params: ['target'],
         validate(value, { target }) {

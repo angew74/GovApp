@@ -44,6 +44,11 @@ namespace Gov.Structure.Services.Elezioni
             
         }
 
+        public List<FaseElezione> findByCategoria(string categoria, int tipoelezioneid)
+        {
+            return _dbset.Where(x => x.Idtipoelezione == tipoelezioneid && x.Categoria.ToLower() == categoria.ToLower()).ToList();
+        }
+
         public FaseElezione findByCodiceAndTipoelezioneId(string codice, int tipoelezioneid)
         {
            return _dbset.Where(x => x.Idtipoelezione == tipoelezioneid && x.Codice == codice).FirstOrDefault();

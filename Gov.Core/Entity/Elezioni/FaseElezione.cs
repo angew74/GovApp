@@ -25,6 +25,8 @@ namespace Gov.Core.Entity.Elezioni
         [Column]
         public int Idtipoelezione { get; set; }
 
+        public string Categoria { get; set; }
+
         public bool IsAbilitata
         {
             get

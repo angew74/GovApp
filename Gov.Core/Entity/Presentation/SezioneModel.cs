@@ -23,6 +23,7 @@ namespace Gov.Core.Entity.Presentation
         public string DescrizioneElezione { get; set; }
 
         public IscrittiModel Iscritti { get; set; }
-   
+        public string UbicazionePlesso { get; set; }
+        public string DescrizionePlesso { get; set; }
     }
 }

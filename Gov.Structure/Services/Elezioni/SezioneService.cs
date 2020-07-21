@@ -70,7 +70,7 @@ namespace Gov.Structure.Services.Elezioni
         {
 
             
-                return _dbset.Include(i => i.Iscritti).Include(i => i.IdtipoelezioneNavigation).Include(i => i.IdtiposezioneNavigation).Where(x => x.Numerosezione == numeroSezione && x.IdtipoelezioneNavigation.Id == tipoElezioneId).FirstOrDefault();
+                return _dbset.Include(i => i.Iscritti).Include(i => i.IdtipoelezioneNavigation).Include(i => i.IdtiposezioneNavigation).Include(i=>i.IdplessoNavigation).Where(x => x.Numerosezione == numeroSezione && x.IdtipoelezioneNavigation.Id == tipoElezioneId).FirstOrDefault();
             
         }
 

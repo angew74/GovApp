@@ -7,7 +7,8 @@ const store = {
         profile: {},
         message: '',
         url: '',
-        sezione: {}
+        sezione: {},
+        affluenza: {}
     },
     getters: {
         isAuthenticated: state => (state.profile.name !== null),
@@ -15,8 +16,8 @@ const store = {
         Message: state => state.message,
         Url: state => state.url,
         isUrl: state => state.url !== '',
-        Sezione: state => state.sezione
-      
+        Sezione: state => state.sezione,
+        Affluenza: state => state.affluenza
     },
     mutations: {
         setProfile(state, profile) {
@@ -31,15 +32,18 @@ const store = {
         setSezione(state, sezione) {
             state.sezione = sezione;
         },
+        setAffluenza(state, affluenza) {
+            state.affluenza = affluenza;
+        },
         centralizeMessage(state, error) {
             if (error.response.data !== null && (typeof (error.response.data.url) === 'undefined' || error.response.data.url === null) && typeof (error.response.data.errMsg) !== 'undefined' && error.response.data.errMsg !== null) {
                 //  commit('setMessage', error.response.data.errMsg);
                 state.message = error.response.data.errMsg;
             }
-            else if (error.response.data !== null && typeof (error.response.data.url) !== 'undefined' && error.response.data.url !== null) {              
+            else if (error.response.data !== null && typeof (error.response.data.url) !== 'undefined' && error.response.data.url !== null) {
                 state.url = error.response.data.url;
                 state.message = error.response.data.errMsg;
-               // commit('setUrl', error.response.data.url);
+                // commit('setUrl', error.response.data.url);
             }
             else if (error.response.statusText !== '') {
                 // commit('setMessage', error.response.statusText);
@@ -47,7 +51,7 @@ const store = {
             }
             else {
                 state.message = "Attenzione errore non gestito contattare l'amministratore";
-              //   commit('setMessage', );
+                //   commit('setMessage', );
             }
             console.log('Something went wrong');
         }
@@ -55,12 +59,12 @@ const store = {
     actions: {
         login({ commit }, credentials) {
             return axios.post('/GovApp/api/auth/login', credentials
-                ,{
+                , {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 }).then(res => {
-                    if (res.status === 200) {commit('setProfile', res.data); }
+                    if (res.status === 200) { commit('setProfile', res.data); }
                     else { commit('setProfile', res.data), commit('setMessage', res.message); }
                 }).catch((error) => {
                     commit('centralizeMessage', error);
@@ -70,7 +74,7 @@ const store = {
             return axios.post('/GovApp/account/logout').then(() => {
                 commit('setProfile', {})
             })
-        },          
+        },
         authchange({ commit }, change) {
             return axios.post('/GovApp/api/auth/Change', change
                 , {
@@ -81,7 +85,7 @@ const store = {
                     if (res.status === 200 && res.data.change.result === true) { commit('setUrl', res.data.change.url); }
                     else { commit('setMessage', res.message); }
                 }).catch((error) => {
-                    commit('centralizeMessage',error);
+                    commit('centralizeMessage', error);
                 });
         },
         register({ commit }, user) {
@@ -91,8 +95,7 @@ const store = {
                         'Content-Type': 'application/json'
                     }
                 }).then(res => {
-                    if (res.status === 200 && res.data.user.result === true)
-                    {
+                    if (res.status === 200 && res.data.user.result === true) {
                         commit('setUrl', res.data.user.url);
                         commit('setMessage', '');
                     }
@@ -114,15 +117,19 @@ const store = {
                     commit('centralizeMessage', error);
                 });
         },
-        research({ commit }, sezione) {
-            return axios.post('/GovApp/api/values/ResearchSezione', sezione
+        research({ commit }, researchsezione) {
+            return axios.post('/GovApp/values/ResearchSezione', researchsezione
                 , {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    headers: { 'Content-Type': 'application/json' }
                 }).then(res => {
-                    if (res.status === 200 && res.data.confirm.result === true) { commit('setSezione', res.data.sezione); }
-                    else { commit('setMessage', res.message); }
+                    if (res.status === 200 && res.data !== null) {
+                        commit('setSezione', res.data);
+                        commit('setMessage', '');
+                    }
+                    else {
+                        commit('setMessage', res.message);
+                        commit('setSezione', null);
+                    }
                 }).catch((error) => {
                     commit('centralizeMessage', error);
                 });
@@ -131,7 +138,58 @@ const store = {
             return axios.get('/GovApp/api/auth/context').then(res => {
                 commit('setProfile', res.data)
             })
-        }       
+        },
+        buttonandamento({ commit }, anda) {
+            return axios.post('/GovApp/values/apra', anda
+                , {
+                    headers: { 'Content-Type': 'application/json' }
+                }).then(res => {
+                    if (res.status === 200 && res.data !== null) {
+                        commit('setMessage', '');
+                        commit('setSezione', null);
+                    }
+                    else {
+                        commit('setMessage', res.message);
+                        commit('setSezione', null);
+                    }
+                }).catch((error) => {
+                    commit('centralizeMessage', error);
+                });
+        },
+        researchAffluenza({ commit }, researchsezione) {
+            return axios.post('/GovApp/values/affluenza', researchsezione
+                , {
+                    headers: { 'Content-Type': 'application/json' }
+                }).then(res => {
+                    if (res.status === 200 && res.data !== null) {
+                        commit('setMessage', '');
+                        commit('setAffluenza', res.data);
+                    }
+                    else {
+                        commit('setMessage', res.message);
+                        commit('setAffluenza', null);
+                    }
+                }).catch((error) => {
+                    commit('centralizeMessage', error);
+                });
+        },
+        insandamento({ commit }, affluenza) {
+            return axios.post('/GovApp/values/anda', affluenza
+                , {
+                    headers: { 'Content-Type': 'application/json' }
+                }).then(res => {
+                    if (res.status === 200 && res.data !== null) {
+                        commit('setMessage', '');
+                        commit('setSezione', null);
+                    }
+                    else {
+                        commit('setMessage', res.message);
+                        commit('setSezione', null);
+                    }
+                }).catch((error) => {
+                    commit('centralizeMessage', error);
+                });
+        },
     }
   
 }

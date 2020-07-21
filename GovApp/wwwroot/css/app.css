@@ -25,6 +25,10 @@ body {
     list-style-type:none;
 }
 
+.list-group-item
+{
+    border:none;
+}
 
 .awesomefonts {
     float: left;
@@ -36,35 +40,6 @@ body {
         margin-left: 15px;
     }
 
-.csharp {
-    font-size: 20px;
-    color: #0591e5;
-}
-
-.two_csharp {
-    font-size: 30px;
-    color: #ff6600;
-}
-
-.three_csharp {
-    font-size: 40px;
-    color: #0591e5;
-}
-
-.four_csharp {
-    font-size: 50px;
-    color: #ff6600;
-}
-
-.five_csharp {
-    font-size: 60px;
-    color: #0591e5;
-}
-
-.six_csharp {
-    font-size: 70px;
-    color: #ff6600;
-}
 
 .icon-c-logo {
     background-image: url('../css/images/c-logo.svg');

@@ -422,7 +422,7 @@ namespace Gov.Structure.Services.Elezioni
         {
           
            
-            return   _dbset.Include(i=>i.Iscritti).Include(i=>i.Sezione).Where(x => x.Tipoelezioneid == tipoElezioneId && x.Sezione.Numerosezione == sezione).SingleOrDefault();
+            return   _dbset.Include(i=>i.Iscritti).Include(i=>i.Sezione).Include(i=>i.Iscritti).Where(x => x.Tipoelezioneid == tipoElezioneId && x.Sezione.Numerosezione == sezione).SingleOrDefault();
             
         }
 

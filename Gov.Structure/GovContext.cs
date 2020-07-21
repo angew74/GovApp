@@ -3,6 +3,8 @@ using Gov.Core.Entity;
 using Gov.Core.Entity.Elezioni;
 using Gov.Core.Identity;
 using Gov.Core.Interfaces;
+using Gov.Structure.Config;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Logging.Debug;
 using NLog.Extensions.Logging;
+using Org.BouncyCastle.Asn1.Mozilla;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -28,17 +31,21 @@ namespace Gov.Structure
 
         public static readonly LoggerFactory MyLoggerFactory
   = new LoggerFactory(new[] { new NLogLoggerProvider() });
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private string _user;
 
-        public GovContext(DbContextOptions<GovContext> options)
+        public GovContext(DbContextOptions<GovContext> options, IHttpContextAccessor httpContextAccessor)
            : base(options)
         {
-
+          
+            _httpContextAccessor = httpContextAccessor;
+            _user = httpContextAccessor.HttpContext.User.Identity.Name;
         }
 
-        public GovContext()
+        public GovContext(IHttpContextAccessor httpContextAccessor)
         {
 
-
+            _user = httpContextAccessor.HttpContext.User.Identity.Name;
         }
 
 
@@ -59,7 +66,9 @@ namespace Gov.Structure
 
         public override int SaveChanges()
         {
-            if (Thread.CurrentPrincipal != null)
+
+           
+            if (!string.IsNullOrEmpty(_user))
             {
                 var modifiedEntries = ChangeTracker.Entries()
                     .Where(x => x.Entity is IAuditableEntity
@@ -70,7 +79,7 @@ namespace Gov.Structure
                     IAuditableEntity entity = entry.Entity as IAuditableEntity;
                     if (entity != null)
                     {
-                        string identityName = Thread.CurrentPrincipal.Identity.Name;
+                        string identityName = _user;
                         DateTime now = DateTime.UtcNow;
 
                         if (entry.State == EntityState.Added)
@@ -155,6 +164,8 @@ namespace Gov.Structure
         public virtual DbSet<VotiPreferenze> VotiPreferenze { get; set; }
         public virtual DbSet<VotiSindaco> VotiSindaco { get; set; }
         public virtual DbSet<VotiSindacoStorico> VotiSindacoStorico { get; set; }
+
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -2041,7 +2052,7 @@ namespace Gov.Structure
 
         public Task<int> SaveChangesAsync()
         {
-            if (Thread.CurrentPrincipal != null)
+            if (!string.IsNullOrEmpty(_user))
             {
                 var modifiedEntries = ChangeTracker.Entries()
                     .Where(x => x.Entity is IAuditableEntity

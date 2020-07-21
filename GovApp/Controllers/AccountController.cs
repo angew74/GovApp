@@ -282,7 +282,7 @@ namespace GovApp.Controllers
             await HttpContext.SignOutAsync();
             _logger.LogInformation("Utente disconnesso");
             HttpContext.User = null;
-            return View("/GovApp/account/logoutconfirmation");
+            return View("/account/logoutconfirmation");
         }
 
         [AllowAnonymous]

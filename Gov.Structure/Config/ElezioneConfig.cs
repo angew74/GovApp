@@ -6,8 +6,8 @@ namespace Gov.Structure.Config
 {
     public class ElezioneConfig
     {
-        public string tipoElezioneId { get; set; }
-        public string utentiPagina { get; set; }
-        public string abilitazioniPagina { get; set; }
+        public string tipoelezioneid { get; set; }
+        public string utentipagina { get; set; }
+        public string abilitazionipagina { get; set; }
     }
 }

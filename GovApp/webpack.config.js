@@ -1,4 +1,5 @@
-﻿"use strict";
+/// <binding Clean='Run - Development' />
+"use strict";
 const { VueLoaderPlugin } = require('vue-loader');
 const path = require('path');
 const webpack = require('webpack');
@@ -10,13 +11,13 @@ module.exports = {
             './wwwroot/js/app.js',
             './Views/Home/Index.cshtml.js'
         ],
-        'affluenze': [
+        'andamento': [
             './wwwroot/js/app.js',
-            './Views/Affluenze/Index.cshtml.js'
+            './Views/Andamento/Index.cshtml.js'
         ],
-        'insaffluenze': [
+        'insandamento': [
             './wwwroot/js/app.js',
-            './Views/Affluenze/Inserimento.cshtml.js'
+            './Views/Andamento/Inserimento.cshtml.js'
         ],
         'login': [
             './wwwroot/js/app.js',

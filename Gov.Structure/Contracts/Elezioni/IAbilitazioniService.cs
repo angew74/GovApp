@@ -16,6 +16,7 @@ namespace Gov.Structure.Contracts.Elezioni
         List<FaseElezione> findAllByTipoelezioneId(int tipoelezioneid,int page,int pagesize);
         List<FaseElezione> findByAbilitataAndTipoelezioneId(int abil, int tipoelezioneid, int page, int pagesize);
         List<FaseElezione> findByAbilitataAndTipoelezioneId(int abilitata, int tipoelezioneid);
+        List<FaseElezione> findByCategoria(string categoria, int tipoelezioneid);
         int Count(int tipoelezioniid);
        
     }

@@ -27,7 +27,7 @@ namespace Gov.Structure.Services.Helpers
         public List<PlessoModel> Convert(List<Plessi> pp,string username,int userid)
         {
             List<PlessoModel> ppj = new List<PlessoModel>();
-            int tipoelezioneid = int.Parse(_config.Value.tipoElezioneId);
+            int tipoelezioneid = int.Parse(_config.Value.tipoelezioneid);
             foreach (Plessi p in pp)           
             {
                 List<Sezioni> s = _sezioneService.findByPlessoIdAndTipoelezioneId((int)p.Id, tipoelezioneid);
@@ -51,7 +51,7 @@ namespace Gov.Structure.Services.Helpers
         public List<PlessoModel> ConvertFromSezioni(List<Sezioni> pp, string username, int userid)
         {
             List<PlessoModel> ppj = new List<PlessoModel>();
-            int tipoelezioneid = int.Parse(_config.Value.tipoElezioneId);
+            int tipoelezioneid = int.Parse(_config.Value.tipoelezioneid);
             foreach (Sezioni s in pp)
             {
                 PlessoModel j = new PlessoModel();

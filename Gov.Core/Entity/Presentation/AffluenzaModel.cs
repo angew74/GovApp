@@ -12,9 +12,9 @@ namespace Gov.Core.Entity.Presentation
         public int Cabina { get; set; }
 
         public string Tipo { get; set; }
-        public int VotantiFemmine { get;  set; }
-        public int VotantiMaschi { get;  set; }
-        public int VotantiTotali { get;  set; }      
+        public string VotantiFemmine { get;  set; }
+        public string VotantiMaschi { get;  set; }
+        public string VotantiTotali { get;  set; }      
         public int IscrittiMaschi { get; set; }
         public int IscrittiFemmine { get; set; }     
         public int IscrittiTotali { get; set; }     

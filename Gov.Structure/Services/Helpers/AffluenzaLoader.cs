@@ -27,7 +27,7 @@ namespace Gov.Structure.Services.Helpers
         public RicalcoliAffluenza affluenzaSplit(Affluenze a, String tipoInterrogazione)
         {
             RicalcoliAffluenza r = new RicalcoliAffluenza();
-            int tipoelezioneid = int.Parse(_config.Value.tipoElezioneId);
+            int tipoelezioneid = int.Parse(_config.Value.tipoelezioneid);
             try
             {
                 Iscritti i = _iscrittiService.findByTipoelezioneIdAndSezioneNumerosezione(tipoelezioneid,(int) a.Sezione.Numerosezione);
@@ -75,7 +75,7 @@ namespace Gov.Structure.Services.Helpers
         public RicalcoloAperturaCostituzione costituzioneSplit(Affluenze a, String tipoInterrogazione)
         {
             RicalcoloAperturaCostituzione r = new RicalcoloAperturaCostituzione();
-            int tipoelezioneid = int.Parse(_config.Value.tipoElezioneId);
+            int tipoelezioneid = int.Parse(_config.Value.tipoelezioneid);
             try
             {
                 Iscritti i = _iscrittiService.findByTipoelezioneIdAndSezioneNumerosezione(tipoelezioneid,(int) a.Sezione.Numerosezione);
@@ -109,19 +109,19 @@ namespace Gov.Structure.Services.Helpers
             switch (tipo)
             {
                 case "1A":
-                    json.VotantiFemmine =(int) a.Votantifemmine1;
-                    json.VotantiMaschi=(int) a.Votantimaschi1;
-                    json.VotantiTotali = (int)a.Votantitotali1;                
+                    json.VotantiFemmine = a.Votantifemmine1.ToString();
+                    json.VotantiMaschi= a.Votantimaschi1.ToString();
+                    json.VotantiTotali =a.Votantitotali1.ToString();                
                     break;
                 case "2A":
-                    json.VotantiFemmine =(int) a.Votantifemmine2;
-                    json.VotantiMaschi= (int)a.Votantimaschi2;
-                    json.VotantiTotali = (int)a.Votantitotali2;                  
+                    json.VotantiFemmine =a.Votantifemmine2.ToString();
+                    json.VotantiMaschi= a.Votantimaschi2.ToString();
+                    json.VotantiTotali =a.Votantitotali2.ToString();                  
                     break;
                 case "3C":
-                    json.VotantiFemmine = (int)a.Votantifemmine3;
-                    json.VotantiMaschi= (int)a.Votantimaschi3;
-                    json.VotantiTotali = (int)a.Votantitotali3;                  
+                    json.VotantiFemmine =a.Votantifemmine3.ToString();
+                    json.VotantiMaschi= a.Votantimaschi3.ToString();
+                    json.VotantiTotali =a.Votantitotali3.ToString();                  
                     break;
             }
             json.IscrittiMaschi = (int)i.Iscrittimaschigen;

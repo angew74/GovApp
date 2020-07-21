@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="container" style="margin-top:140px;">
+    <div class="container">
         <validation-observer ref="observer" v-slot="{ handleSubmit }">
             <b-form v-if="show" @submit.stop.prevent="handleSubmit(onSubmit)">
                 <validation-provider vid="sezione"
@@ -8,15 +8,15 @@
                                      v-slot="validationContext">
                     <b-form-group id="sezionegroup"
                                   label="Numero Sezione:"
-                                  label-for="sezione"
-                                  description="Numero della sezione">
+                                  label-for="sezione">
                         <b-form-input id="sezione"
                                       v-model="form.sezione"
                                       type="number"
+                                      placeholder="numero della sezione da ricercare"
                                       :state="getValidationState(validationContext)"
                                       aria-describedby="input-sezione-live-feedback">
-                            <b-form-invalid-feedback id="input-sezione-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                         </b-form-input>
+                        <b-form-invalid-feedback id="input-sezione-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </b-form-group>
                 </validation-provider>
                 <validation-provider vid="cabina"
@@ -26,7 +26,8 @@
                     <b-form-group id="cabinagroup" label="Cabina:" label-for="cabina">
                         <b-form-input id="cabina"
                                       v-model="form.cabina"
-                                      typeof="number"
+                                      type="number"
+                                      placeholder="numero della cabina da ricercare"
                                       :state="getValidationState(validationContext)"
                                       aria-describedby="input-cabina-live-feedback">
                         </b-form-input>
@@ -34,10 +35,9 @@
                     </b-form-group>
                 </validation-provider>
                 <b-form-input id="tipo"
-                              v-model="form.type"
+                              v-model="form.tipo"
                               type="text"
-                              style="display:none"
-                              readonly></b-form-input>
+                              style="display:none"></b-form-input>
                 <b-button type="submit" variant="primary">Ricerca</b-button>
             </b-form>
         </validation-observer>
@@ -51,10 +51,9 @@
         namespaced: true,
         components: {
         },      
-        props: ['tipo'],
+        props: ['form'],
         data: function () {
-            return {
-                form: { type:this.tipo,cabina:'',sezione:''},                
+            return {              
                 show: true,
                 messaggio: ''
             }

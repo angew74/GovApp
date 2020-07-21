@@ -1,8 +1,10 @@
 ﻿using Autofac;
 using Gov.Core.Identity;
 using Gov.Structure;
+using Gov.Structure.Config;
 using Gov.Structure.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -38,19 +40,14 @@ namespace GovApp
             builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies().Where(t => t.FullName.Contains("Gov")).ToArray())
                 .AsImplementedInterfaces()
                  .InstancePerLifetimeScope();
-
+            builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .Where(t => t.Name.EndsWith("Controller"));
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<GovContext>().UseMySql(connectionString, x => x.MigrationsAssembly("Gov.Structure"));
             builder.RegisterType(typeof(GovContext)).As(typeof(GovContext))
                  .WithParameter("options", dbContextOptionsBuilder.Options)
+                //    .WithParameter(new TypedParameter(typeof(IUserResolverService), IUserResolverService))
                 .InstancePerLifetimeScope();
-           // builder.RegisterType<Gov.Structure.Identity.UserStore>().As<IUserStore<ApplicationUser>>().InstancePerDependency();
-          //  builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
-         //   builder.Register(c => new Gov.Structure.Identity.UserStore(c.Resolve<GovContext>())).AsImplementedInterfaces().InstancePerRequest();
-            /*  builder.RegisterType<GovContext>()
-                  .WithParameter("options", dbContextOptionsBuilder.Options)
-                  .InstancePerLifetimeScope();*/
         }
     }
 }

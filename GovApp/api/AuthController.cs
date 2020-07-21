@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
 using Gov.Structure.Identity;
 using Gov.Core.Enumerators;
 using Gov.Structure.Extensions;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace GovApp.api
 {
@@ -37,7 +38,8 @@ namespace GovApp.api
         private readonly IOptions<ComunicazioneConfig> _mailConfig;
         private readonly IOptions<PagingConfig> _pagingConfig;
         private readonly IOptions<IdentityOptions> _identityOptions;
-        public AuthController(UserStore utentiService, SignInManager<ApplicationUser> SignInManager, ApplicationUserManager userManager, ILogger<AuthController> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config, IOptions<PagingConfig> pagingConfig, IOptions<IdentityOptions> identityOptions)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public AuthController(UserStore utentiService, SignInManager<ApplicationUser> SignInManager, ApplicationUserManager userManager, ILogger<AuthController> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config, IOptions<PagingConfig> pagingConfig, IOptions<IdentityOptions> identityOptions, IHttpContextAccessor httpContextAccessor)
         {
             _utentiService = utentiService;
             _userManager = userManager;
@@ -47,6 +49,7 @@ namespace GovApp.api
             _mailConfig = config;
             _pagingConfig = pagingConfig;
             _identityOptions = identityOptions;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public class Input
@@ -97,6 +100,12 @@ namespace GovApp.api
                         {
                             var principal = await _signInManager.CreateUserPrincipalAsync(user);
                             await HttpContext.SignInAsync(principal);
+                            _httpContextAccessor.HttpContext.User = principal;
+                            AuthenticationProperties authenticationProperties = new AuthenticationProperties();
+                            authenticationProperties.IsPersistent = true;
+                            authenticationProperties.ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10);
+                            //  await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal,authenticationProperties);
+                            await _httpContextAccessor.HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, principal, authenticationProperties);
                             if (user.EmailConfirmed == false)
                             {
                                 error.Url = "/GovApp/account/confirmemail";

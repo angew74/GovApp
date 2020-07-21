@@ -9,7 +9,7 @@ namespace Gov.Structure.Contracts.Elezioni
 {
     public interface ITipoElezioneService : IEntityService<Tipoelezione>
     {
-        public Tipoelezione findTipoElezioneById(uint id);
+        public Tipoelezione findTipoElezioneById(int id);
         public Tipoelezione findElezioneByDescrizione(String codice);
         public List<Tipoelezione> getAll();
 

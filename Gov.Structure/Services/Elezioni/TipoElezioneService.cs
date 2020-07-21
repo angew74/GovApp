@@ -28,7 +28,7 @@ namespace Gov.Structure.Services.Elezioni
             
         }
 
-        public Tipoelezione findTipoElezioneById(uint id)
+        public Tipoelezione findTipoElezioneById(int id)
         {
           
             

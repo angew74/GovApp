@@ -60,7 +60,11 @@ namespace GovApp
                 options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;               
             });
+           /* services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme, options =>
+            {
+                options.EventsType = typeof(GovCookieAuthenticationEvents);
 
+            });*/
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings                
@@ -76,6 +80,8 @@ namespace GovApp
                 options.Lockout.AllowedForNewUsers = true;
                 options.User.RequireUniqueEmail = false;
             });
+            services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, Microsoft.AspNetCore.Http.HttpContextAccessor>();
+            services.AddHttpContextAccessor();
             services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings  

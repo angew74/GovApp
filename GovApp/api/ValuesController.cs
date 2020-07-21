@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace GovApp.api
 {
@@ -33,10 +34,14 @@ namespace GovApp.api
         private readonly IVoceMenuService _voceMenuService;
         private readonly IRoleStore<ApplicationRole> _roleService;
         private readonly ISezioneService _sezioneService;
-        private readonly ElezioneConfig _elezioneConfig;
+        private readonly IOptions<ElezioneConfig> _elezioneConfig;
         private readonly IBusinessRules _businessRules;
+        private readonly IAbilitazioniService _abilitazioniService;
+        private readonly IAffluenzaService _affluenzaService;
+        private readonly IIscrittiService _iscrittiService;
+        private readonly ITipoElezioneService _tipoElezioneService;
 
-        public ValuesController(ILogger<ValuesController> logger, IPaginaService paginaService, IVoceMenuService voceMenuService, IContenutoService contenutoService, IRoleStore<ApplicationRole> roleService, ISezioneService sezioneService, ElezioneConfig elezioneConfig, IBusinessRules businessRules)
+        public ValuesController(ILogger<ValuesController> logger, IPaginaService paginaService, IVoceMenuService voceMenuService, IContenutoService contenutoService, IRoleStore<ApplicationRole> roleService, ISezioneService sezioneService, IOptions<ElezioneConfig> elezioneConfig, IBusinessRules businessRules, IAbilitazioniService abilitazioniService, IAffluenzaService affluenzaService, ITipoElezioneService tipoElezioneService, IIscrittiService iscrittiService)
         {
             _logger = logger;
             _paginaService = paginaService;
@@ -46,9 +51,23 @@ namespace GovApp.api
             _sezioneService = sezioneService;
             _elezioneConfig = elezioneConfig;
             _businessRules = businessRules;
+            _abilitazioniService = abilitazioniService;
+            _affluenzaService = affluenzaService;
+            _tipoElezioneService = tipoElezioneService;
+            _iscrittiService = iscrittiService;
         }
 
-        [HttpGet("/Values/content")]
+
+        public class Input
+        {
+           public ResearchSezione researchsezione { get; set; }
+           public AndamentoModel anda { get; set; }
+
+            public AffluenzaModel affluenza { get; set; }
+           
+        }
+
+            [HttpGet("/Values/content")]
         public IActionResult GetValues([FromQuery] string type)
         {
             Dictionary<String, String> errors = null;
@@ -188,29 +207,30 @@ namespace GovApp.api
             return Ok(model);
         }
 
-        [Authorize]
+       //  [Authorize]
         [HttpPost("/Values/ResearchSezione")]
         [IgnoreAntiforgeryToken]
-        public IActionResult ResearchSezione([FromBody] ResearchSezione model)
+        [AllowAnonymous]
+        public IActionResult ResearchSezione([FromBody] Input model)
         {
-            ErrorModel error = new ErrorModel();
-            Dictionary<String, String> errors = null;
+            ErrorModel error = new ErrorModel();          
             String msg = "";
             SezioneModel sezioneModel = new SezioneModel();
+            ResearchSezione research = model.researchsezione;
             if (ModelState.IsValid)
             {
                 try
                 {
-                    int t = int.Parse(_elezioneConfig.tipoElezioneId);
-                    if (model.Tipo != "S")
+                    int t = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+                    if (research.tipo != "S")
                     {
-                        msg = _businessRules.IsInsertable(model.Sezione, model.Tipo, model.Cabina, t);
+                        msg = _businessRules.IsInsertable(int.Parse(research.sezione),research.tipo, int.Parse(research.cabina), t);
                     }
                     if (string.IsNullOrEmpty(msg))
                     {
                         //  iscritti = _iscrittiService.findByTipoelezioneIdAndSezioneNumerosezione(tipoelezioneid, model.Sezione);
-                        Sezioni sezione = _sezioneService.findByNumerosezioneAndTipoelezioneId(model.Sezione, t);
-                        if (sezione.Cabina == model.Cabina)
+                        Sezioni sezione = _sezioneService.findByNumerosezioneAndTipoelezioneId(int.Parse(research.sezione), t);
+                        if (sezione.Cabina == int.Parse(research.cabina))
                         {
                             sezioneModel.Iscritti = new IscrittiModel
                             {
@@ -218,28 +238,31 @@ namespace GovApp.api
                                 iscrittifemmine = sezione.Iscritti.Iscrittifemminegen.ToString(),
                                 iscrittitotali = sezione.Iscritti.Iscrittitotaligen.ToString()
                             };
-                            sezioneModel.NumeroSezione = model.Sezione.ToString();
+                            sezioneModel.NumeroSezione = research.sezione.ToString();
+                            sezioneModel.Sezione = int.Parse(research.sezione);
+                            sezioneModel.Cabina = int.Parse(research.cabina);
                             sezioneModel.Municipio = sezione.Iscritti.Municipio.ToString();
                             sezioneModel.DescrizioneSezione = sezione.IdtiposezioneNavigation.Descrizione;
                             sezioneModel.DescrizioneElezione = sezione.IdtipoelezioneNavigation.Descrizione;
+                            sezioneModel.UbicazionePlesso= sezione.IdplessoNavigation.Ubicazione;
+                            sezioneModel.DescrizionePlesso = sezione.IdplessoNavigation.Descrizione;
+                            sezioneModel.Tipo = research.tipo;
 
                         }
                         else
                         {
-                            errors = new Dictionary<string, string>();
-                            errors.Add("Errore grave", "Sezione cabina non congruenti");
-                            _logger.LogError(errors.First().Value);
-                            return BadRequest(errors.First().Value);
+                           
+                            error.errMsg= "Errore grave Sezione cabina non congruenti";                          
+                            return BadRequest(error);
                         }
                     }
                     else
                     {
-                        errors = new Dictionary<string, string>();
-                        errors.Add("Errore grave", msg);
-                        _logger.LogError(errors.First().Value);
-                        return BadRequest(errors.First().Value);
+                        error.errMsg = msg;
+                        return BadRequest(error);                      
+                   
                     }
-                  
+
                 }
                 catch (Exception ex)
                 {
@@ -247,6 +270,227 @@ namespace GovApp.api
                     error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
                     return BadRequest(error);
                 }
+            }
+            return Ok(sezioneModel);
+        }
+
+        [HttpPost("/Values/Apra")]
+        [IgnoreAntiforgeryToken]      
+        public IActionResult Apra([FromBody] Input model)
+        {
+            ErrorModel error = new ErrorModel();
+            SezioneModel sezioneJson = new SezioneModel();
+            Affluenze affluenza = new Affluenze();
+            int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+            AndamentoModel andamento = model.anda;
+            try
+            {
+                int s = int.Parse(andamento.sezione);
+                String msg = _businessRules.IsInsertable(s, andamento.tipoAffluenza, 0, tipoelezioneid);
+                if (string.IsNullOrEmpty(msg))
+                {                    
+                    Tipoelezione t = _tipoElezioneService.findTipoElezioneById(tipoelezioneid);
+                    affluenza = _affluenzaService.findBySezioneNumerosezioneAndTipoelezioneId(s, tipoelezioneid);
+                    switch (andamento.tipoAffluenza)
+                    {
+                        case "AP":
+                            affluenza.Apertura1 = 1;
+                            break;
+                        case "CO":
+                            if (affluenza == null)
+                            {
+                                affluenza = new Affluenze();
+                                Sezioni sezione = _sezioneService.findByNumerosezioneAndTipoelezioneId(s, tipoelezioneid);
+                                affluenza.Sezioneid = sezione.Id;
+                                Iscritti iscritti = _iscrittiService.findByTipoelezioneIdAndSezioneNumerosezione(tipoelezioneid, s);
+                                affluenza.Iscrittiid = iscritti.Id;
+                            }
+                            affluenza.Costituzione1 = 1;
+                            break;
+                        default:
+                            error.errMsg = "Errrore in banca dati Parametri non validi";        
+                            return BadRequest(error);
+                            break;
+
+                    }
+                    sezioneJson.Tipo = andamento.tipoAffluenza;                  
+                    affluenza.Tipoelezioneid = tipoelezioneid;
+                    if (andamento.tipoAffluenza == "CO")
+                    { _affluenzaService.Create(affluenza); }
+                    else { _affluenzaService.Update(affluenza); }
+                }
+                else
+                {
+                    error.errMsg = "Errrore in banca dati: " + msg;                  
+                    _logger.LogError("Errrore in banca dati: " + msg);
+                    return BadRequest(error);
+
+                }
+            }
+            catch (Exception ex)
+            {               
+                error.errMsg = "Errrore in banca dati " + ex.Message;
+                _logger.LogError("Errrore in banca dati: " + ex.Message);                
+                return BadRequest(error);
+            }
+            return Ok(sezioneJson);
+        }
+
+        [Authorize]
+        [HttpGet("/Values/categories")]
+        public IActionResult Categories([FromQuery] string categoria)
+        {
+            ErrorModel error = new ErrorModel();
+            List<AbilitazioniModel> model = new List<AbilitazioniModel>();
+            try
+            {
+              List<FaseElezione> fases =  _abilitazioniService.findByCategoria(categoria, int.Parse(_elezioneConfig.Value.tipoelezioneid));
+                model = fases.Where(x=>x.Abilitata == 1).Distinct().Select(x => new AbilitazioniModel
+                {
+                    codice = x.Codice,
+                    descrizione = x.Descrizione
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+               
+                error.errMsg = "Errore grave :" + ex.Message;
+                _logger.LogError("Errore grave :" + ex.Message);
+                return BadRequest(error);
+            }
+            return Ok(model);
+        }
+
+        [HttpPost("/Values/affluenza")]
+        [IgnoreAntiforgeryToken]
+        [AllowAnonymous]
+        public IActionResult researchAffluenza([FromBody] Input input)
+        {
+            AffluenzaModel json = new AffluenzaModel();
+            ErrorModel error = new ErrorModel();
+            ResearchSezione model = input.researchsezione;
+            int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+            try
+            {
+                int s = int.Parse(model.sezione);
+                Affluenze afp = _affluenzaService.findBySezioneNumerosezioneAndTipoelezioneId(s, tipoelezioneid);
+                if(afp == null)
+                {
+                    error.errMsg = "Nessuna affluenza per la sezione";           
+                    return BadRequest(error);
+                }
+                if (model.tipo == "2A" || model.tipo == "3C" || model.tipo == "R2A" || model.tipo == "R3C")
+                {
+                    /* imposto votanti 1 affluenza */
+                    if (model.tipo == "2A" || model.tipo == "R2A")
+                    {
+                        json.VotantiFemmineAffP = (int)afp.Votantifemmine1;
+                        json.VotantiMaschiAffP = (int)afp.Votantimaschi1;
+                        json.VotantiTotaliAffP = (int)afp.Votantitotali1;
+                        /* imposto votanti per rettifica*/
+                        if (model.tipo == "R2A")
+                        {
+                            json.VotantiFemmine = afp.Votantifemmine2.ToString();
+                            json.VotantiMaschi = afp.Votantimaschi2.ToString();
+                            json.VotantiTotali = afp.Votantitotali2.ToString();
+                        }
+                    }
+                    /* imposto votanti 2 affluenza */
+                    if (model.tipo == "3C" || model.tipo == "R3C")
+                    {
+                        json.VotantiFemmineAffP = (int)afp.Votantifemmine2;
+                        json.VotantiMaschiAffP = (int)afp.Votantimaschi2;
+                        json.VotantiTotaliAffP = (int)afp.Votantitotali2;
+                        /* imposto votanti per rettifica */
+                        if (model.tipo == "R3C")
+                        {
+                            json.VotantiFemmine = afp.Votantifemmine3.ToString();
+                            json.VotantiMaschi = afp.Votantimaschi3.ToString();
+                            json.VotantiTotali = afp.Votantitotali3.ToString();
+                        }
+                    }
+                }
+                /* imposto votanti per rettifica */
+                if (model.tipo == "R1A")
+                {
+                    json.VotantiFemmine = afp.Votantifemmine1.ToString();
+                    json.VotantiMaschi = afp.Votantimaschi1.ToString();
+                    json.VotantiTotali = afp.Votantitotali1.ToString();
+                }
+                json.NumeroSezione = s;
+                json.Tipo = model.tipo;
+                /* imposto iscritti per confronti */
+                if (!(model.tipo == "CO"))
+                {
+                    json.IscrittiMaschi = (int)afp.Iscritti.Iscrittimaschigen;
+                    json.IscrittiFemmine = (int)afp.Iscritti.Iscrittifemminegen;
+                    json.IscrittiTotali = (int)afp.Iscritti.Iscrittitotaligen;
+                }
+                else
+                {
+                    Iscritti iscritti = _iscrittiService.findByTipoelezioneIdAndSezioneNumerosezione(tipoelezioneid, s);
+                    json.IscrittiMaschi = (int)iscritti.Iscrittimaschigen;
+                    json.IscrittiFemmine = (int)iscritti.Iscrittifemminegen;
+                    json.IscrittiTotali = (int)iscritti.Iscrittitotaligen;
+                }
+            }
+            catch (Exception ex)
+            {
+                error.errMsg = "Errore grave :" + ex.Message;
+                _logger.LogError("Errore grave :" + ex.Message);
+                return BadRequest(error);
+            }
+            return Ok(json);
+        }
+
+        [HttpPost("/Values/Anda")]
+        [IgnoreAntiforgeryToken]
+        [AllowAnonymous]
+        public IActionResult Anda([FromBody] Input input)
+        {
+            Affluenze affluenza = new Affluenze();
+            int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+            AffluenzaModel model = input.affluenza;
+            ErrorModel error = new ErrorModel();
+            try
+            {
+                affluenza = _affluenzaService.findBySezioneNumerosezioneAndTipoelezioneId(model.NumeroSezione, tipoelezioneid);                
+                switch (model.Tipo)
+                {
+                    case "1A":
+                    case "R1A":
+                        affluenza.Affluenza1 = 1;
+                        affluenza.Votantifemmine1 = int.Parse(model.VotantiFemmine);
+                        affluenza.Votantimaschi1 = int.Parse(model.VotantiMaschi);
+                        affluenza.Votantitotali1 = int.Parse(model.VotantiTotali);
+                        break;
+                    case "2A":
+                    case "R2A":
+                        affluenza.Affluenza2 = 1;
+                        affluenza.Votantifemmine2 = int.Parse(model.VotantiFemmine);
+                        affluenza.Votantimaschi2 = int.Parse(model.VotantiMaschi);
+                        affluenza.Votantitotali2 = int.Parse(model.VotantiTotali);
+                        break;
+                    case "3C":
+                    case "R3C":
+                        affluenza.Affluenza3 = 1;
+                        affluenza.Votantifemmine3 = int.Parse(model.VotantiFemmine);
+                        affluenza.Votantimaschi3 = int.Parse(model.VotantiMaschi);
+                        affluenza.Votantitotali3 = int.Parse(model.VotantiTotali);
+                        break;
+                    default:                       
+                        error.errMsg = "Errore grave: Parametri non validi";
+                        _logger.LogError("Errore grave: Parametri non validi");
+                        return BadRequest(error);
+                        break;
+                }
+                _affluenzaService.Update(affluenza);
+            }
+            catch (Exception ex)
+            {
+                error.errMsg = "Errore grave :" + ex.Message;
+                _logger.LogError("Errore grave :" + ex.Message);
+                return BadRequest(error);
             }
             return Ok(model);
         }
