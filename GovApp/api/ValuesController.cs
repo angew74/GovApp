@@ -344,7 +344,7 @@ namespace GovApp.api
             List<AbilitazioniModel> model = new List<AbilitazioniModel>();
             try
             {
-              List<FaseElezione> fases =  _abilitazioniService.findByCategoria(categoria, int.Parse(_elezioneConfig.Value.tipoelezioneid));
+              List<FaseElezione> fases =  _abilitazioniService.findByCategoria(categoria, int.Parse(_elezioneConfig.Value.tipoelezioneid),0,100);
                 model = fases.Where(x=>x.Abilitata == 1).Distinct().Select(x => new AbilitazioniModel
                 {
                     codice = x.Codice,

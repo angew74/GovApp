@@ -15,7 +15,7 @@
 <script>
     import sidebaraw from '../../components/sidebaraw.vue';
     import footeraw from '../../components/footeraw.vue';
-    import griduser from '../../components/gridusers.vue';
+    import gridaw from '../../components/gridaw.vue';
     import errorboundaryaw from '../../components/error-boundaryaw.vue';
     import { mapGetters, mapState, mapActions } from 'vuex';
     export default {
@@ -24,7 +24,7 @@
             'app-sidebar': sidebaraw,
             'app-footer': footeraw,
             'error-bound': errorboundaryaw,
-            'app-users': griduser
+            'app-users': gridaw
         },
         data: function () {
             return {

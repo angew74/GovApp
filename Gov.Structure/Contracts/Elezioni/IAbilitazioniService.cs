@@ -13,11 +13,17 @@ namespace Gov.Structure.Contracts.Elezioni
         FaseElezione findFaseElezioneByCodice(String codice);
         List<FaseElezione> getAll();       
         FaseElezione findByCodiceAndTipoelezioneId(String codice, int tipoElezioneId);
-        List<FaseElezione> findAllByTipoelezioneId(int tipoelezioneid,int page,int pagesize);
-        List<FaseElezione> findByAbilitataAndTipoelezioneId(int abil, int tipoelezioneid, int page, int pagesize);
+        List<FaseElezione> findAllByTipoelezioneId(int tipoelezioneid,int skip,int take);
+        List<FaseElezione> findByAbilitataAndTipoelezioneId(int abil, int tipoelezioneid, int skip, int take);
         List<FaseElezione> findByAbilitataAndTipoelezioneId(int abilitata, int tipoelezioneid);
-        List<FaseElezione> findByCategoria(string categoria, int tipoelezioneid);
+        List<FaseElezione> findByCategoria(string categoria, int tipoelezioneid, int skip, int take);
+        List<FaseElezione> findByDescrizioneLike(string descrizione, int tipoelezioneid, int skip, int take);
         int Count(int tipoelezioniid);
-       
+        List<FaseElezione> getRightsSortingBy(int skip, int take, string sortBy, bool sortDesc, string filter, string[] types);
+        int GetRightsCountLike(string filter, string[] types);
+
+        int GetRightsCount();
+
+
     }
 }

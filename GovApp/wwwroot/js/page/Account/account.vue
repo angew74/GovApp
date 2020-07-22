@@ -27,7 +27,7 @@
         mounted() {
             axios({
                 method: 'get',
-                url: '/values/content',
+                url: '/GovApp/values/content',
                 params: {
                     "type": "User"
                 }

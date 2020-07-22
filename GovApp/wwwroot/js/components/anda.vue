@@ -140,12 +140,13 @@
         params: ['otherValue', 'maxDifference'],
         validate: (value, { otherValue, maxDifference }) =>
         {
-            var sum = otherValue + maxDifference;
-            if (sum !== value) { return false; }
+            var sum = parseInt(otherValue) + parseInt(maxDifference);
+            var v = parseInt(value);
+            if (sum !== v) { return false; }
             else { return true; }          
         },
         message:
-            'La somma dei votanti maschi femmine deve essere uguale ai votanti totali {value} <> {sum}.'
+            'La somma dei votanti maschi e femmine deve essere uguale ai votanti totali '
     });
 
     export default {

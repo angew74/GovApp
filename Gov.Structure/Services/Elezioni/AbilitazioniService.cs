@@ -25,16 +25,16 @@ namespace Gov.Structure.Services.Elezioni
                 return  _dbset.Where(x=>x.Idtipoelezione == tipoelezioneid).Count();            
         }
 
-        public List<FaseElezione> findAllByTipoelezioneId(int tipoelezioneid, int page, int pagesize)
+        public List<FaseElezione> findAllByTipoelezioneId(int tipoelezioneid, int skip, int take)
         {
           
-                return _dbset.Where(x => x.Idtipoelezione == tipoelezioneid).Skip((page -1) * pagesize).Take(pagesize).ToList();
+                return _dbset.Where(x => x.Idtipoelezione == tipoelezioneid).Skip(skip).Take(take).ToList();
             
         }
 
-        public List<FaseElezione> findByAbilitataAndTipoelezioneId(int abil, int tipoelezioneid, int page, int pagesize)
+        public List<FaseElezione> findByAbilitataAndTipoelezioneId(int abil, int tipoelezioneid, int skip, int take)
         {            
-                return _dbset.Where(x => x.Idtipoelezione == tipoelezioneid && x.Abilitata == abil).Skip(page * pagesize).Take(pagesize).ToList();           
+                return _dbset.Where(x => x.Idtipoelezione == tipoelezioneid && x.Abilitata == abil).Skip(skip).Take(take).ToList();           
            
         }
 
@@ -44,7 +44,7 @@ namespace Gov.Structure.Services.Elezioni
             
         }
 
-        public List<FaseElezione> findByCategoria(string categoria, int tipoelezioneid)
+        public List<FaseElezione> findByCategoria(string categoria, int tipoelezioneid, int skip, int take)
         {
             return _dbset.Where(x => x.Idtipoelezione == tipoelezioneid && x.Categoria.ToLower() == categoria.ToLower()).ToList();
         }
@@ -53,6 +53,11 @@ namespace Gov.Structure.Services.Elezioni
         {
            return _dbset.Where(x => x.Idtipoelezione == tipoelezioneid && x.Codice == codice).FirstOrDefault();
             
+        }
+
+        public List<FaseElezione> findByDescrizioneLike(string descrizione, int tipoelezioneid, int skip, int take)
+        {
+            return _dbset.Where(x => x.Idtipoelezione == tipoelezioneid && x.Descrizione.ToUpper().Contains(descrizione.ToUpper())).Skip(skip).Take(take).ToList();
         }
 
         public FaseElezione findFaseElezioneByCodice(string codice)
@@ -71,8 +76,77 @@ namespace Gov.Structure.Services.Elezioni
         {            
                 return _dbset.ToList();
             
-        }        
+        }
 
-       
+        public List<FaseElezione> getRightsSortingBy(int skip, int take, string sortBy, bool sortDesc, string filter, string[] types)
+        {
+            List<FaseElezione> rights = new List<FaseElezione>();
+            string ordining = "";
+            if (string.IsNullOrEmpty(sortBy))
+            { ordining = "UserName "; }
+            else { ordining = sortBy; }
+            if (sortDesc)
+            { ordining += " DESC"; }
+            else { ordining += " ASC"; }
+            if (string.IsNullOrEmpty(filter))
+            { rights =_dbset.OrderBy(ordining).Skip(skip).Take(take).AsParallel().ToList(); }
+            else
+            {
+                foreach (string t in types)
+                {
+                    switch (t.ToLower())
+                    {
+                        case "codice":
+                            rights = _dbset.Where(x => x.Codice.ToLower() == filter.ToLower()).OrderBy(ordining).Skip(skip).Take(take).AsParallel().ToList();
+                            break;
+                        case "descrizione":
+                            rights = _dbset.Where(x => x.Descrizione.ToLower().Contains(filter.ToLower())).OrderBy(ordining).Skip(skip).Take(take).AsParallel().ToList();
+                            break;
+                        case "categoria":
+                            rights = _dbset.Where(x => x.Categoria.ToLower() == filter.ToLower()).OrderBy(ordining).Skip(skip).Take(take).AsParallel().ToList();
+                            break;
+
+                    }
+                }
+            }
+            return rights;
+        }
+
+
+        public int GetRightsCountLike(string filter, string[] types)
+        {
+            int count = 0;
+            if (types.Length > 0)
+            {
+                foreach (string t in types)
+                {
+                    switch (t.ToLower())
+                    {
+                        case "categoria":
+                            count += _dbset.Where(x => x.Categoria.ToLower() == filter.ToLower()).Count();
+                            break;
+                        case "codice":
+                            count += _dbset.Where(x => x.Codice.ToLower() == filter.ToLower()).Count();
+                            break;
+                        case "descrizione":
+                            count += _dbset.Where(x => x.Descrizione.ToLower().Contains(filter.ToLower())).Count();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                count += _dbset.Where(x => x.Codice.ToLower() == filter.ToLower() || x.Categoria.ToLower() == filter.ToLower() || x.Descrizione.ToLower().Contains(filter.ToLower())).Distinct().Count();
+
+            }
+            return count;
+        }
+
+        public int GetRightsCount()
+        {
+            return _dbset.Count();
+        }
     }
 }
