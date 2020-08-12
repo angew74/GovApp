@@ -4,6 +4,7 @@ import Vue from "vue";
 import Vuex from 'vuex';
 import VeeValidate from "vee-validate";
 import Notifications from 'vue-notification';
+import VueAutosuggest from "vue-autosuggest";
 import {
     ValidationObserver,
     ValidationProvider,
@@ -49,6 +50,7 @@ Vue.component('b-collapse', BCollapse);
 Vue.component('v-icon', Icon);
 Vue.use(Notifications);
 Vue.use(Vuex);
+Vue.use(VueAutosuggest);
 Object.keys(rules).forEach(rule => {
     extend(rule, rules[rule]);
 });

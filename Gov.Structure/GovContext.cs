@@ -37,7 +37,7 @@ namespace Gov.Structure
         public GovContext(DbContextOptions<GovContext> options, IHttpContextAccessor httpContextAccessor)
            : base(options)
         {
-          
+
             _httpContextAccessor = httpContextAccessor;
             _user = httpContextAccessor.HttpContext.User.Identity.Name;
         }
@@ -54,7 +54,7 @@ namespace Gov.Structure
 
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder                      
+                optionsBuilder
                      .UseLoggerFactory(MyLoggerFactory)
                     .EnableSensitiveDataLogging(true)
                      .UseMySql("server=localhost;user id=TOMAHAWK;password=Roberta4@;database=GOV", x => x.ServerVersion("8.0.13-mysql"));
@@ -67,7 +67,7 @@ namespace Gov.Structure
         public override int SaveChanges()
         {
 
-           
+
             if (!string.IsNullOrEmpty(_user))
             {
                 var modifiedEntries = ChangeTracker.Entries()
@@ -147,14 +147,14 @@ namespace Gov.Structure
         public virtual DbSet<RicalcoloVotiRaggruppamento> RicalcoloVotiRaggruppamento { get; set; }
         public virtual DbSet<RicalcoloVotiLista> RicalcoloVotiLista { get; set; }
         public virtual DbSet<RicalcoloVotiSindaco> RicalcoloVotiSindaco { get; set; }
-        
+
         public virtual DbSet<Sezioni> Sezioni { get; set; }
         public virtual DbSet<Sindaci> Sindaci { get; set; }
         public virtual DbSet<TipoInterrogazione> TipoInterrogazione { get; set; }
         public virtual DbSet<TipoRicalcolo> TipoRicalcolo { get; set; }
         public virtual DbSet<TipoRicalcoloAggregazione> TipoRicalcoloAggregazione { get; set; }
         public virtual DbSet<Tipoelezione> Tipoelezione { get; set; }
-        public virtual DbSet<Tiposezione> Tiposezione { get; set; }    
+        public virtual DbSet<Tiposezione> Tiposezione { get; set; }
         public virtual DbSet<UsersSezioni> UsersSezioni { get; set; }
         public virtual DbSet<VotiGenerali> VotiGenerali { get; set; }
         public virtual DbSet<VotiGeneraliStorico> VotiGeneraliStorico { get; set; }
@@ -165,7 +165,7 @@ namespace Gov.Structure
         public virtual DbSet<VotiSindaco> VotiSindaco { get; set; }
         public virtual DbSet<VotiSindacoStorico> VotiSindacoStorico { get; set; }
 
-       
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -342,9 +342,9 @@ namespace Gov.Structure
                     .HasName("fk_affluenza_sezioni_idx");
 
                 entity.HasIndex(e => e.Tipoelezioneid)
-                    .HasName("fk_affluenze_tipo_elezione_idx");          
+                    .HasName("fk_affluenze_tipo_elezione_idx");
 
-              
+
 
                 entity.HasOne(d => d.Iscritti)
                     .WithMany(p => p.Affluenze)
@@ -366,7 +366,7 @@ namespace Gov.Structure
 
             modelBuilder.Entity<AffluenzeStorico>(entity =>
             {
-           
+
 
                 entity.ToTable("affluenze_storico");
 
@@ -409,7 +409,7 @@ namespace Gov.Structure
 
                 entity.HasIndex(e => new { e.Descrizione, e.Tipoelezioneid, e.Codice })
                     .HasName("unique_aggregazione_interrogazioni")
-                    .IsUnique();              
+                    .IsUnique();
 
                 entity.HasOne(d => d.Tipoelezione)
                     .WithMany(p => p.AggregazioneInterrogazioni)
@@ -430,7 +430,7 @@ namespace Gov.Structure
 
                 entity.HasIndex(e => new { e.Progressivo, e.Listaid, e.Tipoelezioneid })
                     .HasName("uk_candidato_lista_progressivo")
-                    .IsUnique();                              
+                    .IsUnique();
 
                 entity.HasOne(d => d.Lista)
                     .WithMany(p => p.Candidati)
@@ -485,7 +485,7 @@ namespace Gov.Structure
 
                 entity.HasIndex(e => e.Idtipoelezione)
                     .HasName("fk_elegen_tipo_elezione_idx");
-            
+
                 entity.HasOne(d => d.IdtipoelezioneNavigation)
                     .WithMany(p => p.Elegen)
                     .HasForeignKey(d => d.Idtipoelezione)
@@ -502,7 +502,7 @@ namespace Gov.Structure
                 entity.HasIndex(e => new { e.Codice, e.Idtipoelezione })
                     .HasName("uq_fase_elezioni_elezioni")
                     .IsUnique();
-             
+
             });
 
             modelBuilder.Entity<Iscritti>(entity =>
@@ -517,7 +517,7 @@ namespace Gov.Structure
                     .HasName("fk_tipo_elezione_iscritti_idx");
 
                 entity.HasIndex(e => e.Idtiposezione)
-                    .HasName("fk_tiposezione_iscritti_idx");              
+                    .HasName("fk_tiposezione_iscritti_idx");
 
                 entity.HasOne(d => d.IdsezioneNavigation)
                     .WithOne(p => p.Iscritti)
@@ -553,7 +553,7 @@ namespace Gov.Structure
                 entity.HasIndex(e => e.Tipoelezioneid)
                     .HasName("fl_liste_tipo_elezione_idx");
 
-             
+
                 entity.HasOne(d => d.Raggruppamenti)
                     .WithMany(p => p.Liste)
                     .HasForeignKey(d => d.Coalizioneid)
@@ -587,7 +587,7 @@ namespace Gov.Structure
 
                 entity.HasIndex(e => e.Iscrittimaschi)
                     .HasName("iscrittimaschi_UNIQUE")
-                    .IsUnique();              
+                    .IsUnique();
 
                 entity.HasOne(d => d.IdtipoelezioneNavigation)
                     .WithMany(p => p.Matrice)
@@ -599,7 +599,7 @@ namespace Gov.Structure
             modelBuilder.Entity<Municipi>(entity =>
             {
                 entity.ToTable("municipi");
-              
+
             });
 
             modelBuilder.Entity<Plessi>(entity =>
@@ -607,7 +607,7 @@ namespace Gov.Structure
                 entity.ToTable("plessi");
 
                 entity.HasIndex(e => e.Idtipoelezione)
-                    .HasName("fk_plessi_tipoelezione_idx");              
+                    .HasName("fk_plessi_tipoelezione_idx");
 
                 entity.HasOne(d => d.IdtipoelezioneNavigation)
                     .WithMany(p => p.Plessi)
@@ -634,7 +634,7 @@ namespace Gov.Structure
                 entity.HasIndex(e => new { e.Tipoelezioneid, e.Sezioneid })
                     .HasName("fk_voti_tipoelezione_idx");
 
-               
+
                 entity.HasOne(d => d.Sezione)
                     .WithMany(p => p.ProfiloVoti)
                     .HasForeignKey(d => d.Sezioneid)
@@ -694,7 +694,7 @@ namespace Gov.Structure
                     .HasName("fk_ricalcoli_apertura_costituzione_tipo_elezione_idx");
 
                 entity.HasIndex(e => e.Idtiporicalcolo)
-                    .HasName("fk_ricalcoli_apertura_costituzione_tipo_ricalcolo_idx");              
+                    .HasName("fk_ricalcoli_apertura_costituzione_tipo_ricalcolo_idx");
 
                 entity.HasOne(d => d.IdtipoelezioneNavigation)
                     .WithMany(p => p.RicalcoliAperturaCostituzione)
@@ -723,7 +723,7 @@ namespace Gov.Structure
                     .HasName("fk_ricalcolo_preferenze_tipo_elezione_idx");
 
                 entity.HasIndex(e => e.Tiporicalcoloid)
-                    .HasName("fk_ricalcolo_tipo_ricalcolo_idx");              
+                    .HasName("fk_ricalcolo_tipo_ricalcolo_idx");
 
                 entity.HasOne(d => d.Candidato)
                     .WithMany(p => p.RicalcoloPreferenze)
@@ -762,7 +762,7 @@ namespace Gov.Structure
 
                 entity.HasIndex(e => e.Tiporicalcoloid)
                     .HasName("fk_ricalcolo_coalizioni_tipo_ricalcolo_idx");
-              
+
 
                 entity.HasOne(d => d.Raggruppamenti)
                     .WithMany(p => p.RicalcoloVotiCoalizioni)
@@ -794,7 +794,7 @@ namespace Gov.Structure
                     .HasName("fk_ricalcolo_voti_tipo_elezione_idx");
 
                 entity.HasIndex(e => e.Idtiporicalcolo)
-                    .HasName("fk_ricalcolo_voti_tipo_ricalcolo_idx");             
+                    .HasName("fk_ricalcolo_voti_tipo_ricalcolo_idx");
 
                 entity.HasOne(d => d.IdlistaNavigation)
                     .WithMany(p => p.RicalcoloVotiLista)
@@ -827,7 +827,7 @@ namespace Gov.Structure
 
                 entity.HasIndex(e => e.Tiporicalcoloid)
                     .HasName("fk_ricalcolo_sindaci_tipo_ricalcolo_idx");
-              
+
 
                 entity.HasOne(d => d.Sindaco)
                     .WithMany(p => p.RicalcoloVotiSindaco)
@@ -887,7 +887,7 @@ namespace Gov.Structure
 
                 entity.HasIndex(e => e.Tipoelezioneid)
                     .HasName("fk_tipo_elezione_sindaci_idx");
-                           
+
 
                 entity.HasOne(d => d.Tipoelezione)
                     .WithMany(p => p.Sindaci)
@@ -903,7 +903,7 @@ namespace Gov.Structure
                 entity.HasIndex(e => e.Tipoelezioneid)
                     .HasName("tipo_interrogazione_tipo_elezione_idx");
 
-             
+
                 entity.HasOne(d => d.Tipoelezione)
                     .WithMany(p => p.TipoInterrogazione)
                     .HasForeignKey(d => d.Tipoelezioneid)
@@ -918,7 +918,7 @@ namespace Gov.Structure
                 entity.HasIndex(e => e.Idtipoelezione)
                     .HasName("fk_tipo_ricalcolo_tipo_elezione_idx");
 
-               
+
                 entity.HasOne(d => d.IdtipoelezioneNavigation)
                     .WithMany(p => p.TipoRicalcolo)
                     .HasForeignKey(d => d.Idtipoelezione)
@@ -937,7 +937,7 @@ namespace Gov.Structure
                     .HasName("tipo_ricalcolo_aggregazione_unique")
                     .IsUnique();
 
-              
+
 
                 entity.HasOne(d => d.Tipoelezione)
                     .WithMany(p => p.TipoRicalcoloAggregazione)
@@ -958,7 +958,7 @@ namespace Gov.Structure
                     .HasName("idtipoelezione_UNIQUE")
                     .IsUnique();
 
-              
+
             });
 
             modelBuilder.Entity<Tiposezione>(entity =>
@@ -984,7 +984,7 @@ namespace Gov.Structure
                 entity.HasIndex(e => e.UserId)
                     .HasName("fk_users_sezioni_users_idx");
 
-              
+
                 entity.HasOne(d => d.IdtipoelezioneNavigation)
                     .WithMany(p => p.UsersSezioni)
                     .HasForeignKey(d => d.Idtipoelezione)
@@ -1010,7 +1010,7 @@ namespace Gov.Structure
 
                 entity.HasIndex(e => e.Tipoelezioneid)
                     .HasName("fk_voti_tipoelezione_idx");
-                             
+
 
                 entity.HasOne(d => d.Sezione)
                     .WithMany(p => p.VotiGenerali)
@@ -1026,7 +1026,7 @@ namespace Gov.Structure
             });
 
             modelBuilder.Entity<VotiGeneraliStorico>(entity =>
-            {              
+            {
 
                 entity.ToTable("voti_generali_storico");
 
@@ -1065,7 +1065,7 @@ namespace Gov.Structure
                 entity.HasIndex(e => e.Votigeneraliid)
                     .HasName("fk_voti_lista_voti_generali_idx");
 
-              
+
                 entity.HasOne(d => d.Lista)
                     .WithMany(p => p.VotiLista)
                     .HasForeignKey(d => d.Listaid)
@@ -1104,7 +1104,7 @@ namespace Gov.Structure
                 entity.HasIndex(e => e.Sezioneid)
                     .HasName("fk_sezioni_voti_lista_storico_idx");
 
-             
+
 
                 entity.HasOne(d => d.Lista)
                     .WithMany(p => p.VotiListaStorico)
@@ -1135,7 +1135,7 @@ namespace Gov.Structure
                 entity.HasIndex(e => e.Tipoelezioneid)
                     .HasName("fk_voti_preferenze_storico_tipoelezione_id_idx");
 
-              
+
 
                 entity.HasOne(d => d.Candidato)
                     .WithMany(p => p.VotiPeferenzeStorico)
@@ -1182,7 +1182,7 @@ namespace Gov.Structure
                     .HasName("uk_voti_preferenze_lista_candidato_sezione")
                     .IsUnique();
 
-             
+
                 entity.HasOne(d => d.Candidato)
                     .WithMany(p => p.VotiPreferenze)
                     .HasForeignKey(d => d.Candidatoid)
@@ -1224,7 +1224,7 @@ namespace Gov.Structure
                 entity.HasIndex(e => e.Votigeneraliid)
                     .HasName("fk_voti_sindaco_voti_generali_idx");
 
-               
+
 
                 entity.HasOne(d => d.Sezione)
                     .WithMany(p => p.VotiSindaco)
@@ -1253,7 +1253,7 @@ namespace Gov.Structure
 
             modelBuilder.Entity<VotiSindacoStorico>(entity =>
             {
-              
+
                 entity.ToTable("voti_sindaco_storico");
 
                 entity.HasIndex(e => e.Sezioneid)
@@ -1265,7 +1265,7 @@ namespace Gov.Structure
                 entity.HasIndex(e => e.Tipoelezioneid)
                     .HasName("fk_voti_sindaco_old_tipo_elezioni_idx");
 
-               
+
                 entity.HasOne(d => d.Sezione)
                     .WithMany()
                     .HasForeignKey(d => d.Sezioneid)
@@ -1713,7 +1713,96 @@ namespace Gov.Structure
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 PaginaId = 14
-            }};
+            },
+            new Contenuto
+            {
+                Id = 31,
+                ContentuoCard = "Da questa pagina è possibile registrare i voti di coalizione",
+                Tipo = "Testo",
+                TipoContenutoId = 1,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 17
+            },
+            new Contenuto
+            {
+                Id = 32,
+                ContentuoCard = "person-fill",
+                Tipo = "Icona",
+                TipoContenutoId = 2,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 17
+            },
+            new Contenuto
+            {
+                Id = 33,
+                ContentuoCard = "/GovApp/coalizioni/inserimento",
+                Tipo = "Link",
+                TipoContenutoId = 3,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 17
+            },
+            new Contenuto
+            {
+                Id = 34,
+                ContentuoCard = "Coalizioni Inserimento",
+                Tipo = "Header",
+                TipoContenutoId = 4,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 17
+            },
+              new Contenuto
+            {
+                Id = 35,
+                ContentuoCard = "Da questa pagina è possibile modificare i voti di coalizione",
+                Tipo = "Testo",
+                TipoContenutoId = 1,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 18
+            },
+            new Contenuto
+            {
+                Id = 36,
+                ContentuoCard = "person-fill",
+                Tipo = "Icona",
+                TipoContenutoId = 2,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 18
+            },
+            new Contenuto
+            {
+                Id = 37,
+                ContentuoCard = "/GovApp/coalizioni/modifica",
+                Tipo = "Link",
+                TipoContenutoId = 3,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 18
+            },
+            new Contenuto
+            {
+                Id = 39,
+                ContentuoCard = "Coalizioni Modifica",
+                Tipo = "Header",
+                TipoContenutoId = 4,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 18
+            }
+            };
             modelBuilder.Entity<Contenuto>().HasData(Contenuti);
             var Pagine = new Pagina[] {
             new Pagina
@@ -1858,6 +1947,62 @@ namespace Gov.Structure
                 UpdatedBy = null,
                 RoleId =Roles.Single(i => i.Name == "admin").Id,
                 Denominazione = "Cambio Password"
+            },new Pagina{
+                Id = 16,
+                Codice = "Sezione",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Gestione Sezione"
+            },new Pagina{
+                Id = 17,
+                Codice = "Voti",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "user").Id,
+                Denominazione = "Inserimento Coalizione"
+            },new Pagina{
+                Id = 18,
+                Codice = "Voti",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "user").Id,
+                Denominazione = "Modifica Coalizione"
+            },new Pagina{
+                Id = 19,
+                Codice = "Voti",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Inserimento Coalizione"
+            },new Pagina{
+                Id = 20,
+                Codice = "Voti",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Modifica Coalizione"
+            },new Pagina{
+                Id = 21,
+                Codice = "Voti",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Indice Coalizione"
+            },new Pagina{
+                Id = 22,
+                Codice = "Voti",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "user").Id,
+                Denominazione = "Indice Coalizione"
             }};
             modelBuilder.Entity<Pagina>().HasData(Pagine);
             var Voci = new VoceMenu[] {
@@ -1991,6 +2136,39 @@ namespace Gov.Structure
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "admin").Id,
                 Voce = "Abilitazioni"
+            }, new VoceMenu
+            {
+                Id = 12,
+                Icona = "handshake",
+                Link = "/GovApp/sezioni/index",
+                Active = true,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId = Roles.Single(i => i.Name == "admin").Id,
+                Voce = "Sezioni"
+            }, new VoceMenu
+            {
+                Id = 13,
+                Icona = "user",
+                Link = "/GovApp/Coalizione/index",
+                Active = true,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId = Roles.Single(i => i.Name == "admin").Id,
+                Voce = "Voti Coalizione"
+            }, new VoceMenu
+            {
+                Id = 14,
+                Icona = "user",
+                Link = "/GovApp/Coalizione/index",
+                Active = true,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId = Roles.Single(i => i.Name == "user").Id,
+                Voce = "Voti Coalizione"
             }};
             modelBuilder.Entity<VoceMenu>().HasData(Voci);
             var TipiContenuto = new TipoContenuto[]

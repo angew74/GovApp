@@ -9,14 +9,19 @@
                     <b-form-group id="sezionegroup"
                                   label="Numero Sezione:"
                                   label-for="sezione">
-                        <b-form-input id="sezione"
-                                      v-model="form.sezione"
-                                      type="number"
-                                      placeholder="numero della sezione da ricercare"
-                                      :state="getValidationState(validationContext)"
-                                      aria-describedby="input-sezione-live-feedback">
-                        </b-form-input>
-                        <b-form-invalid-feedback id="input-sezione-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                        <b-input-group>
+                            <b-input-group-prepend>
+                                <span class="input-group-text"><v-icon scale="1.5" name="person-booth" /></span>
+                            </b-input-group-prepend>
+                            <b-form-input id="sezione"
+                                          v-model="form.sezione"
+                                          type="number"
+                                          placeholder="numero della sezione da ricercare"
+                                          :state="getValidationState(validationContext)"
+                                          aria-describedby="input-sezione-live-feedback">
+                            </b-form-input>
+                            </b-input-group>                        
+                            <b-form-invalid-feedback id="input-sezione-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </b-form-group>
                 </validation-provider>
                 <validation-provider vid="cabina"
@@ -24,14 +29,19 @@
                                      :rules="{required:true,min:1,max:4}"
                                      v-slot="validationContext">
                     <b-form-group id="cabinagroup" label="Cabina:" label-for="cabina">
-                        <b-form-input id="cabina"
-                                      v-model="form.cabina"
-                                      type="number"
-                                      placeholder="numero della cabina da ricercare"
-                                      :state="getValidationState(validationContext)"
-                                      aria-describedby="input-cabina-live-feedback">
-                        </b-form-input>
-                        <b-form-invalid-feedback id="input-cabina-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                        <b-input-group>
+                            <b-input-group-prepend>
+                                <span class="input-group-text"><v-icon scale="1.5" name="person-booth" /></span>
+                            </b-input-group-prepend>
+                            <b-form-input id="cabina"
+                                          v-model="form.cabina"
+                                          type="number"
+                                          placeholder="numero della cabina da ricercare"
+                                          :state="getValidationState(validationContext)"
+                                          aria-describedby="input-cabina-live-feedback">
+                            </b-form-input>
+                            </b-input-group>
+                            <b-form-invalid-feedback id="input-cabina-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </b-form-group>
                 </validation-provider>
                 <b-form-input id="tipo"

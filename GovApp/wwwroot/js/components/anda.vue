@@ -1,15 +1,15 @@
 ﻿<template>
     <div>
-        <div v-if="tipo === 'CO' || tipo=== 'AP'" style="max-width: 80rem;margin-left:720px">
+        <div v-if="tipo === 'CO' || tipo=== 'AP' || tipo === 'RCO' || tipo=== 'RAP'" style="max-width: 80rem;margin: 0 50%;position: relative;left: -50px;">
             <b-button variant="light" style="font-size: 1.7rem;background-color:transparent" v-on:click="toWatch(tipo, $event)" class="border-0">
                 <b-icon icon="check-circle-fill" class="rounded-circle bg-danger p-2" variant="light"></b-icon> Conferma
             </b-button>
         </div>
-        <div class="container" v-if="tipo === '1A' || tipo === '2A' || tipo === '3C'" style="max-width: 80rem;margin-left:360px">
+        <div class="container" v-if="tipo === '1A' || tipo === '2A' || tipo === '3C' || tipo === 'R1A' || tipo === 'R2A' || tipo === 'R3C'" style="max-width: 80rem;">
             <validation-observer ref="observer" v-slot="{ handleSubmit }">
                 <b-form @submit.stop.prevent="handleSubmit(onSubmit)">
 
-                    <div v-if="tipo === '2A' || tipo === '3C'">
+                    <div v-if="tipo === '2A' || tipo === '3C' || tipo === 'R3C' || tipo === 'R2A'">
                         <b-badge variant="info">
                             Votanti Maschi precedenti {{affluenzasezione.votantiMaschiAffP}}
                         </b-badge>
@@ -31,7 +31,7 @@
                             <b-form-invalid-feedback id="input-votantiMaschi-live-feedback">{{validationContext.errors[0]}}</b-form-invalid-feedback>
                         </b-form-group>
                     </validation-provider>
-                    <div v-if="tipo === '2A' || tipo === '3C'">
+                    <div v-if="tipo === '2A' || tipo === '3C' || tipo === 'R3C' || tipo === 'R2A'">
                         <b-badge variant="info">
                             Votanti Femmine precedenti {{affluenzasezione.votantiFemmineAffP}}
                         </b-badge>
@@ -53,7 +53,7 @@
                             <b-form-invalid-feedback id="input-votantiFemmine-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                         </b-form-group>
                     </validation-provider>
-                    <div v-if="tipo === '2A' || tipo === '3C'">
+                    <div v-if="tipo === '2A' || tipo === '3C' || tipo === 'R2A' || tipo === 'R3C'">
                         <b-badge variant="info">
                             Votanti Totali precedenti {{affluenzasezione.votantiTotaliAffP}}
                         </b-badge>

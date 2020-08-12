@@ -41,11 +41,12 @@ namespace Gov.Structure.Identity
             return utentis;
         }
 
-        public List<ApplicationUser> GetUsersByUsernameLike(string usernamepartial, int take,int skip)
+        public List<ApplicationUser> GetUsersByUsernameLike(string usernamepartial, int skip,int take)
         {
             List<ApplicationUser> utentis = dbcontext.Users.Where(x=>x.UserName.ToLower().Contains(usernamepartial)).Skip(skip).Take(take).Include(i => i.UserRoles).ThenInclude(i => i.Role).AsParallel().ToList();
             return utentis;
         }
+        
 
         public List<ApplicationUser> GetUsersByMailLike(string mailpartial, int take, int skip)
         {

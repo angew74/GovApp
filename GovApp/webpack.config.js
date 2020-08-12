@@ -15,9 +15,25 @@ module.exports = {
             './wwwroot/js/app.js',
             './Views/Andamento/Index.cshtml.js'
         ],
+        'coalizioni': [
+            './wwwroot/js/app.js',
+            './Views/Coalizioni/Index.cshtml.js'
+        ],
         'insandamento': [
             './wwwroot/js/app.js',
             './Views/Andamento/Inserimento.cshtml.js'
+        ],
+        'modandamento': [
+            './wwwroot/js/app.js',
+            './Views/Andamento/Modifica.cshtml.js'
+        ],
+        'inscoalizioni': [
+            './wwwroot/js/app.js',
+            './Views/Coalizioni/Inserimento.cshtml.js'
+        ],
+        'modcoalizioni': [
+            './wwwroot/js/app.js',
+            './Views/Coalizioni/Modifica.cshtml.js'
         ],
         'login': [
             './wwwroot/js/app.js',
@@ -62,6 +78,10 @@ module.exports = {
         'register': [
             './wwwroot/js/app.js',
             './Views/Account/register.cshtml.js'
+        ],
+        'sezioni': [
+            './wwwroot/js/app.js',
+            './Views/Sezioni/index.cshtml.js'
         ]
 
     },

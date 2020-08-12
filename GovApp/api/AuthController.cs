@@ -23,6 +23,8 @@ using Gov.Structure.Identity;
 using Gov.Core.Enumerators;
 using Gov.Structure.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Gov.Core.Entity.Elezioni;
+using Gov.Structure.Contracts.Elezioni;
 
 namespace GovApp.api
 {
@@ -39,7 +41,10 @@ namespace GovApp.api
         private readonly IOptions<PagingConfig> _pagingConfig;
         private readonly IOptions<IdentityOptions> _identityOptions;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public AuthController(UserStore utentiService, SignInManager<ApplicationUser> SignInManager, ApplicationUserManager userManager, ILogger<AuthController> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config, IOptions<PagingConfig> pagingConfig, IOptions<IdentityOptions> identityOptions, IHttpContextAccessor httpContextAccessor)
+        private readonly IOptions<ElezioneConfig> _elezioneConfig;
+        private readonly IUserSezioneService _userSezioneService;
+        private readonly ISezioneService _sezioneService;
+        public AuthController(UserStore utentiService, SignInManager<ApplicationUser> SignInManager, ApplicationUserManager userManager, ILogger<AuthController> logger, IEmailSender emailSender, IOptions<ComunicazioneConfig> config, IOptions<PagingConfig> pagingConfig, IOptions<IdentityOptions> identityOptions, IHttpContextAccessor httpContextAccessor, IOptions<ElezioneConfig> elezioneConfig, IUserSezioneService userSezioneService, ISezioneService sezioneService)
         {
             _utentiService = utentiService;
             _userManager = userManager;
@@ -50,6 +55,9 @@ namespace GovApp.api
             _pagingConfig = pagingConfig;
             _identityOptions = identityOptions;
             _httpContextAccessor = httpContextAccessor;
+            _elezioneConfig = elezioneConfig;
+            _userSezioneService = userSezioneService;
+            _sezioneService = sezioneService;
         }
 
         public class Input
@@ -350,8 +358,30 @@ namespace GovApp.api
             return Ok(model);
         }
 
-
-
+        [Authorize]
+        [HttpGet("userssuggestions")]
+        public async Task<IActionResult> GetUsersSuggestions(string username)
+        {
+            ErrorModel error = new ErrorModel();
+            List<string> usersmodel = new List<string>();
+            try
+            {
+                List<ApplicationUser> applicationUsers = new List<ApplicationUser>();
+                applicationUsers = _utentiService.GetUsersByUsernameLike(username,0,20);
+                if (applicationUsers == null)
+                {
+                    return Ok(usersmodel);
+                }
+                usersmodel = applicationUsers.Select(x => x.UserName).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Eccezione non gestita dettagli: " + ex.Message);
+                error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
+                return BadRequest(error);
+            }
+            return await System.Threading.Tasks.Task.FromResult(Ok(usersmodel));
+        }
         [Authorize]
         [HttpGet("usersfilters")]
         public async Task<IActionResult> GetUsersFilters(string page, string filtro, [FromQuery(Name = "fitriarray[]")] string[] filtriarray)
@@ -371,7 +401,7 @@ namespace GovApp.api
                         switch (t.ToLower())
                         {
                             case "username":
-                                applicationUsers.AddRange(_utentiService.GetUsersByUsernameLike(filtro, take, skip));
+                                applicationUsers.AddRange(_utentiService.GetUsersByUsernameLike(filtro, skip, take));
                                 break;
                             case "email":
                                 applicationUsers.AddRange(_utentiService.GetUsersByMailLike(filtro, take, skip));
@@ -386,7 +416,7 @@ namespace GovApp.api
                 }
                 else
                 {
-                    applicationUsers.AddRange(_utentiService.GetUsersByUsernameLike(filtro, take, skip));
+                    applicationUsers.AddRange(_utentiService.GetUsersByUsernameLike(filtro, skip, take));
                     applicationUsers.AddRange(_utentiService.GetUsersByMailLike(filtro, take, skip));
                     applicationUsers.AddRange(_utentiService.GetUsersByCognomeLike(filtro, take, skip));
                 }
@@ -568,6 +598,41 @@ namespace GovApp.api
             model.fields = fields.ToArray();
             return model;
         }
+
+        [Authorize]
+        [HttpGet("associa")]
+        public async Task<IActionResult> Associa(string user, string sezione,string cabina)
+        {          
+            ErrorModel error = new ErrorModel();
+            try
+            {
+
+                int t = int.Parse(_elezioneConfig.Value.tipoelezioneid);            
+                ApplicationUser userApp = _userManager.FindByNameAsync(user).Result;
+                if(userApp == null)
+                {
+                    return BadRequest("Utente inesistente");
+                }
+                Sezioni s = _sezioneService.findByNumerosezioneAndCabinaAndTipoelezioneId(int.Parse(sezione), int.Parse(cabina), t);
+                List<int> ss = new List<int>();
+                ss.Add(s.Id);
+                _userSezioneService.deleteAllBySezioneInAndUser(ss, userApp.Id, t);
+                 UsersSezioni u = new UsersSezioni();
+                 u.Sezioneid = s.Id;
+                 u.UserId = userApp.Id;
+                 u.Idtipoelezione = t;                               
+                _userSezioneService.Create(u);
+              
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Eccezione non gestita dettagli: " + ex.Message);
+                error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
+                return BadRequest(error);
+            }
+            return Ok();
+        }
+
 
         [Authorize]
         [HttpPost("userssorting")]

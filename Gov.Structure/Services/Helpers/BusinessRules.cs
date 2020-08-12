@@ -1,9 +1,12 @@
 ﻿using Gov.Core.Entity.Elezioni;
+using Gov.Core.Identity;
 using Gov.Structure.Contracts.Elezioni;
 using Gov.Structure.Contracts.Helpers;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 
 namespace Gov.Structure.Services.Helpers
 {
@@ -16,7 +19,9 @@ namespace Gov.Structure.Services.Helpers
         private readonly IVotiListaService _votiListaService;
         private readonly IVotiSindacoService _votiSindacoService;
         private readonly IVotiPreferenzeService _votiPreferenzeService;
-        public BusinessRules(IAffluenzaService affluenzaService,IAbilitazioniService abilitazioneService,ISezioneService sezioneService,IVotiListaService votiListaService, IVotiSindacoService votiSindacoService, IVotiPreferenzeService votiPreferenzeService)
+        private readonly IUserSezioneService _userSezioneService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public BusinessRules(IAffluenzaService affluenzaService,IAbilitazioniService abilitazioneService,ISezioneService sezioneService,IVotiListaService votiListaService, IVotiSindacoService votiSindacoService, IVotiPreferenzeService votiPreferenzeService, IUserSezioneService userSezioneService, IHttpContextAccessor httpContextAccessor)
         {
             _affluenzaService = affluenzaService;
             _abilitazioniService = abilitazioneService;
@@ -24,6 +29,8 @@ namespace Gov.Structure.Services.Helpers
             _votiListaService = votiListaService;
             _votiSindacoService = votiSindacoService;
             _votiPreferenzeService = votiPreferenzeService;
+            _userSezioneService = userSezioneService;
+            _httpContextAccessor = httpContextAccessor;
         }
         public string getTitoloByFase(string codice, string tipo)
         {
@@ -194,6 +201,16 @@ namespace Gov.Structure.Services.Helpers
                     return " sezione non corretta";
                 }
             }
+            ClaimsPrincipal principal = _httpContextAccessor.HttpContext.User;
+            if (!principal.HasClaim("admin", "admin"))
+            { 
+                UsersSezioni usersSezioni = _userSezioneService.findBySezioneIdAndTipoelezioneId(sezione, idtipoelezione); 
+                if(usersSezioni.User == null || usersSezioni.User.UserName.ToLower() != principal.Identity.Name)
+                {
+                    return "sezione non abilitata all'utente";
+                }
+               
+            }           
             Affluenze affluenza = _affluenzaService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
             switch (codiceFase)
             {

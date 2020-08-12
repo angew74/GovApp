@@ -25,5 +25,7 @@ namespace Gov.Core.Entity.Presentation
         public IscrittiModel Iscritti { get; set; }
         public string UbicazionePlesso { get; set; }
         public string DescrizionePlesso { get; set; }
+        public string UserName { get; set; }
+        public int UserId { get; set; }
     }
 }

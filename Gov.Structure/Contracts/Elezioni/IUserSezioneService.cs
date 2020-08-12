@@ -17,8 +17,8 @@ namespace Gov.Structure.Contracts.Elezioni
         List<UsersSezioni> findByUser(ApplicationUser user);
         List<UsersSezioni> findByUserIdAndTipoelezioneId(int userid, int tipoElezione);
         List<UsersSezioni> findByTipoelezione(Tipoelezione tipoElezione);
-        List<UsersSezioni> findByTipoelezioneIdAndUserId(int tipoelezioneid, uint userid);     
+        List<UsersSezioni> findByTipoelezioneIdAndUserId(int tipoelezioneid, int userid);     
         List<UsersSezioni> findByTipoelezioneIdAndSezionePlessoId(int tipoelezioneid, int plessoid);
-        void deleteAllBySezioneInAndUser(List<int> list, uint u,int tipoelezioneid);
+        void deleteAllBySezioneInAndUser(List<int> list, int u,int tipoelezioneid);
     }
 }

@@ -12,6 +12,7 @@ using Gov.Structure.Config;
 using Gov.Structure.Contracts;
 using Gov.Structure.Contracts.Elezioni;
 using Gov.Structure.Contracts.Helpers;
+using Gov.Structure.Identity;
 using GovApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -28,7 +29,7 @@ namespace GovApp.api
     public class ValuesController : ControllerBase
     {
         private readonly ILogger<ValuesController> _logger;
-
+        private readonly UserStore _utentiService;
         private readonly IPaginaService _paginaService;
         private readonly IContenutoService _contenutoService;
         private readonly IVoceMenuService _voceMenuService;
@@ -41,7 +42,7 @@ namespace GovApp.api
         private readonly IIscrittiService _iscrittiService;
         private readonly ITipoElezioneService _tipoElezioneService;
 
-        public ValuesController(ILogger<ValuesController> logger, IPaginaService paginaService, IVoceMenuService voceMenuService, IContenutoService contenutoService, IRoleStore<ApplicationRole> roleService, ISezioneService sezioneService, IOptions<ElezioneConfig> elezioneConfig, IBusinessRules businessRules, IAbilitazioniService abilitazioniService, IAffluenzaService affluenzaService, ITipoElezioneService tipoElezioneService, IIscrittiService iscrittiService)
+        public ValuesController(ILogger<ValuesController> logger, IPaginaService paginaService, IVoceMenuService voceMenuService, IContenutoService contenutoService, IRoleStore<ApplicationRole> roleService, ISezioneService sezioneService, IOptions<ElezioneConfig> elezioneConfig, IBusinessRules businessRules, IAbilitazioniService abilitazioniService, IAffluenzaService affluenzaService, ITipoElezioneService tipoElezioneService, IIscrittiService iscrittiService, UserStore utentiService)
         {
             _logger = logger;
             _paginaService = paginaService;
@@ -55,6 +56,7 @@ namespace GovApp.api
             _affluenzaService = affluenzaService;
             _tipoElezioneService = tipoElezioneService;
             _iscrittiService = iscrittiService;
+            _utentiService = utentiService;
         }
 
 
@@ -222,7 +224,7 @@ namespace GovApp.api
                 try
                 {
                     int t = int.Parse(_elezioneConfig.Value.tipoelezioneid);
-                    if (research.tipo != "S")
+                    if (!string.IsNullOrEmpty(research.tipo))
                     {
                         msg = _businessRules.IsInsertable(int.Parse(research.sezione),research.tipo, int.Parse(research.cabina), t);
                     }
@@ -246,8 +248,14 @@ namespace GovApp.api
                             sezioneModel.DescrizioneElezione = sezione.IdtipoelezioneNavigation.Descrizione;
                             sezioneModel.UbicazionePlesso= sezione.IdplessoNavigation.Ubicazione;
                             sezioneModel.DescrizionePlesso = sezione.IdplessoNavigation.Descrizione;
-                            sezioneModel.Tipo = research.tipo;
-
+                            sezioneModel.Tipo = research.tipo;                           
+                            if(string.IsNullOrEmpty(research.tipo) && sezione.UsersSezioni.First() != null)
+                            {
+                                sezioneModel.UserId = sezione.UsersSezioni.First().UserId;
+                                CancellationToken token = new CancellationToken();
+                                ApplicationUser user = _utentiService.FindByIdAsync(sezione.UsersSezioni.First().UserId.ToString(),token).Result;
+                                sezioneModel.UserName = user.UserName; 
+                            }
                         }
                         else
                         {
@@ -493,6 +501,57 @@ namespace GovApp.api
                 return BadRequest(error);
             }
             return Ok(model);
+        }
+
+
+        [HttpPost("/Values/Rapra")]
+        public IActionResult Rapra([FromBody] Input model)
+        {
+            ErrorModel error = new ErrorModel();
+            SezioneModel sezioneJson = new SezioneModel();
+            Affluenze affluenza = new Affluenze();
+            int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+            AndamentoModel andamento = model.anda;
+            try
+            {
+                int s = int.Parse(andamento.sezione);
+                String msg = _businessRules.IsInsertable(s, andamento.tipoAffluenza, 0, tipoelezioneid);
+                if (string.IsNullOrEmpty(msg))
+                {
+                    DateTime oggi = DateTime.Now;
+                    Tipoelezione t = _tipoElezioneService.findTipoElezioneById((int)tipoelezioneid);
+                    switch (andamento.tipoAffluenza)
+                    {
+                        case "RAP":
+                            affluenza = _affluenzaService.findBySezioneNumerosezioneAndTipoelezioneId(s, tipoelezioneid);                           
+                            affluenza.Apertura1 = 0;                           
+                            break;
+                        case "RCO":                          
+                            affluenza.Costituzione1 = 0;                               
+                            break;
+                        default:
+                            error.errMsg = "Errrore in banca dati Parametri non validi";
+                            return BadRequest(error);
+                            break;
+                    }
+                    sezioneJson.Tipo = andamento.tipoAffluenza;
+                    affluenza.Tipoelezioneid = tipoelezioneid;
+                    _affluenzaService.Update(affluenza);
+                }
+                else
+                {
+                    error.errMsg = "Errrore in banca dati: " + msg;
+                    _logger.LogError("Errrore in banca dati: " + msg);
+                    return BadRequest(error);
+                }
+            }
+            catch (Exception ex)
+            {
+                error.errMsg = "Errrore in banca dati " + ex.Message;
+                _logger.LogError("Errrore in banca dati: " + ex.Message);
+                return BadRequest(error);
+            }
+            return Ok(sezioneJson);
         }
 
     }

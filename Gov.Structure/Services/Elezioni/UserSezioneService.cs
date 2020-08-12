@@ -23,7 +23,7 @@ namespace Gov.Structure.Services.Elezioni
         }
 
 
-        public void deleteAllBySezioneInAndUser(List<int> list, uint u,int tipoelezioneid)
+        public void deleteAllBySezioneInAndUser(List<int> list, int u,int tipoelezioneid)
         {
           
             
@@ -62,7 +62,7 @@ namespace Gov.Structure.Services.Elezioni
         {
           
             {
-              return _dbset.Where(x => x.Idtipoelezione == idtipoelezione && x.Sezioneid == sezioneid).FirstOrDefault();
+              return _dbset.Where(x => x.Idtipoelezione == idtipoelezione && x.Sezioneid == sezioneid).Include(i=>i.User).FirstOrDefault();
             }
         }
 
@@ -82,7 +82,7 @@ namespace Gov.Structure.Services.Elezioni
             }
         }
 
-        public List<UsersSezioni> findByTipoelezioneIdAndUserId(int tipoelezioneid, uint userid)
+        public List<UsersSezioni> findByTipoelezioneIdAndUserId(int tipoelezioneid, int userid)
         {
           
             {

@@ -139,8 +139,25 @@ const store = {
                 commit('setProfile', res.data)
             })
         },
-        buttonandamento({ commit }, anda) {
+        insandamento({ commit }, anda) {
             return axios.post('/GovApp/values/apra', anda
+                , {
+                    headers: { 'Content-Type': 'application/json' }
+                }).then(res => {
+                    if (res.status === 200 && res.data !== null) {
+                        commit('setMessage', '');
+                        commit('setSezione', null);
+                    }
+                    else {
+                        commit('setMessage', res.message);
+                        commit('setSezione', null);
+                    }
+                }).catch((error) => {
+                    commit('centralizeMessage', error);
+                });
+        },
+        modandamento({ commit }, anda) {
+            return axios.post('/GovApp/values/rapra', anda
                 , {
                     headers: { 'Content-Type': 'application/json' }
                 }).then(res => {
@@ -173,7 +190,24 @@ const store = {
                     commit('centralizeMessage', error);
                 });
         },
-        insandamento({ commit }, affluenza) {
+        insaffluenza({ commit }, affluenza) {
+            return axios.post('/GovApp/values/anda', affluenza
+                , {
+                    headers: { 'Content-Type': 'application/json' }
+                }).then(res => {
+                    if (res.status === 200 && res.data !== null) {
+                        commit('setMessage', '');
+                        commit('setSezione', null);
+                    }
+                    else {
+                        commit('setMessage', res.message);
+                        commit('setSezione', null);
+                    }
+                }).catch((error) => {
+                    commit('centralizeMessage', error);
+                });
+        },
+        modaffluenza({ commit }, affluenza) {
             return axios.post('/GovApp/values/anda', affluenza
                 , {
                     headers: { 'Content-Type': 'application/json' }

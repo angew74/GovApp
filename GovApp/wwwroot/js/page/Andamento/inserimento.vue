@@ -75,20 +75,17 @@
                 'research'
             ]),
             ...mapActions('context', [
-                'buttonandamento'
+                'insandamento'
             ]),
             ...mapActions('context', [
-                'insandamento'
+                'insaffluenza'
             ]),
             ...mapActions('context', [
                 'researchAffluenza'
             ]),
             ...mapMutations('context', [
                 'setSezione'
-            ]),
-            ...mapMutations('context', [
-                'setSezione'
-            ]),
+            ]),         
             selezioneTipo(e) {
                 this.form.tipo = e;
             },
@@ -118,7 +115,7 @@
                 this.anda.tipoAffluenza = e;
                 this.anda.operazione = "I";
                 this.anda.sezione = this.form.sezione;
-                this.buttonandamento({ authMethod: this.authMode, anda: this.anda }).then(() => {
+                this.insandamento({ authMethod: this.authMode, anda: this.anda }).then(() => {
                     if (this.isMessage) {
                         this.showAlert(this.Message);
                     }
@@ -129,7 +126,7 @@
                 })
             },
             iandamento(r) {
-                this.insandamento({ authMethod: this.authMode, affluenza: r }).then(() => {
+                this.insaffluenza({ authMethod: this.authMode, affluenza: r }).then(() => {
                     if (this.isMessage) {
                         this.showAlert(this.Message);
                     }
