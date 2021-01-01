@@ -1,9 +1,6 @@
 ﻿<template>
     <div>
-        <b-navbar toggleable="lg" type="dark" variant="dark">
-            <b-navbar-brand href="http://Deltasi.it">
-                <img src="../../css/images/goverment.png" style="height: 4em; display: inline-block;vertical-align: middle; max-width: 100%;" />
-            </b-navbar-brand>
+        <b-navbar toggleable="lg" type="dark" variant="dark">            
             <b-nav-item v-if="isAuthenticated" style="margin-top:28px">
                 <b-iconstack id="menu-toogle" font-scale="3" rotate="90" style="cursor: pointer;" v-b-toggle.sidebar-1>
                     <b-icon stacked icon="chevron-right" shift-h="-4" variant="danger"></b-icon>

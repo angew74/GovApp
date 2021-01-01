@@ -56,4 +56,12 @@ npm i --save @fortawesome/free-brands-svg-icons
 npm i --save @fortawesome/free-regular-svg-icons
 
 
+seeding 
+
+ var baseDir = "C:\\Users\\Nick\\CoreProjects\\GovApp\\Gov.Structure\\Migrations\\SqlScripts\\";
+            string[] fileEntries = Directory.GetFiles(baseDir);
+            foreach (string s in fileEntries)
+            {
+                migrationBuilder.Sql(File.ReadAllText(s));
+            }
  

@@ -1957,7 +1957,7 @@ namespace Gov.Structure
                 Denominazione = "Gestione Sezione"
             },new Pagina{
                 Id = 17,
-                Codice = "Voti",
+                Codice = "Coalizioni",
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
@@ -1965,7 +1965,7 @@ namespace Gov.Structure
                 Denominazione = "Inserimento Coalizione"
             },new Pagina{
                 Id = 18,
-                Codice = "Voti",
+                Codice = "Coalizioni",
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
@@ -1973,7 +1973,7 @@ namespace Gov.Structure
                 Denominazione = "Modifica Coalizione"
             },new Pagina{
                 Id = 19,
-                Codice = "Voti",
+                Codice = "Coalizioni",
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
@@ -1981,7 +1981,7 @@ namespace Gov.Structure
                 Denominazione = "Inserimento Coalizione"
             },new Pagina{
                 Id = 20,
-                Codice = "Voti",
+                Codice = "Coalizioni",
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
@@ -1989,7 +1989,7 @@ namespace Gov.Structure
                 Denominazione = "Modifica Coalizione"
             },new Pagina{
                 Id = 21,
-                Codice = "Voti",
+                Codice = "Coalizioni",
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
@@ -1997,7 +1997,7 @@ namespace Gov.Structure
                 Denominazione = "Indice Coalizione"
             },new Pagina{
                 Id = 22,
-                Codice = "Voti",
+                Codice = "Coalizioni",
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
@@ -2151,7 +2151,7 @@ namespace Gov.Structure
             {
                 Id = 13,
                 Icona = "user",
-                Link = "/GovApp/Coalizione/index",
+                Link = "/GovApp/Coalizioni/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
@@ -2162,7 +2162,7 @@ namespace Gov.Structure
             {
                 Id = 14,
                 Icona = "user",
-                Link = "/GovApp/Coalizione/index",
+                Link = "/GovApp/Coalizioni/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
