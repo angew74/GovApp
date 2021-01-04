@@ -19,22 +19,19 @@
                 </b-jumbotron>
             </div>
         </div>
-        <app-footer></app-footer>
-        <error-bound></error-bound>
+        <app-footer></app-footer>     
     </div>
 </template>
 
 <script>
     import sidebaraw from '../../components/sidebaraw.vue';
-    import footeraw from '../../components/footeraw.vue';
-    import errorboundaryaw from '../../components/error-boundaryaw.vue';
+    import footeraw from '../../components/footeraw.vue';  
     import { mapGetters, mapState, mapActions } from 'vuex';
     export default {
         namespaced: true,
         components: {
             'app-sidebar': sidebaraw,
-            'app-footer': footeraw,
-            'error-bound': errorboundaryaw
+            'app-footer': footeraw            
         },
         computed: {
             ...mapState('context', [

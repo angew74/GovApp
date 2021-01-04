@@ -8,15 +8,18 @@ const store = {
         message: '',
         url: '',
         sezione: {},
-        affluenza: {}
+        affluenza: {},
+        auto: []
     },
     getters: {
-        isAuthenticated: state => (state.profile.name !== null),
+        isAuthenticated: state => ((state.profile.name !== null) && (typeof (state.profile.name) !== 'undefined')),
         isMessage: state => state.message !== '',
+        User: state => ((state.profile.name !== null) && (typeof (state.profile.name) !== 'undefined')) ? state.profile.name : "",
         Message: state => state.message,
         Url: state => state.url,
-        isUrl: state => state.url !== '',
+        isUrl: state => state.url !== '',       
         Sezione: state => state.sezione,
+        Auto: state => state.auto,
         Affluenza: state => state.affluenza
     },
     mutations: {
@@ -25,6 +28,9 @@ const store = {
         },
         setMessage(state, message) {
             state.message = message
+        },
+        setAuto(state, auto) {
+            state.auto = auto
         },
         setUrl(state, url) {
             state.url = url;
@@ -36,18 +42,29 @@ const store = {
             state.affluenza = affluenza;
         },
         centralizeMessage(state, error) {
-            if (error.response.data !== null && (typeof (error.response.data.url) === 'undefined' || error.response.data.url === null) && typeof (error.response.data.errMsg) !== 'undefined' && error.response.data.errMsg !== null) {
+            if ((typeof (error.message) !== 'undefined') && (typeof (error.response.data) === 'undefined')) {
+                state.message = error.message;
+                return;
+            }
+            if (typeof (error.response.data) !== 'undefined' && (typeof (error.response.data.url) === 'undefined')) {
+                state.message = error.response.data;
+                return;
+            }
+            if (typeof (error.response.data) !== 'undefined' && (typeof (error.response.data.url) === 'undefined' || error.response.data.url === null) && typeof (error.response.data.errMsg) !== 'undefined' && error.response.data.errMsg !== null) {
                 //  commit('setMessage', error.response.data.errMsg);
                 state.message = error.response.data.errMsg;
+                return;
             }
             else if (error.response.data !== null && typeof (error.response.data.url) !== 'undefined' && error.response.data.url !== null) {
                 state.url = error.response.data.url;
                 state.message = error.response.data.errMsg;
+                return;
                 // commit('setUrl', error.response.data.url);
             }
             else if (error.response.statusText !== '') {
                 // commit('setMessage', error.response.statusText);
                 state.message = state, error.response.statusText;
+                return;
             }
             else {
                 state.message = "Attenzione errore non gestito contattare l'amministratore";
@@ -85,6 +102,23 @@ const store = {
                     if (res.status === 200 && res.data.change.result === true) { commit('setUrl', res.data.change.url); }
                     else { commit('setMessage', res.message); }
                 }).catch((error) => {
+                    commit('centralizeMessage', error);
+                });
+        },
+        autocomplete({ commit }, user) {
+            axios({
+                method: 'get',
+                url: '/GovApp/api/auth/userssuggestions',
+                params: {
+                    "username": user
+                }
+            })
+                .then(response => {    
+                    if (response.status === 200) {
+                        commit('setAuto', response.data);
+                    }
+                })
+                .catch((error) => {
                     commit('centralizeMessage', error);
                 });
         },

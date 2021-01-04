@@ -1,29 +1,39 @@
 ﻿<template>
     <div>
         <app-sidebar></app-sidebar>
-        <app-users :elementi="users" :configurazione="mapgrid" :topRigheTotali="righe" :topPaginaCorrente="pagina" :topPerPagina="per" :filtriSu="fSu" :opzioni="opz" :topOrdinaPer="oPer" :topOrdinaDesc="oDesc"
-                   :ordinaDirezione="direzione" :filtri="fifi" @sorting="sortingUsers"
-                   @disableuser="duser" @deleteuser="deuser" @resetpassword="ruser"
-                   @paging="pagingUsers" @filtering="filteringUsers"></app-users>
-        <notifications position="top center" group="errori" />
-        <notifications position="top center" group="info" />
-        <app-footer></app-footer>
-        <error-bound></error-bound>
+        <b-skeleton-wrapper :loading="loading">
+            <template #loading>
+                <b-row>
+                    <b-col>
+                        <b-skeleton-img></b-skeleton-img>
+                    </b-col>
+                    <b-col>
+                        <b-skeleton-img></b-skeleton-img>
+                    </b-col>
+                    <b-col cols="12" class="mt-3">
+                        <b-skeleton-img no-aspect height="150px"></b-skeleton-img>
+                    </b-col>
+                </b-row>
+            </template>
+            <app-users :elementi="users" :configurazione="mapgrid" :topRigheTotali="righe" :topPaginaCorrente="pagina" :topPerPagina="per" :filtriSu="fSu" :opzioni="opz" :topOrdinaPer="oPer" :topOrdinaDesc="oDesc"
+                       :ordinaDirezione="direzione" :filtri="fifi" @sorting="sortingUsers"
+                       @disableuser="duser" @deleteuser="deuser" @resetpassword="ruser"
+                       @paging="pagingUsers" @filtering="filteringUsers"></app-users>
+            </b-skeleton-wrapper>
+            <app-footer></app-footer>
     </div>
 </template>
 
 <script>
     import sidebaraw from '../../components/sidebaraw.vue';
     import footeraw from '../../components/footeraw.vue';
-    import gridaw from '../../components/gridaw.vue';
-    import errorboundaryaw from '../../components/error-boundaryaw.vue';
+    import gridaw from '../../components/gridaw.vue'; 
     import { mapGetters, mapState, mapActions } from 'vuex';
     export default {
         namespaced: true,
         components: {
             'app-sidebar': sidebaraw,
-            'app-footer': footeraw,
-            'error-bound': errorboundaryaw,
+            'app-footer': footeraw,          
             'app-users': gridaw
         },
         data: function () {
@@ -40,10 +50,12 @@
                 fSu: [],
                 fifi: '',
                 messaggio: '',
-                errored:false
+                errored: false,
+                loading: false
             }
         },
         mounted() {
+            this.loading = true;
             this.getUsers(1);
             this.getParams("users", 1)
         },
@@ -55,51 +67,61 @@
                 'restoreContext'
             ]),
             duser(user) {
+                this.loading = true;
                 axios.post('/GovApp/api/auth/disableuser', user, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 }).then(response => {
-                    this.showAlertinfo("Utente disabilitato");
+                    this.showSweetAlertinfo("Utente disabilitato");
+                    this.loading = false;
                 }).catch(error => {
                     error => this.messaggio = error.response.data.errMsg;
-                    this.showAlert(error.response.data.errMsg);
+                    this.showSweetAlert(error.response.data.errMsg);
+                    this.loading = false;
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
                 });
             },
             deuser(user) {
+                this.loading = true;
                 axios.post('/GovApp/api/auth/deleteuser', user, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 }).then(response => {
-                    this.showAlertinfo("Utente cancellato");
+                    this.loading = false;
+                    this.showSweetAlertinfo("Utente cancellato");
                 }).catch(error => {
                     error => this.messaggio = error.response.data.errMsg;
-                    this.showAlert(error.response.data.errMsg);
+                    this.showSweetAlert(error.response.data.errMsg);
+                    this.loading = false;
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
                 });
             },
             ruser(user) {
+                this.loading = true;
                 axios.post('/GovApp/api/auth/resetpassword', user, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 }).then(response => {
-                    this.showAlertinfo("Password reset effettuato all'indirizzo email");
+                    this.loading = false;
+                    this.showSweetAlertinfo("Password reset effettuato all'indirizzo email");
                 }).catch(error => {
                     error => this.messaggio = error.response.data.errMsg;
-                    this.showAlert(error.response.data.errMsg);
+                    this.showSweetAlert(error.response.data.errMsg);
+                    this.loading = false;
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
                 });
             },
-            getUsers(page, ordinaPer, ordinaDesc, filter,filterarray) {
+            getUsers(page, ordinaPer, ordinaDesc, filter, filterarray) {
+                this.loading = true;
                 axios({
                     method: 'get',
                     url: '/GovApp/api/auth/users',
@@ -113,14 +135,17 @@
                 })
                     .then(response => {
                         this.users = response.data;
+                        this.loading = false;
                     })
                     .catch(function (error) {
                         console.log(error);
-                        this.errored = true;
-                        this.messaggio = error.response.statusText;                       
+                        this.loading = false;
+                        this.messaggio = error.response.statusText;
+                        showSweetAlert(this.messaggio);
                     });
             },
             getUsersFiltering(page, filter, types) {
+                this.loading = true;
                 axios({
                     method: 'get',
                     url: '/GovApp/api/auth/usersfilters',
@@ -132,29 +157,34 @@
                 })
                     .then(response => {
                         this.users = response.data;
+                        this.loading = false;
                     })
                     .catch(function (error) {
-                        console.log(error);
-                        this.errored = true;
+                        console.log(error);                      
                         this.messaggio = error.response.statusText;
+                        this.showSweetAlert(this.messaggio);
+                        this.loading = false;                        
                     });
             },
             getUsersSorting(sort) {
+                this.loading = true;
                 axios.post('/GovApp/api/auth/userssorting', sort, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 }).then(response => {
                     this.users = response.data;
+                    this.loading = false;
                 }).catch(error => {
                     error => this.messaggio = error.response.data.errMsg;
-                    this.showAlert(error.response.data.errMsg);
+                    this.showSweetAlert(error.response.data.errMsg);
+                    this.loading = false;
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
                 });
             },
-            getParams(type, page, ordinaPer, ordinaDesc, filter, filtriarray) {
+            getParams(type, page, ordinaPer, ordinaDesc, filter, filtriarray) {             
                 axios({
                     method: 'get',
                     url: '/GovApp/api/auth/pagination',
@@ -180,7 +210,8 @@
                 })
                     .catch(function (error) {
                         console.log(error);
-                        this.showAlert(error.response.statusText);
+                        this.showSweetAlert(error.response.statusText);
+                        this.loading = false;
                     });
             },
             getParamsFiltering(type, page, filter, opzioni) {
@@ -207,7 +238,8 @@
                 })
                     .catch(function (error) {
                         console.log(error);
-                        this.showAlert(error.response.statusText);
+                        this.showSweetAlert(error.response.statusText);
+                        this.loading = false;
                     });
             },
             pagingUsers(page,ordinaPer,ordinaDesc,filter,filtriarray) {
@@ -225,26 +257,22 @@
             sortingUsers(ctx) {
                 this.getUsersSorting(ctx);
             },
-            showAlert(message) {
-                this.$notify({
-                    group: 'errori',
-                    position: "top center",
-                    duration: "15000",
-                    width: "450px",
-                    type: "error",
+            showSweetAlert(message) {
+                this.$swal({
                     title: 'Attenzione',
-                    text: message
+                    text: message,
+                    icon: 'error',
+                    showCancelButton: false,
+                    showCloseButton: true,
                 })
             },
-            showAlertinfo(message) {
-             this.$notify({
-                    group: 'info',
-                    position: "top center",
-                    duration: "15000",
-                    width: "450px",
-                    type: "success",
+            showSweetAlertinfo(message) {
+                this.$swal({
                     title: 'Congratulazioni',
-                    text: message
+                    text: message,
+                    icon: 'info',
+                    showCancelButton: false,
+                    showCloseButton: true,
                 })
             }
         }

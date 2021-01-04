@@ -1,42 +1,36 @@
 ﻿<template>
     <div>
         <app-sidebar></app-sidebar>
-        <app-formuser @finished="registeruser"></app-formuser>
-        <app-footer></app-footer>
-        <error-bound></error-bound>
-        <notifications position="top center" group="errori" />
-        <notifications position="top center" group="avvisi">
-            <template slot="body" slot-scope="props">
-                <div>
-                    <a class="title">
-                        {{props.item.title}}
-                    </a>
-                    <a class="close" @click="props.close">
-                        <v-icon name="times" />
-                    </a>
-                    <div>
-                        <span> <v-icon name="thumbs-up" /></span>
-                        <p v-html="props.item.text">
-                        </p>
-                    </div>
-                </div>
+        <b-skeleton-wrapper :loading="loading">
+            <template #loading>
+                <b-row>
+                    <b-col>
+                        <b-skeleton-img></b-skeleton-img>
+                    </b-col>
+                    <b-col>
+                        <b-skeleton-img></b-skeleton-img>
+                    </b-col>
+                    <b-col cols="12" class="mt-3">
+                        <b-skeleton-img no-aspect height="150px"></b-skeleton-img>
+                    </b-col>
+                </b-row>
             </template>
-        </notifications>
+            <app-formuser @finished="registeruser"></app-formuser>
+            </b-skeleton-wrapper>
+            <app-footer></app-footer>
     </div>
 </template>
 
 <script>
     import sidebaraw from '../../components/sidebaraw.vue';
     import footeraw from '../../components/footeraw.vue';
-    import errorboundaryaw from '../../components/error-boundaryaw.vue';
     import formuser from '../../components/formuser';
     import { mapGetters, mapState, mapActions } from 'vuex';
     export default {
         namespaced: true,
         components: {
             'app-sidebar': sidebaraw,
-            'app-footer': footeraw,
-            'error-bound': errorboundaryaw,
+            'app-footer': footeraw,           
             'app-formuser': formuser
         },
         data: function () {
@@ -44,11 +38,24 @@
                 form: {},
                 messaggio: '',
                 showmessage: false,
-                countDown: 10               
+                countDown: 10,
+                loading:false,
             }
         },
         created() {
             this.restoreContext()
+        },
+        computed: {
+            ...mapGetters('context', [
+                'isMessage',
+                'Message',
+                'Url',
+                'isUrl'
+            ]),
+            ...mapState('context', [
+                'message',
+                'url'
+            ])
         },
         mounted() {
         },
@@ -59,28 +66,24 @@
             ...mapActions('context', [
                 'register'
             ]),
-            showAlert(message) {
-                this.$notify({
-                    group: 'errori',
-                    position: "top center",
-                    duration: "10000",
-                    width: "500px",
-                    type: "error",
+            showSweetAlert(message) {
+                this.$swal({
                     title: 'Attenzione',
-                    text: message
+                    text: message,
+                    icon: 'error',
+                    showCancelButton: false,
+                    showCloseButton: true,
                 })
             },
-            showAlertAvviso(message) {
-                this.$notify({
-                    group: 'avvisi',
-                    position: "top center",
-                    duration: "10000",
-                    width: "400px",
-                    type: "success",
-                    title: 'Complimenti',
-                    text: message
+            showSweetAlertinfo(message) {
+                this.$swal({
+                    title: 'Congratulazioni',
+                    text: message,
+                    icon: 'info',
+                    showCancelButton: false,
+                    showCloseButton: true,
                 })
-            },
+            }, 
             countDownTimer() {
                 if (this.countDown > 0) {
                     setTimeout(() => {
@@ -89,19 +92,21 @@
                     }, 1000)
                 }
                 else{
-                    window.location.href = this.$store.getters["context/Url"];
+                    window.location.href = this.Url;
                 }
             },
             registeruser(e) {
+                this.loading = true;
                 this.form = e;
                 this.register({ user: this.form }).then(() => {
-                    if (this.$store.getters["context/isMessage"]) {
-                        this.showAlert(this.$store.getters["context/Message"]);
+                    if ((this.isMessage) && !this.isUrl) {
+                        this.showSweetAlert(this.isMessage);
+                        this.loading = false;
                     }
-                    else if (this.$store.getters["context/isUrl"]) {
-                        this.showAlertAvviso("Utente registrato con successo, all'indirizzo email indicato sono state inviate le credenziali.");
-                        this.countDownTimer();                       
-                    }
+                    else if (this.isUrl) {
+                        this.showSweetAlertinfo("Utente registrato con successo, all'indirizzo email indicato sono state inviate le credenziali.");
+                        this.loading = false;
+                    }    
                 })
             }
         }

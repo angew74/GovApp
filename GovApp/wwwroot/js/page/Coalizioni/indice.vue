@@ -1,8 +1,23 @@
 ﻿<template>
     <div>
         <app-sidebar></app-sidebar>
-        <app-cards :contenuti="componenti"></app-cards>
-        <app-footer></app-footer>
+        <b-skeleton-wrapper :loading="loading">
+            <template #loading>
+                <b-row>
+                    <b-col>
+                        <b-skeleton-img></b-skeleton-img>
+                    </b-col>
+                    <b-col>
+                        <b-skeleton-img></b-skeleton-img>
+                    </b-col>
+                    <b-col cols="12" class="mt-3">
+                        <b-skeleton-img no-aspect height="150px"></b-skeleton-img>
+                    </b-col>
+                </b-row>
+            </template>
+            <app-cards :contenuti="componenti"></app-cards>
+            </b-skeleton-wrapper>
+            <app-footer></app-footer>
     </div>
 </template>
 
@@ -19,7 +34,10 @@
               'app-footer': footeraw
           },
         data: function () {
-            return { componenti: [] }
+            return {
+                componenti: [],
+                loading:false,
+            }
         },
         methods: {
             ...mapActions('context', [
@@ -30,6 +48,7 @@
             this.restoreContext()
         },
         mounted() {
+            this.loading = true;
             axios({
                 method: 'get',
                 url: '/GovApp/values/content',
@@ -39,9 +58,11 @@
             })
                 .then(response => {
                     this.componenti = response.data;
+                    this.loading = false;
                 })
                 .catch(function (error) {
                     console.log(error);
+                    this.loading = false;
                 });
         }
       }

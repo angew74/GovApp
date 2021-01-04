@@ -69,7 +69,7 @@ namespace GovApp.api
            
         }
 
-            [HttpGet("/Values/content")]
+        [HttpGet("/Values/content")]
         public IActionResult GetValues([FromQuery] string type)
         {
             Dictionary<String, String> errors = null;
@@ -125,7 +125,7 @@ namespace GovApp.api
             return Ok(model);
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpGet("/Values/menu")]
         public IActionResult GetMenu()
         {

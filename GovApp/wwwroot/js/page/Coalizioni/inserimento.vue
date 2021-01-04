@@ -1,17 +1,29 @@
 ﻿<template>
     <div>
         <app-sidebar></app-sidebar>
-        <b-card title="Ricerca Sezione"
-                style="max-width: 80rem;margin-left:360px"
-                header="Inserimento Coalizioni">
-            <app-cat :categoria="cat" @selection="selezioneTipo"></app-cat>
-            <app-research v-bind:form="form" @research="cercasezione"></app-research>
-        </b-card>
-        <app-sezione :sezionemodel="sez"></app-sezione>
-      
-        <app-footer></app-footer>
-        <notifications position="top center" group="errori" />
-        <notifications position="top center" group="avvisi" />
+        <b-skeleton-wrapper :loading="loading">
+            <template #loading>
+                <b-row>
+                    <b-col>
+                        <b-skeleton-img></b-skeleton-img>
+                    </b-col>
+                    <b-col>
+                        <b-skeleton-img></b-skeleton-img>
+                    </b-col>
+                    <b-col cols="12" class="mt-3">
+                        <b-skeleton-img no-aspect height="150px"></b-skeleton-img>
+                    </b-col>
+                </b-row>
+            </template>
+            <b-card title="Ricerca Sezione"
+                    style="max-width: 80rem;margin-left:360px"
+                    header="Inserimento Coalizioni">
+                <app-cat :categoria="cat" @selection="selezioneTipo"></app-cat>
+                <app-research v-bind:form="form" @research="cercasezione"></app-research>
+            </b-card>
+            <app-sezione :sezionemodel="sez"></app-sezione>
+            </b-skeleton-wrapper>
+            <app-footer></app-footer>         
     </div>
 </template>
 
@@ -29,8 +41,7 @@
             'app-sidebar': sidebaraw,
             'app-research': research,
             'app-footer': footeraw,
-            'app-cat': listacategorie,
-       
+            'app-cat': listacategorie,       
             'app-sezione': sezioneaw
         },
         data: function () {
@@ -41,6 +52,7 @@
                     sezione: ''
                 },               
                 messaggio: '',
+                loading:false,
                 cat: '  LIS',               
                 sez: { iscritti: {} }               
             }
@@ -57,6 +69,7 @@
             ])
         },
         mounted() {
+            this.restoreContext()
         },
         methods: {
             ...mapActions('context', [
@@ -94,20 +107,24 @@
                 })
             },           
             cercasezione(e) {
+                this.loading = true;
                 this.form = e;
                 this.research({ authMethod: this.authMode, researchsezione: this.form }).then(() => {
                     if (this.isMessage) {
                         this.showAlert(this.Message);
+                        this.loading = false;
                     }
                     else {
                         this.tipoAffluenza = this.Sezione.tipo;
                         this.sez = this.Sezione;
                         if (this.tipoAffluenza !== 'CO' && this.tipoAffluenza !== 'AP') {
                             this.cercaaffluenza(e);
+                            this.loading = false;
                         }
                         else {
                             this.aff.numeroSezione = this.Sezione.sezione;
                             this.aff.tipo = this.Sezione.tipo;
+                            this.loading = false;
                         }
                     }
                 })

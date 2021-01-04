@@ -2,24 +2,20 @@
     <div>
         <app-sidebar></app-sidebar>
         <app-formemail :dati="form" @finished="confirmdata"></app-formemail>
-        <notifications position="top center" group="errori" />
-        <app-footer></app-footer>
-        <error-bound></error-bound>
+        <app-footer></app-footer>    
     </div>
 </template>
 
 <script>
     import sidebaraw from '../../components/sidebaraw.vue';
-    import footeraw from '../../components/footeraw.vue';
-    import errorboundaryaw from '../../components/error-boundaryaw.vue';
+    import footeraw from '../../components/footeraw.vue';   
     import formemailaw from '../../components/formemailaw'; 
     import { mapGetters, mapState, mapActions } from 'vuex';
     export default {
         namespaced: true,
         components: {
             'app-sidebar': sidebaraw,
-            'app-footer': footeraw,
-            'error-bound': errorboundaryaw,
+            'app-footer': footeraw,           
             'app-formemail': formemailaw          
         },
         data: function () {
@@ -27,6 +23,18 @@
                 form: {},
                 messaggio: ''              
             }
+        },
+        computed: {
+            ...mapGetters('context', [
+                'isMessage',
+                'Message',
+                'Url',
+                'isUrl'
+            ]),
+            ...mapState('context', [
+                'message',
+                'url'
+            ])
         },
         created() {
             this.restoreContext(),
@@ -50,25 +58,23 @@
             ...mapActions('context', [
                 'authconfirm'
             ]),          
-            showAlert(message) {
-                this.$notify({
-                    group: 'errori',
-                    position: "top center",
-                    duration: "10000",
-                    width: "900",
-                    type: "error",
+            showSweetAlert(message) {
+                this.$swal({
                     title: 'Attenzione',
-                    text: message
-                })               
+                    text: message,
+                    icon: 'error',
+                    showCancelButton: false,
+                    showCloseButton: true,
+                })
             },
             confirmdata(e) {
                 this.form = e;
                 this.authconfirm({ authMethod: this.authMode, confirm: this.form }).then(() => {
-                    if (this.$store.getters["context/isMessage"]) {
-                        this.showAlert(this.$store.getters["context/Message"]);
+                    if ((this.isMessage) && !this.isUrl) {
+                        this.showSweetAlert(this.isMessage);
                     }
-                    else if (this.$store.getters["context/isUrl"]) {
-                        window.location.href = this.$store.getters["context/Url"];
+                    else if (this.isUrl) {
+                        window.location.href = this.Url;
                     }
                 })
             }

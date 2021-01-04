@@ -118,42 +118,54 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /(node_modules)/,
-                query: {
+                options: {
                     presets: [
-                        ['es2017']                       
+                        ['es2017']
                     ],
                     plugins: [
-                        ['transform-runtime'],                       
+                        ['transform-runtime'],
                         ['transform-object-rest-spread'],
                         ['transform-es2015-destructuring']
                     ]
                 }
             },
-            {
-                test: /\.css$/,
-                loaders: ['style-loader', 'css-loader']
-            },
-            {
-                test: /\.scss$/,
-                loaders: ['style-loader', 'sass-loader']
-            },
-            {
-                test: /\.(svg|eot|woff|woff2|ttf)$/,
-                use: ['file-loader']
-            },
-            {
-                test: /\.(png|jpg|gif)$/,
-                use: {
-                    loader: 'url-loader',
-                    options: {
-                        limit: 8192
-                    }
-                }
-            },
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader'
-            }
+           {
+               test: /\.css$/,
+               use: [{
+                   loader: 'style-loader',
+               }, {
+                   loader: 'css-loader'
+               }]
+           },
+           {
+               test: /\.scss$/,
+               use: [{
+                   loader: "style-loader"
+               }, {
+                   loader: "css-loader"
+               }, {
+                   loader: "sass-loader",
+                   options: {
+                   }
+               }]
+           },
+           {
+               test: /\.(svg|eot|woff|woff2|ttf)$/,
+               use: ['file-loader']
+           },
+           {
+               test: /\.(png|jpg|gif)$/,
+               use: {
+                   loader: 'url-loader',
+                   options: {
+                       limit: 8192
+                   }
+               }
+           },
+           {
+               test: /\.vue$/,
+               loader: 'vue-loader'
+           }
         ]
     },
     resolve: {

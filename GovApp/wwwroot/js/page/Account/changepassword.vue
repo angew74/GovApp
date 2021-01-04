@@ -1,47 +1,75 @@
 ﻿<template>
     <div>
         <app-sidebar></app-sidebar>
-        <app-formemail :dati="form" @finished="confirmdata"></app-formemail>
-        <app-footer></app-footer>
-        <error-bound></error-bound>
-        <notifications position="top center" group="errori" />
+        <b-skeleton-wrapper :loading="loading">
+            <template #loading>
+                <b-row>
+                    <b-col>
+                        <b-skeleton-img></b-skeleton-img>
+                    </b-col>
+                    <b-col>
+                        <b-skeleton-img></b-skeleton-img>
+                    </b-col>
+                    <b-col cols="12" class="mt-3">
+                        <b-skeleton-img no-aspect height="150px"></b-skeleton-img>
+                    </b-col>
+                </b-row>
+            </template>
+            <app-formemail :dati="form" @finished="confirmdata"></app-formemail>
+            </b-skeleton-wrapper>
+            <app-footer></app-footer>
+
     </div>
 </template>
 
 <script>
     import sidebaraw from '../../components/sidebaraw.vue';
-    import footeraw from '../../components/footeraw.vue';
-    import errorboundaryaw from '../../components/error-boundaryaw.vue';
+    import footeraw from '../../components/footeraw.vue';  
     import formemailaw from '../../components/formemailaw'; 
     import { mapGetters, mapState, mapActions } from 'vuex';
     export default {
         namespaced: true,
         components: {
             'app-sidebar': sidebaraw,
-            'app-footer': footeraw,
-            'error-bound': errorboundaryaw,
+            'app-footer': footeraw,           
             'app-formemail': formemailaw          
         },
         data: function () {
             return {
                 form: {},             
-                messaggio: '',              
+                messaggio: '',   
+                loading:false
             }
         },
         created() {
-            this.restoreContext(),
+            this.restoreContext();
+            this.loading = true;
                 axios({
                     method: 'get',
                     url: '/GovApp/api/auth/confirm'
                 })
                     .then(response => {
                         this.form = response.data;
+                        this.loading = false;
                     })
                     .catch(function (error) {
                         console.log(error);
+                        this.loading = false;
                     });
         },
         mounted() {
+        },
+        computed: {
+            ...mapGetters('context', [             
+                'isMessage',
+                'Message',
+                'Url',
+                'isUrl'
+            ]),
+            ...mapState('context', [
+                'message',
+                'url'
+            ])
         },
         methods: {
             ...mapActions('context', [
@@ -50,25 +78,26 @@
             ...mapActions('context', [
                 'authchange'
             ]),    
-            showAlert(message) {
-                this.$notify({
-                    group: 'errori',
-                    position: "top center",
-                    duration: "10000",
-                    width: "900",
-                    type: "error",
+            showSweetAlert(message) {
+                this.$swal({
                     title: 'Attenzione',
-                    text: message
-                }) 
+                    text: message,
+                    icon: 'error',
+                    showCancelButton: false,
+                    showCloseButton: true,
+                })
             },
             confirmdata(e) {
+                this.loading = true;
                 this.form = e;
                 this.authchange({ authMethod: this.authMode, change: this.form }).then(() => {
-                    if (this.$store.getters["context/isMessage"]) {
-                        this.showAlert(this.$store.getters["context/Message"]);
+                    if ((this.isMessage) && !this.isUrl) {
+                        this.showSweetAlert(this.isMessage);
+                        this.loading = false;
                     }
-                    else if (this.$store.getters["context/isUrl"]) {
-                        window.location.href = this.$store.getters["context/Url"];
+                    else if (this.isUrl) {
+                        window.location.href = this.Url;
+                        this.loading = false;
                     }
                 })
             }

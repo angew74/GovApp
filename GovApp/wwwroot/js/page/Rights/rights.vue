@@ -1,31 +1,40 @@
 ﻿<template>
     <div>
         <app-sidebar></app-sidebar>
-        <app-rights :elementi="rights" :configurazione="mapgrid" :topRigheTotali="righe" :topPaginaCorrente="pagina" :topPerPagina="per" :filtriSu="fSu" :opzioni="opz" :topOrdinaPer="oPer" :topOrdinaDesc="oDesc"
-                   :ordinaDirezione="direzione" :filtri="fifi" @sorting="sortingRights"
-                   @updating="updateRights"
-                   @paging="pagingRights" @filtering="filteringRights"></app-rights>
-        <app-footer></app-footer>
-        <notifications position="top center" group="errori" />
-        <notifications position="top center" group="info" />
-        <error-bound></error-bound>
+        <b-skeleton-wrapper :loading="loading">
+            <template #loading>
+                <b-row>
+                    <b-col>
+                        <b-skeleton-img></b-skeleton-img>
+                    </b-col>
+                    <b-col>
+                        <b-skeleton-img></b-skeleton-img>
+                    </b-col>
+                    <b-col cols="12" class="mt-3">
+                        <b-skeleton-img no-aspect height="150px"></b-skeleton-img>
+                    </b-col>
+                </b-row>
+            </template>
+            <app-rights :elementi="rights" :configurazione="mapgrid" :topRigheTotali="righe" :topPaginaCorrente="pagina" :topPerPagina="per" :filtriSu="fSu" :opzioni="opz" :topOrdinaPer="oPer" :topOrdinaDesc="oDesc"
+                        :ordinaDirezione="direzione" :filtri="fifi" @sorting="sortingRights"
+                        @updating="updateRights"
+                        @paging="pagingRights" @filtering="filteringRights"></app-rights>
+            </b-skeleton-wrapper>
+            <app-footer></app-footer>
     </div>
 </template>
 
 <script>
     import sidebaraw from '../../components/sidebaraw.vue';
-    import footeraw from '../../components/footeraw.vue';  
-    import errorboundaryaw from '../../components/error-boundaryaw.vue';
+    import footeraw from '../../components/footeraw.vue';     
     import gridaw from '../../components/gridaw.vue';
     import { mapGetters, mapState, mapActions } from 'vuex';
     export default {
         namespaced: true,
         components: {
             'app-sidebar': sidebaraw,
-            'app-footer': footeraw,
-            'error-bound': errorboundaryaw,
+            'app-footer': footeraw,          
             'app-rights': gridaw
-
         },
         data: function () {
             return {
@@ -41,7 +50,7 @@
                 fSu: [],
                 fifi: '',
                 messaggio: '',
-                errored: false
+                loading: false
             }
         },
         mounted() {
@@ -56,6 +65,7 @@
                 'restoreContext'
             ]),
             getRights(page, ordinaPer, ordinaDesc, filter, filterarray) {
+                this.loading = true;
                 axios({
                     method: 'get',
                     url: '/GovApp/api/rights/rights',
@@ -69,14 +79,17 @@
                 })
                     .then(response => {
                         this.rights = response.data;
+                        this.loading = false;
                     })
                     .catch(function (error) {
-                        console.log(error);
-                        this.errored = true;
+                        console.log(error);                       
                         this.messaggio = error.response.statusText;
+                        this.showSweetAlert(error.response.statusText);                       
+                        this.loading = false;
                     });
             },
             getRightsFiltering(page, filter, types) {
+                this.loading = true;
                 axios({
                     method: 'get',
                     url: '/GovApp/api/rights/rightsfilters',
@@ -88,23 +101,28 @@
                 })
                     .then(response => {
                         this.rights = response.data;
+                        this.loading = false;
                     })
                     .catch(function (error) {
-                        console.log(error);
-                        this.errored = true;
+                        console.log(error);                       
                         this.messaggio = error.response.statusText;
+                        this.showSweetAlert(error.response.statusText);
+                        this.loading = false;
                     });
             },
             getRightsSorting(sort) {
+                this.loading = true;
                 axios.post('/GovApp/api/rights/rightssorting', sort, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 }).then(response => {
                     this.rights = response.data;
+                    this.loading = false;
                 }).catch(error => {
                     error => this.messaggio = error.response.data.errMsg;
-                    this.showAlert(error.response.data.errMsg);
+                    this.showSweetAlert(error.response.data.errMsg);
+                    this.loading = false;
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
@@ -139,7 +157,7 @@
                         this.showAlert(error.response.statusText);
                     });
             },
-            getParamsFiltering(type, page, filter, opzioni) {
+            getParamsFiltering(type, page, filter, opzioni) {               
                 axios({
                     method: 'get',
                     url: '/GovApp/api/rights/paginationlike',
@@ -182,42 +200,41 @@
                 this.getURightsSorting(ctx);
             },
             updateRights(right) {
+                this.loading = true;
                 axios.post('/GovApp/api/rights/update', right, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 }).then(response => {
                     this.showAlertinfo("Abilitazione aggiornata correttamente");
+                    this.loading = false;
                 }).catch(error => {
                     error => this.messaggio = error.response.data.errMsg;
-                    this.showAlert(error.response.data.errMsg);
+                    this.showSweetAlert(error.response.data.errMsg);
                     console.log(error.response.data);
                     console.log(error.response.status);
+                    this.loading = false;
                     console.log(error.response.headers);
                 });
             },
-            showAlert(message) {
-                this.$notify({
-                    group: 'errori',
-                    position: "top center",
-                    duration: "15000",
-                    width: "450px",
-                    type: "error",
+            showSweetAlert(message) {
+                this.$swal({
                     title: 'Attenzione',
-                    text: message
+                    text: message,
+                    icon: 'error',
+                    showCancelButton: false,
+                    showCloseButton: true,
                 })
             },
-            showAlertinfo(message) {
-                this.$notify({
-                    group: 'info',
-                    position: "top center",
-                    duration: "15000",
-                    width: "450px",
-                    type: "success",
+            showSweetAlertinfo(message) {
+                this.$swal({
                     title: 'Congratulazioni',
-                    text: message
+                    text: message,
+                    icon: 'info',
+                    showCancelButton: false,
+                    showCloseButton: true,
                 })
-            }
+            }, 
         }
    }
 </script>

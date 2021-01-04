@@ -111,9 +111,9 @@ namespace GovApp.api
                             _httpContextAccessor.HttpContext.User = principal;
                             AuthenticationProperties authenticationProperties = new AuthenticationProperties();
                             authenticationProperties.IsPersistent = true;
-                            authenticationProperties.ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10);
+                            authenticationProperties.ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(15);
                             //  await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal,authenticationProperties);
-                            await _httpContextAccessor.HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, principal, authenticationProperties);
+                            await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authenticationProperties);
                             if (user.EmailConfirmed == false)
                             {
                                 error.Url = "/GovApp/account/confirmemail";
@@ -363,17 +363,17 @@ namespace GovApp.api
         public async Task<IActionResult> GetUsersSuggestions(string username)
         {
             ErrorModel error = new ErrorModel();
-            List<string> usersmodel = new List<string>();
+            List<UserModel> usersmodel = new List<UserModel>();
             try
             {
                 List<ApplicationUser> applicationUsers = new List<ApplicationUser>();
-                applicationUsers = _utentiService.GetUsersByUsernameLike(username,0,20);
+                applicationUsers = _utentiService.GetUsersByUsernameLike(username, 0, 20);
                 if (applicationUsers == null)
                 {
                     return Ok(usersmodel);
                 }
-                usersmodel = applicationUsers.Select(x => x.UserName).ToList();
-            }
+                usersmodel = applicationUsers.ConvertAll(x => new UserModel { id = x.Id.ToString(), userName = x.UserName});
+            }            
             catch (Exception ex)
             {
                 _logger.LogError("Eccezione non gestita dettagli: " + ex.Message);

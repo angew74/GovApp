@@ -1,55 +1,65 @@
 ﻿<template>
     <div>
         <app-sidebar></app-sidebar>
-        <b-card title="Ricerca Sezione"
-                style="max-width: 80rem;margin-left:360px"
-                header="Associa Sezione Utente">
-            <app-research v-bind:form="form" @research="cercasezione"></app-research>
-        </b-card>
-        <app-sezione :sezionemodel="sez"></app-sezione>
-        <b-card style="max-width: 80rem;margin-left:360px">
-            <div class="container">
-                <validation-observer ref="observer" v-slot="{ handleSubmit }">
-                    <b-form @submit.stop.prevent="handleSubmit(onSubmit)">
-
-                        <validation-provider name="user"
-                                             :rules="{required:true,min:3,max:16}"
-                                             v-slot="{ errors }">
-                            <b-form-group id="usergroup"
-                                          label="Utente associato:"
-                                          label-for="user">
-                                <b-input-group>
-                                    <b-input-group-prepend>
-                                        <span class="input-group-text"><v-icon scale="1.5" name="user" /></span>
-                                    </b-input-group-prepend>
-                                    <vue-autosuggest ref="autocomplete"
-                                                     v-model="user"
-                                                     :suggestions="suggestions"
-                                                     :inputProps="inputProps"
-                                                     :renderSuggestion="renderSuggestion"
-                                                     :getSuggestionValue="getSuggestionValue"
-                                                     @selected="onSelected"
-                                                     @input="fetchResults" />
-                                </b-input-group>
-                                <p class="error">{{ errors[0] }}</p>
-                            </b-form-group>
-                        </validation-provider>
-                        <b-form-input id="nSez"
-                                      v-model="nsez"
-                                      type="text"
-                                      style="display:none"></b-form-input>
-                        <b-form-input id="nCab"
-                                      v-model="ncab"
-                                      type="text"
-                                      style="display:none"></b-form-input>
-                        <b-button type="submit" :disabled="isDisabled" variant="primary">Associa</b-button>
-                    </b-form>
-                </validation-observer>               
-            </div>
-        </b-card>
-        <app-footer></app-footer>
-        <notifications position="top center" group="errori" />
-        <notifications position="top center" group="info" />
+        <b-skeleton-wrapper :loading="loading">
+            <template #loading>
+                <b-row>
+                    <b-col>
+                        <b-skeleton-img></b-skeleton-img>
+                    </b-col>
+                    <b-col>
+                        <b-skeleton-img></b-skeleton-img>
+                    </b-col>
+                    <b-col cols="12" class="mt-3">
+                        <b-skeleton-img no-aspect height="150px"></b-skeleton-img>
+                    </b-col>
+                </b-row>
+            </template>
+            <b-card title="Ricerca Sezione"
+                    style="max-width: 80rem;margin-left:360px"
+                    header="Associa Sezione Utente">
+                <app-research v-bind:form="form" @research="cercasezione"></app-research>
+            </b-card>
+            <app-sezione :sezionemodel="sez"></app-sezione>
+            <b-card style="max-width: 80rem;margin-left:360px">
+                <div class="container">
+                    <validation-observer ref="observer" v-slot="{ handleSubmit }">
+                        <b-form @submit.stop.prevent="handleSubmit(onSubmit)">
+                            <validation-provider name="user"
+                                                 :rules="{required:true,min:3,max:16}"
+                                                 v-slot="{ errors }">
+                                <b-form-group id="usergroup"
+                                              label="Utente associato:"
+                                              label-for="user">
+                                    <b-input-group>
+                                        <b-input-group-prepend>
+                                            <span class="input-group-text"><v-icon name="user" /></span>
+                                        </b-input-group-prepend>
+                                        <vue-bootstrap-typeahead ref="autocomplete"                                                                
+                                                                 v-model="query"
+                                                                 :data="items"
+                                                                 :serializer="item => item.userName"
+                                                                 @hit="itemSelected = $event"
+                                                                 placeholder="Inserisci utente da associare" />
+                                    </b-input-group>
+                                    <p class="error">{{ errors[0] }}</p>
+                                </b-form-group>
+                            </validation-provider>
+                            <b-form-input id="nSez"
+                                          v-model="nsez"
+                                          type="text"
+                                          style="display:none"></b-form-input>
+                            <b-form-input id="nCab"
+                                          v-model="ncab"
+                                          type="text"
+                                          style="display:none"></b-form-input>
+                            <b-button type="submit" :disabled="isDisabled" variant="primary">Associa</b-button>
+                        </b-form>
+                    </validation-observer>
+                </div>
+            </b-card>
+            </b-skeleton-wrapper>
+            <app-footer></app-footer>
     </div>
 </template>
 <script>
@@ -57,7 +67,6 @@
     import footeraw from '../../components/footeraw.vue';
     import research from '../../components/research.vue';
     import sezioneaw from '../../components/sezioneaw.vue';
-
     import { mapGetters, mapState, mapActions, mapMutations } from 'vuex';
     export default {
         namespaced: true,
@@ -75,128 +84,93 @@
                     sezione: ''
                 },
                 messaggio: '',
+                loading:false,
                 selected: null,
                 sez: { iscritti: {} },
                 user: '',
                 nsez: '',
-                ncab: '',
-                users: {},
-                suggestions: [],
-                isDisabled: true,
-                inputProps: {
-                    id: "autosuggest__input",
-                    placeholder: "Digitare un utente",
-                    class: "form-control",
-                    name: "user"
-                }              
+                ncab: '',                         
+                items: [],
+                itemSelected: null,            
+                item: { id: "0", userName: "" },
+                query: '',
+                isDisabled: true,                       
             }
-        },
+        },        
         computed: {
             ...mapState('context', [
                 'sezione',
-                'message'
+                'message',
+                'auto'
             ]),
             ...mapGetters('context', [
                 'Sezione',
                 'isMessage',
-                'Message'
-            ]),             
-            renderSuggestion(suggestion) {
-                if (suggestion === "userslist") {   
-                    return suggestion.item.userName;
-                }
-            },
-            getSuggestionValue(suggestion) {
-                let { userslist} = suggestion;
-                return userslist;
-            },           
-            fetchResults() {                
-                if (this.user !== null)
-                {
-                    axios({
-                        method: 'get',
-                        url: '/GovApp/api/auth/userssuggestions',
-                        params: {
-                            "username": this.user
-                        }
-                    })
-                        .then(response => {
-                            this.suggestions = [];
-                            this.selected = null;
-                            this.users = response.data;
-                            this.suggestions.push({ name: "userslist", data: this.users });
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                            this.errored = true;
-                            this.messaggio = error.response.statusText;
-                        });
-                }
-            }
+                'Message',
+                'Auto'
+            ]),                   
         },
         mounted() {
+            this.restoreContext()
         },
-        watch: {           
+        watch: {  
+            query(newQuery) {
+                if (newQuery.length > 3) {
+                    this.autocomplete(newQuery).then((response) => {
+                        if (this.isMessage) {
+                            this.showSweetAlert(this.Message);
+                        } else {
+                            this.items = this.Auto;
+                        }
+                    })
+                }
+            },    
         },
         methods: {
             ...mapActions('context', [
                 'restoreContext'
             ]),
             ...mapActions('context', [
+                'autocomplete'
+            ]),
+            ...mapActions('context', [
                 'research'
             ]),
             ...mapMutations('context', [
                 'setSezione'
-            ]),
-            onSelected(item) {
-                this.selected = item.item;
-                if (item.item.length > 3)
-                    this.isDisabled = false;
-                else {
-                    this.isDisabled = true;
-                }
-            },
-            showAlert(message) {
-                this.$notify({
-                    group: 'errori',
-                    position: "top center",
-                    duration: "15000",
-                    width: "450px",
-                    type: "error",
+            ]),          
+            showSweetAlert(message) {
+                this.$swal({
                     title: 'Attenzione',
-                    text: message
+                    text: message,
+                    icon: 'error',
+                    showCancelButton: false,
+                    showCloseButton: true,
                 })
             },
-            showAlertAvviso(message) {
-                this.$notify({
-                    group: 'avvisi',
-                    position: "top center",
-                    duration: "10000",
-                    width: "400px",
-                    type: "success",
-                    title: 'Complimenti',
-                    text: message
+            showSweetAlertinfo(message) {
+                this.$swal({
+                    title: 'Congratulazioni',
+                    text: message,
+                    icon: 'info',
+                    showCancelButton: false,
+                    showCloseButton: true,
                 })
-            },
-            selectHandler(item) {
-                if (item) {
-                    this.selected = item.item;
-                }
-            },
-            clickHandler(item) {
-                this.loading = false;
-            },
+            },                  
             cercasezione(e) {
+                this.loading = true;
                 this.form = e;
                 this.research({ authMethod: this.authMode, researchsezione: this.form }).then(() => {
                     if (this.isMessage) {
-                        this.showAlert(this.Message);
+                        this.showSweetAlert(this.Message);
+                        this.loading = false;
                     }
                     else {
                         this.sez = this.Sezione;
                         this.nsez = this.Sezione.numeroSezione;
                         this.user = this.Sezione.userName;
                         this.ncab = this.Sezione.cabina;
+                        this.loading = false;
                     }
                 })
             },
@@ -204,23 +178,26 @@
                 return dirty || validated ? valid : null;
             },
             onSubmit() {
+                this.loading = true;
                 axios({
                     method: 'get',
                     url: '/GovApp/api/auth/associa',
                     params: {
-                        "user": this.user,
+                        "user": this.itemSelected.userName,
                         "sezione": this.nsez,
                         "cabina" : this.ncab
                     }
                 })
                     .then(response => {
-                        this.showAlertAvviso("Sezione associata con successo");
+                        this.showSweetAlertinfo("Sezione associata con successo");
+                        this.loading = false;
                     })
                     .catch(function (error) {
                         console.log(error);
                         this.errored = true;
                         this.messaggio = error.response.statusText;
-                        this.showAlert(this.messaggio);
+                        this.showSweetAlert(this.messaggio);
+                        this.loading = false;
                     });
             }
         }

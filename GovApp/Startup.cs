@@ -13,6 +13,7 @@ using GovApp.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -54,17 +55,45 @@ namespace GovApp
               .AddUserManager<ApplicationUserManager>()
               .AddRoleManager<RoleManager<ApplicationRole>>()
               .AddClaimsPrincipalFactory<ApplicationUserClaimsPrincipalFactory<ApplicationUser, ApplicationRole>>();
+            services.AddSession(x =>
+            {
+                x.Cookie.Name = "GovApp";
+                x.IdleTimeout = TimeSpan.FromMinutes(15); // idle time for the session      );
+            });
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;               
             });
-           /* services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme, options =>
+            services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
             {
                 options.EventsType = typeof(GovCookieAuthenticationEvents);
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                options.Cookie.IsEssential = true;
+                options.Cookie.Name = "GovApp";
+                options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;               
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+                options.LoginPath = $"/Account/Login";  // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login  
+                options.LogoutPath = $"/Account/Logout"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout  
+                options.AccessDeniedPath = $"/Account/AccessDenied"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied  
+                options.SlidingExpiration = true;
+                options.Events = new CookieAuthenticationEvents
+                {
+                    OnRedirectToLogin = redirectContext =>
+                    {
+                        redirectContext.HttpContext.Response.StatusCode = 401;
+                        return Task.CompletedTask;
+                    }
+                };
 
-            });*/
+            });
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings                
@@ -81,33 +110,7 @@ namespace GovApp
                 options.User.RequireUniqueEmail = false;
             });
             services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, Microsoft.AspNetCore.Http.HttpContextAccessor>();
-            services.AddHttpContextAccessor();
-            services.ConfigureApplicationCookie(options =>
-            {
-                // Cookie settings  
-                options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-                options.Cookie.IsEssential = true;
-                options.Cookie.Name = "GovApp";
-                options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
-                options.LoginPath = $"/Account/Login";  // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login  
-                options.LogoutPath = $"/Account/Logout"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout  
-                options.AccessDeniedPath = $"/Account/AccessDenied"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied  
-                options.SlidingExpiration = true;
-                options.EventsType = typeof(GovCookieAuthenticationEvents);
-                // Simply return 401 responses when authentication fails 
-                // as opposed to the default of redirecting to the login page
-                options.Events = new CookieAuthenticationEvents
-                {
-                    OnRedirectToLogin = redirectContext =>
-                    {
-                        redirectContext.HttpContext.Response.StatusCode = 401;
-                        return Task.CompletedTask;
-                    }
-                };
-            });
+            services.AddHttpContextAccessor();           
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequireAdministratorRole",
@@ -137,6 +140,11 @@ namespace GovApp
             services.Configure<ElezioneConfig>(Configuration.GetSection("elezioneConfig"));
             services.AddScoped<GovCookieAuthenticationEvents>();
             services.AddScoped<LockAuthorizePermission>();
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);         
         }
         public void ConfigureContainer(ContainerBuilder builder)

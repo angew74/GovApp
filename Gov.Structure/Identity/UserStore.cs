@@ -475,16 +475,19 @@ namespace Gov.Structure.Identity
             DateTime lastChange= LastChangeUser(context.Principal.Identity.Name);
             var userPrincipal = context.Principal;
 
-            // Look for the last changed claim.          
-            DateTime cookieDate = DateTime.Parse(context.Principal.FindFirst("UpdatedOn").Value);
-            if (lastChange == null || lastChange < cookieDate)
+            // Look for the last changed claim.     
+            if (context.Principal.FindFirst("UpdatedOn") != null)
             {
-                await context.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                context.RejectPrincipal();       
-            }
-            else
-            {
-                return;
+                DateTime cookieDate = DateTime.Parse(context.Principal.FindFirst("UpdatedOn").Value);
+                if (lastChange == null || lastChange < cookieDate)
+                {
+                    await context.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    context.RejectPrincipal();
+                }
+                else
+                {
+                    return;
+                }
             }
         }
     }
