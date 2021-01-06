@@ -601,7 +601,7 @@ namespace GovApp.api
 
         [Authorize]
         [HttpGet("associa")]
-        public async Task<IActionResult> Associa(string user, string sezione,string cabina)
+        public IActionResult Associa(string user, string sezione,string cabina)
         {          
             ErrorModel error = new ErrorModel();
             try

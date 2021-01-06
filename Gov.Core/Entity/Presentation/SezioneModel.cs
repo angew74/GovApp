@@ -27,5 +27,18 @@ namespace Gov.Core.Entity.Presentation
         public string DescrizionePlesso { get; set; }
         public string UserName { get; set; }
         public int UserId { get; set; }
+
+        public List<Status> StatusSezione { get; set; }
+      
+    }
+
+    public class Status
+    {
+        public string nome { get; set; }
+        public string id { get; set; }
+
+        public bool pervenuto { get; set; }
+        public string user { get; set; }
+        public string dataregistrazione { get; set; }
     }
 }

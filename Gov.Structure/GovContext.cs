@@ -2003,6 +2003,14 @@ namespace Gov.Structure
                 UpdatedBy = null,
                 RoleId =Roles.Single(i => i.Name == "user").Id,
                 Denominazione = "Indice Coalizione"
+            },new Pagina{
+                Id = 23,
+                Codice = "Sezioni",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Status Sezione"
             }};
             modelBuilder.Entity<Pagina>().HasData(Pagine);
             var Voci = new VoceMenu[] {
@@ -2169,6 +2177,17 @@ namespace Gov.Structure
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "user").Id,
                 Voce = "Voti Coalizione"
+            }, new VoceMenu
+            {
+                Id = 15,
+                Icona = "question-circle",
+                Link = "/GovApp/Sezioni/status",
+                Active = true,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId = Roles.Single(i => i.Name == "admin").Id,
+                Voce = "Status Sezione"
             }};
             modelBuilder.Entity<VoceMenu>().HasData(Voci);
             var TipiContenuto = new TipoContenuto[]

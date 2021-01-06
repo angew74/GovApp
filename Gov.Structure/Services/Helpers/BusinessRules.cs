@@ -181,10 +181,13 @@ namespace Gov.Structure.Services.Helpers
         public string IsInsertable(int sezione, string codiceFase, int cabina, int idtipoelezione)
         {
             String message = "";
-            FaseElezione fase = _abilitazioniService.findByCodiceAndTipoelezioneId(codiceFase, idtipoelezione);
-            if (fase.IsAbilitata== false)
+            if (codiceFase.ToUpper() != "INT")
             {
-                return "Funzionalità non abilitata";
+                FaseElezione fase = _abilitazioniService.findByCodiceAndTipoelezioneId(codiceFase, idtipoelezione);
+                if (fase.IsAbilitata == false)
+                {
+                    return "Funzionalità non abilitata";
+                }
             }
             if (cabina != 0)
             {
@@ -212,258 +215,261 @@ namespace Gov.Structure.Services.Helpers
                
             }           
             Affluenze affluenza = _affluenzaService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
-            switch (codiceFase)
+            if (codiceFase.ToUpper() != "INT")
             {
-                case "AP":
-                    if (affluenza == null)
-                    {
-                        return "Sezione non costitutita";
-                    }
-                    if (affluenza.Apertura1 != null && affluenza.Apertura1 == 1)
-                    {
-                        return "Affluenza già inserita usare rettifica";
-                    }
-                    if ((affluenza.Costituzione1 ==  null) || (affluenza.Costituzione1 == 0))
-                    {
-                        return "Manca Costituzione";
-                    }
-                    break;
-                case "RAP":
-                    if (affluenza == null)
-                    {
-                        return "Sezione non costitutita";
-                    }
-                    if (affluenza.Apertura1 != null && affluenza.Apertura1 == 0)
-                    {
-                        return "Apertura non inserita usare funzione inserimento";
-                    }
-                    if (affluenza.Affluenza1 != null && affluenza.Affluenza1 == 1)
-                    {
-                        return "Affluenza già inserita impossibile annullare";
-                    }
-                    if ((affluenza.Costituzione1 == null) || (affluenza.Costituzione1 == 0))
-                    {
-                        return "Manca Costituzione";
-                    }
-                    if (affluenza.Apertura1 == 0)
-                    {
-                        return message;
-                    }
-                    break;
-                case "CO":
-                    if (affluenza == null)
-                    {
-                        return message;
-                    }
-                    if (affluenza != null)
-                    {
-                        if (affluenza.Costituzione1 == 1)
+                switch (codiceFase.ToUpper())
+                {
+                    case "AP":
+                        if (affluenza == null)
                         {
-                            return "Costituzione già inserita usare rettitifica";
+                            return "Sezione non costitutita";
                         }
-                    }
-                    if (affluenza.Apertura1 != null && affluenza.Apertura1 == 1)
-                    {
-                        return "Apertura inserita";
-                    }
-                    break;
-                case "RCO":
-                    if (affluenza == null)
-                    {
-                        return "Costituzione non effettuata usare inserimento";
-                    }
-                    if (affluenza.Apertura1 != null && affluenza.Apertura1 ==1)
-                    {
-                        return "Apertura già inserita impossibile annullare costituzione";
-                    }
-                    break;
-                case "1A":
-                    if (affluenza == null)
-                    {
-                        return "Sezione non costitutita";
-                    }
-                    if (affluenza.Affluenza1 != null && affluenza.Affluenza1 == 1)
-                    {
-                        return "1 Affluenza già registrata";
-                    }
-                    if ((affluenza.Apertura1 == null) || (affluenza.Apertura1 == 0))
-                    {
-                        return "Manca Apertura";
-                    }
-                    break;
-                case "R1A":
-                    if (affluenza == null)
-                    {
-                        return "Sezione non costitutita";
-                    }
-                    if (affluenza.Affluenza1 == null || affluenza.Affluenza1 == 0)
-                    {
-                        return "1 Affluenza non registrata usare inserimento";
-                    }
-                    if (affluenza.Affluenza2 != null && affluenza.Affluenza2 == 1)
-                    {
-                        return "2 Affluenza inserita impossibile annullare";
-                    }
-                    if ((affluenza.Apertura1 == null) || (affluenza.Apertura1 == 0))
-                    {
-                        return "Manca Apertura";
-                    }
-                    break;
-                case "2A":
-                    if (affluenza == null)
-                    {
-                        return "Sezione non costitutita";
-                    }
-                    if (affluenza.Affluenza2 != null && affluenza.Affluenza2== 1)
-                    {
-                        return "2 Affluenza già registrata";
-                    }
-                    if ((affluenza.Affluenza1 == null) || (affluenza.Affluenza1== 0))
-                    {
-                        return "Manca 1 Affluenza";
-                    }
-                    break;
-                case "R2A":
-                    if (affluenza == null)
-                    {
-                        return "Sezione non costitutita";
-                    }
-                    if (affluenza.Affluenza2 == null || affluenza.Affluenza2== 0)
-                    {
-                        return "2 Affluenza non registrata usare inserimento";
-                    }
-                    if ((affluenza.Affluenza1 == null) || (affluenza.Affluenza1== 0))
-                    {
-                        return "Manca 1 Affluenza";
-                    }
-                    if (affluenza.Affluenza3 != null && affluenza.Affluenza3 == 1)
-                    {
-                        return "3 Affluenza inserita impossibile annullare";
-                    }
-                    break;
-                case "3C":
-                    if (affluenza == null)
-                    {
-                        return "Sezione non costitutita";
-                    }
-                    if (affluenza.Affluenza3 != null && affluenza.Affluenza3== 1)
-                    {
-                        return "Chiusura già registrata";
-                    }
-                    if ((affluenza.Affluenza2 == null) || (affluenza.Affluenza2== 0))
-                    {
-                        return "Manca 2 Affluenza";
-                    }
-                    break;
-                case "R3C":
-                    if (affluenza == null)
-                    {
-                        return "Sezione non costitutita";
-                    }
-                    if (affluenza.Affluenza3 == null || affluenza.Affluenza3== 0)
-                    {
-                        return "Chiusura non registrata usare inserimento";
-                    }
-                    break;
-                case "VL":
-                    List<VotiLista> lvoti = _votiListaService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
-                    if (affluenza == null)
-                    {
-                        return "Sezione non costitutita";
-                    }
-                    if (affluenza.Affluenza3 == null || affluenza.Affluenza3== 0)
-                    {
-                        return "Chiusura non registrata";
-                    }
-                    if (lvoti != null && lvoti.Count > 0)
-                    {
-                        return "Scrutinio già registrato usare rettifica";
-                    }
-                    break;
-                case "RVL":
-                    List<VotiLista> lvotir = _votiListaService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
-                    if (affluenza == null)
-                    {
-                        return "Sezione non costitutita";
-                    }
-                    if (affluenza.Affluenza3 == null || affluenza.Affluenza3== 0)
-                    {
-                        return "Chiusura non registrata";
-                    }
-                    if ((lvotir == null) || (lvotir.Count() == 0))
-                    {
-                        return "Scrutinio non registrato usare inserimento";
-                    }
-                    break;
-                case "VS":
-                    List<VotiSindaco> lsindaco = _votiSindacoService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
-                    if (affluenza == null)
-                    {
-                        return "Sezione non costitutita";
-                    }
-                    if (affluenza.Affluenza3 == null || affluenza.Affluenza3== 0)
-                    {
-                        return "Chiusura non registrata";
-                    }
-                    if (lsindaco != null && lsindaco.Count() > 0)
-                    {
-                        return "Scrutinio già registrato usare rettifica";
-                    }
-                    break;
-                case "RVS":
-                    List<VotiSindaco> lvotisindacor = _votiSindacoService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
-                    if (affluenza == null)
-                    {
-                        return "Sezione non costitutita";
-                    }
-                    if (affluenza.Affluenza3 == null || affluenza.Affluenza3== 0)
-                    {
-                        return "Chiusura non registrata";
-                    }
-                    if ((lvotisindacor == null) || (lvotisindacor.Count() == 0))
-                    {
-                        return "Scrutinio non registrato usare inserimento";
-                    }
-                    break;
-                case "PE":
-                    List<VotiLista> lvotip = _votiListaService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
-                    List<VotiPreferenze> lpreferenze = _votiPreferenzeService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
-                    if (affluenza == null)
-                    {
-                        return "Sezione non costitutita";
-                    }
-                    if (affluenza.Affluenza3 == null && affluenza.Affluenza3== 0)
-                    {
-                        return "Chiusura non registrata";
-                    }
-                    if ((lvotip == null) || (lvotip.Count() == 0))
-                    {
-                        return "Scrutinio non registrato impossibile inserire preferenze";
-                    }
-                    if (lpreferenze != null && lpreferenze.Count() > 0)
-                    {
-                        return "Preferenze già registrate usare rettifica";
-                    }
-                    break;
-                case "RPE":
-                    List<VotiPreferenze> rlpreferenze = _votiPreferenzeService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
-                    if (affluenza == null)
-                    {
-                        return "Sezione non costitutita";
-                    }
-                    if (affluenza.Affluenza3 == null || affluenza.Affluenza3== 0)
-                    {
-                        return "Chiusura non registrata";
-                    }
-                    if ((rlpreferenze == null) || (rlpreferenze.Count() == 0))
-                    {
-                        return "Preferenze non registrate usare inserimento";
-                    }
-                    // todo aggiungere controllo preferenze
-                    break;
+                        if (affluenza.Apertura1 != null && affluenza.Apertura1 == 1)
+                        {
+                            return "Affluenza già inserita usare rettifica";
+                        }
+                        if ((affluenza.Costituzione1 == null) || (affluenza.Costituzione1 == 0))
+                        {
+                            return "Manca Costituzione";
+                        }
+                        break;
+                    case "RAP":
+                        if (affluenza == null)
+                        {
+                            return "Sezione non costitutita";
+                        }
+                        if (affluenza.Apertura1 != null && affluenza.Apertura1 == 0)
+                        {
+                            return "Apertura non inserita usare funzione inserimento";
+                        }
+                        if (affluenza.Affluenza1 != null && affluenza.Affluenza1 == 1)
+                        {
+                            return "Affluenza già inserita impossibile annullare";
+                        }
+                        if ((affluenza.Costituzione1 == null) || (affluenza.Costituzione1 == 0))
+                        {
+                            return "Manca Costituzione";
+                        }
+                        if (affluenza.Apertura1 == 0)
+                        {
+                            return message;
+                        }
+                        break;
+                    case "CO":
+                        if (affluenza == null)
+                        {
+                            return message;
+                        }
+                        if (affluenza != null)
+                        {
+                            if (affluenza.Costituzione1 == 1)
+                            {
+                                return "Costituzione già inserita usare rettitifica";
+                            }
+                        }
+                        if (affluenza.Apertura1 != null && affluenza.Apertura1 == 1)
+                        {
+                            return "Apertura inserita";
+                        }
+                        break;
+                    case "RCO":
+                        if (affluenza == null)
+                        {
+                            return "Costituzione non effettuata usare inserimento";
+                        }
+                        if (affluenza.Apertura1 != null && affluenza.Apertura1 == 1)
+                        {
+                            return "Apertura già inserita impossibile annullare costituzione";
+                        }
+                        break;
+                    case "1A":
+                        if (affluenza == null)
+                        {
+                            return "Sezione non costitutita";
+                        }
+                        if (affluenza.Affluenza1 != null && affluenza.Affluenza1 == 1)
+                        {
+                            return "1 Affluenza già registrata";
+                        }
+                        if ((affluenza.Apertura1 == null) || (affluenza.Apertura1 == 0))
+                        {
+                            return "Manca Apertura";
+                        }
+                        break;
+                    case "R1A":
+                        if (affluenza == null)
+                        {
+                            return "Sezione non costitutita";
+                        }
+                        if (affluenza.Affluenza1 == null || affluenza.Affluenza1 == 0)
+                        {
+                            return "1 Affluenza non registrata usare inserimento";
+                        }
+                        if (affluenza.Affluenza2 != null && affluenza.Affluenza2 == 1)
+                        {
+                            return "2 Affluenza inserita impossibile annullare";
+                        }
+                        if ((affluenza.Apertura1 == null) || (affluenza.Apertura1 == 0))
+                        {
+                            return "Manca Apertura";
+                        }
+                        break;
+                    case "2A":
+                        if (affluenza == null)
+                        {
+                            return "Sezione non costitutita";
+                        }
+                        if (affluenza.Affluenza2 != null && affluenza.Affluenza2 == 1)
+                        {
+                            return "2 Affluenza già registrata";
+                        }
+                        if ((affluenza.Affluenza1 == null) || (affluenza.Affluenza1 == 0))
+                        {
+                            return "Manca 1 Affluenza";
+                        }
+                        break;
+                    case "R2A":
+                        if (affluenza == null)
+                        {
+                            return "Sezione non costitutita";
+                        }
+                        if (affluenza.Affluenza2 == null || affluenza.Affluenza2 == 0)
+                        {
+                            return "2 Affluenza non registrata usare inserimento";
+                        }
+                        if ((affluenza.Affluenza1 == null) || (affluenza.Affluenza1 == 0))
+                        {
+                            return "Manca 1 Affluenza";
+                        }
+                        if (affluenza.Affluenza3 != null && affluenza.Affluenza3 == 1)
+                        {
+                            return "3 Affluenza inserita impossibile annullare";
+                        }
+                        break;
+                    case "3C":
+                        if (affluenza == null)
+                        {
+                            return "Sezione non costitutita";
+                        }
+                        if (affluenza.Affluenza3 != null && affluenza.Affluenza3 == 1)
+                        {
+                            return "Chiusura già registrata";
+                        }
+                        if ((affluenza.Affluenza2 == null) || (affluenza.Affluenza2 == 0))
+                        {
+                            return "Manca 2 Affluenza";
+                        }
+                        break;
+                    case "R3C":
+                        if (affluenza == null)
+                        {
+                            return "Sezione non costitutita";
+                        }
+                        if (affluenza.Affluenza3 == null || affluenza.Affluenza3 == 0)
+                        {
+                            return "Chiusura non registrata usare inserimento";
+                        }
+                        break;
+                    case "VL":
+                        List<VotiLista> lvoti = _votiListaService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
+                        if (affluenza == null)
+                        {
+                            return "Sezione non costitutita";
+                        }
+                        if (affluenza.Affluenza3 == null || affluenza.Affluenza3 == 0)
+                        {
+                            return "Chiusura non registrata";
+                        }
+                        if (lvoti != null && lvoti.Count > 0)
+                        {
+                            return "Scrutinio già registrato usare rettifica";
+                        }
+                        break;
+                    case "RVL":
+                        List<VotiLista> lvotir = _votiListaService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
+                        if (affluenza == null)
+                        {
+                            return "Sezione non costitutita";
+                        }
+                        if (affluenza.Affluenza3 == null || affluenza.Affluenza3 == 0)
+                        {
+                            return "Chiusura non registrata";
+                        }
+                        if ((lvotir == null) || (lvotir.Count() == 0))
+                        {
+                            return "Scrutinio non registrato usare inserimento";
+                        }
+                        break;
+                    case "VS":
+                        List<VotiSindaco> lsindaco = _votiSindacoService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
+                        if (affluenza == null)
+                        {
+                            return "Sezione non costitutita";
+                        }
+                        if (affluenza.Affluenza3 == null || affluenza.Affluenza3 == 0)
+                        {
+                            return "Chiusura non registrata";
+                        }
+                        if (lsindaco != null && lsindaco.Count() > 0)
+                        {
+                            return "Scrutinio già registrato usare rettifica";
+                        }
+                        break;
+                    case "RVS":
+                        List<VotiSindaco> lvotisindacor = _votiSindacoService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
+                        if (affluenza == null)
+                        {
+                            return "Sezione non costitutita";
+                        }
+                        if (affluenza.Affluenza3 == null || affluenza.Affluenza3 == 0)
+                        {
+                            return "Chiusura non registrata";
+                        }
+                        if ((lvotisindacor == null) || (lvotisindacor.Count() == 0))
+                        {
+                            return "Scrutinio non registrato usare inserimento";
+                        }
+                        break;
+                    case "PE":
+                        List<VotiLista> lvotip = _votiListaService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
+                        List<VotiPreferenze> lpreferenze = _votiPreferenzeService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
+                        if (affluenza == null)
+                        {
+                            return "Sezione non costitutita";
+                        }
+                        if (affluenza.Affluenza3 == null && affluenza.Affluenza3 == 0)
+                        {
+                            return "Chiusura non registrata";
+                        }
+                        if ((lvotip == null) || (lvotip.Count() == 0))
+                        {
+                            return "Scrutinio non registrato impossibile inserire preferenze";
+                        }
+                        if (lpreferenze != null && lpreferenze.Count() > 0)
+                        {
+                            return "Preferenze già registrate usare rettifica";
+                        }
+                        break;
+                    case "RPE":
+                        List<VotiPreferenze> rlpreferenze = _votiPreferenzeService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, idtipoelezione);
+                        if (affluenza == null)
+                        {
+                            return "Sezione non costitutita";
+                        }
+                        if (affluenza.Affluenza3 == null || affluenza.Affluenza3 == 0)
+                        {
+                            return "Chiusura non registrata";
+                        }
+                        if ((rlpreferenze == null) || (rlpreferenze.Count() == 0))
+                        {
+                            return "Preferenze non registrate usare inserimento";
+                        }
+                        // todo aggiungere controllo preferenze
+                        break;
 
-                default:
-                    return "Attenzione configurazione di sistema errata";
+                    default:
+                        return "Attenzione configurazione di sistema errata";
+                }
             }
             return message;
         }

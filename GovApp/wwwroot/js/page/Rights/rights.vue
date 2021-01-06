@@ -154,7 +154,7 @@
                 })
                     .catch(function (error) {
                         console.log(error);
-                        this.showAlert(error.response.statusText);
+                        this.showSweetAlert(error.response.statusText);
                     });
             },
             getParamsFiltering(type, page, filter, opzioni) {               
@@ -181,7 +181,7 @@
                 })
                     .catch(function (error) {
                         console.log(error);
-                        this.showAlert(error.response.statusText);
+                        this.showSweetAlert(error.response.statusText);
                     });
             },
             pagingRights(page, ordinaPer, ordinaDesc, filter, filtriarray) {
@@ -206,7 +206,7 @@
                         'Content-Type': 'application/json'
                     }
                 }).then(response => {
-                    this.showAlertinfo("Abilitazione aggiornata correttamente");
+                    this.showSweetAlertinfo("Abilitazione aggiornata correttamente");
                     this.loading = false;
                 }).catch(error => {
                     error => this.messaggio = error.response.data.errMsg;

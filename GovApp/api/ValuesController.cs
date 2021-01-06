@@ -13,6 +13,7 @@ using Gov.Structure.Contracts;
 using Gov.Structure.Contracts.Elezioni;
 using Gov.Structure.Contracts.Helpers;
 using Gov.Structure.Identity;
+using GovApp.Helpers;
 using GovApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -41,8 +42,11 @@ namespace GovApp.api
         private readonly IAffluenzaService _affluenzaService;
         private readonly IIscrittiService _iscrittiService;
         private readonly ITipoElezioneService _tipoElezioneService;
+        private readonly IVotiListaService _votiListaService;
+        private readonly IVotiSindacoService _votiSindacoService;
+        private readonly IVotiPreferenzeService _votiPreferenzeService;
 
-        public ValuesController(ILogger<ValuesController> logger, IPaginaService paginaService, IVoceMenuService voceMenuService, IContenutoService contenutoService, IRoleStore<ApplicationRole> roleService, ISezioneService sezioneService, IOptions<ElezioneConfig> elezioneConfig, IBusinessRules businessRules, IAbilitazioniService abilitazioniService, IAffluenzaService affluenzaService, ITipoElezioneService tipoElezioneService, IIscrittiService iscrittiService, UserStore utentiService)
+        public ValuesController(ILogger<ValuesController> logger, IPaginaService paginaService, IVoceMenuService voceMenuService, IContenutoService contenutoService, IRoleStore<ApplicationRole> roleService, ISezioneService sezioneService, IOptions<ElezioneConfig> elezioneConfig, IBusinessRules businessRules, IAbilitazioniService abilitazioniService, IAffluenzaService affluenzaService, ITipoElezioneService tipoElezioneService, IIscrittiService iscrittiService, UserStore utentiService, IVotiSindacoService votiSindacoService, IVotiListaService votiListaService, IVotiPreferenzeService votiPreferenzeService)
         {
             _logger = logger;
             _paginaService = paginaService;
@@ -57,6 +61,9 @@ namespace GovApp.api
             _tipoElezioneService = tipoElezioneService;
             _iscrittiService = iscrittiService;
             _utentiService = utentiService;
+            _votiListaService = votiListaService;
+            _votiSindacoService = votiSindacoService;
+            _votiPreferenzeService = votiPreferenzeService;
         }
 
 
@@ -269,6 +276,98 @@ namespace GovApp.api
                         error.errMsg = msg;
                         return BadRequest(error);                      
                    
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError("Eccezione non gestita dettagli: " + ex.Message);
+                    error.errMsg = "Eccezione non gestita contattare amministrazione di sistema";
+                    return BadRequest(error);
+                }
+            }
+            return Ok(sezioneModel);
+        }
+
+        [HttpPost("/Values/StatusSezione")]
+        [IgnoreAntiforgeryToken]
+        [AllowAnonymous]
+        public IActionResult StatusSezione([FromBody] Input model)
+        {
+            ErrorModel error = new ErrorModel();
+            String msg = "";
+            SezioneModel sezioneModel = new SezioneModel();
+            ResearchSezione research = model.researchsezione;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    int t = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+                    if (!string.IsNullOrEmpty(research.tipo))
+                    {
+                        msg = _businessRules.IsInsertable(int.Parse(research.sezione), research.tipo, int.Parse(research.cabina), t);
+                    }
+                    if (string.IsNullOrEmpty(msg))
+                    {
+                        //  iscritti = _iscrittiService.findByTipoelezioneIdAndSezioneNumerosezione(tipoelezioneid, model.Sezione);
+                        Sezioni sezione = _sezioneService.findByNumerosezioneAndTipoelezioneId(int.Parse(research.sezione), t);
+                        if (sezione.Cabina == int.Parse(research.cabina))
+                        {
+                            sezioneModel.Iscritti = new IscrittiModel
+                            {
+                                iscrittimaschi = sezione.Iscritti.Iscrittimaschigen.ToString(),
+                                iscrittifemmine = sezione.Iscritti.Iscrittifemminegen.ToString(),
+                                iscrittitotali = sezione.Iscritti.Iscrittitotaligen.ToString()
+                            };
+                            sezioneModel.NumeroSezione = research.sezione.ToString();
+                            sezioneModel.Sezione = int.Parse(research.sezione);
+                            sezioneModel.Cabina = int.Parse(research.cabina);
+                            sezioneModel.Municipio = sezione.Iscritti.Municipio.ToString();
+                            sezioneModel.DescrizioneSezione = sezione.IdtiposezioneNavigation.Descrizione;
+                            sezioneModel.DescrizioneElezione = sezione.IdtipoelezioneNavigation.Descrizione;
+                            sezioneModel.UbicazionePlesso = sezione.IdplessoNavigation.Ubicazione;
+                            sezioneModel.DescrizionePlesso = sezione.IdplessoNavigation.Descrizione;
+                            sezioneModel.Tipo = research.tipo;
+                            sezioneModel.UserName = sezione.UsersSezioni != null ? sezione.UsersSezioni.First().User.UserName : "N/A";
+                            Affluenze affluenze = _affluenzaService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(research.sezione), t);
+                            List<Status> statusSezione = ModelConversion.ConvertStatus(affluenze);
+                            switch(t)
+                            {
+                                case 4:
+                                   var votiSindaco = _votiSindacoService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(research.sezione), t);
+                                    Status status = new Status
+                                    {
+                                        id = "VS",
+                                        nome = "VOTI SINDACO-LISTE",
+                                        pervenuto = votiSindaco.Count > 0 ? true : false,
+                                        user = votiSindaco.Count > 0 ? votiSindaco.First().CreatedBy : "N/A",
+                                        dataregistrazione = votiSindaco.Count > 0 ? votiSindaco.First().CreatedDate.ToString("dd/MM/yyyy") : "N/A"
+                                    };
+                                    statusSezione.Add(status);
+                                    var votiPreferenze = _votiPreferenzeService.countPervenuteBySezioneAndTipoElezione(int.Parse(research.sezione), t);
+                                    Status statusp = new Status
+                                    {
+                                        id = "VP",
+                                        nome = "VOTI PREFERENZE",
+                                        pervenuto = votiPreferenze > 0 ? true : false                                      
+                                    };
+                                    statusSezione.Add(statusp);
+                                    break;
+                            }
+                            sezioneModel.StatusSezione = statusSezione;
+                        }
+                        else
+                        {
+
+                            error.errMsg = "Errore grave Sezione cabina non congruenti";
+                            return BadRequest(error);
+                        }
+                    }
+                    else
+                    {
+                        error.errMsg = msg;
+                        return BadRequest(error);
+
                     }
 
                 }

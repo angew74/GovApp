@@ -19,11 +19,10 @@
                                    aria-describedby="input-abilitazioni-live-feedback"
                                    disabled-field="notEnabled">
                     </b-form-select>
-                    </b-form-group>
                     <b-form-invalid-feedback id="input-abilitazioni-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                </b-form-group>                  
             </validation-provider>
-            </validation-observer>
-            <notifications position="top center" group="errori" />
+            </validation-observer>           
     </div>   
 </template>
 <script>
@@ -68,17 +67,15 @@
                         console.log(error.response.headers);
                     });
             },
-            showAlert(message) {
-                this.$notify({
-                    group: 'errori',
-                    position: "top center",
-                    duration: "15000",
-                    width: "450px",
-                    type: "error",
+            showSweetAlert(message) {
+                this.$swal({
                     title: 'Attenzione',
-                    text: message
+                    text: message,
+                    icon: 'error',
+                    showCancelButton: false,
+                    showCloseButton: true,
                 })
-            }
+            },
         },
         mounted() {
             this.getFasi();

@@ -123,7 +123,7 @@ namespace GovApp.api
                 int skip = take * (int.Parse(page) - 1);
                 List<FaseElezione> rights = new List<FaseElezione>();
                 int tipoElezione = int.Parse(_elezioneConfig.Value.tipoelezioneid);
-                rights = _abilitazioniService.getRightsSortingBy(skip, take, ordinaPer, ordinaDesc, filter, filtriarray);
+                rights = _abilitazioniService.getRightsSortingBy(tipoElezione,skip, take, ordinaPer, ordinaDesc, filter, filtriarray);
                 if (rights == null)
                 {
                     return Ok(rightsmodel);
@@ -152,6 +152,7 @@ namespace GovApp.api
         public async Task<IActionResult> GetPagination(string type, string page, string ordinaPer, bool ordinaDesc, string filter, [FromQuery(Name = "fitriarray[]")] string[] filtriarray)
         {
             PaginationModel model = new PaginationModel();
+            int tipoElezione = int.Parse(_elezioneConfig.Value.tipoelezioneid);
             switch (type)
             {
                 case "rights":
@@ -162,8 +163,8 @@ namespace GovApp.api
                     if (ordinaDesc == true)
                     { model.sortDesc = ordinaDesc; }
                     if (string.IsNullOrEmpty(filter))
-                    { model.totalRows = _abilitazioniService.GetRightsCount().ToString(); }
-                    else { _abilitazioniService.GetRightsCountLike(filter, filtriarray).ToString(); }
+                    { model.totalRows = _abilitazioniService.GetRightsCount(tipoElezione).ToString(); }
+                    else { _abilitazioniService.GetRightsCountLike(filter,tipoElezione, filtriarray).ToString(); }
                     break;
             }
 
@@ -176,12 +177,13 @@ namespace GovApp.api
         public async Task<IActionResult> GetPaginationLike(string type, string page, string filtro, [FromQuery(Name = "fitriarray[]")] string[] filtriarray)
         {
             PaginationModel model = new PaginationModel();
+            int tipoElezione = int.Parse(_elezioneConfig.Value.tipoelezioneid);
             switch (type)
             {
                 case "rights":
                     model = GetBasePaginationRights();
                     model.currentPage = page;
-                    model.totalRows = _abilitazioniService.GetRightsCountLike(filtro, filtriarray).ToString();
+                    model.totalRows = _abilitazioniService.GetRightsCountLike(filtro,tipoElezione, filtriarray).ToString();
                     break;
             }
 
@@ -264,6 +266,7 @@ namespace GovApp.api
             ErrorModel error = new ErrorModel();
             List<AbilitazioniModel> rightsmodel = new List<AbilitazioniModel>();
             string[] filtriarray = new string[0];
+            int tipoElezione = int.Parse(_elezioneConfig.Value.tipoelezioneid);
             if (!ModelState.IsValid)
             {
                 error.errMsg = "Errore di validazione";
@@ -274,7 +277,7 @@ namespace GovApp.api
 
                 int take = int.Parse(_pagingConfig.Value.perPage);
                 int skip = take * (int.Parse(model.currentPage.ToString()) - 1);
-                var rights = _abilitazioniService.getRightsSortingBy(skip,take, model.sortBy, model.sortDesc, model.filter, filtriarray);
+                var rights = _abilitazioniService.getRightsSortingBy(tipoElezione, skip,take, model.sortBy, model.sortDesc, model.filter, filtriarray);
                 if (rights == null)
                 {
                     return Ok(rightsmodel);

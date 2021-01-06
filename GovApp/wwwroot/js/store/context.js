@@ -9,6 +9,7 @@ const store = {
         url: '',
         sezione: {},
         affluenza: {},
+        voti: {},
         auto: []
     },
     getters: {
@@ -20,7 +21,8 @@ const store = {
         isUrl: state => state.url !== '',       
         Sezione: state => state.sezione,
         Auto: state => state.auto,
-        Affluenza: state => state.affluenza
+        Affluenza: state => state.affluenza,
+        Voti: state => state.voti
     },
     mutations: {
         setProfile(state, profile) {
@@ -37,6 +39,9 @@ const store = {
         },
         setSezione(state, sezione) {
             state.sezione = sezione;
+        },
+        setVoti(state, voti) {
+            state.voti = voti;
         },
         setAffluenza(state, affluenza) {
             state.affluenza = affluenza;
@@ -168,6 +173,23 @@ const store = {
                     commit('centralizeMessage', error);
                 });
         },
+        status({ commit }, researchsezione) {
+            return axios.post('/GovApp/values/StatusSezione', researchsezione
+                , {
+                    headers: { 'Content-Type': 'application/json' }
+                }).then(res => {
+                    if (res.status === 200 && res.data !== null) {
+                        commit('setSezione', res.data);
+                        commit('setMessage', '');
+                    }
+                    else {
+                        commit('setMessage', res.message);
+                        commit('setSezione', null);
+                    }
+                }).catch((error) => {
+                    commit('centralizeMessage', error);
+                });
+        },
         restoreContext({ commit }) {
             return axios.get('/GovApp/api/auth/context').then(res => {
                 commit('setProfile', res.data)
@@ -219,6 +241,23 @@ const store = {
                     else {
                         commit('setMessage', res.message);
                         commit('setAffluenza', null);
+                    }
+                }).catch((error) => {
+                    commit('centralizeMessage', error);
+                });
+        },
+        caricavoti({ commit }, researchsezione) {
+            return axios.post('/GovApp/voti/carica', researchsezione
+                , {
+                    headers: { 'Content-Type': 'application/json' }
+                }).then(res => {
+                    if (res.status === 200 && res.data !== null) {
+                        commit('setMessage', '');
+                        commit('setVoti', res.data);
+                    }
+                    else {
+                        commit('setMessage', res.message);
+                        commit('setVoti', null);
                     }
                 }).catch((error) => {
                     commit('centralizeMessage', error);

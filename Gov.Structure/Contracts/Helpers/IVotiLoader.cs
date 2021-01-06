@@ -20,5 +20,7 @@ namespace Gov.Structure.Contracts.Helpers
         VotiGenerali prepareVotiGR(VotiModel form, string user, int tipoelezioneid);
         List<VotiLista> prepareVotiListaR(List<VotiSindacoModel> sindaci, int tipoelezioneid, string user, List<VotiListaModel> l);
         List<VotiLista> prepareVotiLista(List<VotiSindacoModel> sindaci, int tipoelezioneid, string user, List<VotiListaModel> l);
+        List<VotiSindacoModel> ConvertToJsonSindaciEmpty(List<Sindaci> sindaci, string sezione, string tipo);
+        List<VotiListaModel> ConvertToJsonEmpty(List<Liste> l, string sezione, string tipo);
     }
 }

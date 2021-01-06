@@ -107,10 +107,11 @@
                 'login'
             ]),
             onSubmit(evt) {
+                this.loading = true;
                 this.login({ authMethod: this.authMode, credentials: this.form }).then(() => {
-                    if (this.isAuthenticated) {
-                        this.$refs.loginModal.hide();
+                    if (this.isAuthenticated) {  
                         window.location.href = "/GovApp/home/index";
+                        this.loading = false;
                     }
                     if ((this.isMessage) && !this.isUrl) {
                         this.showSweetAlert(this.Message);        

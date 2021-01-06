@@ -19,10 +19,10 @@ namespace Gov.Structure.Contracts.Elezioni
         List<FaseElezione> findByCategoria(string categoria, int tipoelezioneid, int skip, int take);
         List<FaseElezione> findByDescrizioneLike(string descrizione, int tipoelezioneid, int skip, int take);
         int Count(int tipoelezioniid);
-        List<FaseElezione> getRightsSortingBy(int skip, int take, string sortBy, bool sortDesc, string filter, string[] types);
-        int GetRightsCountLike(string filter, string[] types);
+        List<FaseElezione> getRightsSortingBy(int tipoelezione, int skip, int take, string sortBy, bool sortDesc, string filter, string[] types);
+        int GetRightsCountLike(string filter,int tipoelezione, string[] types);
 
-        int GetRightsCount();
+        int GetRightsCount(int tipoelezione);
 
 
     }

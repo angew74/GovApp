@@ -37,6 +37,11 @@ namespace Gov.Structure.Services.Elezioni
             }
         }
 
+        public int countPervenuteBySezioneAndTipoElezione(int numerosezione, int tipoelezioneid)
+        {
+            return _dbset.Where(x => x.Tipoelezioneid == tipoelezioneid && x.Sezione.Numerosezione == numerosezione).Count();
+        }
+
         public RicalcoloPreferenze countVotantiPervenute(int tipoelezioneid)
         {
           

@@ -1,4 +1,4 @@
-﻿<template>
+﻿ <template>
     <div>
         <app-sidebar></app-sidebar>
         <div class="wrapper">

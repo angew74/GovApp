@@ -82,6 +82,10 @@ module.exports = {
         'sezioni': [
             './wwwroot/js/app.js',
             './Views/Sezioni/index.cshtml.js'
+        ],
+        'status': [
+            './wwwroot/js/app.js',
+            './Views/Sezioni/status.cshtml.js'
         ]
 
     },

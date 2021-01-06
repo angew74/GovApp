@@ -22,8 +22,9 @@
                 <app-research v-bind:form="form" @research="cercasezione"></app-research>
             </b-card>
             <app-sezione :sezionemodel="sez"></app-sezione>
-            </b-skeleton-wrapper>
-            <app-footer></app-footer>         
+            <app-scrutinio :tipo="cat" :scrutinio="datiscrutinio"></app-scrutinio>
+        </b-skeleton-wrapper>
+        <app-footer></app-footer>
     </div>
 </template>
 
@@ -33,7 +34,7 @@
     import research from '../../components/research.vue';
     import sezioneaw from '../../components/sezioneaw.vue';
     import listacategorie from '../../components/listacategorie.vue';
-  
+    import scrutinioaw from '../../components/scrutinioaw.vue';
     import { mapGetters, mapState, mapActions, mapMutations } from 'vuex';
     // con prop
     export default {
@@ -41,7 +42,8 @@
             'app-sidebar': sidebaraw,
             'app-research': research,
             'app-footer': footeraw,
-            'app-cat': listacategorie,       
+            'app-cat': listacategorie,
+            'app-scrutinio': scrutinioaw,
             'app-sezione': sezioneaw
         },
         data: function () {
@@ -50,22 +52,25 @@
                     tipo: '',
                     cabina: '',
                     sezione: ''
-                },               
+                },
                 messaggio: '',
-                loading:false,
-                cat: '  LIS',               
-                sez: { iscritti: {} }               
+                loading: false,
+                cat: 'LIS',
+                sez: { iscritti: {} },
+                datiscrutinio:{}
             }
         },
         computed: {
             ...mapState('context', [
                 'sezione',
-                'message'          
+                'voti',
+                'message'
             ]),
             ...mapGetters('context', [
                 'Sezione',
+                'Voti',
                 'isMessage',
-                'Message'               
+                'Message'
             ])
         },
         mounted() {
@@ -77,58 +82,62 @@
             ]),
             ...mapActions('context', [
                 'research'
-            ]),          
+            ]),
+            ...mapActions('context', [
+                'caricavoti'
+            ]),
             ...mapMutations('context', [
                 'setSezione'
+            ]),
+            ...mapMutations('context', [
+                'setVoti'
             ]),
             selezioneTipo(e) {
                 this.form.tipo = e;
             },
-            showAlert(message) {
-                this.$notify({
-                    group: 'errori',
-                    position: "top center",
-                    duration: "15000",
-                    width: "450px",
-                    type: "error",
+            showSweetAlert(message) {
+                this.$swal({
                     title: 'Attenzione',
-                    text: message
+                    text: message,
+                    icon: 'error',
+                    showCancelButton: false,
+                    showCloseButton: true,
                 })
             },
-            showAlertAvviso(message) {
-                this.$notify({
-                    group: 'avvisi',
-                    position: "top center",
-                    duration: "10000",
-                    width: "400px",
-                    type: "success",
-                    title: 'Complimenti',
-                    text: message
+            showSweetAlertinfo(message) {
+                this.$swal({
+                    title: 'Congratulazioni',
+                    text: message,
+                    icon: 'info',
+                    showCancelButton: false,
+                    showCloseButton: true,
                 })
-            },           
+            },
+            loadscrutinio(e) {
+                this.caricavoti({ authMethod: this.authMode, researchsezione: e}).then(() => {
+                    if (this.isMessage) {
+                        this.showSweetAlert(this.Message);
+                        this.loading = false;
+                    }
+                    else {
+                        this.datiscrutinio = this.Voti;
+                        this.loading = false;
+                    }
+                })
+            },
             cercasezione(e) {
                 this.loading = true;
                 this.form = e;
                 this.research({ authMethod: this.authMode, researchsezione: this.form }).then(() => {
                     if (this.isMessage) {
-                        this.showAlert(this.Message);
+                        this.showSweetAlert(this.Message);
                         this.loading = false;
                     }
                     else {
-                        this.tipoAffluenza = this.Sezione.tipo;
                         this.sez = this.Sezione;
-                        if (this.tipoAffluenza !== 'CO' && this.tipoAffluenza !== 'AP') {
-                            this.cercaaffluenza(e);
-                            this.loading = false;
-                        }
-                        else {
-                            this.aff.numeroSezione = this.Sezione.sezione;
-                            this.aff.tipo = this.Sezione.tipo;
-                            this.loading = false;
-                        }
+                        this.loadscrutinio(e);                       
                     }
                 })
-
             }
         }
     }

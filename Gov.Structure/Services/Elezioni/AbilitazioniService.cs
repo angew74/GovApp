@@ -78,7 +78,7 @@ namespace Gov.Structure.Services.Elezioni
             
         }
 
-        public List<FaseElezione> getRightsSortingBy(int skip, int take, string sortBy, bool sortDesc, string filter, string[] types)
+        public List<FaseElezione> getRightsSortingBy(int tipoelezione,int skip, int take, string sortBy, bool sortDesc, string filter, string[] types)
         {
             List<FaseElezione> rights = new List<FaseElezione>();
             string ordining = "";
@@ -89,7 +89,7 @@ namespace Gov.Structure.Services.Elezioni
             { ordining += " DESC"; }
             else { ordining += " ASC"; }
             if (string.IsNullOrEmpty(filter))
-            { rights =_dbset.OrderBy(ordining).Skip(skip).Take(take).AsParallel().ToList(); }
+            { rights =_dbset.Where(x=>x.Idtipoelezione == tipoelezione).OrderBy(ordining).Skip(skip).Take(take).AsParallel().ToList(); }
             else
             {
                 foreach (string t in types)
@@ -113,7 +113,7 @@ namespace Gov.Structure.Services.Elezioni
         }
 
 
-        public int GetRightsCountLike(string filter, string[] types)
+        public int GetRightsCountLike(string filter,int tipoelezione, string[] types)
         {
             int count = 0;
             if (types.Length > 0)
@@ -123,13 +123,13 @@ namespace Gov.Structure.Services.Elezioni
                     switch (t.ToLower())
                     {
                         case "categoria":
-                            count += _dbset.Where(x => x.Categoria.ToLower() == filter.ToLower()).Count();
+                            count += _dbset.Where(x => x.Categoria.ToLower() == filter.ToLower() && x.Idtipoelezione == tipoelezione).Count();
                             break;
                         case "codice":
-                            count += _dbset.Where(x => x.Codice.ToLower() == filter.ToLower()).Count();
+                            count += _dbset.Where(x => x.Codice.ToLower() == filter.ToLower() && x.Idtipoelezione == tipoelezione).Count();
                             break;
                         case "descrizione":
-                            count += _dbset.Where(x => x.Descrizione.ToLower().Contains(filter.ToLower())).Count();
+                            count += _dbset.Where(x => x.Descrizione.ToLower().Contains(filter.ToLower()) && x.Idtipoelezione == tipoelezione).Count();
                             break;
                         default:
                             break;
@@ -138,15 +138,15 @@ namespace Gov.Structure.Services.Elezioni
             }
             else
             {
-                count += _dbset.Where(x => x.Codice.ToLower() == filter.ToLower() || x.Categoria.ToLower() == filter.ToLower() || x.Descrizione.ToLower().Contains(filter.ToLower())).Distinct().Count();
+                count += _dbset.Where(x => x.Codice.ToLower() == filter.ToLower() || x.Categoria.ToLower() == filter.ToLower() || x.Descrizione.ToLower().Contains(filter.ToLower()) && x.Idtipoelezione == tipoelezione).Distinct().Count();
 
             }
             return count;
         }
 
-        public int GetRightsCount()
+        public int GetRightsCount(int tipoelezione)
         {
-            return _dbset.Count();
+            return _dbset.Where(x=>x.Idtipoelezione== tipoelezione).Count();
         }
     }
 }

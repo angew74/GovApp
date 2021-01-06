@@ -12,5 +12,10 @@ namespace GovApp.Controllers
         {
             return View();
         }
+
+        public IActionResult Status()
+        {
+            return View();
+        }
     }
 }

@@ -48,6 +48,22 @@ namespace Gov.Structure.Services.Helpers
             return listaJsons;
         }
 
+
+        public List<VotiListaModel> ConvertToJsonEmpty(List<Liste> l, string sezione, string tipo)
+        {
+            List<VotiListaModel> listaJsons = new List<VotiListaModel>();          
+            foreach (Liste v in l)
+            {
+                VotiListaModel j = new VotiListaModel();              
+                j.Denominazione = v.Denominazione;
+                j.Progressivo = v.Progressivo;             
+                j.numeroSezione = int.Parse(sezione);
+                j.Tipo = tipo;
+                j.idLista = v.Id;
+                listaJsons.Add(j);
+            }
+            return listaJsons;
+        }
         public List<VotiLista> prepareVoti(List<VotiListaModel> list,string user,int tipoElezione)
         {
             List<VotiLista> votiList = new List<VotiLista>();                 
@@ -109,6 +125,25 @@ namespace Gov.Structure.Services.Helpers
                 j.IdSindaco = vs.Sindaco.Id.ToString();               
                 sindaciJsons.Add(j);
             }            
+            return sindaciJsons;
+        }
+
+        public List<VotiSindacoModel> ConvertToJsonSindaciEmpty(List<Sindaci> l, string sezione, string tipo)
+        {
+            List<VotiSindacoModel> sindaciJsons = new List<VotiSindacoModel>();            
+            foreach (Sindaci vs in l)
+            {
+                VotiSindacoModel j = new VotiSindacoModel();               
+                j.Progressivo = vs.Progressivo.ToString();            
+                j.Cognome = vs.Cognome.ToString();
+                j.Nome = vs.Nome;
+                j.Progressivo = vs.Progressivo.ToString();
+                j.IsCoalizione = "S";           
+                j.NumeroSezione = sezione.ToString();
+                j.Tipo = tipo;
+                j.IdSindaco = vs.Id.ToString();
+                sindaciJsons.Add(j);
+            }
             return sindaciJsons;
         }
 

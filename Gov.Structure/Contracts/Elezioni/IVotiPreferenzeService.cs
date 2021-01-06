@@ -24,5 +24,6 @@ namespace Gov.Structure.Contracts.Elezioni
         List<VotiPreferenze> findByCandidatoIdAndTipoelezioneId(int id, int tipoElezioneId);
         List<VotiPreferenze> findByCandidatoIdAndTipoelezioneIdAndSezioneId(int id, int tipoElezioneId, int sezioneId);
         List<VotiPreferenze> findByCandidatoIdAndTipoelezioneIdAndSezioneMunicipio(int id, int tipoElezioneId, int municipio);
+        int countPervenuteBySezioneAndTipoElezione(int numerosezione, int tipoelezioneid);
     }
 }
