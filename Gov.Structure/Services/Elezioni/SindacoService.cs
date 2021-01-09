@@ -1,6 +1,7 @@
 ﻿using Gov.Core.Entity.Elezioni;
 using Gov.Structure.Contracts;
 using Gov.Structure.Contracts.Elezioni;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace Gov.Structure.Services.Elezioni
         {
           
             
-                return _dbset.Where(x=>x.Tipoelezioneid == tipoElezione).ToList();
+                return _dbset.Include(i=>i.Liste).Where(x=>x.Tipoelezioneid == tipoElezione).ToList();
             
         }
 

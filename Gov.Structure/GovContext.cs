@@ -1089,6 +1089,11 @@ namespace Gov.Structure
                     .HasForeignKey(d => d.Votigeneraliid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_voti_lista_voti_generali");
+                entity.HasOne(d => d.VotiSindaco)
+                  .WithMany(p => p.VotiLista)
+                  .HasForeignKey(d => d.VotiSindacoid)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("fk_voti_lista_voti_sindaco");
             });
 
             modelBuilder.Entity<VotiListaStorico>(entity =>

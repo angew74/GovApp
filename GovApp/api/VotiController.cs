@@ -103,13 +103,11 @@ namespace GovApp.api
                 {
                     var sindaci = _sindacoService.findAllByTipoelezioneId(tipoelezioneid);
                     json.Sindaci = _votiLoader.ConvertToJsonSindaciEmpty(sindaci, input.researchsezione.sezione, input.researchsezione.tipo);
-                    var liste = _listaService.findAllByTipoelezioneId(tipoelezioneid);
-                    json.Liste = _votiLoader.ConvertToJsonEmpty(liste, input.researchsezione.sezione, input.researchsezione.tipo);
+                    var liste = _listaService.findAllByTipoelezioneId(tipoelezioneid);                   
                 }
                 else
                 {
-                   var votiLista = _votiListaService.findBySezioneNumerosezioneAndTipoelezioneId(s,tipoelezioneid);
-                    json.Liste = _votiLoader.ConvertToJson(votiLista, s, input.researchsezione.tipo);                   
+                   var votiLista = _votiListaService.findBySezioneNumerosezioneAndTipoelezioneId(s,tipoelezioneid);                            
                     json.Sindaci = _votiLoader.ConvertToJsonSindaci(votiSindaco,s, input.researchsezione.tipo, tipoelezioneid);
                 }
             }

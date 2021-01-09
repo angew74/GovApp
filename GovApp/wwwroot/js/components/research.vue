@@ -21,7 +21,7 @@
                                           aria-describedby="input-sezione-live-feedback">
                             </b-form-input>
                             <b-form-invalid-feedback id="input-sezione-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                        </b-input-group>                                                   
+                        </b-input-group>
                     </b-form-group>
                 </validation-provider>
                 <validation-provider vid="cabina"
@@ -41,15 +41,15 @@
                                           aria-describedby="input-cabina-live-feedback">
                             </b-form-input>
                             <b-form-invalid-feedback id="input-cabina-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                        </b-input-group>                            
+                        </b-input-group>
                     </b-form-group>
-                </validation-provider>
-                <b-form-input id="tipo"
-                              v-model="form.tipo"
-                              type="text"
-                              style="display:none"></b-form-input>
-                <b-button type="submit" variant="primary">Ricerca</b-button>
-            </b-form>
+                </validation-provider>              
+                        <b-form-input id="tipo"
+                                      v-model="form.tipo"
+                                      type="text"
+                                      style="display:none"></b-form-input>                  
+                    <b-button type="submit" variant="primary">Ricerca</b-button>
+</b-form>
         </validation-observer>
     </div>
 </template>

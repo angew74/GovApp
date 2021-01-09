@@ -5,7 +5,10 @@
                 <b-card v-bind:key="data.index" v-for="(data,index) in contenuti"
                         no-body class="mb-1 text-center border-0">
                     <b-card-header header-tag="header" class="p-1 border-0" role="tab">
-                        <b-button block v-b-toggle="'accordion-' + index" variant="dark">{{data.contenutoHeader}}</b-button>
+                        <b-button block v-b-toggle="'accordion-' + index" variant="dark">
+                            <v-icon name="expand-arrows-alt" scale="1.5" />                           
+                            {{data.contenutoHeader}}
+                        </b-button>
                     </b-card-header>
                     <b-collapse v-bind:id=" 'accordion-' + index" accordion="my-accordion" role="tabpanel">
                         <b-card-text class="border-0">

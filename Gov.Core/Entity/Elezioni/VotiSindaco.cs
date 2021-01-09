@@ -12,6 +12,7 @@ namespace Gov.Core.Entity.Elezioni
         public VotiSindaco()
         {
             ProfiloVoti = new HashSet<ProfiloVoti>();
+            VotiLista = new HashSet<VotiLista>();
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -44,5 +45,6 @@ namespace Gov.Core.Entity.Elezioni
         public virtual Tipoelezione Tipoelezione { get; set; }
         public virtual VotiGenerali Votigenerali { get; set; }
         public virtual ICollection<ProfiloVoti> ProfiloVoti { get; set; }
+        public virtual ICollection<VotiLista> VotiLista { get; set; }
     }
 }

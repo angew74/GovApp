@@ -23,5 +23,8 @@ namespace Gov.Core.Entity.Presentation
         public string Nome { get;  set; }
         public string Tipo { get;  set; }
         public string IdSindaco { get; set; }
+
+        public List<VotiListaModel> Liste { get; set; }
+        public string soloListe { get; set; }
     }
 }

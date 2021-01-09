@@ -115,6 +115,14 @@ body {
     background-color: #f6f6f6;
 }
 
+.fonticonred {
+    color: #D9534F;
+}
+
+.fonticongreen {
+    color: #5CB85C;
+}
+
 footer
 {
     display: block

@@ -6,7 +6,6 @@ import VeeValidate from "vee-validate";
 import LiquorTree from 'liquor-tree';
 import PrettyCheckbox from 'pretty-checkbox-vue';
 import VueFormWizard from 'vue-form-wizard';
-import VueCardStack from "vue-card-stack";
 import 'vue-loaders/dist/vue-loaders.css';
 import VueLoaders from 'vue-loaders';
 import Tabs from 'vue-tabs-with-active-line';
@@ -71,7 +70,6 @@ Vue.use(VueScriptComponent);
 Vue.use(VueSweetalert2);
 Vue.use(Tabs);
 Vue.use(Vuex);
-Vue.use(VueCardStack);
 Object.keys(rules).forEach(rule => {
     extend(rule, rules[rule]);
 });

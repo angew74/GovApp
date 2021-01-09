@@ -10,7 +10,7 @@ namespace Gov.Structure.Contracts.Helpers
     public interface IVotiLoader
     {
         //  public HashSet<VotiLista> prepareVoti(List<ListaSemplice> list)
-        public List<VotiListaModel> ConvertToJson(List<VotiLista> l, int sezione, string tipo);
+    
         public List<VotiSindacoModel> ConvertToJsonSindaci(List<VotiSindaco> l, int sezione, string tipo,int idtipoelezione);
         List<VotiLista> prepareVoti(List<VotiListaModel> liste, string user, int tipoElezione);
         List<VotiLista> prepareVotiR(List<VotiListaModel> liste, string user);
@@ -21,6 +21,6 @@ namespace Gov.Structure.Contracts.Helpers
         List<VotiLista> prepareVotiListaR(List<VotiSindacoModel> sindaci, int tipoelezioneid, string user, List<VotiListaModel> l);
         List<VotiLista> prepareVotiLista(List<VotiSindacoModel> sindaci, int tipoelezioneid, string user, List<VotiListaModel> l);
         List<VotiSindacoModel> ConvertToJsonSindaciEmpty(List<Sindaci> sindaci, string sezione, string tipo);
-        List<VotiListaModel> ConvertToJsonEmpty(List<Liste> l, string sezione, string tipo);
+       
     }
 }
