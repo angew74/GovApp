@@ -22,7 +22,7 @@
                 <app-research v-bind:form="form" @research="cercasezione"></app-research>
             </b-card>
             <app-sezione :sezionemodel="sez"></app-sezione>
-            <app-scrutinio :tipo="cat" :scrutinio="datiscrutinio"></app-scrutinio>
+            <app-scrutinio :tipo="cat"  @postscrutinio="savecoalizione" :scrutinio="datiscrutinio"></app-scrutinio>
         </b-skeleton-wrapper>
         <app-footer></app-footer>
     </div>
@@ -86,6 +86,9 @@
             ...mapActions('context', [
                 'caricavoti'
             ]),
+            ...mapActions('context', [
+                'inscoalizione'
+            ]),
             ...mapMutations('context', [
                 'setSezione'
             ]),
@@ -124,6 +127,9 @@
                         this.loading = false;
                     }
                 })
+            },
+            savecoalizione(e) {
+
             },
             cercasezione(e) {
                 this.loading = true;

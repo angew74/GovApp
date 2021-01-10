@@ -212,6 +212,23 @@ const store = {
                     commit('centralizeMessage', error);
                 });
         },
+        inscoalizione({ commit }, voti) {
+            return axios.post('/GovApp/voti/lcom', voti
+                , {
+                    headers: { 'Content-Type': 'application/json' }
+                }).then(res => {
+                    if (res.status === 200 && res.data !== null) {
+                        commit('setMessage', '');
+                        commit('setVoti', null);
+                    }
+                    else {
+                        commit('setMessage', res.message);
+                        commit('setVoti', null);
+                    }
+                }).catch((error) => {
+                    commit('centralizeMessage', error);
+                });
+        },
         modandamento({ commit }, anda) {
             return axios.post('/GovApp/values/rapra', anda
                 , {

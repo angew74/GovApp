@@ -67,6 +67,7 @@ namespace GovApp.api
         public class Input
         {
             public ResearchSezione researchsezione { get; set; }
+            public VotiModel voti { get; set; }
 
         }
 
@@ -74,7 +75,7 @@ namespace GovApp.api
         [HttpPost("/voti/carica")]
         [IgnoreAntiforgeryToken]
         [AllowAnonymous]
-        public IActionResult researchAffluenza([FromBody] Input input)
+        public IActionResult Carica([FromBody] Input input)
         {
             VotiModel json = new VotiModel();
             ErrorModel error = new ErrorModel();
