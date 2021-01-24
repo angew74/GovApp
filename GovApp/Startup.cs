@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -55,6 +56,7 @@ namespace GovApp
               .AddUserManager<ApplicationUserManager>()
               .AddRoleManager<RoleManager<ApplicationRole>>()
               .AddClaimsPrincipalFactory<ApplicationUserClaimsPrincipalFactory<ApplicationUser, ApplicationRole>>();
+           
             services.AddSession(x =>
             {
                 x.Cookie.Name = "GovApp";
@@ -64,12 +66,11 @@ namespace GovApp
             {
                 options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
             });
-
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
-                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;               
+                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
             });
             services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
             {
@@ -78,7 +79,7 @@ namespace GovApp
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
                 options.Cookie.IsEssential = true;
                 options.Cookie.Name = "GovApp";
-                options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;               
+                options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.LoginPath = $"/Account/Login";  // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login  
                 options.LogoutPath = $"/Account/Logout"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout  
@@ -110,7 +111,7 @@ namespace GovApp
                 options.User.RequireUniqueEmail = false;
             });
             services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, Microsoft.AspNetCore.Http.HttpContextAccessor>();
-            services.AddHttpContextAccessor();           
+            services.AddHttpContextAccessor();
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequireAdministratorRole",
@@ -129,7 +130,12 @@ namespace GovApp
              {
                  options.SuppressModelStateInvalidFilter = true;
 
-             });
+             })
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new StringConverter());
+               
+            });
             services.AddSession();
             services.AddScoped<IUserStore<ApplicationUser>, UserStore>();
             services.AddScoped<UserStore>();
@@ -144,8 +150,7 @@ namespace GovApp
             {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
             });
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);         
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
         public void ConfigureContainer(ContainerBuilder builder)
         {
@@ -171,14 +176,14 @@ namespace GovApp
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }          
+            }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseSession();          
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

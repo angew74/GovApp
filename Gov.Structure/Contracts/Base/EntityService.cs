@@ -30,6 +30,17 @@ namespace Gov.Structure.Contracts
             _context.SaveChanges();
         }
 
+        public virtual void CreateRange(List<T> entities)
+        {
+            if (entities == null)
+            {
+                throw new ArgumentNullException("entities");
+            }
+
+            _dbset.AddRange(entities);
+            _context.SaveChanges();
+        }
+
 
         public virtual void Update(T entity)
         {

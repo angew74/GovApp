@@ -8,6 +8,7 @@ const store = {
         message: '',
         url: '',
         sezione: {},
+        myprofile: {},
         affluenza: {},
         voti: {},
         auto: []
@@ -18,9 +19,10 @@ const store = {
         User: state => ((state.profile.name !== null) && (typeof (state.profile.name) !== 'undefined')) ? state.profile.name : "",
         Message: state => state.message,
         Url: state => state.url,
-        isUrl: state => state.url !== '',       
+        isUrl: state => state.url !== '',
         Sezione: state => state.sezione,
         Auto: state => state.auto,
+        MyProfile: state => state.myprofile,
         Affluenza: state => state.affluenza,
         Voti: state => state.voti
     },
@@ -39,6 +41,9 @@ const store = {
         },
         setSezione(state, sezione) {
             state.sezione = sezione;
+        },
+        setMyProfile(state, myprofile) {
+            state.myprofile = myprofile;
         },
         setVoti(state, voti) {
             state.voti = voti;
@@ -118,7 +123,7 @@ const store = {
                     "username": user
                 }
             })
-                .then(response => {    
+                .then(response => {
                     if (response.status === 200) {
                         commit('setAuto', response.data);
                     }
@@ -194,6 +199,20 @@ const store = {
             return axios.get('/GovApp/api/auth/context').then(res => {
                 commit('setProfile', res.data)
             })
+        },
+        getprofile({ commit }) {
+            return axios.get('/GovApp/api/auth/myprofile').then(res => {
+                if (res.status === 200 && res.data !== null) {
+                    commit('setMessage', '');
+                    commit('setMyProfile', res.data);
+                }
+                else {
+                    commit('setMessage', res.message);
+                    commit('setMyProfile', null);
+                }
+            }).catch((error) => {
+                commit('centralizeMessage', error);
+            });
         },
         insandamento({ commit }, anda) {
             return axios.post('/GovApp/values/apra', anda
@@ -315,6 +334,6 @@ const store = {
                 });
         },
     }
-  
+
 }
 export default store;

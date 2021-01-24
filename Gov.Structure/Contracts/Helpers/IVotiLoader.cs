@@ -16,10 +16,10 @@ namespace Gov.Structure.Contracts.Helpers
         List<VotiLista> prepareVotiR(List<VotiListaModel> liste, string user);
         List<VotiSindaco> prepareVotiSindaco(List<VotiSindacoModel> list, string user, int tipoelezioneid);
         List<VotiSindaco> prepareVotiSindacoR(List<VotiSindacoModel> list,VotiGenerali vr, string user, int tipoelezioneid);
-        VotiGenerali prepareVotiG(VotiModel form, string user, int tipoelezioneid);
+        VotiGenerali prepareVotiG(VotiModel form, int tipoelezioneid);
         VotiGenerali prepareVotiGR(VotiModel form, string user, int tipoelezioneid);
         List<VotiLista> prepareVotiListaR(List<VotiSindacoModel> sindaci, int tipoelezioneid, string user, List<VotiListaModel> l);
-        List<VotiLista> prepareVotiLista(List<VotiSindacoModel> sindaci, int tipoelezioneid, string user, List<VotiListaModel> l);
+        List<VotiSindaco> prepareVoti(VotiModel form, int tipoelezioneid);
         List<VotiSindacoModel> ConvertToJsonSindaciEmpty(List<Sindaci> sindaci, string sezione, string tipo);
        
     }

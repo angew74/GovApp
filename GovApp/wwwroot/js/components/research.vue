@@ -43,13 +43,15 @@
                             <b-form-invalid-feedback id="input-cabina-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                         </b-input-group>
                     </b-form-group>
-                </validation-provider>              
-                        <b-form-input id="tipo"
-                                      v-model="form.tipo"
-                                      type="text"
-                                      style="display:none"></b-form-input>                  
+                </validation-provider>
+                <b-form-input id="tipo"
+                              v-model="form.tipo"
+                              type="text"
+                              style="display:none"></b-form-input>
+                <div style="margin-top:10px;text-align:right">
                     <b-button type="submit" variant="primary">Ricerca</b-button>
-</b-form>
+                    </div>
+            </b-form>
         </validation-observer>
     </div>
 </template>

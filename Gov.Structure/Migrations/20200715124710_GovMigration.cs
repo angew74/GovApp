@@ -253,7 +253,7 @@ namespace Gov.Structure.Migrations
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
                     Denominazione = table.Column<string>(maxLength: 256, nullable: false),
-                    Codice = table.Column<string>(maxLength: 10, nullable: false),
+                    Codice = table.Column<string>(maxLength: 20, nullable: false),
                     RoleId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

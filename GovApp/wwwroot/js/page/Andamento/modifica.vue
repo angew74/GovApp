@@ -147,7 +147,7 @@
                         this.loading = false;
                     }
                     else {
-                        this.showAlertAvviso("Affluenza modificata con successo");
+                        this.showSweetAlertinfo("Affluenza modificata con successo");
                         this.tipoAffluenza = '';
                         this.loading = false;
                     }

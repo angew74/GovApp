@@ -469,8 +469,7 @@ namespace GovApp.api
         }
 
         [HttpPost("/Values/affluenza")]
-        [IgnoreAntiforgeryToken]
-        [AllowAnonymous]
+        [IgnoreAntiforgeryToken]      
         public IActionResult researchAffluenza([FromBody] Input input)
         {
             AffluenzaModel json = new AffluenzaModel();
@@ -551,8 +550,7 @@ namespace GovApp.api
         }
 
         [HttpPost("/Values/Anda")]
-        [IgnoreAntiforgeryToken]
-        [AllowAnonymous]
+        [IgnoreAntiforgeryToken]     
         public IActionResult Anda([FromBody] Input input)
         {
             Affluenze affluenza = new Affluenze();
@@ -604,6 +602,7 @@ namespace GovApp.api
 
 
         [HttpPost("/Values/Rapra")]
+        [IgnoreAntiforgeryToken]
         public IActionResult Rapra([FromBody] Input model)
         {
             ErrorModel error = new ErrorModel();

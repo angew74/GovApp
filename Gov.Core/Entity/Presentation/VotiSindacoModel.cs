@@ -14,7 +14,7 @@ namespace Gov.Core.Entity.Presentation
         public string Id { get;  set; }
         public string Cognome { get;  set; }
         public string Progressivo { get;  set; }
-        public string Totale { get; set; }
+        public string totaleSindaco { get; set; }
         public string Bianche { get; set; }
         public string IdCoalizione { get; set; }     
       

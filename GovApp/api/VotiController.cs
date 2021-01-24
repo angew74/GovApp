@@ -30,7 +30,7 @@ namespace GovApp.api
         private readonly ILogger<VotiController> _logger;
         private readonly UserStore _utentiService;
         private readonly IPaginaService _paginaService;
-        private readonly IContenutoService _contenutoService;
+        private readonly IVotiGeneraliService _votiGeneraliService;
         private readonly IListaService _listaService;
         private readonly IRoleStore<ApplicationRole> _roleService;
         private readonly ISezioneService _sezioneService;
@@ -44,12 +44,12 @@ namespace GovApp.api
         private readonly IVotiSindacoService _votiSindacoService;
         private readonly IVotiLoader _votiLoader;
 
-        public VotiController(ILogger<VotiController> logger, IPaginaService paginaService, IListaService listaService, IContenutoService contenutoService, IRoleStore<ApplicationRole> roleService, ISezioneService sezioneService, IOptions<ElezioneConfig> elezioneConfig, IBusinessRules businessRules, IAbilitazioniService abilitazioniService, IAffluenzaService affluenzaService, ISindacoService sindacoService, IIscrittiService iscrittiService, UserStore utentiService, IVotiSindacoService votiSindacoService, IVotiListaService votiListaService, IVotiLoader votiLoader)
+        public VotiController(ILogger<VotiController> logger, IPaginaService paginaService, IListaService listaService, IVotiGeneraliService votiGeneraliService, IRoleStore<ApplicationRole> roleService, ISezioneService sezioneService, IOptions<ElezioneConfig> elezioneConfig, IBusinessRules businessRules, IAbilitazioniService abilitazioniService, IAffluenzaService affluenzaService, ISindacoService sindacoService, IIscrittiService iscrittiService, UserStore utentiService, IVotiSindacoService votiSindacoService, IVotiListaService votiListaService, IVotiLoader votiLoader)
         {
             _logger = logger;
             _paginaService = paginaService;
             _listaService = listaService;
-            _contenutoService = contenutoService;
+            _votiGeneraliService = votiGeneraliService;
             _roleService = roleService;
             _sezioneService = sezioneService;
             _elezioneConfig = elezioneConfig;
@@ -91,7 +91,7 @@ namespace GovApp.api
                     return BadRequest(error);
                 }
                 var votiSindaco = _votiSindacoService.findBySezioneNumerosezioneAndTipoelezioneId(s, tipoelezioneid);
-                if(votiSindaco.Count > 0 && model.tipo == "VL")
+                if (votiSindaco.Count > 0 && model.tipo == "VL")
                 {
                     error.errMsg = "voti già inseriti per la sezione numero " + model.sezione + " utilizzare modifica";
                     return BadRequest(error);
@@ -104,12 +104,12 @@ namespace GovApp.api
                 {
                     var sindaci = _sindacoService.findAllByTipoelezioneId(tipoelezioneid);
                     json.Sindaci = _votiLoader.ConvertToJsonSindaciEmpty(sindaci, input.researchsezione.sezione, input.researchsezione.tipo);
-                    var liste = _listaService.findAllByTipoelezioneId(tipoelezioneid);                   
+                    var liste = _listaService.findAllByTipoelezioneId(tipoelezioneid);
                 }
                 else
                 {
-                   var votiLista = _votiListaService.findBySezioneNumerosezioneAndTipoelezioneId(s,tipoelezioneid);                            
-                    json.Sindaci = _votiLoader.ConvertToJsonSindaci(votiSindaco,s, input.researchsezione.tipo, tipoelezioneid);
+                    var votiLista = _votiListaService.findBySezioneNumerosezioneAndTipoelezioneId(s, tipoelezioneid);
+                    json.Sindaci = _votiLoader.ConvertToJsonSindaci(votiSindaco, s, input.researchsezione.tipo, tipoelezioneid);
                 }
             }
             catch (Exception ex)
@@ -120,5 +120,34 @@ namespace GovApp.api
             }
             return Ok(json);
         }
+
+        [HttpPost("/voti/lcom")]
+        [IgnoreAntiforgeryToken]
+        [AllowAnonymous]
+        public IActionResult Registra([FromBody] Input input)
+        {
+            VotiModel json = input.voti;
+            ErrorModel error = new ErrorModel();
+            int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+            try
+            {
+               
+                int s = int.Parse(json.NumeroSezione);
+                String msg = _businessRules.IsInsertable(s,"VL", 0, tipoelezioneid);
+                if (string.IsNullOrEmpty(msg))
+                {  
+                   var voti = _votiLoader.prepareVoti(json, tipoelezioneid);
+                    _votiSindacoService.CreateRange(voti);
+                }
+            }
+            catch (Exception ex)
+            {
+                error.errMsg = "Errore grave :" + ex.Message;
+                _logger.LogError("Errore grave :" + ex.Message);
+                return BadRequest(error);
+            }
+            return Ok();
+        }
+
     }
 }

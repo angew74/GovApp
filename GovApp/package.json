@@ -54,7 +54,8 @@
     "webpack": "^5.9.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
-    "vue-bootstrap-typeahead": "^0.2.6"
+    "vue-bootstrap-typeahead": "^0.2.6",
+    "vuejs-avataaars": "^4.0.1"
   },
   "eslintConfig": {
     "root": true,

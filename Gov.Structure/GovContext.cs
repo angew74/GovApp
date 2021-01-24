@@ -1234,13 +1234,13 @@ namespace Gov.Structure
                 entity.HasOne(d => d.Sezione)
                     .WithMany(p => p.VotiSindaco)
                     .HasForeignKey(d => d.Sezioneid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.NoAction)
                     .HasConstraintName("fk_voti_sindaco_sezioni");
 
                 entity.HasOne(d => d.Sindaco)
                     .WithMany(p => p.VotiSindaco)
                     .HasForeignKey(d => d.Sindacoid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("fk_voti_sindaco_sindaco");
 
                 entity.HasOne(d => d.Tipoelezione)
@@ -1699,7 +1699,8 @@ namespace Gov.Structure
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 PaginaId = 14
-            },new Contenuto{
+            },
+            new Contenuto{
                 Id = 29,
                 ContentuoCard = "https://roma.unicatt.it/ingresso-roma-992x560.jpg",
                 Tipo = "Image",
@@ -1708,20 +1709,10 @@ namespace Gov.Structure
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 PaginaId = 14
-            },new Contenuto
-            {
-                Id = 30,
-                ContentuoCard = "Gestione Interrogazioni",
-                Tipo = "Titolo",
-                TipoContenutoId = 6,
-                CreatedBy = "Caricamento",
-                CreatedDate = DateTime.Now,
-                UpdatedBy = null,
-                PaginaId = 14
             },
             new Contenuto
             {
-                Id = 31,
+                Id = 30,
                 ContentuoCard = "Da questa pagina è possibile registrare i voti di coalizione",
                 Tipo = "Testo",
                 TipoContenutoId = 1,
@@ -1732,9 +1723,9 @@ namespace Gov.Structure
             },
             new Contenuto
             {
-                Id = 32,
-                ContentuoCard = "person-fill",
-                Tipo = "Icona",
+                Id = 31,
+                ContentuoCard = "file-text-fill",
+                Tipo = "Icon",
                 TipoContenutoId = 2,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
@@ -1743,7 +1734,7 @@ namespace Gov.Structure
             },
             new Contenuto
             {
-                Id = 33,
+                Id = 32,
                 ContentuoCard = "/GovApp/coalizioni/inserimento",
                 Tipo = "Link",
                 TipoContenutoId = 3,
@@ -1752,10 +1743,10 @@ namespace Gov.Structure
                 UpdatedBy = null,
                 PaginaId = 17
             },
-            new Contenuto
+              new Contenuto
             {
-                Id = 34,
-                ContentuoCard = "Coalizioni Inserimento",
+                Id = 33,
+                ContentuoCard = "Coalizione Inserimento",
                 Tipo = "Header",
                 TipoContenutoId = 4,
                 CreatedBy = "Caricamento",
@@ -1763,50 +1754,227 @@ namespace Gov.Structure
                 UpdatedBy = null,
                 PaginaId = 17
             },
-              new Contenuto
+            new Contenuto
             {
-                Id = 35,
+                Id = 34,
                 ContentuoCard = "Da questa pagina è possibile modificare i voti di coalizione",
                 Tipo = "Testo",
                 TipoContenutoId = 1,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                PaginaId = 18
+                PaginaId = 19
             },
             new Contenuto
             {
-                Id = 36,
-                ContentuoCard = "person-fill",
-                Tipo = "Icona",
+                Id = 35,
+                ContentuoCard = "file-text-fill",
+                Tipo = "Icon",
                 TipoContenutoId = 2,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                PaginaId = 18
+                PaginaId = 19
             },
             new Contenuto
             {
-                Id = 37,
+                Id = 36,
                 ContentuoCard = "/GovApp/coalizioni/modifica",
                 Tipo = "Link",
                 TipoContenutoId = 3,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                PaginaId = 18
+                PaginaId = 19
             },
             new Contenuto
             {
-                Id = 39,
+                Id = 37,
                 ContentuoCard = "Coalizioni Modifica",
                 Tipo = "Header",
                 TipoContenutoId = 4,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                PaginaId = 18
-            }
+                PaginaId = 19
+            },
+            new Contenuto
+            {
+                Id = 38,
+                ContentuoCard = "Da questa pagina è possibile interrogare i voti di Lista",
+                Tipo = "Testo",
+                TipoContenutoId = 1,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 24
+            },
+            new Contenuto
+            {
+                Id = 39,
+                ContentuoCard = "info-circle-fill",
+                Tipo = "Icon",
+                TipoContenutoId = 2,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 24
+            },
+            new Contenuto
+            {
+                Id = 40,
+                ContentuoCard = "/GovApp/interrogazioni/liste",
+                Tipo = "Link",
+                TipoContenutoId = 3,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 24
+            },
+            new Contenuto
+            {
+                Id = 41,
+                ContentuoCard = "Interrogazione Liste",
+                Tipo = "Header",
+                TipoContenutoId = 4,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 24
+            },
+             new Contenuto
+            {
+                Id = 42,
+                ContentuoCard = "Da questa pagina è possibile interrogare i voti del Sindaco",
+                Tipo = "Testo",
+                TipoContenutoId = 1,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 25
+            },
+            new Contenuto
+            {
+                Id = 43,
+                ContentuoCard = "info-circle-fill",
+                Tipo = "Icon",
+                TipoContenutoId = 2,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 25
+            },
+            new Contenuto
+            {
+                Id = 44,
+                ContentuoCard = "/GovApp/interrogazioni/sindaco",
+                Tipo = "Link",
+                TipoContenutoId = 3,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 25
+            },
+            new Contenuto
+            {
+                Id = 45,
+                ContentuoCard = "Interrogazione Liste",
+                Tipo = "Header",
+                TipoContenutoId = 4,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 25
+            },
+             new Contenuto
+            {
+                Id = 46,
+                ContentuoCard = "Da questa pagina è possibile interrogare i voti di Coalzione",
+                Tipo = "Testo",
+                TipoContenutoId = 1,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 26
+            },
+            new Contenuto
+            {
+                Id = 47,
+                ContentuoCard = "info-circle-fill",
+                Tipo = "Icon",
+                TipoContenutoId = 2,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 26
+            },
+            new Contenuto
+            {
+                Id = 48,
+                ContentuoCard = "/GovApp/interrogazioni/coalizioni",
+                Tipo = "Link",
+                TipoContenutoId = 3,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 26
+            },
+            new Contenuto
+            {
+                Id = 49,
+                ContentuoCard = "Interrogazione Coalizioni",
+                Tipo = "Header",
+                TipoContenutoId = 4,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 26
+            },
+             new Contenuto
+            {
+                Id = 50,
+                ContentuoCard = "Da questa pagina è possibile interrogare i voti di Preferenza",
+                Tipo = "Testo",
+                TipoContenutoId = 1,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 28
+            },
+            new Contenuto
+            {
+                Id = 51,
+                ContentuoCard = "info-circle-fill",
+                Tipo = "Icon",
+                TipoContenutoId = 2,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 28
+            },
+            new Contenuto
+            {
+                Id = 52,
+                ContentuoCard = "/GovApp/interrogazioni/preferenze",
+                Tipo = "Link",
+                TipoContenutoId = 3,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 28
+            },
+            new Contenuto
+            {
+                Id = 53,
+                ContentuoCard = "Interrogazione Preferenze",
+                Tipo = "Header",
+                TipoContenutoId = 4,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 28
+            },
+
             };
             modelBuilder.Entity<Contenuto>().HasData(Contenuti);
             var Pagine = new Pagina[] {
@@ -2016,6 +2184,46 @@ namespace Gov.Structure
                 UpdatedBy = null,
                 RoleId =Roles.Single(i => i.Name == "admin").Id,
                 Denominazione = "Status Sezione"
+            },new Pagina{
+                Id = 24,
+                Codice = "Interrogazioni",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Interrogazione Liste"
+            },new Pagina{
+                Id = 25,
+                Codice = "Interrogazioni",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Interrogazione Sindaco"
+            },new Pagina{
+                Id = 26,
+                Codice = "Interrogazioni",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Interrogazione Raggruppamenti"
+            },new Pagina{
+                Id = 27,
+                Codice = "Interrogazioni",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Indice Interrogazioni"
+            },new Pagina{
+                Id = 28,
+                Codice = "Interrogazioni",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Interrogazione Preferenze"
             }};
             modelBuilder.Entity<Pagina>().HasData(Pagine);
             var Voci = new VoceMenu[] {

@@ -39,7 +39,7 @@ namespace Gov.Structure.Services.Helpers
                 j.Id = v.Id;
                 j.Denominazione = v.Lista.Denominazione;
                 j.Progressivo = v.Lista.Progressivo;
-                j.Voti = v.Voti;
+                j.votiLista =v.Voti.ToString();
                 j.numeroSezione = sezione;
                 j.Tipo =tipo;
                 j.idLista = v.Listaid;
@@ -72,7 +72,7 @@ namespace Gov.Structure.Services.Helpers
             foreach (VotiListaModel l in list)
             {
                 VotiLista v = _votiListaService.findById((int)l.Id);              
-                v.Voti = l.Voti;               
+                v.Voti =int.Parse(l.votiLista);               
                 votiList.Add(v);
             }
             return votiList;
@@ -100,7 +100,7 @@ namespace Gov.Structure.Services.Helpers
                 VotiSindacoModel j = new VotiSindacoModel();
                 j.Id = vs.Sindaco.Id.ToString();            
                 j.Progressivo = vs.Sindaco.Progressivo.ToString();
-                j.Totale = vs.Votigenerali.Totale.ToString();            
+                j.totaleSindaco =vs.Votigenerali.Totale.ToString();            
                 j.Cognome = vs.Sindaco.Cognome.ToString();
                 j.Nome = vs.Sindaco.Nome;            
                 j.Progressivo = vs.Sindaco.Progressivo.ToString();             
@@ -120,7 +120,7 @@ namespace Gov.Structure.Services.Helpers
                     votiLista.numeroSezione = sezione;
                     votiLista.Progressivo = vl.Lista.Progressivo;
                     votiLista.Tipo = tipo;
-                    votiLista.Voti = vl.Voti;
+                    votiLista.votiLista = vl.Voti.ToString();
                     votiListaModels.Add(votiLista);
                 }
                 j.Liste = votiListaModels;
@@ -168,8 +168,8 @@ namespace Gov.Structure.Services.Helpers
             foreach (VotiSindacoModel l in list)
             {
                 VotiSindaco v = new VotiSindaco();                
-                v.NumeroVoti =int.Parse(l.Totale);
-                v.NumeroVotiSoloSindaco = int.Parse(l.SoloSindaco);               
+                v.NumeroVoti =int.Parse(l.totaleSindaco);
+                v.NumeroVotiSoloSindaco =int.Parse(l.SoloSindaco);               
                 v.Sezioneid=int.Parse(l.NumeroSezione);
                 v.Tipoelezioneid = tipoelezioneid;           
                 v.Votigenerali = vg;
@@ -184,7 +184,7 @@ namespace Gov.Structure.Services.Helpers
             foreach (VotiSindacoModel l in list)
             {
                 VotiSindaco v = _votiSindacoService.findBySindacoIdAndSezioneNumerosezioneAndTipoelezioneId(int.Parse(l.Id),int.Parse(l.NumeroSezione), tipoelezioneid);              
-                v.NumeroVoti = int.Parse(l.Totale);
+                v.NumeroVoti = int.Parse(l.totaleSindaco);
                 v.NumeroVotiSoloSindaco = int.Parse(l.SoloSindaco);                
                 v.Votigenerali = vg;
                 votiList.Add(v);
@@ -192,7 +192,7 @@ namespace Gov.Structure.Services.Helpers
             return votiList;
         }
 
-        public VotiGenerali prepareVotiG(VotiModel form,string user,int tipoelezioneid)
+        public VotiGenerali prepareVotiG(VotiModel form,int tipoelezioneid)
         {
            
             Sezioni sezione = _sezioneService.findByNumerosezioneAndTipoelezioneId(int.Parse(form.Sindaci[0].NumeroSezione), tipoelezioneid);
@@ -224,26 +224,45 @@ namespace Gov.Structure.Services.Helpers
             return v;
         }
 
-        public List<VotiLista> prepareVotiLista(List<VotiSindacoModel> sindaci, int tipoelezioneid, string user, List<VotiListaModel> l)
+        public List<VotiSindaco> prepareVoti(VotiModel form, int tipoelezioneid)
         {
-            List<VotiLista> listVoti = new List<VotiLista>();
-            DateTime oggi = DateTime.Now;
-            int sezioneid = _sezioneService.findByNumerosezioneAndTipoelezioneId(int.Parse(sindaci[0].NumeroSezione), tipoelezioneid).Id;
+            List<VotiLista> votiListe = new List<VotiLista>();
+            List<VotiSindaco> votiSindaci = new List<VotiSindaco>();
+            var sindaci = form.Sindaci;
+            int sezioneid = _sezioneService.findByNumerosezioneAndTipoelezioneId(int.Parse(form.NumeroSezione), tipoelezioneid).Id;
+            VotiGenerali v = new VotiGenerali();
+            v.Bianche = int.Parse(form.Bianche);
+            v.Contestate = int.Parse(form.Contestate);
+            v.Nulle = int.Parse(form.Nulle);
+            v.Sezioneid = sezioneid;
+            v.SoloSindaco = int.Parse(form.soloSindaco);
+            v.Totale = int.Parse(form.Totale);
+            v.TotaleValide = int.Parse(form.totaleValide);
+            v.Tipoelezioneid = tipoelezioneid;
             foreach (VotiSindacoModel s in sindaci)
             {
-               
-                foreach (VotiListaModel u in l)
+                VotiSindaco votiSindaco = new VotiSindaco();
+                votiSindaco.NumeroVoti =int.Parse(s.totaleSindaco);
+                votiSindaco.NumeroVotiSoloSindaco =int.Parse(s.SoloSindaco);
+                votiSindaco.Sezioneid = sezioneid;
+                votiSindaco.Tipoelezioneid = tipoelezioneid;
+                votiSindaco.Sindacoid = int.Parse(s.IdSindaco);             
+                votiSindaco.Votigenerali = v;               
+                foreach (VotiListaModel u in s.Liste)
                 {
-                    VotiLista v = new VotiLista();                  
-                    v.Voti = u.Voti;
-                    v.Sezioneid = sezioneid;
-                    v.Tipoelezioneid = tipoelezioneid;
-                    int listaid = l[0].Id;
-                    v.Listaid= listaid;
-                    listVoti.Add(v);
-                }
+                    VotiLista votiLista = new VotiLista();                  
+                    votiLista.Voti =int.Parse(u.votiLista);
+                    votiLista.Sezioneid = sezioneid;
+                    votiLista.Tipoelezioneid = tipoelezioneid;
+                    int listaid = u.idLista;
+                    votiLista.Listaid= listaid;
+                    votiLista.Votigenerali = v;
+                    votiListe.Add(votiLista);
+                }              
+                votiSindaco.VotiLista = votiListe;
+                votiSindaci.Add(votiSindaco);
             }
-            return listVoti;
+            return votiSindaci;
         }
 
             public List<VotiLista> prepareVotiListaR(List<VotiSindacoModel> sindaci, int tipoelezioneid,string user, List<VotiListaModel> l)
@@ -263,7 +282,7 @@ namespace Gov.Structure.Services.Helpers
                 else
                 {
                     v = _votiListaService.findById((int)l[0].Id);                  
-                    v.Voti = l[0].Voti;
+                    v.Voti =int.Parse(l[0].votiLista);
                     v.Votigeneraliid = vg.Id;
                     listVoti.Add(v);
                 }

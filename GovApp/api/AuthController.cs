@@ -765,6 +765,43 @@ namespace GovApp.api
         }
 
         [Authorize]
+        [HttpGet("myprofile")]
+        public IActionResult MyProfile()
+        {
+            ErrorModel error = new ErrorModel();
+            UserModel model = new UserModel();
+            try
+            {
+                CancellationToken cancellationToken = new CancellationToken();
+                string name = this.User?.Identity?.Name;
+                var user = _utentiService.FindByNameAsync(name,cancellationToken).Result;
+                model = new UserModel
+                {
+                    codicefiscale = user.CodiceFiscale,
+                    cognome = user.Cognome,
+                    email = user.Email,
+                    id = user.Id.ToString(),
+                    nome = user.Nome,
+                    sesso = user.Sesso,
+                    userName = user.UserName,
+                    isActive = !user.LockoutEnabled,
+                    role = string.Join(",", user.UserRoles.Select(x => x.Role.Name).ToList()),
+                    ruoli = user.UserRoles.Select(x=>x.Role.Name).ToList(),
+                    ultimaModifica = user.LastModified.ToString("G")
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Errore imprevisto nel profilo utente dettagli: " + ex.Message);
+                error.errMsg = "Errore imprevisto nell'accesso al profilo utente";
+                return BadRequest(error);
+            }
+
+            return Ok(model);
+        }
+
+
+        [Authorize]
         [HttpPost("resetpassword")]
         [IgnoreAntiforgeryToken]
         public async Task<IActionResult> ResetPassoword([FromBody] UserModel user)

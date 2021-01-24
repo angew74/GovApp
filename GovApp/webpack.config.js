@@ -86,6 +86,14 @@ module.exports = {
         'status': [
             './wwwroot/js/app.js',
             './Views/Sezioni/status.cshtml.js'
+        ],
+        'myprofile': [
+            './wwwroot/js/app.js',
+            './Views/Account/MyProfile.cshtml.js'
+        ],
+        'interrogazioni': [
+            './wwwroot/js/app.js',
+            './Views/Interrogazioni/Index.cshtml.js'
         ]
 
     },

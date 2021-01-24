@@ -31,10 +31,7 @@ namespace GovApp.Controllers
 
         [Authorize]
         public IActionResult MyProfile()
-        {
-            string username = HttpContext.User.Identity.Name;
-            ApplicationUser user = _userManager.FindByNameAsync(username).Result;
-            ViewBag.Id = user.Id;
+        {          
             return View();
         }
 
@@ -130,7 +127,7 @@ namespace GovApp.Controllers
         public IActionResult ConfirmEmailConfirmation()
         {
             return View();
-        }
+        }      
 
         [Authorize(Policy = "RequireUserRole")]
         public IActionResult ChangePassword()

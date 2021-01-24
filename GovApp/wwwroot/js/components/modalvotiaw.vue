@@ -19,7 +19,7 @@
                                                       id="votiid"
                                                       :state="getValidationState(validationContext)"
                                                       aria-describedby="input-voti-live-feedback"
-                                                      v-model="data.voti" />
+                                                      v-model="data.votiLista" />
                                         <b-form-invalid-feedback id="input-voti-live-feedback">
                                             {{validationContext.errors[0]}}
                                         </b-form-invalid-feedback>
@@ -80,7 +80,7 @@
                     for (var i = 0; i < newobject.liste.length; i++) {
                         var lista = {};
                         lista.denominazione = newobject.liste[i].denominazione;
-                        lista.voti = newobject.liste[i].voti;
+                        lista.voti = parseInt(newobject.liste[i].votiLista);
                         lista.idLista = newobject.liste[i].idLista;
                         lista.idSindaco = newobject.liste[i].idSindaco;
                         this.coalizioneModal.liste.push(lista);
@@ -102,7 +102,7 @@
             onSubmit() {
                 console.log(this.coalizioneModal);
                 for (var i = 0; i < this.coalizioneModal.liste.length; i++) {
-                    this.coalizione.liste[i].voti = this.coalizioneModal.liste[i].voti;
+                    this.coalizione.liste[i].votiLista = parseInt(this.coalizioneModal.liste[i].votiLista);
                 }             
                 this.$emit('save', this.coalizione);
                 this.$root.$emit('bv::hide::modal', this.coalizioneModal.id);

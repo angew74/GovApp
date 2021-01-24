@@ -129,7 +129,18 @@
                 })
             },
             savecoalizione(e) {
-
+                this.loading = true;
+                this.inscoalizione({ voti: e })
+                    .then(() => {
+                        if (this.isMessage) {
+                            this.showSweetAlert(this.Message);
+                            this.loading = false;
+                        }
+                        else {
+                            this.showSweetAlertinfo("Inserimento effettuato");
+                            this.loading = false;
+                        }
+                    })
             },
             cercasezione(e) {
                 this.loading = true;

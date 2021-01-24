@@ -9,6 +9,7 @@ namespace Gov.Structure.Contracts
     where T : BaseEntity
     {
         void Create(T entity);
+        void CreateRange(List<T> entities);
         void Delete(T entity);
         IEnumerable<T> GetAll();
         void Update(T entity);

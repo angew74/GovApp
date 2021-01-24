@@ -186,21 +186,22 @@
                                     </div>
                                     <div class="col">
                                         <validation-provider vid="totale"
-                                                             name="totale"
-                                                             :rules="{required:true,min:0,max:scrutinio.totale}"
+                                                             name="totale sindaco"
+                                                             :rules="{required:true,min_value:0,max_value:scrutinio.totale}"
                                                              v-slot="validationContext">
-                                            <b-form-input v-model="data.totale"
-                                                          placeholder="Totale voti"
+                                            <b-form-input placeholder="Totale sindaco"
                                                           class="form-control"
                                                           :state="getValidationState(validationContext)"
-                                                          type="number" />
+                                                          aria-describedby="input-datatotale-live-feedback"
+                                                          type="number" 
+                                                          v-model="data.totaleSindaco"/>
                                             <b-form-invalid-feedback id="input-datatotale-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                                         </validation-provider>
                                     </div>
                                     <div class="col">
                                         <validation-provider vid="dataSoloSindaco"
                                                              name="solo sindaco"
-                                                             :rules="{required:true,min:0,max:scrutinio.totale}"
+                                                             :rules="{required:true,min_value:0,max_value:scrutinio.totale}"
                                                              v-slot="validationContext">
                                             <b-form-input placeholder="Solo Sindaco"
                                                           type="number"
@@ -212,7 +213,7 @@
                                         </validation-provider>
                                     </div>
                                     <div class="col">
-                                        <b-form-input name="soloListe" type="text"
+                                        <b-form-input name="soloListe" type="number"
                                                       v-model="data.soloListe"
                                                       placeholder="totale liste"
                                                       class="form-control"
@@ -280,13 +281,13 @@
                 var appo = 0;
                 this.scrutinio.sindaci[this.currentIndex]
                 for (var i = 0; i < this.scrutinio.sindaci[this.currentIndex].liste.length; i++) {
-                    this.scrutinio.sindaci[this.currentIndex].liste[i].voti = e.liste[i].voti;
+                    this.scrutinio.sindaci[this.currentIndex].liste[i].votiLista = parseInt(e.liste[i].votiLista);
                     appo = totale;
-                    totale = parseInt(e.liste[i].voti) + parseInt(appo);
+                    totale = parseInt(e.liste[i].votiLista) + parseInt(appo);
                     this.scrutinio.sindaci[this.currentIndex].liste[i].isCoalizione = 'S';
                     this.isCoalizione = 'S';
                 }
-                this.scrutinio.sindaci[this.currentIndex].soloListe = totale;
+                this.scrutinio.sindaci[this.currentIndex].soloListe = parseInt(totale);
                 this.showvoti = false;
             },
             cancelliste() {
@@ -297,13 +298,16 @@
                 if (mess !== '') {
                     this.showSweetAlert(mess);
                 }
-                console.log(this.scrutinio);
-                this.$emit('postscrutinio', this.scrutinio);
+                else {
+                    console.log(this.scrutinio);
+                    this.$emit('postscrutinio', this.scrutinio);
+                }
             },
             checkSum() {
                 var messaggio = '';
                 var totaleListe = 0;
                 var totaleSindaco = 0;
+                var totaleVoti = 0;
                 var totale = parseInt(this.scrutinio.nulle) + parseInt(this.scrutinio.bianche) + parseInt(this.scrutinio.contestate) + parseInt(this.scrutinio.totaleValide);
                 if (totale !== parseInt(this.scrutinio.totale)) {
                     messaggio = "Totale G (" + this.scrutinio.totale + ") diverso dalla somma di C + D + E + F (" + totale + ")";
@@ -316,17 +320,24 @@
                 for (var i = 0; i < this.scrutinio.sindaci.length; i++) {
                     var appoSindaco = totaleSindaco;
                     var appoListe = totaleListe;
+                    var appoTotale = totaleVoti;
                     var numSindaco = parseInt(this.scrutinio.sindaci[i].soloSindaco);
                     var numListe = parseInt(this.scrutinio.sindaci[i].soloListe);
+                    var numTotale = parseInt(this.scrutinio.sindaci[i].totaleSindaco);
                     totaleSindaco = parseInt(numSindaco) + parseInt(appoSindaco);
                     totaleListe = parseInt(numListe) + parseInt(appoListe);
+                    totaleVoti = parseInt(numTotale) + parseInt(appoTotale);
                 }
                 if (parseInt(this.scrutinio.soloSindaco) !== totaleSindaco) {
                     messaggio = "Totale solo sindaco (" + this.scrutinio.soloSindaco + ") diverso da somme singoli candidati (" + totaleSindaco +")";
                     return messaggio;
                 }
                 if (parseInt(this.scrutinio.valideListe) !== totaleListe) {
-                    messaggio = "Totale liste (" + this.scrutinio.valideListe + ") diverso da somme singoli raggruppamenti (" + totaleListe + ")";
+                    messaggio = "Totale liste (" + this.scrutinio.valideListe + ") diverso da somme singole liste (" + totaleListe + ")";
+                    return messaggio;
+                }
+                if (parseInt(this.scrutinio.totaleValide) !== totaleVoti) {
+                    messaggio = "Totale valide (" + this.scrutinio.totaleValide + ") diverso da somme singoli raggruppamenti (" + totaleVoti + ")";
                     return messaggio;
                 }
                 return messaggio;
