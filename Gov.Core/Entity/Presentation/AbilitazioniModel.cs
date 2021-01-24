@@ -6,6 +6,16 @@ namespace Gov.Core.Entity.Presentation
 {
     public class AbilitazioniModel
     {
+        public AbilitazioniModel()
+        {
+
+        }
+        public AbilitazioniModel(string c, string d)
+        {
+            codice = c;
+            descrizione = d;
+        }
+
       public  string codice { get; set; }
       public string descrizione { get; set; }
       public string categoria { get; set; }

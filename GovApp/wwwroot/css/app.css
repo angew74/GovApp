@@ -17,8 +17,11 @@ body {
 }
 
 
-.nav-link {
+.nav-link-menu {
     color: white;
+}
+.nav-link-tab {
+    color: darkblue;
 }
 
 .nav-item {

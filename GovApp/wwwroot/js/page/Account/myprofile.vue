@@ -25,8 +25,8 @@
                                         <avataaars :circleColor="'transparent'">
                                         </avataaars>
                                         <div class="mt-3">
-                                            <h4>{{profilo.nome}} {{profilo.cognome}}</h4>
-                                            <p class="text-secondary mb-1">{{profilo.userName}}</p>
+                                            <h4>{{profilo.userName}}</h4>
+                                            <p class="text-secondary mb-1">{{profilo.nome}} {{profilo.cognome}}</p>
                                             <p class="text-muted font-size-sm">{{profilo.role}}</p>
                                         </div>
                                     </div>
@@ -119,8 +119,8 @@
                                 <div class="col-sm-6 mb-3">
                                     <div class="card h-100">
                                         <div class="card-body">
-                                            <h6 class="d-flex align-items-center mb-3">
-                                                <v-icon scale="2.5" style="margin-left:20px" class="fonticonred" name="users-cog" />
+                                            <h6 class="d-flex align-items-center mb-3" style="font-size:1.5em">
+                                                <v-icon scale="2.5" style="margin-right:10px" class="fonticonred" name="users-cog" />
                                                 {{data}}
                                             </h6>
                                         </div>
@@ -162,7 +162,7 @@
             ...mapGetters('context', [
                 'MyProfile',
                 'isMessage',
-                'Message',                
+                'Message',                    
             ])
         },
         mounted() {
@@ -193,6 +193,15 @@
                     title: 'Attenzione',
                     text: message,
                     icon: 'error',
+                    showCancelButton: false,
+                    showCloseButton: true,
+                })
+            },
+            showSweetAlertinfo(message) {
+                this.$swal({
+                    title: 'Congratulazioni',
+                    text: message,
+                    icon: 'info',
                     showCancelButton: false,
                     showCloseButton: true,
                 })

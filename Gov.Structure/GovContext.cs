@@ -1413,7 +1413,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 2,
-                ContentuoCard = "person-plus-fill",
+                ContentuoCard = "collection-fill",
                 Tipo = "Icona",
                 TipoContenutoId = 2,
                 CreatedBy = "Caricamento",
@@ -1457,7 +1457,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 6,
-                ContentuoCard = "person-check-fill",
+                ContentuoCard = "collection-fill",
                 Tipo = "Icona",
                 TipoContenutoId = 2,
                 CreatedBy = "Caricamento",
@@ -1501,7 +1501,7 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 10,
-                ContentuoCard = "people-fill",
+                ContentuoCard = "collection-fill",
                 Tipo = "Icona",
                 TipoContenutoId = 2,
                 CreatedBy = "Caricamento",
@@ -1725,7 +1725,7 @@ namespace Gov.Structure
             {
                 Id = 31,
                 ContentuoCard = "file-text-fill",
-                Tipo = "Icon",
+                Tipo = "Icona",
                 TipoContenutoId = 2,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
@@ -1769,7 +1769,7 @@ namespace Gov.Structure
             {
                 Id = 35,
                 ContentuoCard = "file-text-fill",
-                Tipo = "Icon",
+                Tipo = "Icona",
                 TipoContenutoId = 2,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
@@ -1812,8 +1812,8 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 39,
-                ContentuoCard = "info-circle-fill",
-                Tipo = "Icon",
+                ContentuoCard = "archive-fill",
+                Tipo = "Icona",
                 TipoContenutoId = 2,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
@@ -1856,8 +1856,8 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 43,
-                ContentuoCard = "info-circle-fill",
-                Tipo = "Icon",
+                ContentuoCard = "archive-fill",
+                Tipo = "Icona",
                 TipoContenutoId = 2,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
@@ -1900,8 +1900,8 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 47,
-                ContentuoCard = "info-circle-fill",
-                Tipo = "Icon",
+                ContentuoCard = "archive-fill",
+                Tipo = "Icona",
                 TipoContenutoId = 2,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
@@ -1944,8 +1944,8 @@ namespace Gov.Structure
             new Contenuto
             {
                 Id = 51,
-                ContentuoCard = "info-circle-fill",
-                Tipo = "Icon",
+                ContentuoCard = "archive-fill",
+                Tipo = "Icona",
                 TipoContenutoId = 2,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,

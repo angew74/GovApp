@@ -1,5 +1,8 @@
 ﻿<template>
-    <div class="container" style="margin-top:140px;">
+    <div class="container" style="margin-top:20px;">
+        <div style="margin-bottom: 30px;font-size:1.6em;text-align:center;font-weight:bold;vertical-align:text-top" class="badge-dark rounded">
+            <span>Cambio password</span>         
+        </div>
         <validation-observer ref="observer" v-slot="{ handleSubmit }">
             <b-form v-if="show" @submit.stop.prevent="handleSubmit(onSubmit)">
 
@@ -18,35 +21,37 @@
                                   v-model="form.userName"
                                   readonly></b-form-input>
                 </b-form-group>
-                <validation-provider  vid="password"     
+                <validation-provider vid="password"
                                      name="password"
                                      :rules="{required:true,password:form.confirmPassword,min:8,max:16}"
                                      v-slot="validationContext">
                     <b-form-group id="passwordgroup" label="Password:" label-for="password">
-                        <b-form-input id="password"                                     
-                                      v-model="form.password"     
+                        <b-form-input id="password"
+                                      v-model="form.password"
                                       name="password"
                                       :state="getValidationState(validationContext)"
-                                      aria-describedby="input-password-live-feedback"                                     
+                                      aria-describedby="input-password-live-feedback"
                                       placeholder="inserisci password"></b-form-input>
                         <b-form-invalid-feedback id="input-password-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </b-form-group>
                 </validation-provider>
-                <validation-provider vid="confirmPassword"                                     
+                <validation-provider vid="confirmPassword"
                                      :rules="{required:true,min:8,max:16}"
                                      name="conferma password"
                                      v-slot="validationContext">
                     <b-form-group id="confirmpasswordgroup" label="Conferma Password:" label-for="confirm">
                         <b-form-input id="confirm"
-                                      v-model="form.confirmPassword"  
+                                      v-model="form.confirmPassword"
                                       name="confirmPassword"
                                       :state="getValidationState(validationContext)"
-                                      aria-describedby="input-confirmpassword-live-feedback"                                     
+                                      aria-describedby="input-confirmpassword-live-feedback"
                                       placeholder="inserisci conferma password"></b-form-input>
                         <b-form-invalid-feedback id="input-confirmpassword-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </b-form-group>
                 </validation-provider>
-                <b-button type="submit" variant="primary">Conferma</b-button>
+                <div style="margin-top:20px;text-align:right">
+                    <b-button type="submit" variant="primary">Conferma</b-button>
+                    </div>
             </b-form>
         </validation-observer>
     </div>

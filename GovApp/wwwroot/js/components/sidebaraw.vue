@@ -11,11 +11,11 @@
                     apri il menu
                 </b-tooltip>
             </b-nav-item>
-            <b-nav-item v-if="!isAuthenticated" href="/GovApp/home/index" active>
+            <b-nav-item  v-if="!isAuthenticated" href="/GovApp/home/index" active>
                 <b-iconstack id="home-icon" font-scale="5" animation="spin">
                     <b-icon stacked icon="house" variant="info" scale="0.65" shift-v="-0.25"></b-icon>
                 </b-iconstack>
-                <b-tooltip target="logout-icon" triggers="hover">
+                <b-tooltip target="home-icon" triggers="hover">
                     vai all'homepage autenticandoti
                 </b-tooltip>
             </b-nav-item>
@@ -49,7 +49,7 @@
                 <div class="px-3 py-2">
                     <div v-bind:key="data.index" v-for="(data,index) in voci">
                         <b-navbar-nav class="ml-auto">
-                            <b-nav-item v-bind:active="data.active" v-bind:href="data.link">
+                            <b-nav-item v-bind:active="data.active" link-classes="nav-link-menu" v-bind:href="data.link">
                                 <v-icon v-bind:name="data.icon" />
                                 {{data.descrizione}}
                             </b-nav-item>

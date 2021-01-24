@@ -4,20 +4,16 @@
             <div role="tablist" style="padding-top:80px">
                 <b-card v-bind:key="data.index" v-for="(data,index) in contenuti"
                         no-body class="mb-1 text-center border-0">
-                    <b-card-header header-tag="header" class="p-1 border-0" role="tab">
+                    <b-card-header header-tag="header" class="p-1 border-0" style="font-size:1.5rem" role="tab">
                         <b-button block v-b-toggle="'accordion-' + index" variant="dark">
                             <v-icon name="expand-arrows-alt" scale="1.5" />                           
                             {{data.contenutoHeader}}
                         </b-button>
                     </b-card-header>
                     <b-collapse v-bind:id=" 'accordion-' + index" accordion="my-accordion" role="tabpanel">
-                        <b-card-text class="border-0">
-                            <b-iconstack font-scale="2">
-                                <b-icon stacked icon="circle-fill" variant="info"></b-icon>
-                                <b-icon stacked v-bind:icon="data.contenutoIcon" scale="0.5" variant="white"></b-icon>
-                                <b-icon stacked icon="circle" variant="danger"></b-icon>
-                            </b-iconstack>
-                            {{ data.contenutoTesto }}
+                        <b-card-text class="border-0" style="font-size:1.6rem">                           
+                                <b-icon v-bind:icon="data.contenutoIcon" class="rounded-circle bg-danger p-2"  width="1.6em" height="1.6em"  variant="light"></b-icon>
+                                {{ data.contenutoTesto }}                             
                         </b-card-text>
                         <b-card-footer footer-tag="footer" class="card-footer bg-transparent border-0">
                             <a v-bind:href="data.contenutoLink">

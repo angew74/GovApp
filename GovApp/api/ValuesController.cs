@@ -42,11 +42,12 @@ namespace GovApp.api
         private readonly IAffluenzaService _affluenzaService;
         private readonly IIscrittiService _iscrittiService;
         private readonly ITipoElezioneService _tipoElezioneService;
-        private readonly IVotiListaService _votiListaService;
+        private readonly IListaService _listaService;
+        private readonly IMunicipioService _municipioService;
         private readonly IVotiSindacoService _votiSindacoService;
         private readonly IVotiPreferenzeService _votiPreferenzeService;
 
-        public ValuesController(ILogger<ValuesController> logger, IPaginaService paginaService, IVoceMenuService voceMenuService, IContenutoService contenutoService, IRoleStore<ApplicationRole> roleService, ISezioneService sezioneService, IOptions<ElezioneConfig> elezioneConfig, IBusinessRules businessRules, IAbilitazioniService abilitazioniService, IAffluenzaService affluenzaService, ITipoElezioneService tipoElezioneService, IIscrittiService iscrittiService, UserStore utentiService, IVotiSindacoService votiSindacoService, IVotiListaService votiListaService, IVotiPreferenzeService votiPreferenzeService)
+        public ValuesController(ILogger<ValuesController> logger, IPaginaService paginaService, IVoceMenuService voceMenuService, IContenutoService contenutoService, IRoleStore<ApplicationRole> roleService, ISezioneService sezioneService, IOptions<ElezioneConfig> elezioneConfig, IBusinessRules businessRules, IAbilitazioniService abilitazioniService, IAffluenzaService affluenzaService, ITipoElezioneService tipoElezioneService, IIscrittiService iscrittiService, UserStore utentiService, IMunicipioService municipioService, IListaService listaService, IVotiSindacoService votiSindacoService, IVotiPreferenzeService votiPreferenzeService)
         {
             _logger = logger;
             _paginaService = paginaService;
@@ -61,7 +62,8 @@ namespace GovApp.api
             _tipoElezioneService = tipoElezioneService;
             _iscrittiService = iscrittiService;
             _utentiService = utentiService;
-            _votiListaService = votiListaService;
+            _listaService = listaService;
+            _municipioService = municipioService;
             _votiSindacoService = votiSindacoService;
             _votiPreferenzeService = votiPreferenzeService;
         }
@@ -461,6 +463,59 @@ namespace GovApp.api
             catch (Exception ex)
             {
                
+                error.errMsg = "Errore grave :" + ex.Message;
+                _logger.LogError("Errore grave :" + ex.Message);
+                return BadRequest(error);
+            }
+            return Ok(model);
+        }
+
+        [Authorize]
+        [HttpGet("/Values/liste")]
+        public IActionResult Liste([FromQuery] string categoria)
+        {
+            ErrorModel error = new ErrorModel();
+            List<AbilitazioniModel> model = new List<AbilitazioniModel>();
+            model.Add(new AbilitazioniModel("", "Selezionare un'opzione"));
+            try
+            {
+                var liste = _listaService.findAllByTipoelezioneId(int.Parse(_elezioneConfig.Value.tipoelezioneid));
+                model.AddRange(liste.Select(x => new AbilitazioniModel
+                {
+                    codice = x.Id.ToString(),
+                    descrizione = x.Denominazione
+                }).ToList());
+            }
+            catch (Exception ex)
+            {
+
+                error.errMsg = "Errore grave :" + ex.Message;
+                _logger.LogError("Errore grave :" + ex.Message);
+                return BadRequest(error);
+            }
+            return Ok(model);
+        }
+
+
+        [Authorize]
+        [HttpGet("/Values/municipi")]
+        public IActionResult Municipi([FromQuery] string categoria)
+        {
+            ErrorModel error = new ErrorModel();
+            List<AbilitazioniModel> model = new List<AbilitazioniModel>();
+            model.Add(new AbilitazioniModel("", "Selezionare un'opzione"));
+            try
+            {
+                var liste = _municipioService.GetAll();
+                model.AddRange(liste.Select(x => new AbilitazioniModel
+                {
+                    codice = x.Id.ToString(),
+                    descrizione = x.Descrizione
+                }).ToList());
+            }
+            catch (Exception ex)
+            {
+
                 error.errMsg = "Errore grave :" + ex.Message;
                 _logger.LogError("Errore grave :" + ex.Message);
                 return BadRequest(error);

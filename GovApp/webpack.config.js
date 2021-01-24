@@ -94,6 +94,10 @@ module.exports = {
         'interrogazioni': [
             './wwwroot/js/app.js',
             './Views/Interrogazioni/Index.cshtml.js'
+        ],
+        'liste': [
+            './wwwroot/js/app.js',
+            './Views/Interrogazioni/Liste.cshtml.js'
         ]
 
     },
