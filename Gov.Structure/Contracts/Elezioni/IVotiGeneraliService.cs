@@ -14,5 +14,7 @@ namespace Gov.Structure.Contracts.Elezioni
         List<VotiGenerali> findAllBy();
         VotiGenerali findBySezioneNumerosezioneAndTipoelezioneId(int numerosezione, int tipoelezioneid);
         List<VotiGenerali> findBySezionePlessoIdAndTipoelezioneId(int plessoid, int tipoelezioneid);
+        List<Voti> findByMunicipioAndTipoelezioneId(int municipio, int tipoelezioneid);
+        List<Voti> findByTipoelezioneId(int tipoelezioneid);
     }
 }

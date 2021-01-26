@@ -1,27 +1,31 @@
 ﻿<template>
     <div class="container" style="position: relative;overflow: auto;">
         <validation-observer ref="observer" v-slot="{ handleSubmit }">
-            <validation-provider vid="municipi"
-                                 name="municipio"
-                                 :rules="{required:true}"
-                                 v-slot="validationContext">
-                <b-form-group id="municipiogroup"
-                              label="Municipio:"
-                              label-for="municipio">
-                    <b-form-select v-model="selected"
-                                   v-on:change="getSelectedItem"
-                                   :options="tipologiche"
-                                   class="mb-3"
-                                   id="municipio"
-                                   value-field="codice"
-                                   text-field="descrizione"
-                                   :state="getValidationState(validationContext)"
-                                   aria-describedby="input-liste-live-feedback"
-                                   disabled-field="notEnabled">
-                    </b-form-select>
-                    <b-form-invalid-feedback id="input-liste-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                </b-form-group>
-            </validation-provider>
+            <b-form v-if="show" @submit.stop.prevent="handleSubmit(onSubmit)">
+                <validation-provider vid="municipi"
+                                     name="municipio"
+                                     :rules="{required:true}"
+                                     v-slot="validationContext">
+                    <b-form-group id="municipiogroup"
+                                  label="Municipio:"
+                                  label-for="municipio">
+                        <b-form-select v-model="form.municipio"                                      
+                                       :options="tipologiche"
+                                       class="mb-3"
+                                       id="municipio"
+                                       value-field="codice"
+                                       text-field="descrizione"
+                                       :state="getValidationState(validationContext)"
+                                       aria-describedby="input-municipio-live-feedback"
+                                       disabled-field="notEnabled">
+                        </b-form-select>
+                        <b-form-invalid-feedback id="input-liste-municipio-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </validation-provider>
+                <div style="margin-top:10px;text-align:right">
+                    <b-button type="submit" variant="primary">Ricerca</b-button>
+                </div>
+            </b-form>
         </validation-observer>
     </div>
 </template>
@@ -29,25 +33,25 @@
     export default {
         name: 'municipioaw',
         namespaced: true,
-        props: ["elezione"],
+        props: ["form"],
         components: {
         },
         data: function () {
             return {
                 tipo: {},
-                selected: null,
                 tipologiche: null,
                 show: true,
-                loading:false,
+                loading: false,
                 messaggio: ''
             }
         },
         methods: {
-            getSelectedItem: function (myarg) { // Just a regular js function that takes 1 arg
-                this.$emit('selection', myarg);
-            },
             getValidationState({ dirty, validated, valid = null }) {
                 return dirty || validated ? valid : null;
+            },
+            onSubmit() {
+                console.log(this.form);
+                this.$emit('research', this.form);
             },
             showSweetAlert(message) {
                 this.$swal({
@@ -65,9 +69,6 @@
             axios({
                 method: 'get',
                 url: '/GovApp/values/municipi',
-                params: {
-                    "elezione": this.elezione
-                }
             })
                 .then(response => {
                     this.tipologiche = response.data;

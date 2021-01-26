@@ -10,6 +10,7 @@ const store = {
         sezione: {},
         myprofile: {},
         affluenza: {},
+        votiVisualizzazione: {},
         voti: {},
         auto: []
     },
@@ -24,6 +25,7 @@ const store = {
         Auto: state => state.auto,
         MyProfile: state => state.myprofile,
         Affluenza: state => state.affluenza,
+        VotiVisualizzazione: state=> state.votiVisualizzazione,
         Voti: state => state.voti
     },
     mutations: {
@@ -50,6 +52,9 @@ const store = {
         },
         setAffluenza(state, affluenza) {
             state.affluenza = affluenza;
+        },
+        setVotiVisualizzazione(state, votiVisualizzazione) {
+            state.votiVisualizzazione = votiVisualizzazione;
         },
         centralizeMessage(state, error) {
             if ((typeof (error.message) !== 'undefined') && (typeof (error.response.data) === 'undefined')) {
@@ -161,8 +166,8 @@ const store = {
                     commit('centralizeMessage', error);
                 });
         },
-        research({ commit }, researchsezione) {
-            return axios.post('/GovApp/values/ResearchSezione', researchsezione
+        research({ commit }, research) {
+            return axios.post('/GovApp/values/ResearchSezione', research
                 , {
                     headers: { 'Content-Type': 'application/json' }
                 }).then(res => {
@@ -178,8 +183,8 @@ const store = {
                     commit('centralizeMessage', error);
                 });
         },
-        status({ commit }, researchsezione) {
-            return axios.post('/GovApp/values/StatusSezione', researchsezione
+        status({ commit }, research) {
+            return axios.post('/GovApp/values/StatusSezione', research
                 , {
                     headers: { 'Content-Type': 'application/json' }
                 }).then(res => {
@@ -215,7 +220,7 @@ const store = {
             });
         },
         insandamento({ commit }, anda) {
-            return axios.post('/GovApp/values/apra', anda
+            return axios.post('/GovApp/andamento/apra', anda
                 , {
                     headers: { 'Content-Type': 'application/json' }
                 }).then(res => {
@@ -249,7 +254,7 @@ const store = {
                 });
         },
         modandamento({ commit }, anda) {
-            return axios.post('/GovApp/values/rapra', anda
+            return axios.post('/GovApp/andamento/rapra', anda
                 , {
                     headers: { 'Content-Type': 'application/json' }
                 }).then(res => {
@@ -265,8 +270,8 @@ const store = {
                     commit('centralizeMessage', error);
                 });
         },
-        researchAffluenza({ commit }, researchsezione) {
-            return axios.post('/GovApp/values/affluenza', researchsezione
+        researchAffluenza({ commit }, research) {
+            return axios.post('/GovApp/andamento/affluenza', research
                 , {
                     headers: { 'Content-Type': 'application/json' }
                 }).then(res => {
@@ -282,8 +287,8 @@ const store = {
                     commit('centralizeMessage', error);
                 });
         },
-        caricavoti({ commit }, researchsezione) {
-            return axios.post('/GovApp/voti/carica', researchsezione
+        caricavoti({ commit }, research) {
+            return axios.post('/GovApp/voti/carica', research
                 , {
                     headers: { 'Content-Type': 'application/json' }
                 }).then(res => {
@@ -300,7 +305,7 @@ const store = {
                 });
         },
         insaffluenza({ commit }, affluenza) {
-            return axios.post('/GovApp/values/anda', affluenza
+            return axios.post('/GovApp/andamento/anda', affluenza
                 , {
                     headers: { 'Content-Type': 'application/json' }
                 }).then(res => {
@@ -317,7 +322,7 @@ const store = {
                 });
         },
         modaffluenza({ commit }, affluenza) {
-            return axios.post('/GovApp/values/anda', affluenza
+            return axios.post('/GovApp/andamento/anda', affluenza
                 , {
                     headers: { 'Content-Type': 'application/json' }
                 }).then(res => {
@@ -328,6 +333,23 @@ const store = {
                     else {
                         commit('setMessage', res.message);
                         commit('setSezione', null);
+                    }
+                }).catch((error) => {
+                    commit('centralizeMessage', error);
+                });
+        },
+        researchvoti({ commit }, research) {
+            return axios.post('/GovApp/voti/interrogazione', research
+                , {
+                    headers: { 'Content-Type': 'application/json' }
+                }).then(res => {
+                    if (res.status === 200 && res.data !== null) {
+                        commit('setMessage', '');
+                        commit('setVotiVisualizzazione', res.data);
+                    }
+                    else {
+                        commit('setMessage', res.message);
+                        commit('setVotiVisualizzazione', null);
                     }
                 }).catch((error) => {
                     commit('centralizeMessage', error);

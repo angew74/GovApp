@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Gov.Core.Entity.Elezioni;
 using Gov.Structure.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gov.Structure.Services.Elezioni
 {
@@ -128,7 +129,7 @@ namespace Gov.Structure.Services.Elezioni
         {
          
             
-                return _dbset.Where(x => x.Tipoelezioneid == tipoElezioneId && x.Lista.Id == listaid).ToList();
+                return _dbset.Where(x => x.Tipoelezioneid == tipoElezioneId && x.Lista.Id == listaid).Include(i=>i.Lista).ToList();
             
         }
 
@@ -152,8 +153,14 @@ namespace Gov.Structure.Services.Elezioni
         {
           
             
-                return _dbset.Where(x => x.Tipoelezioneid == tipoelezioneid && x.Sezione.Numerosezione == numerosezione).ToList();
+                return _dbset.Where(x => x.Tipoelezioneid == tipoelezioneid && x.Sezione.Numerosezione == numerosezione).Include(i=>i.Lista).Include(i=>i.Sezione).ToList();
             
+        }
+        public List<VotiLista> findByMunicipioAndTipoelezioneId(int municipio, int tipoelezioneid)
+        {
+
+            return _dbset.Where(x => x.Tipoelezioneid == tipoelezioneid && x.Sezione.Municipio == municipio).Include(i=>i.Lista).ToList();
+
         }
 
         public List<VotiLista> findBySezioneNumerosezioneAndTipoelezioneIdAndListaCoalizioneId(int numerosezione, int tipoelezioneid, int coalizioneid)

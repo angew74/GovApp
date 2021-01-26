@@ -29,34 +29,49 @@ namespace Gov.Structure.Services.Helpers
             _votiSindacoService = votiSindacoService;
         }
 
-        public List<VotiListaModel> ConvertToJson(List<VotiLista> l, int sezione, string tipo)
+        public MunicipioModel ConvertToJsonLista(List<VotiLista> l, VotiGenerali votiGenerali)
         {
             List<VotiListaModel> listaJsons = new List<VotiListaModel>();
-            VotiModel json = new VotiModel();
+            MunicipioModel municipioModel = new MunicipioModel();
+            InterrogazioneModel json = new InterrogazioneModel
+            {
+                Bianche = votiGenerali.Bianche.ToString(),
+                Contestate = votiGenerali.Contestate.ToString(),
+                Nulle = votiGenerali.Nulle.ToString(),
+                totaleValide = votiGenerali.TotaleValide.ToString(),
+                soloSindaco = votiGenerali.SoloSindaco.ToString(),
+                valideListe = (votiGenerali.TotaleValide - votiGenerali.SoloSindaco).ToString(),
+                NumeroSezione = votiGenerali.Sezione.Numerosezione.ToString(),
+                Totale = votiGenerali.Totale.ToString(),
+                Votanti = votiGenerali.Totale.ToString(),
+                Tipo = "Lista sezione numero " + votiGenerali.Sezione.Numerosezione.ToString(),
+                Iscritti = votiGenerali.Sezione.Iscritti.Iscrittitotaligen.ToString()
+            };
             foreach (VotiLista v in l)
             {
                 VotiListaModel j = new VotiListaModel();
                 j.Id = v.Id;
                 j.Denominazione = v.Lista.Denominazione;
                 j.Progressivo = v.Lista.Progressivo;
-                j.votiLista =v.Voti.ToString();
-                j.numeroSezione = sezione;
-                j.Tipo =tipo;
+                j.votiLista = v.Voti.ToString();
+                j.numeroSezione = votiGenerali.Sezione.Numerosezione;
                 j.idLista = v.Listaid;
                 listaJsons.Add(j);
             }
-            return listaJsons;
+            json.Liste = listaJsons;
+            municipioModel.Municipio = "99";
+            municipioModel.interrogazione = json;
+            return municipioModel;
         }
 
 
-       
-        public List<VotiLista> prepareVoti(List<VotiListaModel> list,string user,int tipoElezione)
+        public List<VotiLista> prepareVoti(List<VotiListaModel> list, string user, int tipoElezione)
         {
-            List<VotiLista> votiList = new List<VotiLista>();                 
+            List<VotiLista> votiList = new List<VotiLista>();
             Sezioni sezione = _sezioneService.findByNumerosezioneAndTipoelezioneId(list[0].numeroSezione, tipoElezione);
             foreach (VotiListaModel l in list)
             {
-                VotiLista v = new VotiLista();      
+                VotiLista v = new VotiLista();
                 v.Sezioneid = sezione.Id;
                 v.Tipoelezioneid = tipoElezione;
                 v.Listaid = l.idLista;
@@ -67,50 +82,49 @@ namespace Gov.Structure.Services.Helpers
 
         public List<VotiLista> prepareVotiR(List<VotiListaModel> list, string user)
         {
-            List<VotiLista> votiList = new  List<VotiLista>();
-            DateTime oggi = DateTime.Now;            
+            List<VotiLista> votiList = new List<VotiLista>();
+            DateTime oggi = DateTime.Now;
             foreach (VotiListaModel l in list)
             {
-                VotiLista v = _votiListaService.findById((int)l.Id);              
-                v.Voti =int.Parse(l.votiLista);               
+                VotiLista v = _votiListaService.findById((int)l.Id);
+                v.Voti = int.Parse(l.votiLista);
                 votiList.Add(v);
             }
             return votiList;
         }
 
-
         public List<VotiSindacoModel> ConvertToJsonSindaci(List<VotiSindaco> l, int sezione, string tipo, int tipoelezioneid)
         {
             List<VotiSindacoModel> sindaciJsons = new List<VotiSindacoModel>();
-            VotiModel json = new VotiModel();           
+            VotiModel json = new VotiModel();
             VotiGenerali v = _votiGeneraliService.findBySezioneNumerosezioneAndTipoelezioneId(sezione, tipoelezioneid);
-            int votanti =(int)_affluenzaService.findBySezioneNumerosezioneAndSezioneTipoelezioneIdAndAffluenza3(sezione, tipoelezioneid, 1).Votantitotali3;
+            int votanti = (int)_affluenzaService.findBySezioneNumerosezioneAndSezioneTipoelezioneIdAndAffluenza3(sezione, tipoelezioneid, 1).Votantitotali3;
             json.Bianche = v.Bianche.ToString();
-            json.Nulle=v.Nulle.ToString();
+            json.Nulle = v.Nulle.ToString();
             json.Contestate = v.Contestate.ToString();
-            json.soloSindaco=v.SoloSindaco.ToString();
-            json.Totale=v.Totale.ToString();
-            json.totaleValide=v.TotaleValide.ToString();
-            json.Votanti=votanti.ToString();
-            json.Id=v.Id;
-            int totaleListe =(int) (v.TotaleValide - v.SoloSindaco);
+            json.soloSindaco = v.SoloSindaco.ToString();
+            json.Totale = v.Totale.ToString();
+            json.totaleValide = v.TotaleValide.ToString();
+            json.Votanti = votanti.ToString();
+            json.Id = v.Id;
+            int totaleListe = (int)(v.TotaleValide - v.SoloSindaco);
             json.valideListe = totaleListe.ToString();
             foreach (VotiSindaco vs in l)
             {
                 VotiSindacoModel j = new VotiSindacoModel();
-                j.Id = vs.Sindaco.Id.ToString();            
+                j.Id = vs.Sindaco.Id.ToString();
                 j.Progressivo = vs.Sindaco.Progressivo.ToString();
-                j.totaleSindaco =vs.Votigenerali.Totale.ToString();            
+                j.totaleSindaco = vs.Votigenerali.Totale.ToString();
                 j.Cognome = vs.Sindaco.Cognome.ToString();
-                j.Nome = vs.Sindaco.Nome;            
-                j.Progressivo = vs.Sindaco.Progressivo.ToString();             
+                j.Nome = vs.Sindaco.Nome;
+                j.Progressivo = vs.Sindaco.Progressivo.ToString();
                 j.IsCoalizione = "S";
                 j.SoloSindaco = vs.NumeroVotiSoloSindaco.ToString();
                 j.NumeroSezione = sezione.ToString();
                 j.Tipo = tipo;
                 j.IdSindaco = vs.Sindaco.Id.ToString();
                 List<VotiListaModel> votiListaModels = new List<VotiListaModel>();
-                foreach(var vl in vs.VotiLista)
+                foreach (var vl in vs.VotiLista)
                 {
                     VotiListaModel votiLista = new VotiListaModel();
                     votiLista.Denominazione = vl.Lista.Denominazione;
@@ -125,27 +139,27 @@ namespace Gov.Structure.Services.Helpers
                 }
                 j.Liste = votiListaModels;
                 sindaciJsons.Add(j);
-            }            
+            }
             return sindaciJsons;
         }
 
         public List<VotiSindacoModel> ConvertToJsonSindaciEmpty(List<Sindaci> l, string sezione, string tipo)
         {
-            List<VotiSindacoModel> sindaciJsons = new List<VotiSindacoModel>();            
+            List<VotiSindacoModel> sindaciJsons = new List<VotiSindacoModel>();
             foreach (Sindaci vs in l)
             {
-                VotiSindacoModel j = new VotiSindacoModel();               
-                j.Progressivo = vs.Progressivo.ToString();            
+                VotiSindacoModel j = new VotiSindacoModel();
+                j.Progressivo = vs.Progressivo.ToString();
                 j.Cognome = vs.Cognome.ToString();
                 j.Nome = vs.Nome;
                 j.Progressivo = vs.Progressivo.ToString();
-                j.IsCoalizione = "N";           
+                j.IsCoalizione = "N";
                 j.NumeroSezione = sezione.ToString();
                 j.Tipo = tipo;
                 j.soloListe = "";
                 j.IdSindaco = vs.Id.ToString();
                 List<VotiListaModel> listaModels = new List<VotiListaModel>();
-                foreach(var lista in vs.Liste)
+                foreach (var lista in vs.Liste)
                 {
                     VotiListaModel jl = new VotiListaModel();
                     jl.Denominazione = lista.Denominazione;
@@ -161,17 +175,17 @@ namespace Gov.Structure.Services.Helpers
             return sindaciJsons;
         }
 
-        public List<VotiSindaco> prepareVotiSindaco(List<VotiSindacoModel> list, string user,int tipoelezioneid)
+        public List<VotiSindaco> prepareVotiSindaco(List<VotiSindacoModel> list, string user, int tipoelezioneid)
         {
-            List<VotiSindaco> votiList = new List<VotiSindaco>();          
+            List<VotiSindaco> votiList = new List<VotiSindaco>();
             VotiGenerali vg = _votiGeneraliService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(list[0].NumeroSezione), tipoelezioneid);
             foreach (VotiSindacoModel l in list)
             {
-                VotiSindaco v = new VotiSindaco();                
-                v.NumeroVoti =int.Parse(l.totaleSindaco);
-                v.NumeroVotiSoloSindaco =int.Parse(l.SoloSindaco);               
-                v.Sezioneid=int.Parse(l.NumeroSezione);
-                v.Tipoelezioneid = tipoelezioneid;           
+                VotiSindaco v = new VotiSindaco();
+                v.NumeroVoti = int.Parse(l.totaleSindaco);
+                v.NumeroVotiSoloSindaco = int.Parse(l.SoloSindaco);
+                v.Sezioneid = int.Parse(l.NumeroSezione);
+                v.Tipoelezioneid = tipoelezioneid;
                 v.Votigenerali = vg;
                 votiList.Add(v);
             }
@@ -180,43 +194,42 @@ namespace Gov.Structure.Services.Helpers
 
         public List<VotiSindaco> prepareVotiSindacoR(List<VotiSindacoModel> list, VotiGenerali vg, string user, int tipoelezioneid)
         {
-            List<VotiSindaco> votiList = new List<VotiSindaco>();          
+            List<VotiSindaco> votiList = new List<VotiSindaco>();
             foreach (VotiSindacoModel l in list)
             {
-                VotiSindaco v = _votiSindacoService.findBySindacoIdAndSezioneNumerosezioneAndTipoelezioneId(int.Parse(l.Id),int.Parse(l.NumeroSezione), tipoelezioneid);              
+                VotiSindaco v = _votiSindacoService.findBySindacoIdAndSezioneNumerosezioneAndTipoelezioneId(int.Parse(l.Id), int.Parse(l.NumeroSezione), tipoelezioneid);
                 v.NumeroVoti = int.Parse(l.totaleSindaco);
-                v.NumeroVotiSoloSindaco = int.Parse(l.SoloSindaco);                
+                v.NumeroVotiSoloSindaco = int.Parse(l.SoloSindaco);
                 v.Votigenerali = vg;
                 votiList.Add(v);
             }
             return votiList;
         }
-
-        public VotiGenerali prepareVotiG(VotiModel form,int tipoelezioneid)
+        public VotiGenerali prepareVotiG(VotiModel form, int tipoelezioneid)
         {
-           
+
             Sezioni sezione = _sezioneService.findByNumerosezioneAndTipoelezioneId(int.Parse(form.Sindaci[0].NumeroSezione), tipoelezioneid);
             int sezioneid = _sezioneService.findByNumerosezioneAndTipoelezioneId(int.Parse(form.NumeroSezione), tipoelezioneid).Id;
             VotiGenerali v = new VotiGenerali();
             v.Bianche = int.Parse(form.Bianche);
-            v.Contestate = int.Parse(form.Contestate);            
+            v.Contestate = int.Parse(form.Contestate);
             v.Nulle = int.Parse(form.Nulle);
             v.Sezioneid = sezioneid;
             v.SoloSindaco = int.Parse(form.soloSindaco);
             v.Totale = int.Parse(form.Totale);
             v.TotaleValide = int.Parse(form.totaleValide);
             v.Tipoelezioneid = tipoelezioneid;
-          //   v.Municipio = uint.Parse(form.);
+            //   v.Municipio = uint.Parse(form.);
             return v;
         }
 
-        public VotiGenerali prepareVotiGR(VotiModel form,string user,int tipoelezioneid)
+        public VotiGenerali prepareVotiGR(VotiModel form, string user, int tipoelezioneid)
         {
 
             DateTime oggi = DateTime.Now;
             VotiGenerali v = _votiGeneraliService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(form.Sindaci[0].NumeroSezione), tipoelezioneid);
             v.Bianche = int.Parse(form.Bianche);
-            v.Contestate = int.Parse(form.Contestate);            
+            v.Contestate = int.Parse(form.Contestate);
             v.Nulle = int.Parse(form.Nulle);
             v.SoloSindaco = int.Parse(form.soloSindaco);
             v.Totale = int.Parse(form.Totale);
@@ -242,47 +255,46 @@ namespace Gov.Structure.Services.Helpers
             foreach (VotiSindacoModel s in sindaci)
             {
                 VotiSindaco votiSindaco = new VotiSindaco();
-                votiSindaco.NumeroVoti =int.Parse(s.totaleSindaco);
-                votiSindaco.NumeroVotiSoloSindaco =int.Parse(s.SoloSindaco);
+                votiSindaco.NumeroVoti = int.Parse(s.totaleSindaco);
+                votiSindaco.NumeroVotiSoloSindaco = int.Parse(s.SoloSindaco);
                 votiSindaco.Sezioneid = sezioneid;
                 votiSindaco.Tipoelezioneid = tipoelezioneid;
-                votiSindaco.Sindacoid = int.Parse(s.IdSindaco);             
-                votiSindaco.Votigenerali = v;               
+                votiSindaco.Sindacoid = int.Parse(s.IdSindaco);
+                votiSindaco.Votigenerali = v;
                 foreach (VotiListaModel u in s.Liste)
                 {
-                    VotiLista votiLista = new VotiLista();                  
-                    votiLista.Voti =int.Parse(u.votiLista);
+                    VotiLista votiLista = new VotiLista();
+                    votiLista.Voti = int.Parse(u.votiLista);
                     votiLista.Sezioneid = sezioneid;
                     votiLista.Tipoelezioneid = tipoelezioneid;
                     int listaid = u.idLista;
-                    votiLista.Listaid= listaid;
+                    votiLista.Listaid = listaid;
                     votiLista.Votigenerali = v;
                     votiListe.Add(votiLista);
-                }              
+                }
                 votiSindaco.VotiLista = votiListe;
                 votiSindaci.Add(votiSindaco);
             }
             return votiSindaci;
         }
-
-            public List<VotiLista> prepareVotiListaR(List<VotiSindacoModel> sindaci, int tipoelezioneid,string user, List<VotiListaModel> l)
+        public List<VotiLista> prepareVotiListaR(List<VotiSindacoModel> sindaci, int tipoelezioneid, string user, List<VotiListaModel> l)
         {
             List<VotiLista> listVoti = new List<VotiLista>();
             DateTime oggi = DateTime.Now;
-            VotiLista v = new VotiLista();          
+            VotiLista v = new VotiLista();
             foreach (VotiSindacoModel s in sindaci)
             {
-              
+
                 VotiGenerali vg = _votiGeneraliService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(sindaci[0].NumeroSezione), tipoelezioneid);
                 // todo verificare aggiornamento parziale
                 if (l == null)
                 {
-                    
+
                 }
                 else
                 {
-                    v = _votiListaService.findById((int)l[0].Id);                  
-                    v.Voti =int.Parse(l[0].votiLista);
+                    v = _votiListaService.findById((int)l[0].Id);
+                    v.Voti = int.Parse(l[0].votiLista);
                     v.Votigeneraliid = vg.Id;
                     listVoti.Add(v);
                 }
@@ -290,5 +302,44 @@ namespace Gov.Structure.Services.Helpers
             return listVoti;
         }
 
+        public MunicipioModel ConvertToJsonListaMunicipio(List<VotiLista> votis, Voti votiGenerali, int iscritti)
+        {
+            List<VotiListaModel> listaJsons = new List<VotiListaModel>();          
+            MunicipioModel municipio = new MunicipioModel();
+            string tipo = "";
+            if(votiGenerali.Municipio != 99)
+            {
+                tipo = "Lista Municipio " + votiGenerali.Municipio.ToString();
+            }
+            else { tipo = "Lista tutto il Comune"; }
+            InterrogazioneModel json = new InterrogazioneModel
+            {
+                Bianche = votiGenerali.Bianche.ToString(),
+                Tipo = tipo,
+                Contestate = votiGenerali.Contestate.ToString(),
+                Nulle = votiGenerali.Nulle.ToString(),
+                totaleValide = votiGenerali.TotaleValide.ToString(),
+                soloSindaco = votiGenerali.SoloSindaco.ToString(),
+                valideListe = (votiGenerali.TotaleValide - votiGenerali.SoloSindaco).ToString(),
+                municipio = votiGenerali.Municipio.ToString(),
+                Totale = votiGenerali.Totale.ToString(),
+                Votanti = votiGenerali.Totale.ToString(),
+                Iscritti = iscritti.ToString()
+            };          
+            municipio.Municipio = votiGenerali.Municipio.ToString();
+            foreach (VotiLista v in votis)
+            {
+                VotiListaModel j = new VotiListaModel();
+                j.Id = v.Id;
+                j.Denominazione = v.Lista.Denominazione;
+                j.Progressivo = v.Lista.Progressivo;
+                j.votiLista = v.Voti.ToString();
+                j.idLista = v.Listaid;
+                listaJsons.Add(j);
+            }
+            json.Liste = listaJsons;
+            municipio.interrogazione = json;
+            return municipio;
+        }
     }
 }

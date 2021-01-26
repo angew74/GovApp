@@ -5,14 +5,18 @@ using System.Threading.Tasks;
 
 namespace GovApp.Models
 {
-    public class ResearchSezione
+    public class Research
     {
-        public ResearchSezione()
+        public Research()
         {
 
         }
         public string sezione { get; set; }
         public string cabina { get; set; }
         public string tipo { get; set; }
+        public string municipio { get; set; }
+        public string idlista { get; set; }
+
+        public string tipoInterrogazione { get; set; }
     }
 }

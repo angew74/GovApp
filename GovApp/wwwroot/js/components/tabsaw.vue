@@ -18,10 +18,7 @@
                         <b-spinner type="border" small></b-spinner> Municipio
                     </template>
                     <div class="container" style="font-size:0.8em">
-                        <app-municipio :elezione="tipo" @selection="selezioneMunicipio"></app-municipio>
-                        <div style="margin-top:20px;text-align:right">
-                            <b-button type="submit" variant="primary">Ricerca</b-button>
-                        </div>
+                        <app-municipio v-bind:form="form"  @research="cercamunicipio"></app-municipio>                      
                     </div>
                 </b-tab>
                 <b-tab>
@@ -29,10 +26,7 @@
                         <b-spinner type="border" small></b-spinner> Lista
                     </template>
                     <div class="container" style="font-size:0.8em">
-                        <app-lista :elezione="tipo" @selection="selezioneLista"></app-lista>
-                        <div style="margin-top:20px;text-align:right">
-                            <b-button type="submit" variant="primary">Ricerca</b-button>
-                        </div>
+                        <app-lista v-bind:form="form"  @research="cercalista"></app-lista>                      
                     </div>
                 </b-tab>
                 <b-tab>
@@ -86,22 +80,25 @@
             }
         },
         mounted() {
-            this.tipo = this.cat;
+            this.form = this.cat;
         },
         methods: {
             getValidationState({ dirty, validated, valid = null }) {
                 return dirty || validated ? valid : null;
             },           
-            selezioneLista(e) {
-                this.form.tipo = e;
+            cercalista(e) {               
+                this.form= e;
+                this.form.tipoInterrogazione = "1";
                 this.$emit('sended', this.form, this.tabIndex);
             },
-            selezioneMunicipio(e) {
-                this.form.tipo = e;
+            cercamunicipio(e) {             
+                this.form = e;      
+                this.form.tipoInterrogazione = "2";
                 this.$emit('sended', this.form, this.tabIndex);
             },
             cercasezione(e) {
                 this.form = e;
+                this.form.tipoInterrogazione = "3";
                 this.$emit('sended', this.form, this.tabIndex);
             },
         }

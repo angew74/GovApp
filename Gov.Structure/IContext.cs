@@ -21,9 +21,9 @@ namespace Gov.Structure
         EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
 
-        DbSet<Premier> Premier { get; set; }
-        DbSet<Pagina> Pagina { get; set; }
-        DbSet<Contenuto> Contenuto { get; set; }
+       // DbSet<Premier> Premier { get; set; }
+       // DbSet<Pagina> Pagina { get; set; }
+       // DbSet<Contenuto> Contenuto { get; set; }
     } // IDbContext
 
 }

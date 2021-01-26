@@ -155,7 +155,7 @@
             },
             cercaaffluenza(e) {
                 this.loading = true;
-                this.researchAffluenza({ authMethod: this.authMode, researchsezione: e }).then(() => {
+                this.researchAffluenza({ authMethod: this.authMode, research: e }).then(() => {
                     if (this.isMessage) {
                         this.showSweetAlert(this.Message);
                         this.loading = false;
@@ -169,7 +169,7 @@
             cercasezione(e) {
                 this.loading = true;
                 this.form = e;
-                this.research({ authMethod: this.authMode, researchsezione: this.form }).then(() => {
+                this.research({ authMethod: this.authMode, research: this.form }).then(() => {
                     if (this.isMessage) {
                         this.showSweetAlert(this.Message);
                         this.loading = false;

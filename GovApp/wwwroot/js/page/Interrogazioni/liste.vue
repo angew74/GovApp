@@ -15,7 +15,9 @@
                     </b-col>
                 </b-row>
             </template>
-            <app-tabs @sended="ricerca" :cat="tipo"></app-tabs>
+            <app-tabs @sended="ricerca" :cat="form"></app-tabs>
+            <app-generali :generali="generaliview"></app-generali>
+            <app-liste :liste="listeview"></app-liste>
         </b-skeleton-wrapper>
         <app-footer></app-footer>
     </div>
@@ -25,27 +27,78 @@
     import sidebaraw from '../../components/sidebaraw.vue';
     import footeraw from '../../components/footeraw.vue';
     import tabsaw from '../../components/tabsaw.vue';
-    import { mapGetters, mapState, mapActions } from 'vuex';
+    import generaliviewaw from '../../components/generaliviewaw.vue';
+    import listeviewaw from '../../components/listeviewaw.vue';
+    import { mapGetters, mapState, mapActions, mapMutations } from 'vuex';
     // con prop
     export default {
         components: {
             'app-sidebar': sidebaraw,
             'app-footer': footeraw,
-            'app-tabs': tabsaw
+            'app-tabs': tabsaw,
+            'app-liste': listeviewaw,
+            'app-generali': generaliviewaw
         },
         data: function () {
             return {
                 loading: false,
-                tipo: 'LIS'
+                form: {},
+                voti: {},
+                listeview: null,
+                generaliview: null                
             }
+        },
+        computed: {
+            ...mapState('context', [
+                'sezione',
+                'message',
+                'votiVisualizzazione'
+            ]),
+            ...mapGetters('context', [
+                'Sezione',
+                'isMessage',
+                'Message',
+                'VotiVisualizzazione'
+            ]),           
         },
         methods: {
             ...mapActions('context', [
                 'restoreContext'
             ]),
+            ...mapActions('context', [
+                'researchvoti'
+            ]),
+            ...mapMutations('context', [
+                'setVotiVisualizzazione'
+            ]),
+            showSweetAlert(message) {
+                this.$swal({
+                    title: 'Attenzione',
+                    text: message,
+                    icon: 'error',
+                    showCancelButton: false,
+                    showCloseButton: true,
+                })
+            },
             ricerca(e) {
-
-            }
+                this.form = e;
+                this.form.tipo = "L";
+                this.loading = true;
+                this.researchvoti({ authMethod: this.authMode, research: e }).then(() => {
+                    if (this.isMessage) {
+                        this.showSweetAlert(this.Message);
+                        this.loading = false;
+                    }
+                    else {
+                        if (this.VotiVisualizzazione) {
+                            this.voti = this.VotiVisualizzazione;
+                            this.listeview = this.voti.interrogazione;
+                            this.generaliview = this.voti.interrogazione;
+                        }
+                        this.loading = false;
+                    }
+                })
+            },            
         },
         created() {
             this.restoreContext()

@@ -66,20 +66,101 @@ namespace GovApp.api
 
         public class Input
         {
-            public ResearchSezione researchsezione { get; set; }
+            public Research research { get; set; }
             public VotiModel voti { get; set; }
 
+        }
+
+        [HttpPost("/voti/interrogazione")]
+        [IgnoreAntiforgeryToken]
+        [Authorize]
+        public IActionResult Interrogazione([FromBody] Input input)
+        {
+            MunicipioModel voti = new MunicipioModel();
+            ErrorModel error = new ErrorModel();
+            Research model = input.research;
+            try
+            {                
+                switch (input.research.tipo)
+                {
+                    case "L":
+                        switch (input.research.tipoInterrogazione)
+                        {
+                            case "1":
+                                voti = getVotiLista(input.research);
+                                break;
+                            case "2":
+                                voti = getVotiListaMunicipio(input.research);
+                                break;
+                            case "3":
+                                voti = getVotiListaSezione(input.research);
+                                break;
+                        }
+                        break;
+                    case "S":
+                        break;
+                    case "R":
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                error.errMsg = "Errore grave :" + ex.Message;
+                _logger.LogError("Errore grave :" + ex.Message);
+                return BadRequest(error);
+            }
+            return Ok(voti);
+        }
+
+        private MunicipioModel getVotiListaMunicipio(Research research)
+        {
+            MunicipioModel model = new MunicipioModel();
+            List<VotiLista> votis = new List<VotiLista>();
+            int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+            votis = _votiListaService.findByMunicipioAndTipoelezioneId(int.Parse(research.municipio), tipoelezioneid);
+            var votiGeneralis = _votiGeneraliService.findByMunicipioAndTipoelezioneId(int.Parse(research.municipio), tipoelezioneid);           
+            if(votiGeneralis == null || votiGeneralis.Count == 0) { return model; }
+            var iscritti = _iscrittiService.countIscrittiMunicipioPervenuteByMun(tipoelezioneid, int.Parse(research.municipio)).FirstOrDefault();
+            model = _votiLoader.ConvertToJsonListaMunicipio(votis, votiGeneralis.FirstOrDefault(), iscritti.Iscrittitotaligen);
+            return model;
+        }
+
+        private MunicipioModel getVotiListaSezione(Research research)
+        {
+            List<VotiLista> votis = new List<VotiLista>();
+            MunicipioModel model = new MunicipioModel();
+            VotiGenerali votiGenerali = new VotiGenerali();
+            int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+            votis = _votiListaService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(research.sezione), tipoelezioneid);
+            votiGenerali = _votiGeneraliService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(research.sezione), tipoelezioneid);
+            if (votiGenerali == null) { return model; }
+            model = _votiLoader.ConvertToJsonLista(votis, votiGenerali);
+            return model;
+        }
+
+        private MunicipioModel getVotiLista(Research research)
+        {
+            List<VotiLista> votis = new List<VotiLista>();
+            MunicipioModel model = new MunicipioModel();
+            int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+            votis = _votiListaService.findByListaIdAndTipoelezioneId(int.Parse(research.idlista), tipoelezioneid);
+            var votiGenerali = _votiGeneraliService.findByTipoelezioneId(tipoelezioneid);
+            if (votiGenerali == null || votiGenerali.Count == 0) { return model; }
+            var iscritti = _iscrittiService.findByIdTipoElezione(tipoelezioneid).FirstOrDefault().Iscrittitotaligen;
+            if (votiGenerali == null) { return model; }
+            model = _votiLoader.ConvertToJsonListaMunicipio(votis, votiGenerali.FirstOrDefault(), iscritti);
+            return model;
         }
 
 
         [HttpPost("/voti/carica")]
         [IgnoreAntiforgeryToken]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult Carica([FromBody] Input input)
         {
             VotiModel json = new VotiModel();
             ErrorModel error = new ErrorModel();
-            ResearchSezione model = input.researchsezione;
+            Research model = input.research;
             int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
             try
             {
@@ -98,18 +179,18 @@ namespace GovApp.api
                 }
                 json.Votanti = afp.Votantitotali3.ToString();
                 json.Iscritti = afp.Iscritti.Iscrittitotaligen.ToString();
-                json.NumeroSezione = input.researchsezione.sezione;
-                json.Tipo = input.researchsezione.tipo;
+                json.NumeroSezione = input.research.sezione;
+                json.Tipo = input.research.tipo;
                 if (model.tipo == "VL")
                 {
                     var sindaci = _sindacoService.findAllByTipoelezioneId(tipoelezioneid);
-                    json.Sindaci = _votiLoader.ConvertToJsonSindaciEmpty(sindaci, input.researchsezione.sezione, input.researchsezione.tipo);
+                    json.Sindaci = _votiLoader.ConvertToJsonSindaciEmpty(sindaci, input.research.sezione, input.research.tipo);
                     var liste = _listaService.findAllByTipoelezioneId(tipoelezioneid);
                 }
                 else
                 {
                     var votiLista = _votiListaService.findBySezioneNumerosezioneAndTipoelezioneId(s, tipoelezioneid);
-                    json.Sindaci = _votiLoader.ConvertToJsonSindaci(votiSindaco, s, input.researchsezione.tipo, tipoelezioneid);
+                    json.Sindaci = _votiLoader.ConvertToJsonSindaci(votiSindaco, s, input.research.tipo, tipoelezioneid);
                 }
             }
             catch (Exception ex)
@@ -123,7 +204,7 @@ namespace GovApp.api
 
         [HttpPost("/voti/lcom")]
         [IgnoreAntiforgeryToken]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult Registra([FromBody] Input input)
         {
             VotiModel json = input.voti;
@@ -131,12 +212,12 @@ namespace GovApp.api
             int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
             try
             {
-               
+
                 int s = int.Parse(json.NumeroSezione);
-                String msg = _businessRules.IsInsertable(s,"VL", 0, tipoelezioneid);
+                String msg = _businessRules.IsInsertable(s, "VL", 0, tipoelezioneid);
                 if (string.IsNullOrEmpty(msg))
-                {  
-                   var voti = _votiLoader.prepareVoti(json, tipoelezioneid);
+                {
+                    var voti = _votiLoader.prepareVoti(json, tipoelezioneid);
                     _votiSindacoService.CreateRange(voti);
                 }
             }

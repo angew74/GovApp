@@ -122,7 +122,7 @@
             statussezione(e) {
                 this.loading = true;
                 this.form = e;
-                this.status({ authMethod: this.authMode, researchsezione: this.form }).then(() => {
+                this.status({ authMethod: this.authMode, research: this.form }).then(() => {
                     if (this.isMessage) {
                         this.showSweetAlert(this.Message);
                         this.loading = false;

@@ -53,8 +53,7 @@ namespace Gov.Structure.Services.Elezioni
         }
 
         public List<Iscritti> countIscrittiPervenuteByMun(int tipoelezioneid)
-        {
-          
+        {         
             
               return _dbset.Where(x => x.Idtipoelezione == tipoelezioneid).GroupBy(x => new { x.Municipio }).Select(g => new Iscritti
                 {
@@ -65,6 +64,19 @@ namespace Gov.Structure.Services.Elezioni
                 }).ToList();
             
         }
+        public List<Iscritti> countIscrittiMunicipioPervenuteByMun(int tipoelezioneid, int municipio)
+        {
+
+            return _dbset.Where(x => x.Idtipoelezione == tipoelezioneid && x.Municipio == municipio).GroupBy(x => new { x.Municipio }).Select(g => new Iscritti
+            {
+                Municipio = g.Key.Municipio,
+                Iscrittimaschigen = g.Sum(i => i.Iscrittimaschigen),
+                Iscrittifemminegen = g.Sum(i => i.Iscrittifemminegen),
+                Iscrittitotaligen = g.Sum(i => i.Iscrittitotaligen),
+            }).ToList();
+
+        }
+
 
         public List<Iscritti> countIscrittiSezioniPervenuteAllAffluenza1(int tipoelezioneid)
         {
@@ -278,28 +290,37 @@ namespace Gov.Structure.Services.Elezioni
             
         }
 
-        public List<Iscritti> findByIdTipoElezione(int idtipoelezione)
-        {
-          
-            
-              return _dbset.Where(x => x.Idtipoelezione == idtipoelezione).ToList();
-            
-        }
-
+       
         public Iscritti findBySezioneIdAndTipoElezioneId(int idsezione, int tipoElezioneId)
-        {
-          
-            
+        { 
               return _dbset.Where(x => x.Idtipoelezione == tipoElezioneId &&  x.IdsezioneNavigation.Id == idsezione).FirstOrDefault();
-            
         }
 
-        public List<Iscritti> findByTipoElezione(Tipoelezione tipoelezione)
+        public List<Iscritti> countIscrittiSezioniPervenuteMunicipio(int tipoelezioneid, int municipio)
         {
-          
-            
-              return _dbset.Where(x => x.Idtipoelezione == tipoelezione.Id).ToList();
-            
+
+            return null;
+            //return _dbset.Where(x => x.Idtipoelezione == tipoelezioneid && x.Municipio == municipio).Include(i => i..vo.Where(a => a.Costituzione2 == 1).GroupBy(x => new { x.Tipoelezioneid, x.Sezione.Municipio }).Select(g => new Iscritti
+            //{
+            //    Idtipoelezione = g.Key.Tipoelezioneid,
+            //    Municipio = (int)g.Key.Municipio,
+            //    Iscrittimaschigen = g.Sum(i => i.Iscritti.Iscrittimaschigen),
+            //    Iscrittifemminegen = g.Sum(i => i.Iscritti.Iscrittifemminegen),
+            //    Iscrittitotaligen = g.Sum(i => i.Iscritti.Iscrittitotaligen),
+            //})).ToList();
+
+        }
+        public List<Iscritti> countIscrittiSezioniPervenute(int tipoelezioneid)
+        {
+            return _dbset.Where(x => x.Idtipoelezione == tipoelezioneid).Include(i => i.Affluenze.Where(a => a.Costituzione2 == 1).GroupBy(x => new { x.Tipoelezioneid, x.Sezione.Municipio }).Select(g => new Iscritti
+            {
+                Idtipoelezione = g.Key.Tipoelezioneid,
+                Municipio = (int)g.Key.Municipio,
+                Iscrittimaschigen = g.Sum(i => i.Iscritti.Iscrittimaschigen),
+                Iscrittifemminegen = g.Sum(i => i.Iscritti.Iscrittifemminegen),
+                Iscrittitotaligen = g.Sum(i => i.Iscritti.Iscrittitotaligen),
+            })).ToList();
+
         }
 
         public Iscritti findByTipoelezioneIdAndSezioneNumerosezione(int tipoElezioneId, int numerosezione)
@@ -318,12 +339,16 @@ namespace Gov.Structure.Services.Elezioni
             
         }
 
-        public List<Iscritti> findIscrittiByMunicipioAndTipoElezioneId(int mun, int tipoElezioneId)
+        public List<Iscritti> countIscrittiByMunicipioAndTipoElezioneId(int mun, int tipoElezioneId)
         {
-          
-           
-              return _dbset.Where(x => x.Idtipoelezione == tipoElezioneId && x.Municipio== mun).ToList();
-            
+            return _dbset.Where(x => x.Idtipoelezione == tipoElezioneId && x.Municipio == mun).GroupBy(x => new { x.Idtipoelezione, x.Municipio }).Select(g => new Iscritti
+            {
+                Idtipoelezione = g.Key.Idtipoelezione,
+                Municipio = (int)g.Key.Municipio,
+                Iscrittimaschigen = g.Sum(i => i.Iscrittimaschigen),
+                Iscrittifemminegen = g.Sum(i => i.Iscrittifemminegen),
+                Iscrittitotaligen = g.Sum(i => i.Iscrittitotaligen),
+            }).ToList();
         }
     }
 }

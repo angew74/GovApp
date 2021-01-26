@@ -26,8 +26,9 @@ namespace Gov.Structure.Contracts.Elezioni
         RicalcoloVotiLista countVotantiPervenute(int tipoelezioneid);
         RicalcoloVotiLista countVotantiPervenuteByMunicipio(int tipoelezioneid, int municipio);
         List<VotiLista> findBySezionePlessoIdAndTipoelezioneId(int plessoid, int tipoelezioneid);
+        List<VotiLista> findByMunicipioAndTipoelezioneId(int municipio, int tipoelezioneid);
 
-     
+
         List<VotiLista> findBySezioneNumerosezioneAndTipoelezioneIdAndListaCoalizioneId(int numerosezione, int tipoelezioneid, int coalizioneid);
     }
 }

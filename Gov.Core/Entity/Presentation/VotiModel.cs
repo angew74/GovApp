@@ -7,9 +7,7 @@ namespace Gov.Core.Entity.Presentation
 {
     public class VotiModel
     {
-      
-
-      
+            
         public string Bianche { get;  set; }
         public string Totale { get;  set; }
         public string Contestate { get;  set; }
