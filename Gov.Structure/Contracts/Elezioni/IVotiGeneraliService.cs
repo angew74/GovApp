@@ -9,12 +9,14 @@ namespace Gov.Structure.Contracts.Elezioni
     public interface IVotiGeneraliService : IEntityService<VotiGenerali>
     {
 
-      
+
+        Voti countGenerale(int tipoelezioneid);
+        Voti countGeneraleByMunicipio(int tipoelezioneid);
+        Voti countGeneraleOverMunicipio(int tipoelezioneid, int municipio);
         VotiGenerali findById(int id);
         List<VotiGenerali> findAllBy();
         VotiGenerali findBySezioneNumerosezioneAndTipoelezioneId(int numerosezione, int tipoelezioneid);
         List<VotiGenerali> findBySezionePlessoIdAndTipoelezioneId(int plessoid, int tipoelezioneid);
-        List<Voti> findByMunicipioAndTipoelezioneId(int municipio, int tipoelezioneid);
-        List<Voti> findByTipoelezioneId(int tipoelezioneid);
+    
     }
 }

@@ -21,5 +21,6 @@ namespace Gov.Core.Entity.Presentation
         public string Iscritti { get;  set; }
         public string Tipo { get; set; }
         public string NumeroSezione { get; set; }
+        public string Municipio { get; set; }
     }
 }

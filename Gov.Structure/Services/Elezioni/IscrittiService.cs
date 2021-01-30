@@ -294,34 +294,8 @@ namespace Gov.Structure.Services.Elezioni
         public Iscritti findBySezioneIdAndTipoElezioneId(int idsezione, int tipoElezioneId)
         { 
               return _dbset.Where(x => x.Idtipoelezione == tipoElezioneId &&  x.IdsezioneNavigation.Id == idsezione).FirstOrDefault();
-        }
-
-        public List<Iscritti> countIscrittiSezioniPervenuteMunicipio(int tipoelezioneid, int municipio)
-        {
-
-            return null;
-            //return _dbset.Where(x => x.Idtipoelezione == tipoelezioneid && x.Municipio == municipio).Include(i => i..vo.Where(a => a.Costituzione2 == 1).GroupBy(x => new { x.Tipoelezioneid, x.Sezione.Municipio }).Select(g => new Iscritti
-            //{
-            //    Idtipoelezione = g.Key.Tipoelezioneid,
-            //    Municipio = (int)g.Key.Municipio,
-            //    Iscrittimaschigen = g.Sum(i => i.Iscritti.Iscrittimaschigen),
-            //    Iscrittifemminegen = g.Sum(i => i.Iscritti.Iscrittifemminegen),
-            //    Iscrittitotaligen = g.Sum(i => i.Iscritti.Iscrittitotaligen),
-            //})).ToList();
-
-        }
-        public List<Iscritti> countIscrittiSezioniPervenute(int tipoelezioneid)
-        {
-            return _dbset.Where(x => x.Idtipoelezione == tipoelezioneid).Include(i => i.Affluenze.Where(a => a.Costituzione2 == 1).GroupBy(x => new { x.Tipoelezioneid, x.Sezione.Municipio }).Select(g => new Iscritti
-            {
-                Idtipoelezione = g.Key.Tipoelezioneid,
-                Municipio = (int)g.Key.Municipio,
-                Iscrittimaschigen = g.Sum(i => i.Iscritti.Iscrittimaschigen),
-                Iscrittifemminegen = g.Sum(i => i.Iscritti.Iscrittifemminegen),
-                Iscrittitotaligen = g.Sum(i => i.Iscritti.Iscrittitotaligen),
-            })).ToList();
-
-        }
+        }       
+      
 
         public Iscritti findByTipoelezioneIdAndSezioneNumerosezione(int tipoElezioneId, int numerosezione)
         {

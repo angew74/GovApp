@@ -12,8 +12,6 @@ namespace Gov.Structure.Contracts.Elezioni
 
         Iscritti findIscrittiById(int id);
 
-        List<Iscritti> findIscrittiByMunicipioAndTipoElezioneId(int mun, int tipoElezioneId);
-
         List<Iscritti> countIscrittiMunicipioPervenuteByMun(int tipoelezioneid, int municipio);
         Iscritti findBySezioneIdAndTipoElezioneId(int idsezione, int tipoElezioneId);
 
@@ -22,14 +20,8 @@ namespace Gov.Structure.Contracts.Elezioni
         List<CountResult> countAllByTipoelezioneIdAndMunicipio(int mun, int TipoElezioneId);
         List<CountResult> countAllByTipoelezioneId(int TipoElezioneId);
 
-      
-
         void delete(int id);
-
-        List<Iscritti> findByIdTipoElezione(int idtipoelezione);
-
-        List<Iscritti> countIscrittiSezioniPervenuteMunicipio(int tipoelezioneid, int municipio);
-
+       
         List<Iscritti> countIscrittiSezioniPervenuteMunicipioAffluenza1(int tipoelezioneid);
 
 

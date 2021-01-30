@@ -46,8 +46,8 @@ namespace Gov.Core.Entity.Elezioni
         [Required]
         [Column]
         public int Totale { get; set; }
-      
-
+        [Column]
+        public int Iscritti { get; set; }
         public virtual Sezioni Sezione { get; set; }
         public virtual Tipoelezione Tipoelezione { get; set; }
         public virtual ICollection<ProfiloVoti> ProfiloVoti { get; set; }

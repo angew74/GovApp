@@ -1975,7 +1975,138 @@ namespace Gov.Structure
                 PaginaId = 28
             },
 
-            };
+             new Contenuto
+            {
+                Id = 54,
+                ContentuoCard = "Da questa pagina è possibile ricalcolare i voti di Lista",
+                Tipo = "Testo",
+                TipoContenutoId = 1,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 29
+            },
+            new Contenuto
+            {
+                Id = 55,
+                ContentuoCard = "archive-fill",
+                Tipo = "Icona",
+                TipoContenutoId = 2,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 29
+            },
+            new Contenuto
+            {
+                Id = 56,
+                ContentuoCard = "/GovApp/ricalcoli/liste",
+                Tipo = "Link",
+                TipoContenutoId = 3,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 29
+            },
+            new Contenuto
+            {
+                Id = 57,
+                ContentuoCard = "Ricalcoli Liste",
+                Tipo = "Header",
+                TipoContenutoId = 4,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 29
+            },
+             new Contenuto
+            {
+                Id = 58,
+                ContentuoCard = "Da questa pagina è possibile ricalcolare i voti del Sindaco",
+                Tipo = "Testo",
+                TipoContenutoId = 1,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 30
+            },
+            new Contenuto
+            {
+                Id = 59,
+                ContentuoCard = "archive-fill",
+                Tipo = "Icona",
+                TipoContenutoId = 2,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 30
+            },
+            new Contenuto
+            {
+                Id = 60,
+                ContentuoCard = "/GovApp/ricalcoli/sindaco",
+                Tipo = "Link",
+                TipoContenutoId = 3,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 30
+            },
+            new Contenuto
+            {
+                Id = 61,
+                ContentuoCard = "Ricalcoli Sindaco",
+                Tipo = "Header",
+                TipoContenutoId = 4,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 30
+            },
+             new Contenuto
+            {
+                Id = 62,
+                ContentuoCard = "Da questa pagina è possibile interrogare i voti di Preferenza",
+                Tipo = "Testo",
+                TipoContenutoId = 1,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 31
+            },
+            new Contenuto
+            {
+                Id = 63,
+                ContentuoCard = "archive-fill",
+                Tipo = "Icona",
+                TipoContenutoId = 2,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 32
+            },
+            new Contenuto
+            {
+                Id = 64,
+                ContentuoCard = "/GovApp/ricalcoli/preferenze",
+                Tipo = "Link",
+                TipoContenutoId = 3,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 32
+            },
+            new Contenuto
+            {
+                Id = 65,
+                ContentuoCard = "Ricalcoli Preferenze",
+                Tipo = "Header",
+                TipoContenutoId = 4,
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                PaginaId = 32
+            }};
             modelBuilder.Entity<Contenuto>().HasData(Contenuti);
             var Pagine = new Pagina[] {
             new Pagina
@@ -2224,6 +2355,38 @@ namespace Gov.Structure
                 UpdatedBy = null,
                 RoleId =Roles.Single(i => i.Name == "admin").Id,
                 Denominazione = "Interrogazione Preferenze"
+            },new Pagina{
+                Id = 29,
+                Codice = "Ricalcoli",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Ricalcoli Liste"
+            },new Pagina{
+                Id = 30,
+                Codice = "Ricalcoli",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Ricalcoli Sindaco"
+            },new Pagina{
+                Id = 31,
+                Codice = "Ricalcoli",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Ricalcoli Preferenze"
+            },new Pagina{
+                Id = 32,
+                Codice = "Ricalcoli Indice",
+                CreatedBy = "Caricamento",
+                CreatedDate = DateTime.Now,
+                UpdatedBy = null,
+                RoleId =Roles.Single(i => i.Name == "admin").Id,
+                Denominazione = "Indice Ricalcoli"
             }};
             modelBuilder.Entity<Pagina>().HasData(Pagine);
             var Voci = new VoceMenu[] {
@@ -2231,7 +2394,7 @@ namespace Gov.Structure
             {
                 Id = 1,
                 Icona = "user-secret",
-                Link = "/affluenze/index",
+                Link = "/andamento/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
@@ -2243,25 +2406,25 @@ namespace Gov.Structure
             {
                 Id = 2,
                 Icona = "history",
-                Link = "/GovApp/liste/index",
+                Link = "/GovApp/ricalcoli/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                Voce = "Liste",
-                RoleId = Roles.Single(i => i.Name == "user").Id
+                Voce = "Ricalcoli",
+                RoleId = Roles.Single(i => i.Name == "admin").Id
             },
             new VoceMenu
             {
                 Id = 3,
-                Icona = "receipt",
-                Link = "/GovApp/sindaco/index",
+                Icona = "question-circle",
+                Link = "/GovApp/sezioni/status",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "user").Id,
-                Voce = "Sindaco"
+                Voce = "Status"
             },
             new VoceMenu
             {
@@ -2285,47 +2448,35 @@ namespace Gov.Structure
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "user").Id,
-                Voce = "Partito"
+                Voce = "Account"
             },
             new VoceMenu
             {
                 Id = 6,
                 Icona = "user-secret",
-                Link = "/GovApp/affluenze/index",
+                Link = "/GovApp/andamento/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 RoleId = Roles.Single(i => i.Name == "admin").Id,
                 Voce = "Affluenze"
-            },
+            },           
             new VoceMenu
             {
                 Id = 7,
-                Icona = "history",
-                Link = "/GovApp/liste/index",
+                Icona = "university",
+                Link = "/GovApp/interrogazioni/index",
                 Active = true,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
-                Voce = "Liste",
-                RoleId = Roles.Single(i => i.Name == "admin").Id
+                RoleId = Roles.Single(i => i.Name == "user").Id,
+                Voce = "Interrogazioni"
             },
             new VoceMenu
             {
                 Id = 8,
-                Icona = "receipt",
-                Link = "/GovApp/sindaco/index",
-                Active = true,
-                CreatedBy = "Caricamento",
-                CreatedDate = DateTime.Now,
-                UpdatedBy = null,
-                RoleId = Roles.Single(i => i.Name == "admin").Id,
-                Voce = "Sindaco"
-            },
-            new VoceMenu
-            {
-                Id = 9,
                 Icona = "university",
                 Link = "/GovApp/interrogazioni/index",
                 Active = true,
@@ -2337,7 +2488,7 @@ namespace Gov.Structure
             },
             new VoceMenu
             {
-                Id = 10,
+                Id = 9,
                 Icona = "user",
                 Link = "/GovApp/account/index",
                 Active = true,
@@ -2348,7 +2499,7 @@ namespace Gov.Structure
                 Voce = "Account"
             },  new VoceMenu
             {
-                Id = 11,
+                Id = 10,
                 Icona = "handshake",
                 Link = "/GovApp/rights/index",
                 Active = true,
@@ -2359,7 +2510,7 @@ namespace Gov.Structure
                 Voce = "Abilitazioni"
             }, new VoceMenu
             {
-                Id = 12,
+                Id = 11,
                 Icona = "handshake",
                 Link = "/GovApp/sezioni/index",
                 Active = true,
@@ -2370,7 +2521,7 @@ namespace Gov.Structure
                 Voce = "Sezioni"
             }, new VoceMenu
             {
-                Id = 13,
+                Id = 12,
                 Icona = "user",
                 Link = "/GovApp/Coalizioni/index",
                 Active = true,
@@ -2381,7 +2532,7 @@ namespace Gov.Structure
                 Voce = "Voti Coalizione"
             }, new VoceMenu
             {
-                Id = 14,
+                Id = 13,
                 Icona = "user",
                 Link = "/GovApp/Coalizioni/index",
                 Active = true,
@@ -2392,7 +2543,7 @@ namespace Gov.Structure
                 Voce = "Voti Coalizione"
             }, new VoceMenu
             {
-                Id = 15,
+                Id = 14,
                 Icona = "question-circle",
                 Link = "/GovApp/Sezioni/status",
                 Active = true,

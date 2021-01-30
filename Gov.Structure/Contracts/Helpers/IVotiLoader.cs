@@ -12,6 +12,7 @@ namespace Gov.Structure.Contracts.Helpers
         //  public HashSet<VotiLista> prepareVoti(List<ListaSemplice> list)
 
         MunicipioModel ConvertToJsonLista(List<VotiLista> l, VotiGenerali votiGenerali);
+        MunicipioModel ConvertToJsonSindacoRicalcolo(List<RicalcoloVotiSindaco> ricalcoloVotiSindacos, Voti voti);
         public List<VotiSindacoModel> ConvertToJsonSindaci(List<VotiSindaco> l, int sezione, string tipo,int idtipoelezione);
         List<VotiLista> prepareVoti(List<VotiListaModel> liste, string user, int tipoElezione);
         List<VotiLista> prepareVotiR(List<VotiListaModel> liste, string user);
@@ -22,6 +23,7 @@ namespace Gov.Structure.Contracts.Helpers
         List<VotiLista> prepareVotiListaR(List<VotiSindacoModel> sindaci, int tipoelezioneid, string user, List<VotiListaModel> l);
         List<VotiSindaco> prepareVoti(VotiModel form, int tipoelezioneid);
         List<VotiSindacoModel> ConvertToJsonSindaciEmpty(List<Sindaci> sindaci, string sezione, string tipo);
-        MunicipioModel ConvertToJsonListaMunicipio(List<VotiLista> votis, Voti votiGenerali, int iscritti);
+        MunicipioModel ConvertToJsonListeRicalcolo(List<RicalcoloVotiLista> ricalcoloVotiListas, Voti voti);
+       // MunicipioModel ConvertToJsonListaMunicipio(List<VotiLista> votis, Voti votiGenerali, int iscritti);
     }
 }

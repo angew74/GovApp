@@ -11,6 +11,7 @@ const store = {
         myprofile: {},
         affluenza: {},
         votiVisualizzazione: {},
+        votiRicalcolo: {},
         voti: {},
         auto: []
     },
@@ -25,7 +26,8 @@ const store = {
         Auto: state => state.auto,
         MyProfile: state => state.myprofile,
         Affluenza: state => state.affluenza,
-        VotiVisualizzazione: state=> state.votiVisualizzazione,
+        VotiVisualizzazione: state => state.votiVisualizzazione,
+        VotiRicalcolo: state => state.votiRicalcolo,
         Voti: state => state.voti
     },
     mutations: {
@@ -55,6 +57,9 @@ const store = {
         },
         setVotiVisualizzazione(state, votiVisualizzazione) {
             state.votiVisualizzazione = votiVisualizzazione;
+        },
+        setVotiRicalcolo(state, votiRicalcolo) {
+            state.votiRicalcolo = votiRicalcolo;
         },
         centralizeMessage(state, error) {
             if ((typeof (error.message) !== 'undefined') && (typeof (error.response.data) === 'undefined')) {
@@ -350,6 +355,43 @@ const store = {
                     else {
                         commit('setMessage', res.message);
                         commit('setVotiVisualizzazione', null);
+                    }
+                }).catch((error) => {
+                    commit('centralizeMessage', error);
+                });
+        },
+        ricalcolavoti({ commit }, { tipo, municipio }) {
+            axios({
+                method: 'get',
+                url: '/GovApp/voti/ricalcolo',
+                params: {
+                    "tipo": tipo,
+                    "municipio": municipio
+                }
+            })
+            .then(res => {
+                    if (res.status === 200 && res.data !== null) {
+                        commit('setMessage', '');
+                        commit('setVotiRicalcolo', res.data);
+                    }
+                    else {
+                        commit('setMessage', res.message);
+                        commit('setVotiRicalcolo', null);
+                    }
+                }).catch((error) => {
+                    commit('centralizeMessage', error);
+                });
+        },
+        insricalcolo({ commit }, ricalcolo) {
+            return axios.post('/GovApp/voti/save', ricalcolo
+                , {
+                    headers: { 'Content-Type': 'application/json' }
+                }).then(res => {
+                    if (res.status === 200 && res.data !== null) {
+                        commit('setMessage', '');                       
+                    }
+                    else {
+                        commit('setMessage', res.message);                       
                     }
                 }).catch((error) => {
                     commit('centralizeMessage', error);

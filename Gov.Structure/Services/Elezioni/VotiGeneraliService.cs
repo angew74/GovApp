@@ -37,30 +37,31 @@ namespace Gov.Structure.Services.Elezioni
         public VotiGenerali findBySezioneNumerosezioneAndTipoelezioneId(int numerosezione, int tipoelezioneid)
         {  
              return _dbset.Where(x=> x.Sezione.Numerosezione == numerosezione && x.Tipoelezioneid == tipoelezioneid).Include(i=>i.Sezione).ThenInclude(i=>i.Iscritti).SingleOrDefault();            
-        }
-
-        public List<Voti> findByTipoelezioneId(int tipoelezioneid)
-        {
-            var result = _dbset.Where(x => x.Tipoelezioneid == tipoelezioneid).GroupBy(g => new { g.Nulle, g.SoloSindaco, g.Totale, g.TotaleValide, g.Contestate, g.Bianche }).Select(z => new { z.Key.Bianche, z.Key.Contestate, z.Key.Nulle, z.Key.SoloSindaco, z.Key.Totale, z.Key.TotaleValide });
-            var voti = result.Select(x => new Voti(x.Bianche, x.Contestate, 99, x.Nulle, x.SoloSindaco, x.Totale, x.TotaleValide)).ToList();
-            return voti;
-        }
-
-        public List<Voti> findByMunicipioAndTipoelezioneId(int municipio, int tipoelezioneid)
-        {
-
-            var result = _dbset.Where(x => x.Sezione.Municipio == municipio && x.Tipoelezioneid == tipoelezioneid).GroupBy(g => new { g.Sezione.Municipio, g.Nulle, g.SoloSindaco, g.Totale, g.TotaleValide, g.Contestate, g.Bianche }).Select(z => new {z.Key.Bianche, z.Key.Contestate, z.Key.Municipio, z.Key.Nulle, z.Key.SoloSindaco, z.Key.Totale, z.Key.TotaleValide});
-            var voti = result.Select(x => new Voti(x.Bianche, x.Contestate, x.Municipio, x.Nulle, x.SoloSindaco, x.Totale, x.TotaleValide)).ToList();
-            return voti;
-        }
+        }  
 
         public List<VotiGenerali> findBySezionePlessoIdAndTipoelezioneId(int plessoid, int tipoelezioneid)
         {         
             
               return _dbset.Where(x => x.Sezione.Idplesso == plessoid && x.Tipoelezioneid == tipoelezioneid).ToList();            
         }
+        public Voti countGenerale(int tipoelezioneid)
+        {           
+            return _dbset.Where(x => x.Tipoelezioneid == tipoelezioneid).GroupBy(o => "1")
+                  .Select(g => new Voti {Bianche= g.Sum(s=> s.Bianche), Contestate = g.Sum(s=>s.Contestate), Nulle= g.Sum(s=>s.Nulle),Municipio = 99, SoloSindaco = g.Sum(s=>s.SoloSindaco), Totale = g.Sum(s=>s.Totale), TotaleValide = g.Sum(s=>s.TotaleValide),  SezioniPervenute = g.Count(),Iscritti = g.Sum(s=>s.Iscritti)}).FirstOrDefault();
+        }
+        public Voti countGeneraleByMunicipio(int tipoelezioneid)
+        {
+            return _dbset.Where(x => x.Tipoelezioneid == tipoelezioneid).GroupBy(g => g.Municipio)
+                  .Select(g => new Voti { Bianche = g.Sum(s => s.Bianche), Contestate = g.Sum(s => s.Contestate), Nulle = g.Sum(s => s.Nulle), Municipio = (int)g.Key, SoloSindaco = g.Sum(s => s.SoloSindaco), Totale = g.Sum(s => s.Totale), TotaleValide = g.Sum(s => s.TotaleValide), SezioniPervenute = g.Count(), Iscritti = g.Sum(s => s.Iscritti) }).FirstOrDefault();
+        }
 
-      
+        public Voti countGeneraleOverMunicipio(int tipoelezioneid, int municipio)
+        {
+            return _dbset.Where(x => x.Tipoelezioneid == tipoelezioneid && x.Municipio == municipio).GroupBy(g => g.Municipio)
+                .Select(g => new Voti { Bianche = g.Sum(s => s.Bianche), Contestate = g.Sum(s => s.Contestate), Nulle = g.Sum(s => s.Nulle), Municipio = (int)g.Key, SoloSindaco = g.Sum(s => s.SoloSindaco), Totale = g.Sum(s => s.Totale), TotaleValide = g.Sum(s => s.TotaleValide), SezioniPervenute = g.Count(), Iscritti = g.Sum(s => s.Iscritti) }).FirstOrDefault();
+        }
+
+
     }
     
 }

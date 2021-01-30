@@ -6,7 +6,7 @@ namespace Gov.Core.Entity.Presentation
 {
     public class MunicipioModel
     {
-        public InterrogazioneModel interrogazione { get; set; }
+        public DatiModel dati { get; set; }
         public string Municipio { get; set; }
     }
 }

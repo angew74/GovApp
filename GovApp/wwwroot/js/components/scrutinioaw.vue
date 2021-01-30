@@ -10,6 +10,8 @@
                         <b-form @submit.stop.prevent="handleSubmit(onSubmit)">
                             <b-form-input type="text" v-model="scrutinio.id"
                                           style="display:none" />
+                            <b-form-input type="text" v-model="scrutinio.municipio"
+                                          style="display:none" />
                             <div class="row" style="margin-bottom: 15px;margin-top:10px">
                                 <div class="col col-xs-3">
                                     <div class="input-group">
@@ -193,8 +195,8 @@
                                                           class="form-control"
                                                           :state="getValidationState(validationContext)"
                                                           aria-describedby="input-datatotale-live-feedback"
-                                                          type="number" 
-                                                          v-model="data.totaleSindaco"/>
+                                                          type="number"
+                                                          v-model="data.totaleSindaco" />
                                             <b-form-invalid-feedback id="input-datatotale-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                                         </validation-provider>
                                     </div>

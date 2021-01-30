@@ -95,9 +95,21 @@ module.exports = {
             './wwwroot/js/app.js',
             './Views/Interrogazioni/Index.cshtml.js'
         ],
+        'ricalcoli': [
+            './wwwroot/js/app.js',
+            './Views/Ricalcoli/Index.cshtml.js'
+        ],
         'liste': [
             './wwwroot/js/app.js',
             './Views/Interrogazioni/Liste.cshtml.js'
+        ],
+        'rliste': [
+            './wwwroot/js/app.js',
+            './Views/Ricalcoli/Liste.cshtml.js'
+        ],
+        'rsindaco': [
+            './wwwroot/js/app.js',
+            './Views/Ricalcoli/Sindaco.cshtml.js'
         ]
 
     },
