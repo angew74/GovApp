@@ -22,5 +22,6 @@ namespace Gov.Core.Entity.Presentation
         public string NumeroSezione { get; set; }
         public string municipio { get; set; }
         public string SezioniPervenute { get; set; }
+        public string PercentualeVotanti { get; set; }
     }
 }

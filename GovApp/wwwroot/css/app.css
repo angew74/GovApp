@@ -33,6 +33,10 @@ body {
     border:none;
 }
 
+.b-icon.bi {
+    color: white;
+}
+
 .awesomefonts {
     float: left;
 }

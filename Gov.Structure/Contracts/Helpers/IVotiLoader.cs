@@ -24,6 +24,8 @@ namespace Gov.Structure.Contracts.Helpers
         List<VotiSindaco> prepareVoti(VotiModel form, int tipoelezioneid);
         List<VotiSindacoModel> ConvertToJsonSindaciEmpty(List<Sindaci> sindaci, string sezione, string tipo);
         MunicipioModel ConvertToJsonListeRicalcolo(List<RicalcoloVotiLista> ricalcoloVotiListas, Voti voti);
-       // MunicipioModel ConvertToJsonListaMunicipio(List<VotiLista> votis, Voti votiGenerali, int iscritti);
+        List<RicalcoloVotiLista> ConvertToListeRicalcolo(DatiModel json, int tipoelezioneid,int totalesezioni, int tiporicalcolo);
+        List<RicalcoloVotiSindaco> ConvertToSindacoRicalcolo(DatiModel json, int tipoelezioneid,int totalesezioni, int tiporicalcolo);
+        MunicipioModel ConvertToJsonListaMunicipio(List<RicalcoloVotiLista> votis);
     }
 }

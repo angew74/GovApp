@@ -306,39 +306,35 @@ namespace Gov.Structure.Services.Helpers
             return listVoti;
         }
 
-        public MunicipioModel ConvertToJsonListaMunicipio(List<VotiLista> votis, Voti votiGenerali, RicalcoloVotiLista ricalcolo)
+        public MunicipioModel ConvertToJsonListaMunicipio(List<RicalcoloVotiLista> listas)
         {
             List<VotiListaModel> listaJsons = new List<VotiListaModel>();          
             MunicipioModel municipio = new MunicipioModel();
             string tipo = "";
-            if(votiGenerali.Municipio != 99)
+            if(listas.FirstOrDefault().Municipio != 99)
             {
-                tipo = "Lista Municipio " + votiGenerali.Municipio.ToString();
+                tipo = "Lista Municipio " + listas.FirstOrDefault().Municipio.ToString();
             }
             else { tipo = "Lista tutto il Comune"; }
             DatiModel json = new DatiModel
             {
-                Bianche = votiGenerali.Bianche.ToString(),
-                Tipo = tipo,
-                Contestate = votiGenerali.Contestate.ToString(),
-                Nulle = votiGenerali.Nulle.ToString(),
-                totaleValide = votiGenerali.TotaleValide.ToString(),
-                soloSindaco = votiGenerali.SoloSindaco.ToString(),
-                valideListe = (votiGenerali.TotaleValide - votiGenerali.SoloSindaco).ToString(),
-                municipio = votiGenerali.Municipio.ToString(),
-                Totale = votiGenerali.Totale.ToString(),
-                Votanti = votiGenerali.Totale.ToString(),
-                Iscritti = ricalcolo.IscrittiPervenute.ToString() 
+                Tipo = tipo,    
+                Totale = listas.FirstOrDefault().VotantiPervenute.ToString(),
+                municipio = listas.FirstOrDefault().Municipio.ToString(),
+                Votanti = listas.FirstOrDefault().VotantiPervenute.ToString(),
+                Iscritti = listas.FirstOrDefault().IscrittiPervenute.ToString(),
+                SezioniPervenute = listas.FirstOrDefault().NumeroSezioni.ToString(),
+                PercentualeVotanti = listas.FirstOrDefault().PercentualeVotantiPervenute.ToString()
             };          
-            municipio.Municipio = votiGenerali.Municipio.ToString();
-            foreach (VotiLista v in votis)
+            municipio.Municipio = listas.FirstOrDefault().Municipio.ToString();            
+            foreach (RicalcoloVotiLista v in listas)
             {
                 VotiListaModel j = new VotiListaModel();
                 j.Id = v.Id;
-                j.Denominazione = v.Lista.Denominazione;
-                j.Progressivo = v.Lista.Progressivo;
-                j.votiLista = v.Voti.ToString();
-                j.idLista = v.Listaid;
+                j.Denominazione = v.IdlistaNavigation.Denominazione;
+                j.votiLista = v.NumeroVoti.ToString();
+                j.perecentualeLista = CalculatePercentage(v.NumeroVoti, v.VotantiPervenute);
+                j.idLista = v.Idlista;
                 listaJsons.Add(j);
             }
             json.Liste = listaJsons;
@@ -377,7 +373,8 @@ namespace Gov.Structure.Services.Helpers
                 j.Cognome = v.Sindaco.Cognome;
                 j.Nome = v.Sindaco.Nome;
                 j.IdSindaco = v.Sindacoid.ToString();
-                j.totaleSindaco = v.NumeroVoti.ToString() + " (" + CalculatePercentage(v.NumeroVoti, totalevotivalidi) + "%)";
+                j.totaleSindaco = v.NumeroVoti.ToString();
+                j.percentualeTotale = CalculatePercentage(v.NumeroVoti, totalevotivalidi);
                 j.SoloSindaco = v.NumeroVotiSoloSindaco.ToString();              
                 sindacoJsons.Add(j);               
             }
@@ -389,10 +386,10 @@ namespace Gov.Structure.Services.Helpers
         {
             List<VotiListaModel> listaJsons = new List<VotiListaModel>();
             MunicipioModel municipio = new MunicipioModel();
-            string tipo = "Lista ";
+            string tipo = "";
             if (voti.Municipio.ToString() == "99")
-            { tipo = "tutto il Comune"; } 
-            else { tipo = "Municipio " + voti.Municipio.ToString(); }
+            { tipo = "Lista tutto il Comune"; } 
+            else { tipo = "Lista Municipio " + voti.Municipio.ToString(); }
             DatiModel json = new DatiModel
             {
                 Bianche = voti.Bianche.ToString(),
@@ -414,7 +411,8 @@ namespace Gov.Structure.Services.Helpers
             {
                 VotiListaModel j = new VotiListaModel();               
                 j.Denominazione = v.Denominazione;                
-                j.votiLista = v.NumeroVoti.ToString() + " (" + CalculatePercentage(v.NumeroVoti, totalevotivalidi) + "%)";
+                j.votiLista = v.NumeroVoti.ToString();
+                j.perecentualeLista = CalculatePercentage(v.NumeroVoti, totalevotivalidi);
                 j.idLista = v.Idlista;                  
                 listaJsons.Add(j);
             }
@@ -428,6 +426,60 @@ namespace Gov.Structure.Services.Helpers
             double percent = (double)(valid * 100) / total;
             Double dc = Math.Round((Double)percent, 2);
             return dc.ToString();
+        }
+
+        public List<RicalcoloVotiLista> ConvertToListeRicalcolo(DatiModel json, int tipoelezioneid, int totaleSezioni, int tiporicalcolo)
+        {
+            List<RicalcoloVotiLista> ricalcoloVotiListas = new List<RicalcoloVotiLista>();
+            foreach(var lista in json.Liste)
+            {
+                RicalcoloVotiLista r = new RicalcoloVotiLista
+                {
+                    Denominazione = lista.Denominazione,
+                    Idlista = lista.idLista,
+                    Idtipoelezione = tipoelezioneid,
+                    Idtiporicalcolo = tiporicalcolo,
+                    IscrittiPervenute =int.Parse(json.Iscritti),
+                    Municipio = int.Parse(json.municipio),
+                    NumeroSezioni = int.Parse(json.SezioniPervenute),
+                    TotaleSezioni = totaleSezioni,
+                    NumeroVoti = int.Parse(lista.votiLista),
+                    VotantiPervenute = int.Parse(json.Votanti),
+                    PercentualeVotantiPervenute = CalculatePercentage(int.Parse(json.Votanti), int.Parse(json.Iscritti)),
+                    PercentualeSezioniPervenute = CalculatePercentage(int.Parse(json.SezioniPervenute),totaleSezioni),
+                    PercentualeVoti = lista.perecentualeLista                  
+                   
+                };
+                ricalcoloVotiListas.Add(r);
+            }
+            return ricalcoloVotiListas;
+        }
+
+        public List<RicalcoloVotiSindaco> ConvertToSindacoRicalcolo(DatiModel json, int tipoelezioneid, int totalesezioni, int tiporicalcolo)
+        {
+            List<RicalcoloVotiSindaco> ricalcoloVotiSindacos = new List<RicalcoloVotiSindaco>();
+            foreach(var sindaco in json.Sindaci)
+            {
+                RicalcoloVotiSindaco r = new RicalcoloVotiSindaco
+                {
+                    IscrittiPervenute =int.Parse(json.Iscritti),
+                    Municipio = int.Parse(json.municipio),
+                    VotantiPervenute = int.Parse(json.Votanti),
+                    Tipoelezioneid = tipoelezioneid,
+                    Tiporicalcoloid = tiporicalcolo,
+                    TotaleSezioni = totalesezioni,
+                    Sindacoid = int.Parse(sindaco.IdSindaco),
+                    NumeroVoti = int.Parse(sindaco.totaleSindaco),
+                    NumeroSezioni = totalesezioni,                                     
+                    NumeroVotiSoloSindaco =int.Parse(sindaco.SoloSindaco),
+                    PercentualeVotantiPervenute = CalculatePercentage(int.Parse(json.Votanti), int.Parse(json.Iscritti)),
+                    PercentualeSezioniPervenute = CalculatePercentage(int.Parse(json.SezioniPervenute), totalesezioni),
+                    PercentualeVoti = sindaco.percentualeTotale
+
+                };
+                ricalcoloVotiSindacos.Add(r);
+            }
+            return ricalcoloVotiSindacos;
         }
     }
 }

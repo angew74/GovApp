@@ -1,11 +1,11 @@
 ﻿<template>    
         <!-- Tabs with card integration -->
         <div style="font-size: 1.2em;text-align: left;min-height: 300px;margin-left: 360px;max-width: 80rem;">
-            <b-tabs v-model="tabIndex"                  
+            <b-tabs v-model="tab"                  
                     active-nav-item-class="font-weight-bold text-uppercase text-danger"    
                     nav-item-class="font-weight-bold text-uppercase text-info"
                     content-class="mt-3">
-                <b-tab active>
+                <b-tab>
                     <template v-slot:title>
                         <b-spinner type="border" small></b-spinner> Sezione
                     </template>
@@ -44,14 +44,7 @@
                     </div>
                 </b-tab>
             </b-tabs>      
-        <!-- Control buttons-->
-        <div class="text-center">
-            <b-button-group class="mt-2" style="font-size:1.4rem">
-                <b-button  variant="dark" @click="tabIndex--">Precedente</b-button>
-                <b-button variant="dark" @click="tabIndex++">Prossino</b-button>
-            </b-button-group>
-            <div class="text-muted" style="display:none">Tab Corrente: {{ tabIndex }}</div>
-        </div>
+        <!-- Control buttons-->        
     </div>
 </template>
 
@@ -69,37 +62,47 @@
             'app-lista': listaaw,
             'app-municipio': municipioaw
         },
-        props: ['cat'],
+        props: ['cat', 'tabIndex'],
         data: function () {
             return {
                 form: {},
                 show: true,
                 messaggio: '',  
-                tipo:'',
-                tabIndex: 1
+                tipo: '',  
+                tabI: null
             }
         },
         mounted() {
             this.form = this.cat;
+        }, 
+        computed: {
+            tab: {
+                get() {
+                    return parseInt(this.tabIndex);
+                },
+                set(value) {
+                    this.tabI = value;
+                }
+            }
         },
         methods: {
             getValidationState({ dirty, validated, valid = null }) {
                 return dirty || validated ? valid : null;
             },           
             cercalista(e) {               
-                this.form= e;
+                this.form = e;              
                 this.form.tipoInterrogazione = "1";
-                this.$emit('sended', this.form, this.tabIndex);
+                this.$emit('sended', this.form, this.tabI);
             },
             cercamunicipio(e) {             
-                this.form = e;      
+                this.form = e;               
                 this.form.tipoInterrogazione = "2";
-                this.$emit('sended', this.form, this.tabIndex);
+                this.$emit('sended', this.form, this.tabI);
             },
             cercasezione(e) {
-                this.form = e;
+                this.form = e;               
                 this.form.tipoInterrogazione = "3";
-                this.$emit('sended', this.form, this.tabIndex);
+                this.$emit('sended', this.form, this.tabI);
             },
         }
     }

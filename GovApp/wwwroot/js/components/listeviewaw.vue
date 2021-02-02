@@ -7,7 +7,8 @@
                     <b-list-group-item class="d-flex align-items-center">
                         <v-icon scale="1.5" class="fonticonred" name="vote-yea" />
                         <span class="mr-auto redauto" style="margin-left:10px">{{lista.denominazione}}</span>
-                        <span class="badge badge-red">{{lista.votiLista}}</span>
+                        <span class="badge badge-red">
+                            {{lista.votiLista}} ({{lista.perecentualeLista}}%)</span>
                     </b-list-group-item>
                 </b-list-group>
             </b-card>
@@ -23,11 +24,10 @@
                 </b-jumbotron>
             </div>
         </div>
-        <div if="tipo === 'R'" style="margin-top:20px;text-align:right">
+        <div v-if="tipo == 'R'" style="margin-top:20px;text-align:right">
             <b-button v-if="elementi" type="submit" variant="primary" @click="save" style="margin-right:10px">Salva</b-button>
             <b-button type="submit" variant="primary" style="margin-right:10px" @click="previousMunicipio">Precedente</b-button>
             <b-button type="submit" variant="primary" @click="nextMunicipio">Prossimo</b-button>
-
         </div>
     </div>
 </template>
@@ -42,7 +42,7 @@
             return {
                 dati: {},
                 loading: false,
-                messaggio: '',  
+                messaggio: '',
             }
         },
         computed: {
@@ -71,7 +71,7 @@
                     return;
                 }
                 if (count === 15) {
-                    count = 99;  
+                    count = 99;
                     this.emitResult(count);
                     return;
                 }
@@ -79,8 +79,7 @@
                     count += 1;
                     this.emitResult(count);
                     return;
-                }               
-               
+                }
             },
             previousMunicipio() {
                 var count = this.mun;
@@ -98,16 +97,14 @@
                     count -= 1;
                     this.emitResult(count);
                     return;
-                }               
-            },            
+                }
+            },
             save() {
-                this.$emit('saver', elementi);
+                this.$emit('saver', this.elementi);
             }
         },
         mounted() {
             this.dati = this.elementi;
         }
     }
-
-
 </script>

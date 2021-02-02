@@ -444,10 +444,10 @@ namespace GovApp.api
             model.Add(new AbilitazioniModel("", "Selezionare un'opzione"));
             try
             {
-                var liste = _municipioService.GetAll();
-                model.AddRange(liste.Select(x => new AbilitazioniModel
+                var municipi = _municipioService.GetAll();
+                model.AddRange(municipi.Select(x => new AbilitazioniModel
                 {
-                    codice = x.Id.ToString(),
+                    codice = x.Municipio.ToString(),
                     descrizione = x.Descrizione
                 }).ToList());
             }

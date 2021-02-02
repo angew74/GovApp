@@ -13,6 +13,8 @@ namespace Gov.Core.Entity.Presentation
         public int? Progressivo { get;  set; }
          
         public string votiLista { get;  set; }
+
+        public string perecentualeLista { get; set; }
         public string Tipo { get;  set; }
         public int numeroSezione { get;  set; }        
         public int idLista { get;  set; }       

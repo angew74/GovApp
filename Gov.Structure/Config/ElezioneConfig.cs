@@ -9,5 +9,8 @@ namespace Gov.Structure.Config
         public string tipoelezioneid { get; set; }
         public string utentipagina { get; set; }
         public string abilitazionipagina { get; set; }
+        public string totaleSezioni { get; set; }
+        public string ricalcoloVotiLista { get; set; }
+        public string ricalcoloVotiSindaco { get; set; }
     }
 }

@@ -15,9 +15,9 @@
                     </b-col>
                 </b-row>
             </template>
-            <app-tabs @sended="ricerca" :cat="form"></app-tabs>
-            <app-generali :generali="generaliview"></app-generali>
-            <app-liste :liste="listeview"></app-liste>
+            <app-tabs @sended="ricerca" :tabIndex="tab" :cat="form"></app-tabs>
+            <app-generali :tipo="tipo" :generali="generaliview"></app-generali>
+            <app-liste :tipo="ricalcolo" :municipio="municipio" :elementi="listeview"></app-liste>
         </b-skeleton-wrapper>
         <app-footer></app-footer>
     </div>
@@ -45,7 +45,11 @@
                 form: {},
                 voti: {},
                 listeview: null,
-                generaliview: null                
+                generaliview: null,
+                ricalcolo: 'I',
+                tipo: null,
+                tab: 0,
+                municipio: 99
             }
         },
         computed: {
@@ -80,10 +84,11 @@
                     showCloseButton: true,
                 })
             },
-            ricerca(e) {
+            ricerca(e,t) {
                 this.form = e;
                 this.form.tipo = "L";
                 this.loading = true;
+                this.tab = t;
                 this.researchvoti({ authMethod: this.authMode, research: e }).then(() => {
                     if (this.isMessage) {
                         this.showSweetAlert(this.Message);
@@ -91,9 +96,20 @@
                     }
                     else {
                         if (this.VotiVisualizzazione) {
+                            switch (this.form.tipoInterrogazione) {
+                                case "1":
+                                    this.tipo = "Voti Lista";
+                                    break;
+                                case "2":
+                                    this.tipo = "Voti Lista Municipio " + this.form.municipio;
+                                    break;
+                                case "3":                                  
+                                    this.tipo = "Voti Lista Sezione " + this.form.sezione;
+                                    break;
+                            }                           
                             this.voti = this.VotiVisualizzazione;
-                            this.listeview = this.voti.interrogazione;
-                            this.generaliview = this.voti.interrogazione;
+                            this.listeview = this.voti.dati;
+                            this.generaliview = this.voti.dati;
                         }
                         this.loading = false;
                     }

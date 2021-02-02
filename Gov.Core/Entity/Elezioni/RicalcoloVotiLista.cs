@@ -42,19 +42,20 @@ namespace Gov.Core.Entity.Elezioni
         [Required]
         [Column]
         public int IscrittiPervenute { get; set; }
-        [Required]
+       
         [Column]
         public int IscrittiTotale { get; set; }
         [Required]
         [Column]
         public int VotantiPervenute { get; set; }
-        [Required]
+       
         [Column]
         public int VotantiTotali { get; set; }
+
         [Required]
         [Column]
         public string PercentualeVotantiPervenute { get; set; }
-        [Required]
+       
         [Column]
         public string PercentualeVotantiTotale { get; set; }
      

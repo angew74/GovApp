@@ -7,7 +7,7 @@
                     <b-list-group-item class="d-flex align-items-center">
                         <v-icon scale="1.5" class="fonticonred" name="vote-yea" />
                         <span class="mr-auto redauto" style="margin-left:10px">{{sindaco.nome}} {{sindaco.cognome}}</span>
-                        <span class="badge badge-red">{{sindaco.totaleSindaco}} di cui {{sindaco.soloSindaco}} solo sindaco</span>
+                        <span class="badge badge-red">{{sindaco.totaleSindaco}} ({{sindaco.percentualeTotale}}%) di cui {{sindaco.soloSindaco}} solo sindaco</span>
                     </b-list-group-item>
                 </b-list-group>
             </b-card>
@@ -101,7 +101,7 @@
                 }
             },
             save() {
-                this.$emit('saver', elementi);
+                this.$emit('saver', this.elementi);
             }
         },
         mounted() {

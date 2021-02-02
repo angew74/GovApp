@@ -29,10 +29,10 @@ namespace GovApp.api
     {
         private readonly ILogger<VotiController> _logger;
         private readonly UserStore _utentiService;
-        private readonly IPaginaService _paginaService;
+        private readonly IRicalcoloListaService _ricalcoloListaService;
         private readonly IVotiGeneraliService _votiGeneraliService;
         private readonly IListaService _listaService;
-        private readonly IRoleStore<ApplicationRole> _roleService;
+        private readonly IRicalcoloSindacoService _ricalcoloSindacoService;
         private readonly ISezioneService _sezioneService;
         private readonly IOptions<ElezioneConfig> _elezioneConfig;
         private readonly IBusinessRules _businessRules;
@@ -44,13 +44,13 @@ namespace GovApp.api
         private readonly IVotiSindacoService _votiSindacoService;
         private readonly IVotiLoader _votiLoader;
 
-        public VotiController(ILogger<VotiController> logger, IPaginaService paginaService, IListaService listaService, IVotiGeneraliService votiGeneraliService, IRoleStore<ApplicationRole> roleService, ISezioneService sezioneService, IOptions<ElezioneConfig> elezioneConfig, IBusinessRules businessRules, IAbilitazioniService abilitazioniService, IAffluenzaService affluenzaService, ISindacoService sindacoService, IIscrittiService iscrittiService, UserStore utentiService, IVotiSindacoService votiSindacoService, IVotiListaService votiListaService, IVotiLoader votiLoader)
+        public VotiController(ILogger<VotiController> logger, IRicalcoloListaService ricalcoloListaService, IListaService listaService, IVotiGeneraliService votiGeneraliService, IRicalcoloSindacoService ricalcoloSindacoService, ISezioneService sezioneService, IOptions<ElezioneConfig> elezioneConfig, IBusinessRules businessRules, IAbilitazioniService abilitazioniService, IAffluenzaService affluenzaService, ISindacoService sindacoService, IIscrittiService iscrittiService, UserStore utentiService, IVotiSindacoService votiSindacoService, IVotiListaService votiListaService, IVotiLoader votiLoader)
         {
             _logger = logger;
-            _paginaService = paginaService;
+            _ricalcoloListaService = ricalcoloListaService;
             _listaService = listaService;
             _votiGeneraliService = votiGeneraliService;
-            _roleService = roleService;
+            _ricalcoloSindacoService = ricalcoloSindacoService;
             _sezioneService = sezioneService;
             _elezioneConfig = elezioneConfig;
             _businessRules = businessRules;
@@ -130,13 +130,13 @@ namespace GovApp.api
                             case "99":
                                 var ricalcoloComune = _votiListaService.countLista(tipoelezioneid);
                                 var ricalcoloGenerale = _votiGeneraliService.countGenerale(tipoelezioneid);
-                                if(ricalcoloGenerale == null) { return Ok(voti); }
+                                if (ricalcoloGenerale == null) { return Ok(voti); }
                                 voti = _votiLoader.ConvertToJsonListeRicalcolo(ricalcoloComune, ricalcoloGenerale);
                                 break;
                             default:
                                 var ricalcoloMunicipio = _votiListaService.countListaByMunicipio(tipoelezioneid, int.Parse(municipio));
-                                var ricalcoloMunGenerale = _votiGeneraliService.countGeneraleOverMunicipio(tipoelezioneid,int.Parse(municipio));
-                                if(ricalcoloMunGenerale == null) { return Ok(voti); }
+                                var ricalcoloMunGenerale = _votiGeneraliService.countGeneraleOverMunicipio(tipoelezioneid, int.Parse(municipio));
+                                if (ricalcoloMunGenerale == null) { return Ok(voti); }
                                 voti = _votiLoader.ConvertToJsonListeRicalcolo(ricalcoloMunicipio, ricalcoloMunGenerale);
                                 break;
                         }
@@ -174,13 +174,11 @@ namespace GovApp.api
         private MunicipioModel getVotiListaMunicipio(Research research)
         {
             MunicipioModel model = new MunicipioModel();
-            List<VotiLista> votis = new List<VotiLista>();
+            List<RicalcoloVotiLista> votis = new List<RicalcoloVotiLista>();
             int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
-            //  votis = _votiListaService.findByMunicipioAndTipoelezioneId(int.Parse(research.municipio), tipoelezioneid);
-            //  var votiGeneralis = _votiGeneraliService.findByMunicipioAndTipoelezioneId(int.Parse(research.municipio), tipoelezioneid);           
-            //  if(votiGeneralis == null || votiGeneralis.Count == 0) { return model; }
-            //  var ricalcolo = _votiListaService.countVotantiPervenuteByMunicipio(tipoelezioneid, int.Parse(research.municipio));
-            //  model = _votiLoader.ConvertToJsonListaMunicipio(votis, votiGeneralis.FirstOrDefault(), ricalcolo.IscrittiPervenute);
+            votis = _ricalcoloListaService.findByMunicipio(tipoelezioneid, int.Parse(research.municipio));
+            if (votis == null || votis.Count == 0) { return model; }           
+            model = _votiLoader.ConvertToJsonListaMunicipio(votis);
             return model;
         }
 
@@ -199,13 +197,12 @@ namespace GovApp.api
 
         private MunicipioModel getVotiLista(Research research)
         {
-            List<VotiLista> votis = new List<VotiLista>();
+            List<RicalcoloVotiLista> votis = new List<RicalcoloVotiLista>();
             MunicipioModel model = new MunicipioModel();
             int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
-            votis = _votiListaService.findByListaIdAndTipoelezioneId(int.Parse(research.idlista), tipoelezioneid);
-            // var ricalcolo = _votiListaService.countVotantiPervenuteByMunicipio(tipoelezioneid, int.Parse(research.municipio));            
-            // if (votiGenerali == null) { return model; }
-            // model = _votiLoader.ConvertToJsonListaMunicipio(votis, votiGenerali.FirstOrDefault(), iscritti);
+            votis = _ricalcoloListaService.findByLista(tipoelezioneid, int.Parse(research.idlista));
+            if (votis == null || votis.Count == 0) { return model; }
+            model = _votiLoader.ConvertToJsonListaMunicipio(votis);
             return model;
         }
 
@@ -295,10 +292,28 @@ namespace GovApp.api
         {
             DatiModel json = input.ricalcolo;
             ErrorModel error = new ErrorModel();
+            var ricalcolo = input.ricalcolo;
             int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+            int ricalcoloLista = int.Parse(_elezioneConfig.Value.ricalcoloVotiLista);
+            int ricalcoloSindaco = int.Parse(_elezioneConfig.Value.ricalcoloVotiSindaco);
+            int totaleSezioni = int.Parse(_elezioneConfig.Value.totaleSezioni);
             try
             {
-                               
+
+                switch (ricalcolo.Tipo.ToLower())
+                {
+                    case string a when a.Contains("lista") == true:
+                        List<RicalcoloVotiLista> ricalcoloVotiListas = _votiLoader.ConvertToListeRicalcolo(json, tipoelezioneid, totaleSezioni, ricalcoloLista);
+                        _ricalcoloListaService.CreateRange(ricalcoloVotiListas);
+                        break;
+                    case string a when a.Contains("sindaco") == true:
+                        List <RicalcoloVotiSindaco> ricalcoloVotiSindaco = _votiLoader.ConvertToSindacoRicalcolo(json, tipoelezioneid, totaleSezioni, ricalcoloSindaco);
+                        _ricalcoloSindacoService.CreateRange(ricalcoloVotiSindaco);
+                        break;
+                    default:
+                        return  BadRequest("Attenzione parametri errati");
+                        break;
+                }
             }
             catch (Exception ex)
             {

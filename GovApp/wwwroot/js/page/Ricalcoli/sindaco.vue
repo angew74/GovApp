@@ -87,8 +87,17 @@
                     showCloseButton: true,
                 })
             },
+            showSweetAlertinfo(message) {
+                this.$swal({
+                    title: 'Congratulazioni',
+                    text: message,
+                    icon: 'info',
+                    showCancelButton: false,
+                    showCloseButton: true,
+                })
+            },
             saveRicalcolo(e) {
-                this.loading = true;
+                this.loading = true;               
                 this.insricalcolo({ ricalcolo: e })
                     .then(() => {
                         if (this.isMessage) {
