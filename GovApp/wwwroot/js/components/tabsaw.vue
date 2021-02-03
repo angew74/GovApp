@@ -31,17 +31,11 @@
                 </b-tab>
                 <b-tab>
                     <template v-slot:title>
-                        <b-spinner type="border" small></b-spinner> Tipo Elezione
+                        <b-spinner type="border" small></b-spinner> Sindaco
                     </template>
-                    <div class="container">
-                        <validation-observer ref="observer" v-slot="{ handleSubmit }">
-                            <b-form @submit.stop.prevent="handleSubmit(onSubmit)">
-                                <div style="margin-top:20px;text-align:right">
-                                    <b-button type="submit" variant="primary">Ricerca</b-button>
-                                </div>
-                            </b-form>
-                        </validation-observer>
-                    </div>
+                    <div class="container" style="font-size:0.8em">
+                        <app-sindaco v-bind:form="form" @research="cercasindaco"></app-sindaco>
+                    </div>                   
                 </b-tab>
             </b-tabs>      
         <!-- Control buttons-->        
@@ -53,6 +47,7 @@
     import { extend } from 'vee-validate';
     import research from '../components/research.vue';
     import listaaw from '../components/listaaw.vue';
+    import sindacoaw from '../components/sindacoaw.vue';
     import municipioaw from '../components/municipioaw.vue';
     export default {
         name: 'tabsaw',
@@ -60,6 +55,7 @@
         components: {
             'app-research': research,
             'app-lista': listaaw,
+            'app-sindaco': sindacoaw,
             'app-municipio': municipioaw
         },
         props: ['cat', 'tabIndex'],
@@ -91,6 +87,11 @@
             },           
             cercalista(e) {               
                 this.form = e;              
+                this.form.tipoInterrogazione = "1";
+                this.$emit('sended', this.form, this.tabI);
+            },
+            cercasindaco(e) {
+                this.form = e;
                 this.form.tipoInterrogazione = "1";
                 this.$emit('sended', this.form, this.tabI);
             },

@@ -99,6 +99,18 @@ namespace GovApp.api
                         }
                         break;
                     case "S":
+                        switch (input.research.tipoInterrogazione)
+                        {
+                            case "1":
+                                voti = getVotiSindaco(input.research);
+                                break;
+                            case "2":
+                                voti = getVotiSindacoMunicipio(input.research);
+                                break;
+                            case "3":
+                                voti = getVotiSindacoSezione(input.research);
+                                break;
+                        }
                         break;
                     case "R":
                         break;
@@ -182,6 +194,16 @@ namespace GovApp.api
             return model;
         }
 
+        private MunicipioModel getVotiSindacoMunicipio(Research research)
+        {
+            MunicipioModel model = new MunicipioModel();
+            List<RicalcoloVotiSindaco> votis = new List<RicalcoloVotiSindaco>();
+            int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+            votis = _ricalcoloSindacoService.findByMunicipio(tipoelezioneid, int.Parse(research.municipio));
+            if (votis == null || votis.Count == 0) { return model; }
+            model = _votiLoader.ConvertToJsonSindacoMunicipio(votis);
+            return model;
+        }
         private MunicipioModel getVotiListaSezione(Research research)
         {
             List<VotiLista> votis = new List<VotiLista>();
@@ -191,10 +213,21 @@ namespace GovApp.api
             votis = _votiListaService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(research.sezione), tipoelezioneid);
             votiGenerali = _votiGeneraliService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(research.sezione), tipoelezioneid);
             if (votiGenerali == null) { return model; }
-            model = _votiLoader.ConvertToJsonLista(votis, votiGenerali);
+            model = _votiLoader.ConvertToJsonListaSezione(votis, votiGenerali);
             return model;
         }
-
+        private MunicipioModel getVotiSindacoSezione(Research research)
+        {
+            List<VotiSindaco> votis = new List<VotiSindaco>();
+            MunicipioModel model = new MunicipioModel();
+            VotiGenerali votiGenerali = new VotiGenerali();
+            int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+            votis = _votiSindacoService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(research.sezione), tipoelezioneid);
+            votiGenerali = _votiGeneraliService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(research.sezione), tipoelezioneid);
+            if (votiGenerali == null) { return model; }
+            model = _votiLoader.ConvertToJsonSindacoSezione(votis, votiGenerali);
+            return model;
+        }
         private MunicipioModel getVotiLista(Research research)
         {
             List<RicalcoloVotiLista> votis = new List<RicalcoloVotiLista>();
@@ -202,7 +235,18 @@ namespace GovApp.api
             int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
             votis = _ricalcoloListaService.findByLista(tipoelezioneid, int.Parse(research.idlista));
             if (votis == null || votis.Count == 0) { return model; }
-            model = _votiLoader.ConvertToJsonListaMunicipio(votis);
+            model = _votiLoader.ConvertToJsonLista(votis);
+            return model;
+        }
+
+        private MunicipioModel getVotiSindaco(Research research)
+        {
+            List<RicalcoloVotiSindaco> votis = new List<RicalcoloVotiSindaco>();
+            MunicipioModel model = new MunicipioModel();
+            int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+            votis = _ricalcoloSindacoService.findBySindaco(tipoelezioneid, int.Parse(research.idsindaco));
+            if (votis == null || votis.Count == 0) { return model; }
+            model = _votiLoader.ConvertToJsonSindaco(votis);
             return model;
         }
 
@@ -304,10 +348,14 @@ namespace GovApp.api
                 {
                     case string a when a.Contains("lista") == true:
                         List<RicalcoloVotiLista> ricalcoloVotiListas = _votiLoader.ConvertToListeRicalcolo(json, tipoelezioneid, totaleSezioni, ricalcoloLista);
+                        var ricalcoloVotiListasOld = _ricalcoloListaService.findByMunicipio(tipoelezioneid, ricalcoloVotiListas.FirstOrDefault().Municipio);
+                        _ricalcoloListaService.DeleteRange(ricalcoloVotiListasOld);
                         _ricalcoloListaService.CreateRange(ricalcoloVotiListas);
                         break;
                     case string a when a.Contains("sindaco") == true:
                         List <RicalcoloVotiSindaco> ricalcoloVotiSindaco = _votiLoader.ConvertToSindacoRicalcolo(json, tipoelezioneid, totaleSezioni, ricalcoloSindaco);
+                        var ricalcoloVotiSindacoOld = _ricalcoloSindacoService.findByMunicipio(tipoelezioneid, ricalcoloVotiSindaco.FirstOrDefault().Municipio);
+                        _ricalcoloSindacoService.DeleteRange(ricalcoloVotiSindacoOld);
                         _ricalcoloSindacoService.CreateRange(ricalcoloVotiSindaco);
                         break;
                     default:

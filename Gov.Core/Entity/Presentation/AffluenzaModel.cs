@@ -24,5 +24,6 @@ namespace Gov.Core.Entity.Presentation
         public int VotantiFemmineAffP { get; set; }      
 
         public int VotantiTotaliAffP { get; set; }
+        public int? TipoSezione { get; set; }
     }
 }

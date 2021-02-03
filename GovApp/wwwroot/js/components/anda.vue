@@ -74,42 +74,37 @@
                             </b-form-input>
                             <b-form-invalid-feedback id="input-votantiTotali-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                         </b-form-group>
-                        <ValidationProvider name="iscrittiMaschi" rules="required">
+                    </validation-provider>
                             <b-form-input id="iscrittiMaschi"
                                           v-model="affluenzasezione.iscrittiMaschi"
                                           type="text"
                                           style="display:none"></b-form-input>
-                        </ValidationProvider>
-                        <ValidationProvider name="iscritti Femmine" rules="required">
+                       
                             <b-form-input id="iscrittiFemmine"
                                           v-model="affluenzasezione.iscrittiFemmine"
                                           type="text"
                                           style="display:none"></b-form-input>
-                        </ValidationProvider>
-                        <ValidationProvider name="iscrittiTotali" rules="required">
+                      
                             <b-form-input id="iscrittiTotali"
                                           v-model="affluenzasezione.iscrittiTotali"
                                           type="text"
                                           style="display:none"></b-form-input>
-                        </ValidationProvider>
-                        <ValidationProvider name="votanti Maschi precedenti " rules="required">
+                      
                             <b-form-input id="votantiMaschiAffP"
                                           v-model="affluenzasezione.votantiMaschiAffP"
                                           type="text"
                                           style="display:none"></b-form-input>
-                        </ValidationProvider>
-                        <ValidationProvider name="votanti Femmine Precedenti" rules="required">
+                      
                             <b-form-input id="votantiFemmineAffP"
                                           v-model="affluenzasezione.votantiFemmineAffP"
                                           type="text"
                                           style="display:none"></b-form-input>
-                        </ValidationProvider>
-                        <ValidationProvider name="votantiTotaliPrecedenti" rules="required">
+                    
                             <b-form-input id="votantiTotaliAffP"
                                           v-model="affluenzasezione.votantiTotaliAffP"
                                           type="text"
                                           style="display:none"></b-form-input>
-                        </ValidationProvider>
+                     
                         <b-form-input id="numerosezione"
                                       v-model="affluenzasezione.numeroSezione"
                                       type="text"
@@ -118,7 +113,7 @@
                                       v-model="affluenzasezione.tipo"
                                       type="text"
                                       style="display:none"></b-form-input>
-                    </validation-provider>
+                 
                     <b-button type="submit" style="margin-top: 30px;margin: 0 50%;position: relative;left: -50px;" variant="primary">Conferma</b-button>
                 </b-form>
             </validation-observer>
@@ -131,6 +126,7 @@
     extend('between', {
         params: ['min', 'max'],
         validate(value, { min, max }) {
+            if (max === 0) { max = 9999;}
             return value >= min && value <= max;
         },
         message: 'Il valore del campo deve essere compreso tra {min} e {max}'

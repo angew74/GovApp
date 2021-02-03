@@ -68,7 +68,7 @@
                  :sort-direction="ordinaDirezione">
             <template v-slot:cell(detailsuser)="row">
                 <b-button id="detailsUser" size="sm" style="background-color:#343a40;border:none" variant="dark" @click="info(row.item, row.index, $event.target)" class="mr-1">
-                    <b-icon icon="info-square-fill" aria-label="Help"></b-icon>
+                    <b-icon style="color:black" icon="info-square-fill" aria-label="Help"></b-icon>
                 </b-button>
                 <b-tooltip target="detailsUser" triggers="hover">
                     dettagli utente
@@ -76,7 +76,7 @@
             </template>
             <template v-slot:cell(deleteuser)="row">
                 <b-button id="deleteUser" size="sm" @click="deleteu(row.item,row.index, $event.target)" style="background-color:#343a40;border:none" variant="dark">
-                    <b-icon icon="person-dash-fill" aria-label="Help"></b-icon>
+                    <b-icon style="color:black" icon="person-dash-fill" aria-label="Help"></b-icon>
                 </b-button>
                 <b-tooltip target="deleteUser" triggers="hover">
                     cancella utente
@@ -84,7 +84,7 @@
             </template>
             <template v-slot:cell(disableuser)="row">
                 <b-button id="disableUser" size="sm" @click="disable(row.item,row.index, $event.target)" style="background-color:#343a40;border:none" variant="dark">
-                    <b-icon icon="person-bounding-box" aria-label="Help"></b-icon>
+                    <b-icon  style="color:black" icon="person-bounding-box" aria-label="Help"></b-icon>
                 </b-button>
                 <b-tooltip target="disableUser" triggers="hover">
                     disabilita utente
@@ -92,7 +92,7 @@
             </template>
             <template v-slot:cell(updateRight)="row">
                 <b-button id="updateRight" size="sm" @click="update(row.item,row.index, $event.target)" style="background-color:#343a40;border:none" variant="dark">
-                    <b-icon icon="hand-index" aria-label="Help"></b-icon>
+                    <b-icon style="color:black" icon="hand-index" aria-label="Help"></b-icon>
                 </b-button>
                 <b-tooltip target="updateRight" triggers="hover">
                    aggiorna abilitazione
@@ -100,7 +100,7 @@
             </template>
             <template v-slot:cell(resetpassword)="row">
                 <b-button id="resetPassword" size="sm" @click="resetpassword(row.item,row.index, $event.target)" style="background-color:#343a40;border:none" variant="dark">
-                    <b-icon icon="envelope-fill" aria-label="Help"></b-icon>
+                    <b-icon style="color:black" icon="envelope-fill" aria-label="Help"></b-icon>
                 </b-button>
                 <b-tooltip target="resetPassword" triggers="hover">
                     reset password

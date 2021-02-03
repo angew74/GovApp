@@ -23,7 +23,7 @@ namespace Gov.Structure.Contracts
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException("entity is null");
             }
 
             _dbset.Add(entity);
@@ -34,7 +34,7 @@ namespace Gov.Structure.Contracts
         {
             if (entities == null)
             {
-                throw new ArgumentNullException("entities");
+                throw new ArgumentNullException("entities is null");
             }
 
             _dbset.AddRange(entities);
@@ -51,7 +51,7 @@ namespace Gov.Structure.Contracts
 
         public virtual void Delete(T entity)
         {
-            if (entity == null) throw new ArgumentNullException("entity");
+            if (entity == null) throw new ArgumentNullException("entity is null");
             _dbset.Remove(entity);
             _context.SaveChanges();
         }
@@ -59,6 +59,17 @@ namespace Gov.Structure.Contracts
         public virtual IEnumerable<T> GetAll()
         {
             return _dbset.AsEnumerable<T>();
+        }
+
+        public void DeleteRange(List<T> entities)
+        {
+            if (entities == null)
+            {
+                throw new ArgumentNullException("entities is null");
+            }
+
+            _dbset.RemoveRange(entities);
+            _context.SaveChanges();
         }
     }
 }

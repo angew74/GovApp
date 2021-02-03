@@ -29,7 +29,7 @@ namespace Gov.Structure.Services.Helpers
             _votiSindacoService = votiSindacoService;
         }
 
-        public MunicipioModel ConvertToJsonLista(List<VotiLista> l, VotiGenerali votiGenerali)
+        public MunicipioModel ConvertToJsonListaSezione(List<VotiLista> l, VotiGenerali votiGenerali)
         {
             List<VotiListaModel> listaJsons = new List<VotiListaModel>();
             MunicipioModel municipioModel = new MunicipioModel();
@@ -62,35 +62,6 @@ namespace Gov.Structure.Services.Helpers
             municipioModel.Municipio = "99";
             municipioModel.dati = json;
             return municipioModel;
-        }
-
-
-        public List<VotiLista> prepareVoti(List<VotiListaModel> list, string user, int tipoElezione)
-        {
-            List<VotiLista> votiList = new List<VotiLista>();
-            Sezioni sezione = _sezioneService.findByNumerosezioneAndTipoelezioneId(list[0].numeroSezione, tipoElezione);
-            foreach (VotiListaModel l in list)
-            {
-                VotiLista v = new VotiLista();
-                v.Sezioneid = sezione.Id;
-                v.Tipoelezioneid = tipoElezione;
-                v.Listaid = l.idLista;
-                votiList.Add(v);
-            }
-            return votiList;
-        }
-
-        public List<VotiLista> prepareVotiR(List<VotiListaModel> list, string user)
-        {
-            List<VotiLista> votiList = new List<VotiLista>();
-            DateTime oggi = DateTime.Now;
-            foreach (VotiListaModel l in list)
-            {
-                VotiLista v = _votiListaService.findById((int)l.Id);
-                v.Voti = int.Parse(l.votiLista);
-                votiList.Add(v);
-            }
-            return votiList;
         }
 
         public List<VotiSindacoModel> ConvertToJsonSindaci(List<VotiSindaco> l, int sezione, string tipo, int tipoelezioneid)
@@ -174,69 +145,8 @@ namespace Gov.Structure.Services.Helpers
             }
             return sindaciJsons;
         }
-
-        public List<VotiSindaco> prepareVotiSindaco(List<VotiSindacoModel> list, string user, int tipoelezioneid)
-        {
-            List<VotiSindaco> votiList = new List<VotiSindaco>();
-            VotiGenerali vg = _votiGeneraliService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(list[0].NumeroSezione), tipoelezioneid);
-            foreach (VotiSindacoModel l in list)
-            {
-                VotiSindaco v = new VotiSindaco();
-                v.NumeroVoti = int.Parse(l.totaleSindaco);
-                v.NumeroVotiSoloSindaco = int.Parse(l.SoloSindaco);
-                v.Sezioneid = int.Parse(l.NumeroSezione);
-                v.Tipoelezioneid = tipoelezioneid;
-                v.Votigenerali = vg;
-                votiList.Add(v);
-            }
-            return votiList;
-        }
-
-        public List<VotiSindaco> prepareVotiSindacoR(List<VotiSindacoModel> list, VotiGenerali vg, string user, int tipoelezioneid)
-        {
-            List<VotiSindaco> votiList = new List<VotiSindaco>();
-            foreach (VotiSindacoModel l in list)
-            {
-                VotiSindaco v = _votiSindacoService.findBySindacoIdAndSezioneNumerosezioneAndTipoelezioneId(int.Parse(l.Id), int.Parse(l.NumeroSezione), tipoelezioneid);
-                v.NumeroVoti = int.Parse(l.totaleSindaco);
-                v.NumeroVotiSoloSindaco = int.Parse(l.SoloSindaco);
-                v.Votigenerali = vg;
-                votiList.Add(v);
-            }
-            return votiList;
-        }
-        public VotiGenerali prepareVotiG(VotiModel form, int tipoelezioneid)
-        {
-
-            Sezioni sezione = _sezioneService.findByNumerosezioneAndTipoelezioneId(int.Parse(form.Sindaci[0].NumeroSezione), tipoelezioneid);
-            int sezioneid = _sezioneService.findByNumerosezioneAndTipoelezioneId(int.Parse(form.NumeroSezione), tipoelezioneid).Id;
-            VotiGenerali v = new VotiGenerali();
-            v.Bianche = int.Parse(form.Bianche);
-            v.Contestate = int.Parse(form.Contestate);
-            v.Nulle = int.Parse(form.Nulle);
-            v.Sezioneid = sezioneid;
-            v.SoloSindaco = int.Parse(form.soloSindaco);
-            v.Totale = int.Parse(form.Totale);
-            v.TotaleValide = int.Parse(form.totaleValide);
-            v.Tipoelezioneid = tipoelezioneid;
-            //   v.Municipio = uint.Parse(form.);
-            return v;
-        }
-
-        public VotiGenerali prepareVotiGR(VotiModel form, string user, int tipoelezioneid)
-        {
-
-            DateTime oggi = DateTime.Now;
-            VotiGenerali v = _votiGeneraliService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(form.Sindaci[0].NumeroSezione), tipoelezioneid);
-            v.Bianche = int.Parse(form.Bianche);
-            v.Contestate = int.Parse(form.Contestate);
-            v.Nulle = int.Parse(form.Nulle);
-            v.SoloSindaco = int.Parse(form.soloSindaco);
-            v.Totale = int.Parse(form.Totale);
-            v.TotaleValide = int.Parse(form.totaleValide);
-            return v;
-        }
-
+             
+       
         public List<VotiSindaco> prepareVoti(VotiModel form, int tipoelezioneid)
         {
             List<VotiLista> votiListe = new List<VotiLista>();
@@ -281,30 +191,7 @@ namespace Gov.Structure.Services.Helpers
             }
             return votiSindaci;
         }
-        public List<VotiLista> prepareVotiListaR(List<VotiSindacoModel> sindaci, int tipoelezioneid, string user, List<VotiListaModel> l)
-        {
-            List<VotiLista> listVoti = new List<VotiLista>();
-            DateTime oggi = DateTime.Now;
-            VotiLista v = new VotiLista();
-            foreach (VotiSindacoModel s in sindaci)
-            {
-
-                VotiGenerali vg = _votiGeneraliService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(sindaci[0].NumeroSezione), tipoelezioneid);
-                // todo verificare aggiornamento parziale
-                if (l == null)
-                {
-
-                }
-                else
-                {
-                    v = _votiListaService.findById((int)l[0].Id);
-                    v.Voti = int.Parse(l[0].votiLista);
-                    v.Votigeneraliid = vg.Id;
-                    listVoti.Add(v);
-                }
-            }
-            return listVoti;
-        }
+     
 
         public MunicipioModel ConvertToJsonListaMunicipio(List<RicalcoloVotiLista> listas)
         {
@@ -480,6 +367,148 @@ namespace Gov.Structure.Services.Helpers
                 ricalcoloVotiSindacos.Add(r);
             }
             return ricalcoloVotiSindacos;
+        }
+
+        public MunicipioModel ConvertToJsonSindacoMunicipio(List<RicalcoloVotiSindaco> votis)
+        {
+            List<VotiSindacoModel> listaJsons = new List<VotiSindacoModel>();
+            MunicipioModel municipio = new MunicipioModel();
+            string tipo = "";
+            if (votis.FirstOrDefault().Municipio != 99)
+            {
+                tipo = "Sindaco Municipio " + votis.FirstOrDefault().Municipio.ToString();
+            }
+            else { tipo = "Sindaco tutto il Comune"; }
+            DatiModel json = new DatiModel
+            {
+                Tipo = tipo,
+                Totale = votis.FirstOrDefault().VotantiPervenute.ToString(),
+                municipio = votis.FirstOrDefault().Municipio.ToString(),
+                Votanti = votis.FirstOrDefault().VotantiPervenute.ToString(),
+                Iscritti = votis.FirstOrDefault().IscrittiPervenute.ToString(),
+                SezioniPervenute = votis.FirstOrDefault().NumeroSezioni.ToString(),
+                PercentualeVotanti = votis.FirstOrDefault().PercentualeVotantiPervenute.ToString()
+            };
+            municipio.Municipio = votis.FirstOrDefault().Municipio.ToString();
+            foreach (var v in votis)
+            {
+                VotiSindacoModel j = new VotiSindacoModel();
+                j.Id = v.Id.ToString();
+                j.Nome = v.Sindaco.Nome;
+                j.Cognome = v.Sindaco.Cognome;
+                j.totaleSindaco = v.NumeroVoti.ToString();
+                j.SoloSindaco = v.NumeroVotiSoloSindaco.ToString();
+                j.percentualeTotale = CalculatePercentage(v.NumeroVoti, v.VotantiPervenute);
+                j.IdSindaco = v.Sindacoid.ToString();
+                listaJsons.Add(j);
+            }
+            json.Sindaci = listaJsons;
+            municipio.dati = json;
+            return municipio;
+        }
+
+        public MunicipioModel ConvertToJsonSindaco(List<RicalcoloVotiSindaco> votis)
+        {
+            List<VotiSindacoModel> listaJsons = new List<VotiSindacoModel>();
+            MunicipioModel municipio = new MunicipioModel();         
+            string tipo = "";
+            tipo = "Sindaco dettaglio per Municipio";
+            if (votis.Where(x => x.Municipio == 99).Count() == 0) { return municipio; }
+            DatiModel json = new DatiModel
+            {
+                Tipo = tipo,
+                Totale = votis.Where(x => x.Municipio == 99).FirstOrDefault().VotantiPervenute.ToString(),
+                municipio = votis.Where(x => x.Municipio == 99).FirstOrDefault().Municipio.ToString(),
+                Votanti = votis.Where(x => x.Municipio == 99).FirstOrDefault().VotantiPervenute.ToString(),
+                Iscritti = votis.Where(x => x.Municipio == 99).FirstOrDefault().IscrittiPervenute.ToString(),
+                SezioniPervenute = votis.Where(x => x.Municipio == 99).FirstOrDefault().NumeroSezioni.ToString(),
+                PercentualeVotanti = votis.Where(x => x.Municipio == 99).FirstOrDefault().PercentualeVotantiPervenute.ToString()
+            };
+            municipio.Municipio = "99";
+            foreach (var v in votis.OrderBy(o=>o.Municipio))
+            {
+                VotiSindacoModel j = new VotiSindacoModel();
+                j.Id = v.Id.ToString();
+                j.Nome = v.Sindaco.Nome;
+                j.Cognome = v.Sindaco.Cognome + " ( Municipio " + v.Municipio + ")";
+                j.totaleSindaco = v.NumeroVoti.ToString();
+                j.SoloSindaco = v.NumeroVotiSoloSindaco.ToString();
+                j.percentualeTotale = CalculatePercentage(v.NumeroVoti, v.VotantiPervenute);
+                j.IdSindaco = v.Sindacoid.ToString() + v.Municipio.ToString();
+                listaJsons.Add(j);
+            }
+            json.Sindaci = listaJsons;
+            municipio.dati = json;
+            return municipio;
+        }
+
+        public MunicipioModel ConvertToJsonSindacoSezione(List<VotiSindaco> votis, VotiGenerali votiGenerali)
+        {
+            List<VotiSindacoModel> sindacoModels = new List<VotiSindacoModel>();
+            MunicipioModel municipioModel = new MunicipioModel();
+            DatiModel json = new DatiModel
+            {
+                Bianche = votiGenerali.Bianche.ToString(),
+                Contestate = votiGenerali.Contestate.ToString(),
+                Nulle = votiGenerali.Nulle.ToString(),
+                totaleValide = votiGenerali.TotaleValide.ToString(),
+                soloSindaco = votiGenerali.SoloSindaco.ToString(),
+                valideListe = (votiGenerali.TotaleValide - votiGenerali.SoloSindaco).ToString(),
+                NumeroSezione = votiGenerali.Sezione.Numerosezione.ToString(),
+                Totale = votiGenerali.Totale.ToString(),
+                Votanti = votiGenerali.Totale.ToString(),
+                Tipo = "Lista sezione numero " + votiGenerali.Sezione.Numerosezione.ToString(),
+                Iscritti = votiGenerali.Sezione.Iscritti.Iscrittitotaligen.ToString()
+            };
+            foreach (var v in votis)
+            {
+                VotiSindacoModel j = new VotiSindacoModel();
+                j.Id = v.Id.ToString();
+                j.Nome = v.Sindaco.Nome;
+                j.Cognome = v.Sindaco.Cognome;               
+                j.totaleSindaco = v.NumeroVoti.ToString();
+                j.SoloSindaco = v.NumeroVotiSoloSindaco.ToString();
+                j.NumeroSezione = votiGenerali.Sezione.Numerosezione.ToString();
+                j.IdSindaco = v.Sindacoid.ToString();
+                sindacoModels.Add(j);
+            }
+            json.Sindaci = sindacoModels;
+            municipioModel.Municipio = "99";
+            municipioModel.dati = json;
+            return municipioModel;
+        }
+
+        public MunicipioModel ConvertToJsonLista(List<RicalcoloVotiLista> listas)
+        {
+            List<VotiListaModel> listaJsons = new List<VotiListaModel>();
+            MunicipioModel municipio = new MunicipioModel();
+            string tipo = "";
+            tipo = "Lista dettaglio per Municipio"; 
+            if (listas.Where(x=>x.Municipio == 99).Count() == 0) { return municipio; }
+            DatiModel json = new DatiModel
+            {
+                Tipo = tipo,
+                Totale = listas.Where(x => x.Municipio == 99).FirstOrDefault().VotantiPervenute.ToString(),
+                municipio = listas.Where(x => x.Municipio == 99).FirstOrDefault().Municipio.ToString(),
+                Votanti = listas.Where(x => x.Municipio == 99).FirstOrDefault().VotantiPervenute.ToString(),
+                Iscritti = listas.Where(x => x.Municipio == 99).FirstOrDefault().IscrittiPervenute.ToString(),
+                SezioniPervenute = listas.Where(x => x.Municipio == 99).FirstOrDefault().NumeroSezioni.ToString(),
+                PercentualeVotanti = listas.Where(x => x.Municipio == 99).FirstOrDefault().PercentualeVotantiPervenute.ToString()
+            };
+            municipio.Municipio = "99";
+            foreach (RicalcoloVotiLista v in listas.OrderBy(o=>o.Municipio))
+            {
+                VotiListaModel j = new VotiListaModel();
+                j.Id = v.Id;
+                j.Denominazione = v.IdlistaNavigation.Denominazione + "( Municipio "+ v.Municipio +")";
+                j.votiLista = v.NumeroVoti.ToString();
+                j.perecentualeLista = CalculatePercentage(v.NumeroVoti, v.VotantiPervenute);
+                j.idLista = v.Idlista+ v.Municipio;
+                listaJsons.Add(j);
+            }
+            json.Liste = listaJsons;
+            municipio.dati = json;
+            return municipio;
         }
     }
 }

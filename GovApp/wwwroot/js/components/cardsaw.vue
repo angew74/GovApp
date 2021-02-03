@@ -17,7 +17,7 @@
                         </b-card-text>
                         <b-card-footer footer-tag="footer" class="card-footer bg-transparent border-0">
                             <a v-bind:href="data.contenutoLink">
-                                <b-icon icon="forward" animation="spin" font-scale="3" shift-v="3"></b-icon>
+                                <b-icon style="color:black" icon="forward" animation="spin" font-scale="3" shift-v="3"></b-icon>
                             </a>
                         </b-card-footer>
                     </b-collapse>
@@ -29,7 +29,7 @@
                 <b-jumbotron>
                     <p style="font-size:x-large;color:darkred">
                         <b-iconstack style="padding-right:70px" font-scale="2" animation="spin">
-                            <b-icon icon="exclamation-circle" scale="0.90" shift-v="-0.25"></b-icon>
+                            <b-icon style="color:darkred" icon="exclamation-circle" scale="0.90" shift-v="-0.25"></b-icon>
                         </b-iconstack>Niente da visualizzare
                     </p>
                 </b-jumbotron>

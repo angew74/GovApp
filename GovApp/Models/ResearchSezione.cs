@@ -17,6 +17,7 @@ namespace GovApp.Models
         public string municipio { get; set; }
         public string idlista { get; set; }
 
+        public string idsindaco { get; set; }
         public string tipoInterrogazione { get; set; }
     }
 }

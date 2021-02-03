@@ -35,11 +35,11 @@ namespace Gov.Core.Entity.Elezioni
         [Required]
         [Column]
         public int NumeroVotiSoloSindaco { get; set; }
+
         [Required]
         [Column]
         public int Votigeneraliid { get; set; }
       
-
         public virtual Sezioni Sezione { get; set; }
         public virtual Sindaci Sindaco { get; set; }
         public virtual Tipoelezione Tipoelezione { get; set; }

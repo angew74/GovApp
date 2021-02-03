@@ -43,11 +43,12 @@ namespace GovApp.api
         private readonly IIscrittiService _iscrittiService;
         private readonly ITipoElezioneService _tipoElezioneService;
         private readonly IListaService _listaService;
+        private readonly ISindacoService _sindacoService;
         private readonly IMunicipioService _municipioService;
         private readonly IVotiSindacoService _votiSindacoService;
         private readonly IVotiPreferenzeService _votiPreferenzeService;
 
-        public ValuesController(ILogger<ValuesController> logger, IPaginaService paginaService, IVoceMenuService voceMenuService, IContenutoService contenutoService, IRoleStore<ApplicationRole> roleService, ISezioneService sezioneService, IOptions<ElezioneConfig> elezioneConfig, IBusinessRules businessRules, IAbilitazioniService abilitazioniService, IAffluenzaService affluenzaService, ITipoElezioneService tipoElezioneService, IIscrittiService iscrittiService, UserStore utentiService, IMunicipioService municipioService, IListaService listaService, IVotiSindacoService votiSindacoService, IVotiPreferenzeService votiPreferenzeService)
+        public ValuesController(ILogger<ValuesController> logger, IPaginaService paginaService, IVoceMenuService voceMenuService, IContenutoService contenutoService, IRoleStore<ApplicationRole> roleService, ISezioneService sezioneService, IOptions<ElezioneConfig> elezioneConfig, IBusinessRules businessRules, IAbilitazioniService abilitazioniService, IAffluenzaService affluenzaService, ITipoElezioneService tipoElezioneService, IIscrittiService iscrittiService, UserStore utentiService, IMunicipioService municipioService, IListaService listaService, IVotiSindacoService votiSindacoService, IVotiPreferenzeService votiPreferenzeService, ISindacoService sindacoService)
         {
             _logger = logger;
             _paginaService = paginaService;
@@ -66,6 +67,7 @@ namespace GovApp.api
             _municipioService = municipioService;
             _votiSindacoService = votiSindacoService;
             _votiPreferenzeService = votiPreferenzeService;
+            _sindacoService = sindacoService;
         }
 
 
@@ -330,7 +332,7 @@ namespace GovApp.api
                             sezioneModel.UbicazionePlesso = sezione.IdplessoNavigation.Ubicazione;
                             sezioneModel.DescrizionePlesso = sezione.IdplessoNavigation.Descrizione;
                             sezioneModel.Tipo = research.tipo;
-                            sezioneModel.UserName = sezione.UsersSezioni != null ? sezione.UsersSezioni.First().User.UserName : "N/A";
+                            sezioneModel.UserName = sezione.UsersSezioni != null && sezione.UsersSezioni.Count > 0 ? sezione.UsersSezioni.First().User.UserName : "N/A";
                             Affluenze affluenze = _affluenzaService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(research.sezione), t);
                             List<Status> statusSezione = ModelConversion.ConvertStatus(affluenze);
                             switch(t)
@@ -434,6 +436,31 @@ namespace GovApp.api
             return Ok(model);
         }
 
+        [Authorize]
+        [HttpGet("/Values/sindaco")]
+        public IActionResult Sindaco()
+        {
+            ErrorModel error = new ErrorModel();
+            List<AbilitazioniModel> model = new List<AbilitazioniModel>();
+            model.Add(new AbilitazioniModel("", "Selezionare un'opzione"));
+            try
+            {
+                var sindaci = _sindacoService.findAllByTipoelezioneId(int.Parse(_elezioneConfig.Value.tipoelezioneid));
+                model.AddRange(sindaci.Select(x => new AbilitazioniModel
+                {
+                    codice = x.Id.ToString(),
+                    descrizione = x.Nome + " " + x.Cognome
+                }).ToList());
+            }
+            catch (Exception ex)
+            {
+
+                error.errMsg = "Errore grave :" + ex.Message;
+                _logger.LogError("Errore grave :" + ex.Message);
+                return BadRequest(error);
+            }
+            return Ok(model);
+        }
 
         [Authorize]
         [HttpGet("/Values/municipi")]

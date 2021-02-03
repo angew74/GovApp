@@ -17,17 +17,16 @@
                 <b-jumbotron style="background-color:transparent">
                     <p style="font-size:x-large;color:darkred">
                         <b-iconstack style="padding-right:70px" font-scale="2" animation="spin">
-                            <b-icon icon="exclamation-circle" scale="0.90" shift-v="-0.25"></b-icon>
+                            <b-icon style="color:darkred" icon="exclamation-circle" scale="0.90" shift-v="-0.25"></b-icon>
                         </b-iconstack>Niente da visualizzare
                     </p>
                 </b-jumbotron>
             </div>
         </div>
-        <div if="tipo === 'R'" style="margin-top:20px;text-align:right">
+        <div v-if="tipo === 'R'" style="margin-top:20px;text-align:right">
             <b-button v-if="elementi" type="submit" variant="primary" @click="save" style="margin-right:10px">Salva</b-button>
             <b-button type="submit" variant="primary" style="margin-right:10px" @click="previousMunicipio">Precedente</b-button>
             <b-button type="submit" variant="primary" @click="nextMunicipio">Prossimo</b-button>
-
         </div>
     </div>
 </template>

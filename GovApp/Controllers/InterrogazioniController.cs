@@ -16,5 +16,9 @@ namespace GovApp.Controllers
         {
             return View();
         }
+        public IActionResult Sindaco()
+        {
+            return View();
+        }
     }
 }

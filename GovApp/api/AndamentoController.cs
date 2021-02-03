@@ -170,6 +170,7 @@ namespace GovApp.api
                     json.VotantiTotali = afp.Votantitotali1.ToString();
                 }
                 json.NumeroSezione = s;
+                json.TipoSezione = afp.Sezione.Idtiposezione;
                 json.Tipo = model.tipo;
                 /* imposto iscritti per confronti */
                 if (!(model.tipo == "CO"))

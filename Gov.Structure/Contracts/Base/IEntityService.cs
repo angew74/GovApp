@@ -11,6 +11,7 @@ namespace Gov.Structure.Contracts
         void Create(T entity);
         void CreateRange(List<T> entities);
         void Delete(T entity);
+        void DeleteRange(List<T> entities);
         IEnumerable<T> GetAll();
         void Update(T entity);
     }

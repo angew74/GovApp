@@ -319,6 +319,11 @@
                     messaggio = "Totale G (" + this.scrutinio.totale + ") diverso dai votanti (" + this.scrutinio.votanti + ")";
                     return messaggio;
                 }
+                //var c = parseInt(this.scrutinio.soloSindaco) + parseInt(this.scrutinio.valideListe);
+                //if (parseInt(this.scrutinio.totaleValide) !== c) {
+                //    messaggio = "Totale valide A (" + this.scrutinio.totaleValide + ") diverso da somma di B+C (" + c + ")";
+                //    return messaggio;
+                //}
                 for (var i = 0; i < this.scrutinio.sindaci.length; i++) {
                     var appoSindaco = totaleSindaco;
                     var appoListe = totaleListe;
@@ -328,20 +333,21 @@
                     var numTotale = parseInt(this.scrutinio.sindaci[i].totaleSindaco);
                     totaleSindaco = parseInt(numSindaco) + parseInt(appoSindaco);
                     totaleListe = parseInt(numListe) + parseInt(appoListe);
-                    totaleVoti = parseInt(numTotale) + parseInt(appoTotale);
+                    totaleVoti = parseInt(numTotale) + parseInt(appoTotale);                    
                 }
-                if (parseInt(this.scrutinio.soloSindaco) !== totaleSindaco) {
+                var differenzaSoloSindaco = parseInt(totaleVoti) - parseInt(totaleSindaco);
+                if (parseInt(this.scrutinio.soloSindaco) !== parseInt(totaleSindaco)) {
                     messaggio = "Totale solo sindaco (" + this.scrutinio.soloSindaco + ") diverso da somme singoli candidati (" + totaleSindaco +")";
+                    return messaggio;
+                }
+                if (parseInt(totaleVoti) !== parseInt(this.scrutinio.totaleValide)) {
+                    messaggio = "Totale sindaco (" + this.scrutinio.totaleValide + ") diverso da somme singoli candidati (" + totaleVoti + ")";
                     return messaggio;
                 }
                 if (parseInt(this.scrutinio.valideListe) !== totaleListe) {
                     messaggio = "Totale liste (" + this.scrutinio.valideListe + ") diverso da somme singole liste (" + totaleListe + ")";
                     return messaggio;
-                }
-                if (parseInt(this.scrutinio.totaleValide) !== totaleVoti) {
-                    messaggio = "Totale valide (" + this.scrutinio.totaleValide + ") diverso da somme singoli raggruppamenti (" + totaleVoti + ")";
-                    return messaggio;
-                }
+                }                
                 return messaggio;
 
             },

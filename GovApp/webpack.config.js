@@ -103,6 +103,10 @@ module.exports = {
             './wwwroot/js/app.js',
             './Views/Interrogazioni/Liste.cshtml.js'
         ],
+        'sindaco': [
+            './wwwroot/js/app.js',
+            './Views/Interrogazioni/Sindaco.cshtml.js'
+        ],
         'rliste': [
             './wwwroot/js/app.js',
             './Views/Ricalcoli/Liste.cshtml.js'

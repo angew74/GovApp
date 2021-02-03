@@ -120,6 +120,7 @@
             this.restoreContext()
         },
         mounted() {
+            this.form.tipo = "L";
         }
     }
 </script>
