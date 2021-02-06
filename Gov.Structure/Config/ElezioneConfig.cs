@@ -12,5 +12,6 @@ namespace Gov.Structure.Config
         public string totaleSezioni { get; set; }
         public string ricalcoloVotiLista { get; set; }
         public string ricalcoloVotiSindaco { get; set; }
+        public string numerosindaci { get; set; }
     }
 }

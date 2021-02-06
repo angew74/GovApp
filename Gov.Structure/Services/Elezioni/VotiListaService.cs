@@ -105,17 +105,14 @@ namespace Gov.Structure.Services.Elezioni
 
         public List<VotiLista> findByListaProgressivoAndTipoelezioneId(int progressivo, int tipoElezioneId)
         {
-          
-            
                 return _dbset.Where(x => x.Tipoelezioneid == tipoElezioneId &&  x.Lista.Progressivo == progressivo).ToList();
             
         }
 
         public List<VotiLista> findBySezioneNumerosezioneAndTipoelezioneId(int numerosezione, int tipoelezioneid)
         {
-          
             
-                return _dbset.Where(x => x.Tipoelezioneid == tipoelezioneid && x.Sezione.Numerosezione == numerosezione).Include(i=>i.Lista).Include(i=>i.Sezione).ToList();
+                return _dbset.Where(x => x.Tipoelezioneid == tipoelezioneid && x.Sezione.Numerosezione == numerosezione).Include(i=>i.Lista).Include(i=>i.Sezione).Include(i=>i.Votigenerali).Include(i=>i.VotiSindaco).ThenInclude(i=>i.Sindaco).OrderBy(o=>o.VotiSindaco.Sindaco.Progressivo).ToList();
             
         }       
 

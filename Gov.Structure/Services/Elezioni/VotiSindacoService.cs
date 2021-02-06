@@ -1,6 +1,7 @@
 ﻿using Gov.Core.Entity.Elezioni;
 using Gov.Structure.Contracts;
 using Gov.Structure.Contracts.Elezioni;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,33 +96,21 @@ namespace Gov.Structure.Services.Elezioni
 
         public List<VotiSindaco> findAllBy()
         {
-          
-            
                 return _dbset.ToList();
-            
-
         }
 
         public VotiSindaco findById(int id)
         {
-          
-            
                 return _dbset.Find(id);
-            
         }
 
         public List<VotiSindaco> findBySezioneNumerosezioneAndTipoelezioneId(int numerosezione, int tipoelezioneid)
-        {
-          
-            
-                return _dbset.Where(x=>x.Sezione.Numerosezione == numerosezione && x.Tipoelezioneid == tipoelezioneid).ToList();
-            
+        {       
+                return _dbset.Where(x=>x.Sezione.Numerosezione == numerosezione && x.Tipoelezioneid == tipoelezioneid).Include(i=>i.Sindaco).Include(i => i.Votigenerali).Include(i=> i.VotiLista).ThenInclude(i=>i.Lista).ToList();
         }
 
         public List<VotiSindaco> findBySezionePlessoIdAndTipoelezioneId(int plessoid, int tipoelezioneid)
         {
-          
-            
                 return _dbset.Where(x => x.Sezione.Idplesso == plessoid && x.Tipoelezioneid == tipoelezioneid).ToList();
             
         }

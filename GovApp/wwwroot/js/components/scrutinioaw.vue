@@ -160,25 +160,14 @@
                                 </div>
                             </div>
                             <div v-bind:key="data.index" v-for="(data,index) in scrutinio.sindaci" class="form-group">
-                                <b-form-input type="number"
-                                              style="display:none;"
-                                              v-model="data.numeroSezione" />
-                                <b-form-input type="text"
-                                              style="display:none;"
-                                              v-model="data.tipo" />
+                               
                                 <b-form-input name="id" type="number"
                                               v-model="data.id"
                                               style="display:none;" />
                                 <b-form-input type="text"
                                               style="display:none;"
                                               :ref="'isCoalizione'+ data.idSindaco"
-                                              v-model="data.isCoalizione" />
-                                <b-form-input name="id" type="text"
-                                              v-model="data.idCoalizione"
-                                              style="display:none;" />
-                                <b-form-input type="number"
-                                              style="display:none;"
-                                              v-model="data.idSindaco" />
+                                              v-model="data.isCoalizione" />                            
                                 <div class="row" style="width:100%">
                                     <div class="col">
                                         <label class=" col-form-label">

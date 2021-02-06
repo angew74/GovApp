@@ -36,7 +36,7 @@ namespace Gov.Structure.Services.Elezioni
 
         public VotiGenerali findBySezioneNumerosezioneAndTipoelezioneId(int numerosezione, int tipoelezioneid)
         {  
-             return _dbset.Where(x=> x.Sezione.Numerosezione == numerosezione && x.Tipoelezioneid == tipoelezioneid).Include(i=>i.Sezione).ThenInclude(i=>i.Iscritti).SingleOrDefault();            
+             return _dbset.Where(x=> x.Sezione.Numerosezione == numerosezione && x.Tipoelezioneid == tipoelezioneid).Include(i=>i.Sezione).ThenInclude(i=>i.Iscritti).OrderByDescending(d=>d.CreatedDate).FirstOrDefault();            
         }  
 
         public List<VotiGenerali> findBySezionePlessoIdAndTipoelezioneId(int plessoid, int tipoelezioneid)

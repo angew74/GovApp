@@ -17,7 +17,7 @@
             </template>
             <b-card title="Ricerca Sezione"
                     style="max-width: 80rem;margin-left:360px"
-                    header="Inserimento Coalizioni">
+                    header="Gestione Voti Coalizioni">
                 <app-cat :categoria="cat" @selection="selezioneTipo"></app-cat>
                 <app-research v-bind:form="form" @research="cercasezione"></app-research>
             </b-card>

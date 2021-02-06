@@ -80,8 +80,8 @@ namespace Gov.Structure
                     if (entity != null)
                     {
                         string identityName = _user;
-                        DateTime now = DateTime.UtcNow;
-
+                        DateTime now = DateTime.UtcNow; 
+                     
                         if (entry.State == EntityState.Added)
                         {
                             entity.CreatedBy = identityName;
@@ -97,7 +97,7 @@ namespace Gov.Structure
                         entity.UpdatedDate = now;
                     }
                 }
-                return base.SaveChanges();
+                 return base.SaveChanges();
             }
             else
             {
@@ -1087,12 +1087,13 @@ namespace Gov.Structure
                 entity.HasOne(d => d.Votigenerali)
                     .WithMany(p => p.VotiLista)
                     .HasForeignKey(d => d.Votigeneraliid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_voti_lista_voti_generali");
+
                 entity.HasOne(d => d.VotiSindaco)
                   .WithMany(p => p.VotiLista)
                   .HasForeignKey(d => d.VotiSindacoid)
-                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .OnDelete(DeleteBehavior.Cascade)
                   .HasConstraintName("fk_voti_lista_voti_sindaco");
             });
 
@@ -1109,7 +1110,8 @@ namespace Gov.Structure
                 entity.HasIndex(e => e.Sezioneid)
                     .HasName("fk_sezioni_voti_lista_storico_idx");
 
-
+                entity.HasIndex(e => e.VotigeneraliStoricoid)
+                   .HasName("fk_voti_lista_voti_storico_generali_storico_idx");
 
                 entity.HasOne(d => d.Lista)
                     .WithMany(p => p.VotiListaStorico)
@@ -1122,6 +1124,25 @@ namespace Gov.Structure
                     .HasForeignKey(d => d.Sezioneid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_sezioni_voti_lista_storico");
+
+                entity.HasOne(d => d.Tipoelezione)
+                   .WithMany()
+                   .HasForeignKey(d => d.Tipoelezioneid)
+                   .OnDelete(DeleteBehavior.ClientSetNull)
+                   .HasConstraintName("fk_tipo_elezione_voti_lista_storico");
+
+                entity.HasOne(d => d.VotiGeneraliStorico)
+                    .WithMany(p => p.VotiListaStorico)
+                    .HasForeignKey(d => d.VotigeneraliStoricoid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_generali_storico_voti_lista_storico_voti");
+
+                entity.HasOne(d => d.VotiSindacoStorico)
+                  .WithMany(p => p.VotiLista)
+                  .HasForeignKey(d => d.VotiSindacoStoricoid)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("fk_voti_sindaco_storico_voti_lista_storico");
+
             });
 
             modelBuilder.Entity<VotiPeferenzeStorico>(entity =>
@@ -1252,7 +1273,7 @@ namespace Gov.Structure
                 entity.HasOne(d => d.Votigenerali)
                     .WithMany(p => p.VotiSindaco)
                     .HasForeignKey(d => d.Votigeneraliid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_voti_sindaco_voti_generali");
             });
 
@@ -1270,6 +1291,8 @@ namespace Gov.Structure
                 entity.HasIndex(e => e.Tipoelezioneid)
                     .HasName("fk_voti_sindaco_old_tipo_elezioni_idx");
 
+                entity.HasIndex(e => e.VotigeneraliStoricoid)
+                   .HasName("fk_voti_sindaco_old_voti_generali_old_idx");
 
                 entity.HasOne(d => d.Sezione)
                     .WithMany()
@@ -1288,6 +1311,12 @@ namespace Gov.Structure
                     .HasForeignKey(d => d.Tipoelezioneid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_voti_sindaco_old_tipo_elezioni");
+
+                entity.HasOne(d => d.VotigeneraliStorico)
+                     .WithMany(p => p.VotiSindacoStorico)
+                    .HasForeignKey(d => d.VotigeneraliStoricoid)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("fk_voti_sindaco_old_voti_generali_old");
             });
 
             /*
@@ -1746,58 +1775,14 @@ namespace Gov.Structure
               new Contenuto
             {
                 Id = 33,
-                ContentuoCard = "Coalizione Inserimento",
+                ContentuoCard = "Coalizione Gestione Voti",
                 Tipo = "Header",
                 TipoContenutoId = 4,
                 CreatedBy = "Caricamento",
                 CreatedDate = DateTime.Now,
                 UpdatedBy = null,
                 PaginaId = 17
-            },
-            new Contenuto
-            {
-                Id = 34,
-                ContentuoCard = "Da questa pagina è possibile modificare i voti di coalizione",
-                Tipo = "Testo",
-                TipoContenutoId = 1,
-                CreatedBy = "Caricamento",
-                CreatedDate = DateTime.Now,
-                UpdatedBy = null,
-                PaginaId = 19
-            },
-            new Contenuto
-            {
-                Id = 35,
-                ContentuoCard = "file-text-fill",
-                Tipo = "Icona",
-                TipoContenutoId = 2,
-                CreatedBy = "Caricamento",
-                CreatedDate = DateTime.Now,
-                UpdatedBy = null,
-                PaginaId = 19
-            },
-            new Contenuto
-            {
-                Id = 36,
-                ContentuoCard = "/GovApp/coalizioni/modifica",
-                Tipo = "Link",
-                TipoContenutoId = 3,
-                CreatedBy = "Caricamento",
-                CreatedDate = DateTime.Now,
-                UpdatedBy = null,
-                PaginaId = 19
-            },
-            new Contenuto
-            {
-                Id = 37,
-                ContentuoCard = "Coalizioni Modifica",
-                Tipo = "Header",
-                TipoContenutoId = 4,
-                CreatedBy = "Caricamento",
-                CreatedDate = DateTime.Now,
-                UpdatedBy = null,
-                PaginaId = 19
-            },
+            },           
             new Contenuto
             {
                 Id = 38,
@@ -2268,14 +2253,6 @@ namespace Gov.Structure
                 RoleId =Roles.Single(i => i.Name == "user").Id,
                 Denominazione = "Inserimento Coalizione"
             },new Pagina{
-                Id = 18,
-                Codice = "Coalizioni",
-                CreatedBy = "Caricamento",
-                CreatedDate = DateTime.Now,
-                UpdatedBy = null,
-                RoleId =Roles.Single(i => i.Name == "user").Id,
-                Denominazione = "Modifica Coalizione"
-            },new Pagina{
                 Id = 19,
                 Codice = "Coalizioni",
                 CreatedBy = "Caricamento",
@@ -2283,14 +2260,6 @@ namespace Gov.Structure
                 UpdatedBy = null,
                 RoleId =Roles.Single(i => i.Name == "admin").Id,
                 Denominazione = "Inserimento Coalizione"
-            },new Pagina{
-                Id = 20,
-                Codice = "Coalizioni",
-                CreatedBy = "Caricamento",
-                CreatedDate = DateTime.Now,
-                UpdatedBy = null,
-                RoleId =Roles.Single(i => i.Name == "admin").Id,
-                Denominazione = "Modifica Coalizione"
             },new Pagina{
                 Id = 21,
                 Codice = "Coalizioni",

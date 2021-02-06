@@ -36,15 +36,15 @@ namespace GovApp.api
         private readonly ISezioneService _sezioneService;
         private readonly IOptions<ElezioneConfig> _elezioneConfig;
         private readonly IBusinessRules _businessRules;
-        private readonly IAbilitazioniService _abilitazioniService;
-        private readonly IAffluenzaService _affluenzaService;
-        private readonly IIscrittiService _iscrittiService;
+        private readonly IVotiSindacoStoricoService _votiSindacoStoricoService;
+        private readonly IAffluenzaService _affluenzaService;      
         private readonly ISindacoService _sindacoService;
         private readonly IVotiListaService _votiListaService;
         private readonly IVotiSindacoService _votiSindacoService;
         private readonly IVotiLoader _votiLoader;
 
-        public VotiController(ILogger<VotiController> logger, IRicalcoloListaService ricalcoloListaService, IListaService listaService, IVotiGeneraliService votiGeneraliService, IRicalcoloSindacoService ricalcoloSindacoService, ISezioneService sezioneService, IOptions<ElezioneConfig> elezioneConfig, IBusinessRules businessRules, IAbilitazioniService abilitazioniService, IAffluenzaService affluenzaService, ISindacoService sindacoService, IIscrittiService iscrittiService, UserStore utentiService, IVotiSindacoService votiSindacoService, IVotiListaService votiListaService, IVotiLoader votiLoader)
+
+        public VotiController(ILogger<VotiController> logger, IRicalcoloListaService ricalcoloListaService, IListaService listaService, IVotiGeneraliService votiGeneraliService, IRicalcoloSindacoService ricalcoloSindacoService, ISezioneService sezioneService, IOptions<ElezioneConfig> elezioneConfig, IBusinessRules businessRules, IVotiSindacoStoricoService votiSindacoStoricoService, IAffluenzaService affluenzaService, ISindacoService sindacoService, UserStore utentiService, IVotiSindacoService votiSindacoService, IVotiListaService votiListaService, IVotiLoader votiLoader)
         {
             _logger = logger;
             _ricalcoloListaService = ricalcoloListaService;
@@ -54,10 +54,9 @@ namespace GovApp.api
             _sezioneService = sezioneService;
             _elezioneConfig = elezioneConfig;
             _businessRules = businessRules;
-            _abilitazioniService = abilitazioniService;
+            _votiSindacoStoricoService = votiSindacoStoricoService;
             _affluenzaService = affluenzaService;
-            _sindacoService = sindacoService;
-            _iscrittiService = iscrittiService;
+            _sindacoService = sindacoService;            
             _utentiService = utentiService;
             _votiListaService = votiListaService;
             _votiSindacoService = votiSindacoService;
@@ -260,6 +259,7 @@ namespace GovApp.api
             ErrorModel error = new ErrorModel();
             Research model = input.research;
             int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+            int numerosindaci = int.Parse(_elezioneConfig.Value.numerosindaci);
             try
             {
                 int s = int.Parse(model.sezione);
@@ -269,27 +269,31 @@ namespace GovApp.api
                     error.errMsg = "ultima affluenza per la sezione numero " + model.sezione + " non inserita";
                     return BadRequest(error);
                 }
-                var votiSindaco = _votiSindacoService.findBySezioneNumerosezioneAndTipoelezioneId(s, tipoelezioneid);
-                if (votiSindaco.Count > 0 && model.tipo == "VL")
+                var votiLista = _votiListaService.findBySezioneNumerosezioneAndTipoelezioneId(s, tipoelezioneid);
+                if (votiLista.Count > 0 && model.tipo == "VL")
                 {
                     error.errMsg = "voti già inseriti per la sezione numero " + model.sezione + " utilizzare modifica";
                     return BadRequest(error);
                 }
-                json.Votanti = afp.Votantitotali3.ToString();
-                json.Iscritti = afp.Iscritti.Iscrittitotaligen.ToString();
-                json.NumeroSezione = input.research.sezione;
-                json.Municipio = _sezioneService.findByNumerosezioneAndTipoelezioneId(int.Parse(input.research.sezione), tipoelezioneid).Municipio.ToString();
-                json.Tipo = input.research.tipo;
-                if (model.tipo == "VL")
+                if(votiLista.Count == 0 && model.tipo == "RVL")
                 {
+                    error.errMsg = "voti NON inseriti per la sezione numero " + model.sezione + " utilizzare inserimento";
+                    return BadRequest(error);
+                }               
+                if (model.tipo == "VL")
+                {                   
+                    json.Votanti = afp.Votantitotali3.ToString();
+                    json.Iscritti = afp.Iscritti.Iscrittitotaligen.ToString();
+                    json.NumeroSezione = input.research.sezione;
+                    json.Municipio = _sezioneService.findByNumerosezioneAndTipoelezioneId(int.Parse(input.research.sezione), tipoelezioneid).Municipio.ToString();
+                    json.Tipo = input.research.tipo;
                     var sindaci = _sindacoService.findAllByTipoelezioneId(tipoelezioneid);
                     json.Sindaci = _votiLoader.ConvertToJsonSindaciEmpty(sindaci, input.research.sezione, input.research.tipo);
-                    var liste = _listaService.findAllByTipoelezioneId(tipoelezioneid);
                 }
                 else
-                {
-                    var votiLista = _votiListaService.findBySezioneNumerosezioneAndTipoelezioneId(s, tipoelezioneid);
-                    json.Sindaci = _votiLoader.ConvertToJsonSindaci(votiSindaco, s, input.research.tipo, tipoelezioneid);
+                {                  
+                    json = _votiLoader.ConvertToJsonSindaci(votiLista, input.research.tipo,numerosindaci);
+                    json.Iscritti = afp.Iscritti.Iscrittitotaligen.ToString();
                 }
             }
             catch (Exception ex)
@@ -309,15 +313,33 @@ namespace GovApp.api
             VotiModel json = input.voti;
             ErrorModel error = new ErrorModel();
             int tipoelezioneid = int.Parse(_elezioneConfig.Value.tipoelezioneid);
+            int numerosindaci = int.Parse(_elezioneConfig.Value.numerosindaci);
             try
             {
 
                 int s = int.Parse(json.NumeroSezione);
-                String msg = _businessRules.IsInsertable(s, "VL", 0, tipoelezioneid);
+                String msg = _businessRules.IsInsertable(s, json.Tipo, 0, tipoelezioneid);
                 if (string.IsNullOrEmpty(msg))
                 {
-                    var voti = _votiLoader.prepareVoti(json, tipoelezioneid);
-                    _votiSindacoService.CreateRange(voti);
+                    if (json.Tipo == "VL")
+                    {
+                        var voti = _votiLoader.prepareVoti(json, tipoelezioneid);
+                        _votiSindacoService.CreateRange(voti);
+                    }
+                    if(json.Tipo == "RVL")
+                    {
+                        var voti = _votiLoader.prepareVoti(json, tipoelezioneid);
+                        var votiOld = _votiSindacoService.findBySezioneNumerosezioneAndTipoelezioneId(int.Parse(json.NumeroSezione), tipoelezioneid);
+                        List<VotiSindacoStorico> votiStorici =  _votiLoader.ConvertoToVotiSindacoOld(votiOld,numerosindaci);
+                        _votiSindacoStoricoService.CreateRange(votiStorici);
+                        _votiSindacoService.DeleteRange(votiOld);                        
+                        _votiSindacoService.CreateRange(voti);
+                    }
+                    else if(json.Tipo != "VL" && json.Tipo != "RVL")
+                    {
+                        error.errMsg = "errore grave parametri non corretti";
+                        return BadRequest(error);
+                    }
                 }
             }
             catch (Exception ex)

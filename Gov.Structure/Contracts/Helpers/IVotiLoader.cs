@@ -13,7 +13,7 @@ namespace Gov.Structure.Contracts.Helpers
 
         MunicipioModel ConvertToJsonListaSezione(List<VotiLista> l, VotiGenerali votiGenerali);
         MunicipioModel ConvertToJsonSindacoRicalcolo(List<RicalcoloVotiSindaco> ricalcoloVotiSindacos, Voti voti);
-        public List<VotiSindacoModel> ConvertToJsonSindaci(List<VotiSindaco> l, int sezione, string tipo,int idtipoelezione);
+        VotiModel ConvertToJsonSindaci(List<VotiLista> l, string tipo,int numerosindaci);
        
         List<VotiSindaco> prepareVoti(VotiModel form, int tipoelezioneid);
         List<VotiSindacoModel> ConvertToJsonSindaciEmpty(List<Sindaci> sindaci, string sezione, string tipo);
@@ -25,5 +25,6 @@ namespace Gov.Structure.Contracts.Helpers
         MunicipioModel ConvertToJsonSindacoMunicipio(List<RicalcoloVotiSindaco> votis);
         MunicipioModel ConvertToJsonSindaco(List<RicalcoloVotiSindaco> votis);
         MunicipioModel ConvertToJsonSindacoSezione(List<VotiSindaco> votis, VotiGenerali votiGenerali);
+        List<VotiSindacoStorico> ConvertoToVotiSindacoOld(List<VotiSindaco> votiOld,int numerosindaci);
     }
 }

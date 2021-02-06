@@ -9,8 +9,14 @@ namespace Gov.Core.Entity.Elezioni
     [Table("Voti_SindacoStorico")]
     public partial class VotiSindacoStorico : AuditableEntity<int>
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
+        public VotiSindacoStorico()
+        {
+            ProfiloVoti = new HashSet<ProfiloVoti>();
+            VotiLista = new HashSet<VotiListaStorico>();
+        }
+
+        [Key]        
         public override int Id { get; set; }
         [Required]
         [Column]
@@ -32,7 +38,8 @@ namespace Gov.Core.Entity.Elezioni
         public int NumeroVotiSoloSindaco { get; set; }
         [Required]
         [Column]
-        public int Votigeneraliid { get; set; }
+        [ForeignKey("VotigeneraliStorico")]
+        public int VotigeneraliStoricoid { get; set; }
         [Required]
         [Column]
         public string UtenteOperazioneOld { get; set; }
@@ -44,5 +51,9 @@ namespace Gov.Core.Entity.Elezioni
         public virtual Sezioni Sezione { get; set; }
         public virtual Sindaci Sindaco { get; set; }
         public virtual Tipoelezione Tipoelezione { get; set; }
+       
+        public virtual VotiGeneraliStorico VotigeneraliStorico { get; set; }
+        public virtual ICollection<ProfiloVoti> ProfiloVoti { get; set; }
+        public virtual ICollection<VotiListaStorico> VotiLista { get; set; }
     }
 }

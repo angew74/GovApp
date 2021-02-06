@@ -80,7 +80,7 @@
                     for (var i = 0; i < newobject.liste.length; i++) {
                         var lista = {};
                         lista.denominazione = newobject.liste[i].denominazione;
-                        lista.voti = parseInt(newobject.liste[i].votiLista);
+                        lista.votiLista = parseInt(newobject.liste[i].votiLista);
                         lista.idLista = newobject.liste[i].idLista;
                         lista.idSindaco = newobject.liste[i].idSindaco;
                         this.coalizioneModal.liste.push(lista);

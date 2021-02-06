@@ -30,11 +30,7 @@ module.exports = {
         'inscoalizioni': [
             './wwwroot/js/app.js',
             './Views/Coalizioni/Inserimento.cshtml.js'
-        ],
-        'modcoalizioni': [
-            './wwwroot/js/app.js',
-            './Views/Coalizioni/Modifica.cshtml.js'
-        ],
+        ],      
         'login': [
             './wwwroot/js/app.js',
             './Views/Account/Login.cshtml.js'
