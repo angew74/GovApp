@@ -1,5 +1,5 @@
 ﻿using Gov.Core.Entity;
-using Gov.Structure.Contracts;
+using Gov.Core.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

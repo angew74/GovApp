@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Gov.Core.Entity.Elezioni;
 using Gov.Core.Entity.Presentation;
 using Gov.Structure.Config;
-using Gov.Structure.Contracts.Elezioni;
+using Gov.Core.Contracts.Elezioni;
 using GovApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

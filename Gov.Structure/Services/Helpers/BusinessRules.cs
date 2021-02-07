@@ -1,7 +1,7 @@
 ﻿using Gov.Core.Entity.Elezioni;
 using Gov.Core.Identity;
-using Gov.Structure.Contracts.Elezioni;
-using Gov.Structure.Contracts.Helpers;
+using Gov.Core.Contracts.Elezioni;
+using Gov.Core.Contracts.Helpers;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;

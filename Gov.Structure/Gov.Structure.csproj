@@ -58,8 +58,4 @@
     <ProjectReference Include="..\Gov.Core\Gov.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\SqlScripts\" />
-  </ItemGroup>
-
 </Project>

@@ -1,6 +1,6 @@
 ﻿using Gov.Core.Entity.Elezioni;
-using Gov.Structure.Contracts;
-using Gov.Structure.Contracts.Elezioni;
+using Gov.Core.Contracts;
+using Gov.Core.Contracts.Elezioni;
 
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿using Gov.Structure.Contracts.Helpers;
+﻿using Gov.Core.Contracts.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

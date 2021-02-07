@@ -21,10 +21,10 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
 using Gov.Structure.Identity;
 using Gov.Core.Enumerators;
-using Gov.Structure.Extensions;
+using Gov.Core.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Gov.Core.Entity.Elezioni;
-using Gov.Structure.Contracts.Elezioni;
+using Gov.Core.Contracts.Elezioni;
 
 namespace GovApp.api
 {

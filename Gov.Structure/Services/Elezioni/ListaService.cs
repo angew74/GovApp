@@ -1,9 +1,9 @@
-﻿using Gov.Structure.Contracts.Elezioni;
+﻿using Gov.Core.Contracts.Elezioni;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Gov.Structure.Contracts;
+using Gov.Core.Contracts;
 using Gov.Core.Entity.Elezioni;
 
 namespace Gov.Structure.Services.Elezioni

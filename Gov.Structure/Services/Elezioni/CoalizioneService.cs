@@ -1,7 +1,7 @@
 ﻿using Gov.Core;
 using Gov.Core.Entity.Elezioni;
-using Gov.Structure.Contracts;
-using Gov.Structure.Contracts.Elezioni;
+using Gov.Core.Contracts;
+using Gov.Core.Contracts.Elezioni;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

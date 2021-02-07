@@ -1,4 +1,5 @@
 ﻿using Gov.Core;
+using Gov.Core.Contracts;
 using Gov.Core.Entity;
 using Gov.Core.Entity.Elezioni;
 using Gov.Core.Identity;
