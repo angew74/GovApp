@@ -30,7 +30,7 @@
     "jquery": "^3.5.1",
     "liquor-tree": "0.2.70",
     "material-design-colors": "^1.0.2",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "popper": "^1.0.1",
     "pretty-checkbox": "3.0.3",
     "pretty-checkbox-vue": "1.1.9",
